@@ -1,0 +1,19 @@
+.headerWrapper {
+  height: 10%;
+  /* background-color: #e52e2e; */
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  /* border: 1px solid green; */
+  align-items: center;
+}
+
+.logo {
+  width: 60px;
+  height: 54px;
+  /* border: 1px solid black; */
+  cursor: pointer;
+}
