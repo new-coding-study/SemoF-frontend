@@ -1,0 +1,25 @@
+.navWrapper {
+  /* border: 1px solid black; */
+  margin-top: 50px;
+}
+
+.navListUl {
+  /* border: 1px solid red; */
+  list-style: none;
+  padding: 0 10px;
+}
+
+.navListUl li {
+  /* border: 1px solid black; */
+  width: 60px;
+  text-align: center;
+  margin: 16px 0;
+  padding: 0 2px;
+  font-size: 14px;
+}
+
+.navListUl li img {
+  width: 30px;
+  height: 30px;
+  margin: 4px 0;
+}
