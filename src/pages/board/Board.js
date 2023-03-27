@@ -2,14 +2,22 @@ import boardcss from "./Board.module.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
+import {callBoardNoticeListAPI, 
+        callBoardPostingListAPI, 
+        callBoardNoticeTop3Lists, 
+        callBoardNoticeDetail,
+        callBoardPostingDetail} from "../../apis/BoardAPICalls"
 
 function Board (){
 
 const navigate = useNavigate();
 const dispatch = useDispatch();
-
+const boards = useSelector(state => state.boardReducer);
+const boardList = boards.data;
 const [currentPage, setCurrentPage] = useState(1);
+
+const pageInfo = boards.pageInfo;
+
 
 const pageNumber = [];
 if(pageInfo){
@@ -19,7 +27,14 @@ if(pageInfo){
 }
 
 useEffect (() =>{
-    dispatch(callPostingListsAPI({
+    dispatch(callBoardPostingListAPI({
+        currentPage : currentPage
+    }));
+}, [currentPage]
+)
+
+useEffect (() =>{
+    dispatch(callBoardNoticeListAPI({
         currentPage : currentPage
     }));
 }, [currentPage]
