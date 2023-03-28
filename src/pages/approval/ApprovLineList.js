@@ -33,4 +33,4 @@ function ApprovalLineList() {
     );
 }
 
-export default ApprovalList;
+export default ApprovalLineList;

@@ -19,4 +19,73 @@
 .menuBox{
     width: 50%;
     float: left;
+    text-align: center;
+    margin-top: 50px;
+
+}
+
+.outBox{
+    background-color: #E52E2E;
+    border: none;
+    color: white;
+    width: 300px; 
+    height: 70px;
+    border-radius: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+ }
+.inBox{
+   background-color: #E52E2E;
+   border: none;
+   color: white;
+   width: 300px; 
+   height: 70px;
+   border-radius: 15px;
+   font-size: 30px;
+   font-weight: bold;
+   margin-bottom: 20px;
+}
+.complete{
+    background-color: #E52E2E;
+    border: none;
+    color: white;
+    width: 300px; 
+    height: 70px;
+    border-radius: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+ }
+.statistics{
+    background-color: #E52E2E;
+    border: none;
+    color: white;
+    width: 300px; 
+    height: 70px;
+    border-radius: 15px;
+    font-size: 30px;
+    font-weight: bold;  
+    margin-bottom: 20px; 
+}
+.line{
+    background-color: #E52E2E;
+    border: none;
+    color: white;
+    width: 300px; 
+    height: 70px;
+    border-radius: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.turn{
+    background: gray;
+    border: none;
+    border-radius: 10px;
+    width: 150px;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
 }
