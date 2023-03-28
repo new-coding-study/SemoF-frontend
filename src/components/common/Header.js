@@ -37,7 +37,21 @@ function Header() {
   function InfoEmp() {
     return (
       <>
-        <div> myInfo </div>
+        <div className={HeaderCSS.infoWrapper}>
+          <img
+            src={"/images/bell.png"}
+            alt="이미지확인!"
+            // className={HeaderCSS.logo}
+            // onClick={onClickLogoHandler}
+          ></img>
+          <div> 박지희님 </div>
+          <button
+          // onClick={onClickLoginHandler}
+          >
+            로그아웃
+          </button>
+          <div> </div>
+        </div>
       </>
     );
   }
