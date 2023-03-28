@@ -20,6 +20,11 @@
   margin-bottom: 12px;
 }
 
+.wrapper:hover {
+  background-color: bisque;
+  cursor: pointer;
+}
+
 .colorBox {
   width: 18px;
   height: 18px;

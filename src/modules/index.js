@@ -5,7 +5,7 @@ import boardReducer from "./BoardModule";
 
 const rootReducer = combineReducers({
   memberReducer,
-  boardReducer
+  boardReducer,
   todoReducer,
 });
 
