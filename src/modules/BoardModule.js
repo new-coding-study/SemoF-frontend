@@ -11,7 +11,7 @@ export const DELETE_BOARD_NOTICE = 'board/DELETE_BOARD_NOTICES';
 export const POST_BOARD_POSTING = 'board/POSTING_BOARD_POSTING';
 export const PUT_BOARD_POSTING = 'board/PUT_BOARD_POSTING';
 export const DELETE_BOARD_POSTING = 'board/DELETE_BOARD_POSTING';
-
+// 
 const initialState = [];
 
 const actions = createActions({
