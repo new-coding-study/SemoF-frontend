@@ -105,7 +105,7 @@ function Navbar() {
             </li>
           </NavLink>
 
-          <NavLink to="/semof/emp-evaluation">
+          <NavLink to="/semof/hr">
             <li>
               <img
                 src={"/images/emp_evaluation.png"}
