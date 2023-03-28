@@ -5,6 +5,8 @@ import Register from "./pages/member/Register";
 import Error from "./pages/Error";
 import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
+import Todo from "./pages/todo/Todo";
+import Board from "./pages/board/Board";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
 
         <Route path="/semof" element={<Layout />}>
           <Route index element={<Main />} />
+          <Route path="todo" element={<Todo />} />
+          <Route path="board" element={<Board/>}/>
         </Route>
 
         <Route path="*" element={<Error />} />

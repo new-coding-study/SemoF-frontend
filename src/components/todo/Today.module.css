@@ -1,0 +1,32 @@
+.todo {
+  border: 1px solid black;
+  border-radius: 4px;
+  height: 36px;
+  display: flex;
+}
+
+.todo div {
+  width: 4px;
+  border-radius: 2px;
+  border: 1px solid red;
+  background-color: red;
+}
+
+.todo input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 8px;
+}
+
+.todo label {
+  width: 100px;
+  height: 20px;
+  margin: 8px 4px;
+}
+
+.todo img {
+  width: 20px;
+  height: 20px;
+  margin: 8px 12px;
+  margin-left: auto;
+}
