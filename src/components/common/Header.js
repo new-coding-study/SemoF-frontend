@@ -17,16 +17,14 @@ function Header() {
     return (
       <>
         <div className={HeaderCSS.searchWrapper}>
-          <div className={HeaderCSS.searchBox}>
-            <input
-              // className={HeaderCSS.InputStyle}
-              type="text"
-              placeholder="검색할 사원의 이름을 입력해주세요"
-              // value={search}
-              // onKeyUp={onEnterkeyHandler}
-              // onChange={onSearchChangeHandler}
-            />
-          </div>
+          <input
+            className={HeaderCSS.searchBox}
+            type="text"
+            placeholder="검색할 사원의 이름을 입력해주세요"
+            // value={search}
+            // onKeyUp={onEnterkeyHandler}
+            // onChange={onSearchChangeHandler}
+          />
 
           <div className={HeaderCSS.searchImg}>
             <img src={"/images/search.png"} alt="이미지확인!"></img>
@@ -39,7 +37,21 @@ function Header() {
   function InfoEmp() {
     return (
       <>
-        <div> myInfo </div>
+        <div className={HeaderCSS.infoWrapper}>
+          <img
+            src={"/images/bell.png"}
+            alt="이미지확인!"
+            // className={HeaderCSS.logo}
+            // onClick={onClickLogoHandler}
+          ></img>
+          <div> 박지희님 </div>
+          <button
+          // onClick={onClickLoginHandler}
+          >
+            로그아웃
+          </button>
+          <div> </div>
+        </div>
       </>
     );
   }

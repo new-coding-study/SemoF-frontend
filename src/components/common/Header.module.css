@@ -12,6 +12,13 @@
   align-items: center;
 }
 
+.logo {
+  width: 50px;
+  height: 45px;
+  /* border: 1px solid black; */
+  cursor: pointer;
+}
+
 .searchWrapper {
   display: flex;
   align-items: center;
@@ -20,7 +27,7 @@
   width: 300px;
 }
 
-.searchBox input {
+.searchBox {
   width: 250px;
   height: 30px;
   color: gray;
@@ -30,7 +37,7 @@
   border: none;
 }
 
-.searchBox input:focus {
+.searchBox:focus {
   outline: none;
 }
 
@@ -49,9 +56,28 @@
   margin-top: 5px;
 }
 
-.logo {
-  width: 50px;
-  height: 45px;
-  /* border: 1px solid black; */
-  cursor: pointer;
+.infoWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.infoWrapper img {
+  width: 20px;
+  height: 20px;
+  margin: 0 12px;
+}
+
+.infoWrapper button {
+  background: white;
+  border-radius: 4px;
+  font-size: 14px;
+  height: 24px;
+  margin: 0 12px;
+}
+
+.infoWrapper div:last-of-type {
+  border: 1px solid black;
+  width: 44px;
+  height: 44px;
+  border-radius: 36px;
 }
