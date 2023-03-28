@@ -16,19 +16,19 @@ table{
     margin: auto;
     background-color: white;
     text-align: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 th{
-    border-right : 1px solid black;
+    /* border-right : 1px solid black; */
 
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid gray;
 
 }
 
 td{
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid #E52E2E;    
+    /* border-left: 1px solid black; */
+    /* border-right: 1px solid black; */
+    /* border-bottom: 1px solid #E52E2E;     */
 }
 .btnstyle{
     border: none;

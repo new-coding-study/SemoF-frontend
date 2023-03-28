@@ -12,7 +12,10 @@ export const POST_BOARD_POSTING = 'board/POSTING_BOARD_POSTING';
 export const PUT_BOARD_POSTING = 'board/PUT_BOARD_POSTING';
 export const DELETE_BOARD_POSTING = 'board/DELETE_BOARD_POSTING';
 // 
-const initialState = [];
+const initialState = {
+    noticeList : [],
+    boardList : []
+}
 
 const actions = createActions({
     [GET_BOARD_NOTICE]: () => {},
@@ -35,9 +38,9 @@ const boardReducer = handleActions(
     [GET_BOARD_NOTICES]: (state, {payload}) => {
         return payload;
     },
-    [GET_BOARD_NOTICES_TOP3]: (state, {payload}) => {return payload;},
+    [GET_BOARD_NOTICES_TOP3]: (state, {payload}) => {return {...state, noticeList : payload};},
     [GET_BOARD_POSTING]: (state, {payload}) => {return payload;},
-    [GET_BOARD_POSTINGS]: (state, {payload}) => {return payload;},
+    [GET_BOARD_POSTINGS]: (state, {payload}) => {return {...state, boardList : payload};},
     [POST_BOARD_NOTICE]: (state, {payload}) => {return payload;},
     [PUT_BOARD_NOTICE]: (state, {payload}) => {return payload;},
     [DELETE_BOARD_NOTICE]: (state, {payload}) => {return payload;},

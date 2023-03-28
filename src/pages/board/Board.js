@@ -12,14 +12,16 @@ function Board (){
 
 const navigate = useNavigate();
 const dispatch = useDispatch();
-const boards = useSelector(state => state.boardReducer);
+const boards = useSelector(state => state.boardReducer.boardList);
+const notices = useSelector(state => state.boardReducer.noticeList);    
 const boardList = boards.data;
-let index = 0;
+const noticeList = notices.data;
 console.log(boardList);
 const [currentPage, setCurrentPage] = useState(1);
 
 const pageInfo = boards.pageInfo;
-
+const total = boards.pageInfo.totalCount;
+console.log('이게맞니'+total)
 
 const pageNumber = [];
 if(pageInfo){
@@ -27,12 +29,11 @@ if(pageInfo){
         pageNumber.push(i);
     }
 }
-
+console.log(pageNumber);
 useEffect (() =>{
     dispatch(callBoardNoticeTop3Lists({
-        currentPage : currentPage
     }));
-}, [currentPage]
+}, []
 )
 
 useEffect (() =>{
@@ -74,13 +75,13 @@ useEffect (() =>{
                         </tr>
                     </thead>
                     <tbody>
-                    { Array.isArray(boardList) && boardList.map((p) => (
-                            p.boardCateCode === 1 &&
+                    { Array.isArray(noticeList) && noticeList.map((p) => (
+                            p.boardCateCode == 1 &&
                         <tr
-                            key={p.boardCateCode === 1}
+                            key={p.boardCateCode}
                         >
                             <td>공지사항</td>
-                            <td>{p.boardContent}</td>
+                            <td>{p.boardTitle}</td>
                             <td>{p.empName}</td>
                             <td>{p.writeDate}</td>
                         </tr>
@@ -89,13 +90,14 @@ useEffect (() =>{
                     </tbody>
                     <tfoot>
 
-                        { Array.isArray(boardList) && boardList.map((p) => (
-                            p.boardCateCode === 2 &&
+                        { Array.isArray(boardList) && boardList.map((p, Index) => (
+                            p.boardCateCode == 2 &&
                         <tr
-                            key={p.boardCateCode === 1}
+                            key={p.boardCateCode}
                         >
-                            <td>{++index}</td>
-                            <td>{p.boardContent}</td>
+                           
+                            <td>{(total - ((currentPage - 1) * 10 + Index))}</td>
+                            <td>{p.boardTitle}</td>
                             <td>{p.empName}</td>
                             <td>{p.writeDate}</td>
                         </tr>
@@ -103,14 +105,13 @@ useEffect (() =>{
                         }
                           
                         </tfoot>
-                </table>
+                </table>  
                 <div>
                 <button className={boardcss.btnstyle}>
                     등 록
                 </button>
                 </div>
             </div>
-           
             <br/>
             <div>
                 <div className={boardcss.pagingbtn}>
@@ -135,7 +136,7 @@ useEffect (() =>{
                     { Array.isArray(boardList) &&
                         <button 
                         onClick={() => setCurrentPage(currentPage + 1)}
-                        disabled = {currentPage === pageInfo.endPage || pageInfo.total === 0}
+                        disabled = {currentPage === pageInfo.endRow-1 || pageInfo.total === 0}
                         style={{color: '#E52E2E', border:'none', fontWeight:'bold', fontSize:'15px'}}>
                             &gt;&gt;
                         </button>
