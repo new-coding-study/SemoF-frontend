@@ -14,6 +14,8 @@ const navigate = useNavigate();
 const dispatch = useDispatch();
 const boards = useSelector(state => state.boardReducer);
 const boardList = boards.data;
+let index = 0;
+console.log(boardList);
 const [currentPage, setCurrentPage] = useState(1);
 
 const pageInfo = boards.pageInfo;
@@ -27,18 +29,27 @@ if(pageInfo){
 }
 
 useEffect (() =>{
-    dispatch(callBoardPostingListAPI({
+    dispatch(callBoardNoticeTop3Lists({
         currentPage : currentPage
     }));
 }, [currentPage]
 )
 
 useEffect (() =>{
-    dispatch(callBoardNoticeListAPI({
+    dispatch(callBoardPostingListAPI({
         currentPage : currentPage
     }));
 }, [currentPage]
 )
+
+
+
+// useEffect (() =>{
+//     dispatch(callBoardNoticeListAPI({
+//         currentPage : currentPage
+//     }));
+// }, [currentPage]
+// )
 
 
     return(
@@ -63,19 +74,35 @@ useEffect (() =>{
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td/>
-                            <td/>
-                            <td/>
-                            <td/>
+                    { Array.isArray(boardList) && boardList.map((p) => (
+                            p.boardCateCode === 1 &&
+                        <tr
+                            key={p.boardCateCode === 1}
+                        >
+                            <td>공지사항</td>
+                            <td>{p.boardContent}</td>
+                            <td>{p.empName}</td>
+                            <td>{p.writeDate}</td>
                         </tr>
-                        <tr>
-                            <td/>
-                            <td/>
-                            <td/>
-                            <td/>
-                        </tr>
+                        ))
+                    }
                     </tbody>
+                    <tfoot>
+
+                        { Array.isArray(boardList) && boardList.map((p) => (
+                            p.boardCateCode === 2 &&
+                        <tr
+                            key={p.boardCateCode === 1}
+                        >
+                            <td>{++index}</td>
+                            <td>{p.boardContent}</td>
+                            <td>{p.empName}</td>
+                            <td>{p.writeDate}</td>
+                        </tr>
+                        ))
+                        }
+                          
+                        </tfoot>
                 </table>
                 <div>
                 <button className={boardcss.btnstyle}>
@@ -87,30 +114,34 @@ useEffect (() =>{
             <br/>
             <div>
                 <div className={boardcss.pagingbtn}>
-                    {
-                        <button style={{color: '#E52E2E', border:'none', fontWeight:'bold', fontSize:'15px'}}>
+                    { Array.isArray(boardList) &&
+                        <button 
+                        onClick={() => setCurrentPage(currentPage -1 )}
+                        disabled={currentPage ===1}
+                        style={{color: '#E52E2E', border:'none', fontWeight:'bold', fontSize:'15px'}}>
                             &lt;&lt;
                         </button>
                     }
                     {
                         pageNumber.map((num) => (
-                            <li style={{listStyle: 'none', display:'inline'}} key={num} onClick={() => setCurrentPage(num)}>
-                                <button style={currentPage === num ? {backgroundColor : 'gray'} : null}>
+                            <li
+                            style={{listStyle: 'none', display:'inline'}} key={num} onClick={() => setCurrentPage(num)}>
+                                <button style={currentPage === num ? {backgroundColor : 'rgba(237, 237, 240, 1)', fontSize: '15px', border: 'none'} : null}>
                                     {num}
                                 </button>
                             </li>
                         ))
                     }
-                    {
-                        <button style={{color: '#E52E2E', border:'none', fontWeight:'bold', fontSize:'15px'}}>
+                    { Array.isArray(boardList) &&
+                        <button 
+                        onClick={() => setCurrentPage(currentPage + 1)}
+                        disabled = {currentPage === pageInfo.endPage || pageInfo.total === 0}
+                        style={{color: '#E52E2E', border:'none', fontWeight:'bold', fontSize:'15px'}}>
                             &gt;&gt;
                         </button>
                         
                     }
-                    
-                   
                 </div>
-      
         </div>
         </>
     )

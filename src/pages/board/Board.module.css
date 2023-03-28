@@ -45,5 +45,7 @@ td{
     margin-top: 0.5%;
 }
 .pagingbtn{
-    text-align: center;
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
 }

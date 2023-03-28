@@ -6,7 +6,12 @@ import Error from "./pages/Error";
 import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
 import Todo from "./pages/todo/Todo";
+
+import Approval from "./pages/approval/Approval";
+import ApprovalList from "./pages/approval/Approval";
 import Board from "./pages/board/Board";
+import Hr from "./pages/hr/HRMain";
+
 
 function App() {
   return (
@@ -18,7 +23,12 @@ function App() {
         <Route path="/semof" element={<Layout />}>
           <Route index element={<Main />} />
           <Route path="todo" element={<Todo />} />
-          <Route path="board" element={<Board/>}/>
+
+          <Route path="approval" element={<Approval/>} />
+
+          <Route path="board" element={<Board />} />
+          <Route path="hr" element={<Hr />} />
+
         </Route>
 
         <Route path="*" element={<Error />} />
