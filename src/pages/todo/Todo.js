@@ -5,25 +5,54 @@ import Intended from "../../components/todo/Intended";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { callTodoListAPI } from "../../apis/TodoAPICalls";
+import {
+  callTodayTodoListAPI,
+  callIntendedTodoListAPI,
+  callCategoryListAPI,
+} from "../../apis/TodoAPICalls";
 
 function Todo() {
   const dispatch = useDispatch();
   // useSelector : store에서 사용하고 있는 state를 전달받아서 다시 전달해주는 역할
-  const todos = useSelector((state) => state.todoReducer);
+  const todayList = useSelector((state) => state.todoReducer.todayList);
+  const intendedList = useSelector((state) => state.todoReducer.intendedList);
+  const categoryList = useSelector((state) => state.todoReducer.categoryList);
   // const todoList = todos.data;
+  console.log("state = todayList 확인 : ", todayList);
+  console.log("state = intendedList 확인 : ", intendedList);
+  console.log("state = categoryList 확인 : ", categoryList);
 
-  console.log("todos 확인 : ", todos);
+  // const [todayTodo, setTodayTodo] = useState();
+
+  // console.log("todayTodo 확인", todayTodo);
+  // console.log("todoList 확인 : ", todoList);
   // console.log(todos.data);
   // console.log(todoList);
+  // console.log(
+  //   "map 함수 확인",
+  //   todoList.map((todo) => ("todoName : ", todo.todoName))
+  // );
+
+  // setTodayTodo([...todoList]); // 무한루프
 
   useEffect(
     () => {
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-      dispatch(callTodoListAPI(41));
+      dispatch(callTodayTodoListAPI(41));
+      dispatch(callIntendedTodoListAPI(41));
+      dispatch(callCategoryListAPI(41));
+      // setTodayTodo(dispatch(callTodayTodoListAPI(41))); // promise 객체가 담김
     }, // eslint-disable-next-line
     []
   );
+
+  // useEffect(
+  //   () => {
+  //     // 나중에 localStorage 에서 empNo 받아와서 보내주기!
+  //     // dispatch(callIntendedTodoListAPI(41));
+  //   }, // eslint-disable-next-line
+  //   [todayTodo]
+  // );
 
   return (
     <>
@@ -41,7 +70,12 @@ function Todo() {
               // onChange={onSearchChangeHandler}
             />
           </div>
-          <Category /> {/* 리스트로 받아서 for문으로 출력해야함 */}
+          {/* <Category /> */}
+          {/* 리스트로 받아서 for문으로 출력해야함 */}
+          {Array.isArray(categoryList) &&
+            categoryList.map((category) => (
+              <Category key={category.cateNo} category={category} />
+            ))}
         </div>
         <div className={TodoCSS.content}>
           <div className={TodoCSS.addWrapper}>
@@ -77,12 +111,18 @@ function Todo() {
           <div className={TodoCSS.todoList}>
             <div className={TodoCSS.today}>
               <h2> 오늘의 할 일 </h2>
-              <Today />
+              {Array.isArray(todayList) &&
+                todayList.map((today) => (
+                  <Today key={today.todoNo} todo={today} />
+                ))}
             </div>
 
             <div className={TodoCSS.intended}>
               <h2> 예정된 할 일 </h2>
-              <Intended />
+              {Array.isArray(intendedList) &&
+                intendedList.map((intended) => (
+                  <Intended key={intended.todoNo} todo={intended} />
+                ))}
             </div>
           </div>
         </div>

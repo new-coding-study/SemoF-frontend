@@ -1,19 +1,36 @@
 import TodayCSS from "./Today.module.css";
 
-function Today() {
+function Today(todayList) {
+  // console.log("Today todoList 확인 : ", todoList);
+
+  // console.log("Today todo 확인 : ", todoList.todo);
+
+  const today = todayList.todo;
+  console.log("todo", today);
+  console.log("todayList", todayList);
+
   return (
     <>
       <div className={TodayCSS.todo}>
-        <div> </div>
-        {/* 색 => DB에서 값 받아서 인라인으로 설정해주기 */}
+        <div
+          style={{
+            backgroundColor: today.cateColor,
+            border: today.cateColor,
+          }}
+        ></div>
         <input
           type="checkbox"
+          style={{ accentColor: today.cateColor }}
           // value={search}
           // onKeyUp={onEnterkeyHandler}
           // onChange={onSearchChangeHandler}
         />
-        <label> 오늘의 할 일 </label>
-        <img src={"/images/star_gray.png"} alt="이미지확인!"></img>
+        <label> {today.todoName} </label>
+        {today.todoStar === 0 ? (
+          <img src={"/images/star_gray.png"} alt="이미지확인!"></img>
+        ) : (
+          <img src={"/images/star_fill.png"} alt="이미지확인!"></img>
+        )}
       </div>
     </>
   );

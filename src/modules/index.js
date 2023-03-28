@@ -6,10 +6,9 @@ import boardReducer from "./BoardModule";
 
 const rootReducer = combineReducers({
   memberReducer,
-  todoReducer,
   boardReducer,
+  todoReducer,
   approvalReducer
-
 });
 
 export default rootReducer;

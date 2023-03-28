@@ -3,19 +3,24 @@
   border-radius: 4px;
   height: 60px;
   display: flex;
+  margin-bottom: 16px;
 }
 
 .colorBar {
   width: 6px;
-  height: 58px;
+  height: 60px;
   border-radius: 2px;
-  border: 1px solid blue;
-  background-color: blue;
+  /* border: 1px solid blue; */
+  /* background-color: blue; */
+}
+
+.contentWrapper {
+  width: 100%;
 }
 
 .todo {
   display: flex;
-  width: 330px;
+  /* width: 330px; */
   /* border: 1px solid black; */
 }
 
@@ -26,7 +31,7 @@
 }
 
 .todo label {
-  width: 100px;
+  width: 200px;
   height: 20px;
   margin: 8px 4px;
 }
@@ -34,7 +39,7 @@
 .todo img {
   width: 20px;
   height: 20px;
-  margin: 8px;
+  margin: 8px 12px;
   margin-left: auto;
 }
 

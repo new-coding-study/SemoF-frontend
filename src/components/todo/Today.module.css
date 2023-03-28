@@ -3,13 +3,14 @@
   border-radius: 4px;
   height: 36px;
   display: flex;
+  margin-bottom: 16px;
 }
 
 .todo div {
   width: 4px;
   border-radius: 2px;
-  border: 1px solid red;
-  background-color: red;
+  /* border: 1px solid red; */
+  /* background-color: red; */
 }
 
 .todo input[type="checkbox"] {
@@ -19,7 +20,7 @@
 }
 
 .todo label {
-  width: 100px;
+  width: 200px;
   height: 20px;
   margin: 8px 4px;
 }
