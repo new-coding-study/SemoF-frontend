@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import memberReducer from "./MemberModule";
-import boardReducer from "./BoardModule";
 import todoReducer from "./TodoModule";
+import boardReducer from "./BoardModule";
 
 const rootReducer = combineReducers({
   memberReducer,
+  boardReducer
   todoReducer,
-  boardReducer,
 });
 
 export default rootReducer;
