@@ -1,0 +1,25 @@
+.photoBox {
+    border: 1px solid black;
+}
+
+.tableWrapper {
+    margin: 2% 5%;
+    flex: 1;
+    min-height: 100%;
+}
+
+.table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-radius: 10px;
+}
+
+.table td,
+th {
+    border: 1px solid #ccc;
+    padding: 8px;
+}
+
+.tableBody {
+    text-align: center;
+}

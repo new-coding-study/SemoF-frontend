@@ -10,8 +10,9 @@ import Todo from "./pages/todo/Todo";
 import Approval from "./pages/approval/Approval";
 import ApprovalList from "./pages/approval/Approval";
 import Board from "./pages/board/Board";
-import Hr from "./pages/hr/HRMain";
 
+import Employees from "./pages/employees/Employees";
+import Join from "./pages/employees/Join";
 
 function App() {
   return (
@@ -24,11 +25,11 @@ function App() {
           <Route index element={<Main />} />
           <Route path="todo" element={<Todo />} />
 
-          <Route path="approval" element={<Approval/>} />
+          <Route path="approval" element={<Approval />} />
 
           <Route path="board" element={<Board />} />
-          <Route path="hr" element={<Hr />} />
-
+          <Route path="employees" element={<Employees />} />
+          <Route path="employees/join" element={<Join />} />
         </Route>
 
         <Route path="*" element={<Error />} />
