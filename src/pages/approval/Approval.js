@@ -26,32 +26,44 @@ function Approval(){
             <img></img>
             <img></img>
         </div >
-        <li className={ApprovalCSS.menuBox}>
-            {/* <button className={ApprovalCSS.outBox} onClick={()=>{navigae(`/approval/outbox`)}}>
+        <div className={ApprovalCSS.menuBox}>
+            <div>
+            <button className={ApprovalCSS.outBox} onClick={()=>{navigate(`/approval/outbox`)}}>
                 <img></img>
                 <span>상신함</span>
-            </button> */}
+            </button>
+            </div>
+            <div>
             <button className={ApprovalCSS.inBox} onClick={()=>{navigate(`/approval/inbox`)}}>
                 <img></img>
                 <span>수신함</span>
             </button>
+            </div>
+            <div>
             <button className={ApprovalCSS.complete} onClick={()=>{navigate(`/approval/complete`)}}>
                 <img></img>
                 <span>완료된 결재</span>
             </button>
+            </div>
+            <div>
             <button className={ApprovalCSS.statistics} onClick={()=>{navigate(`/approval/statistics`)}}>
                 <img></img>
                 <span>결재통계</span>
             </button>
+            </div>
+            <div>
             <button className={ApprovalCSS.line} onClick={()=>{navigate(`/approval/line`)}}>
                 <img></img>
                 <span>결재라인</span>
             </button>
-            <button className={ApprovalCSS.turn} onClick={()=>{navigate(`/`)}}>
+            </div>
+            <br/>
+            <div className={ApprovalCSS.back}>
+            <button className={ApprovalCSS.turn} onClick={()=>{navigate(`/semof`)}}>
             메인으로
             </button>
-          
-        </li>
+            </div>
+        </div>
         </div>
         </>
     )
