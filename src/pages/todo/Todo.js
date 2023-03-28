@@ -2,8 +2,29 @@ import TodoCSS from "./Todo.module.css";
 import Category from "../../components/todo/Category";
 import Today from "../../components/todo/Today";
 import Intended from "../../components/todo/Intended";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { callTodoListAPI } from "../../apis/TodoAPICalls";
 
 function Todo() {
+  const dispatch = useDispatch();
+  // useSelector : store에서 사용하고 있는 state를 전달받아서 다시 전달해주는 역할
+  const todos = useSelector((state) => state.todoReducer);
+  // const todoList = todos.data;
+
+  console.log("todos 확인 : ", todos);
+  // console.log(todos.data);
+  // console.log(todoList);
+
+  useEffect(
+    () => {
+      // 나중에 localStorage 에서 empNo 받아와서 보내주기!
+      dispatch(callTodoListAPI(41));
+    }, // eslint-disable-next-line
+    []
+  );
+
   return (
     <>
       <div className={TodoCSS.contour}> 할 일 </div>
