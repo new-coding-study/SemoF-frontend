@@ -2,5 +2,5 @@
 
 ## 설치 필요!
 
-[리액트 달력 라이브러리 : npm react-calendar](https://www.npmjs.com/package/react-calendar)
-###npm i react-calendar
+[리액트 달력 라이브러리 : npm react-calendar](https://www.npmjs.com/package/react-calendar) 
+### npm i react-calendar
