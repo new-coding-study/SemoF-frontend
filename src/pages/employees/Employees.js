@@ -1,31 +1,31 @@
 import React, { useState } from "react";
-import "./HRMain.css";
-// import Calendar from "react-calendar";
-// import "react-calendar/dist/Calendar.css";
-// import moment from "moment"; // moment.js import
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import { Link } from "react-router-dom";
+import EmployeeCSS from "./Employees.module.css";
 
-function HRMain() {
+function Employees() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
   const [value, onChange] = useState(new Date());
 
   return (
     <>
-      <div className="header">
-        <div className="title"> SMART 인사관리 </div>
+      <div className={EmployeeCSS.header}>
+        <div className={EmployeeCSS.title}> SMART 인사관리 </div>
 
-        <div className="menu">
+        <div className={EmployeeCSS.menu}>
           <ul>
             <li>
-              <a href="#">
-                <div className="logoBox">
+              <Link to="/semof/employees/join">
+                <div className={EmployeeCSS.logoBox}>
                   <img src={"/images/contract.png"} alt="이미지확인!" />
                 </div>
                 <span>사원등록</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#">
-                <div className="logoBox">
+                <div className={EmployeeCSS.logoBox}>
                   <img src={"/images/contract.png"} alt="이미지확인!" />
                 </div>
                 <span>인사평가</span>
@@ -33,15 +33,7 @@ function HRMain() {
             </li>
             <li>
               <a href="#">
-                <div className="logoBox">
-                  <img src={"/images/contract.png"} alt="이미지확인!" />
-                </div>
-                <span>근로계약</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <div className="logoBox">
+                <div className={EmployeeCSS.logoBox}>
                   <img src={"/images/contract.png"} alt="이미지확인!" />
                 </div>
                 <span>발령관리</span>
@@ -49,7 +41,7 @@ function HRMain() {
             </li>
             <li>
               <a href="#">
-                <div className="logoBox">
+                <div className={EmployeeCSS.logoBox}>
                   <img src={"/images/contract.png"} alt="이미지확인!" />
                 </div>
                 <span>조직도</span>
@@ -59,32 +51,32 @@ function HRMain() {
         </div>
       </div>
 
-      <div className="noticeContent">
-        <div className="reportCard">
+      <div className={EmployeeCSS.noticeContent}>
+        <div className={EmployeeCSS.reportCard}>
           <h2>직원 현황</h2>
-          <div className="status">
-            <div className="attendance">
+          <div className={EmployeeCSS.status}>
+            <div className={EmployeeCSS.attendance}>
               <p>{today} 출근</p>
               <span>21명</span>
             </div>
-            <div className="vacation">
+            <div className={EmployeeCSS.vacation}>
               <p>휴가자</p>
               <span>5명</span>
             </div>
-            <div className="birthday">
+            <div className={EmployeeCSS.birthday}>
               <p>3월 생일자</p>
               <span>1명</span>
             </div>
           </div>
         </div>
 
-        <div className="atdCard">
-          <div className="atdHeader">
+        <div className={EmployeeCSS.atdCard}>
+          <div className={EmployeeCSS.atdHeader}>
             <h2>근로 관리</h2>
             <p>{today}</p>
           </div>
-          <div className="workload">
-            <div className="overtime">
+          <div className={EmployeeCSS.workload}>
+            <div className={EmployeeCSS.overtime}>
               <p>연장 근무</p>
               <span>10건</span>
             </div>
@@ -92,15 +84,15 @@ function HRMain() {
         </div>
       </div>
 
-      <div className="content">
-        <div className="card"></div>
-        <div className="calender">
-          {/* <Calendar onChange={onChange} value={value} /> */}
+      <div className={EmployeeCSS.content}>
+        <div className={EmployeeCSS.card}></div>
+        <div className={EmployeeCSS.calender}>
+          <Calendar onChange={onChange} value={value} />
         </div>
-        <div className="card2"></div>
+        <div className={EmployeeCSS.card2}></div>
       </div>
     </>
   );
 }
 
-export default HRMain;
+export default Employees;
