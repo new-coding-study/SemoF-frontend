@@ -1,0 +1,78 @@
+.contour {
+  width: 100%;
+  height: 8px;
+  background-color: #e52e2e;
+}
+
+.content {
+  /* border: 1px solid gray; */
+  margin: 20px 40px 10px;
+}
+
+.content div {
+  border-radius: 20px;
+  text-align: center;
+}
+
+.firstGroup {
+  display: flex;
+  height: 240px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  /* border: 1px solid pink; */
+}
+
+.calendar {
+  width: 800px;
+  border: 1px solid pink;
+}
+
+.info {
+  width: 300px;
+  border: 1px solid pink;
+}
+
+.secondGroup {
+  display: flex;
+  height: 200px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  /* border: 1px solid green; */
+}
+
+.banner {
+  width: 800px;
+  border: 1px solid green;
+}
+
+.workingHour {
+  width: 300px;
+  border: 1px solid green;
+}
+
+.thirdGroup {
+  display: flex;
+  height: 160px;
+  justify-content: space-between;
+  /* border: 1px solid blue; */
+}
+
+.weather {
+  width: 265px;
+  border: 1px solid blue;
+}
+
+.birth {
+  width: 200px;
+  border: 1px solid blue;
+}
+
+.todo {
+  width: 265px;
+  border: 1px solid blue;
+}
+
+.notice {
+  width: 300px;
+  border: 1px solid blue;
+}
