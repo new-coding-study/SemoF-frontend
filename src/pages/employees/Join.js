@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import JoinCSS from "./Join.module.css";
+import callJoinAPI from "../../apis/JoinAPICalls";
 
 function Join() {
   const navigate = useNavigate();
@@ -25,6 +27,8 @@ function Join() {
   const addressRef = useRef(null);
   const salaryRef = useRef(null);
   const emailRef = useRef(null);
+
+  const dispatch = useDispatch(); // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
 
   // form 데이터 세팅
   const onChangeHandler = (e) => {
@@ -96,6 +100,31 @@ function Join() {
   useEffect(() => {
     nameRef.current.focus();
   }, []);
+
+  // FormData 객체를 생성
+  const formData = new FormData();
+
+  // form 객체의 각 프로퍼티를 FormData에 추가
+  formData.append("empName", form.empName);
+  formData.append("email", form.email);
+  formData.append("empReg", form.empReg);
+  formData.append("phone", form.phone);
+  formData.append("address", form.address);
+  formData.append("salary", form.salary);
+  formData.append("gender", form.gender);
+  formData.append("jobCode", form.jobCode);
+  formData.append("deptCode", form.deptCode);
+  formData.append("branchCode", form.branchCode);
+  formData.append("employeePhoto", form.employeePhoto);
+
+  //등록 이벤트
+  const onClickJoinHandler = () => {
+    dispatch(
+      callJoinAPI({
+        formData: formData,
+      })
+    );
+  };
 
   // 돌아가기 클릭시 메인 페이지로 이동
   const onClickBackHandler = () => {
@@ -263,7 +292,7 @@ function Join() {
         </div>
       </div>
       <div className={JoinCSS.buttonWrapper}>
-        <button>등록하기</button>
+        <button onClick={onClickJoinHandler}>등록하기</button>
         <button>수정하기</button>
         <button onClick={onClickBackHandler}>이전으로</button>
       </div>
