@@ -19,8 +19,9 @@ function Register() {
       day: "numeric",
     })
   );
+
   const [regNumber, setRegNumber] = useState(""); //주민등록번호 관리
-  // const [modifyMode, setModifyMode] = useState(false); //수정모드관리
+  const [phone, setPhone] = useState(""); //전화번호 관리
 
   const [form, setForm] = useState({
     empName: "",
@@ -261,14 +262,13 @@ function Register() {
                 <td className={RegisterCSS.tableCell}>부서</td>
                 <td>
                   <select name="deptCode" onChange={onChangeHandler}>
-                    <option value="">부서선택</option>
+                    <option value="NO">없음</option>
                     <option value="PL">기획</option>
                     <option value="HR">인사관리</option>
                     <option value="AC">회계</option>
                     <option value="SL">영업</option>
                     <option value="MT">마케팅</option>
                     <option value="BS">경영지원</option>
-                    <option value="NO">없음</option>
                   </select>
                 </td>
               </tr>

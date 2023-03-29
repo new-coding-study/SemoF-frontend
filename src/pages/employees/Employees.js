@@ -17,33 +17,21 @@ function Employees() {
           <ul>
             <li>
               <Link to="/semof/employees/register">
-                <div className={EmployeeCSS.logoBox}>
-                  <img src={"/images/contract.png"} alt="이미지확인!" />
-                </div>
                 <span>사원관리</span>
               </Link>
             </li>
             <li>
-              <a href="#">
-                <div className={EmployeeCSS.logoBox}>
-                  <img src={"/images/contract.png"} alt="이미지확인!" />
-                </div>
+              <Link to="/semof/employees/transfer">
                 <span>사원발령</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#">
-                <div className={EmployeeCSS.logoBox}>
-                  <img src={"/images/contract.png"} alt="이미지확인!" />
-                </div>
                 <span>사원평가</span>
               </a>
             </li>
             <li>
               <a href="#">
-                <div className={EmployeeCSS.logoBox}>
-                  <img src={"/images/contract.png"} alt="이미지확인!" />
-                </div>
                 <span>조직도</span>
               </a>
             </li>
