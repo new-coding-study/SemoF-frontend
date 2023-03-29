@@ -12,7 +12,7 @@ import ApprovalList from "./pages/approval/Approval";
 import Board from "./pages/board/Board";
 
 import Employees from "./pages/employees/Employees";
-import Join from "./pages/employees/Join";
+import EmpRegister from "./pages/employees/Register";
 
 function App() {
   return (
@@ -29,7 +29,7 @@ function App() {
 
           <Route path="board" element={<Board />} />
           <Route path="employees" element={<Employees />} />
-          <Route path="employees/join" element={<Join />} />
+          <Route path="employees/register" element={<EmpRegister />} />
         </Route>
 
         <Route path="*" element={<Error />} />

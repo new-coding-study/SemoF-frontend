@@ -16,7 +16,7 @@ function Employees() {
         <div className={EmployeeCSS.menu}>
           <ul>
             <li>
-              <Link to="/semof/employees/join">
+              <Link to="/semof/employees/register">
                 <div className={EmployeeCSS.logoBox}>
                   <img src={"/images/contract.png"} alt="이미지확인!" />
                 </div>

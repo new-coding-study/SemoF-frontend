@@ -114,6 +114,13 @@
     object-fit: cover;
 }
 
+.photoPreview {
+    margin-top: 5px;
+    width: 80%;
+    height: 90%;
+}
+
+
 .photoBox label span {
     display: none;
 }
