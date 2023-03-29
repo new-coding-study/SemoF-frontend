@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { Link } from "react-router-dom";
 import EmployeeCSS from "./Employees.module.css";
+import Calendar from "./Calendar";
 
 function Employees() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
@@ -75,7 +75,7 @@ function Employees() {
       <div className={EmployeeCSS.content}>
         <div className={EmployeeCSS.card}></div>
         <div className={EmployeeCSS.calender}>
-          <Calendar onChange={onChange} value={value} />
+          <Calendar />
         </div>
         <div className={EmployeeCSS.card2}></div>
       </div>
