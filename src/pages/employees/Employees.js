@@ -20,7 +20,7 @@ function Employees() {
                 <div className={EmployeeCSS.logoBox}>
                   <img src={"/images/contract.png"} alt="이미지확인!" />
                 </div>
-                <span>사원등록</span>
+                <span>사원관리</span>
               </Link>
             </li>
             <li>
@@ -28,7 +28,7 @@ function Employees() {
                 <div className={EmployeeCSS.logoBox}>
                   <img src={"/images/contract.png"} alt="이미지확인!" />
                 </div>
-                <span>인사평가</span>
+                <span>사원발령</span>
               </a>
             </li>
             <li>
@@ -36,7 +36,7 @@ function Employees() {
                 <div className={EmployeeCSS.logoBox}>
                   <img src={"/images/contract.png"} alt="이미지확인!" />
                 </div>
-                <span>발령관리</span>
+                <span>사원평가</span>
               </a>
             </li>
             <li>
