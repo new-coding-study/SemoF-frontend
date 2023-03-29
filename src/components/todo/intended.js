@@ -1,21 +1,44 @@
 import IntendedCSS from "./Intended.module.css";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  callUpdateStarAPI,
+  callIntendedTodoListAPI,
+} from "../../apis/TodoAPICalls";
 
 function Intended(intendedList) {
+  // console.log(intendedList);
   const intended = intendedList.todo;
+  // const dispatch = useDispatch();
   // console.log("todo", intended);
   // console.log("intendedList", intendedList);
 
-  // const onChangeHandler = (e) => {
-  //   const changeFinish =
-  //     intendedList &&
-  //     intendedList.map((one) => {
-  //       if (one.todoNo === parseInt(e.target.id)) {
-  //         one.todoFinish = e.target.checked;
-  //         console.log("종료여부 : ", one.todoFinish);
-  //         console.log("할일번호 : ", one.todoNo);
-  //       }
-  //       return one;
-  //     });
+  // const [star, setStar] = useState();
+
+  // console.log("intended", intended);
+
+  // useEffect(() => {
+  //   dispatch(callIntendedTodoListAPI(41));
+  // }, [star]);
+
+  // const onClickHandler = (e) => {
+  //   const todoNo = parseInt(e.target.id);
+  //   // console.log(todoNo);
+  //   // console.log(intended.todoStar);
+  //   if (intended.todoStar === 1) {
+  //     setStar(0);
+  //   } else setStar(1);
+  //   dispatch(callUpdateStarAPI(todoNo));
+  //   // const changeFinish =
+  //   //   intendedList &&
+  //   //   intendedList.map((one) => {
+  //   //     if (one.todoNo === parseInt(e.target.id)) {
+  //   //       one.todoFinish = e.target.checked;
+  //   //       console.log("종료여부 : ", one.todoFinish);
+  //   //       console.log("할일번호 : ", one.todoNo);
+  //   //     }
+  //   //     return one;
+  //   //   });
   // };
 
   return (
@@ -38,10 +61,26 @@ function Intended(intendedList) {
               id={intended.todoNo}
               // onChange={onChangeHandler}
             />
-            <label> {intended.todoName} </label>
-            <img src={"/images/star_gray.png"} alt="이미지확인!"></img>
+            <label htmlFor={intended.todoNo}> {intended.todoName} </label>
+            {intended.todoStar === 0 ? (
+              <img
+                id={intended.todoNo}
+                src={"/images/star_gray.png"}
+                alt="이미지확인!"
+                onClick={intendedList.changeStar}
+              ></img>
+            ) : (
+              <img
+                id={intended.todoNo}
+                src={"/images/star_fill.png"}
+                alt="이미지확인!"
+                onClick={intendedList.changeStar}
+              ></img>
+            )}
           </div>
-          <div className={IntendedCSS.date}> {intended.todoDate}</div>
+          <div className={IntendedCSS.date}>
+            {intended.todoDate} {intended.todoTime.substr(0, 5)}
+          </div>
         </div>
       </div>
     </>

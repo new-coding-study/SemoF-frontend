@@ -74,3 +74,24 @@ export const callCategoryListAPI = (empNo) => {
     }
   };
 };
+
+export const callUpdateStarAPI = (todoNo) => {
+  console.log("PUT_STAR call");
+
+  const requestURL = `http://localhost:8090/todos/star/${todoNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+    if (result.status === 200) {
+      console.log("PUT_STAR result : ", result);
+      dispatch({ type: PUT_STAR, payload: result.data });
+    }
+  };
+};
