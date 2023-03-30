@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import { Link } from "react-router-dom";
 import EmployeeCSS from "./Employees.module.css";
+import Calendar from "../../components/employees/Calendar";
 
 function Employees() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
@@ -16,34 +15,22 @@ function Employees() {
         <div className={EmployeeCSS.menu}>
           <ul>
             <li>
-              <Link to="/semof/employees/join">
-                <div className={EmployeeCSS.logoBox}>
-                  <img src={"/images/contract.png"} alt="이미지확인!" />
-                </div>
+              <Link to="/semof/employees/register">
                 <span>사원관리</span>
               </Link>
             </li>
             <li>
-              <a href="#">
-                <div className={EmployeeCSS.logoBox}>
-                  <img src={"/images/contract.png"} alt="이미지확인!" />
-                </div>
+              <Link to="/semof/employees/transfer">
                 <span>사원발령</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#">
-                <div className={EmployeeCSS.logoBox}>
-                  <img src={"/images/contract.png"} alt="이미지확인!" />
-                </div>
                 <span>사원평가</span>
               </a>
             </li>
             <li>
               <a href="#">
-                <div className={EmployeeCSS.logoBox}>
-                  <img src={"/images/contract.png"} alt="이미지확인!" />
-                </div>
                 <span>조직도</span>
               </a>
             </li>
@@ -87,7 +74,7 @@ function Employees() {
       <div className={EmployeeCSS.content}>
         <div className={EmployeeCSS.card}></div>
         <div className={EmployeeCSS.calender}>
-          <Calendar onChange={onChange} value={value} />
+          <Calendar />
         </div>
         <div className={EmployeeCSS.card2}></div>
       </div>

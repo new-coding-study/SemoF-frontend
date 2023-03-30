@@ -1,16 +1,18 @@
 import { combineReducers } from "redux";
 import memberReducer from "./MemberModule";
-import approvalReducer  from "../modules/ApprovalModule"
+import approvalReducer from "../modules/ApprovalModule";
 import todoReducer from "./TodoModule";
 import boardReducer from "./BoardModule";
 import AttendanceReducer from "./AttendanceModule";
+import registerEmpReducer from "./EmployeeModule";
 
 const rootReducer = combineReducers({
   memberReducer,
   boardReducer,
   todoReducer,
   approvalReducer,
-  AttendanceReducer
+  AttendanceReducer,
+  registerEmpReducer,
 });
 
 export default rootReducer;
