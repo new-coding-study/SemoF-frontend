@@ -198,16 +198,16 @@ th:not(:last-child) {
     text-indent: 0.5em;
 }
 
-td .input:focus {
+td input:focus {
     caret-color: #e52e2e;
 }
 
-td .input::placeholder {
+td input::placeholder {
     color: rgba(204, 204, 204, 0.8);
     font-style: italic;
 }
 
-td .select {
+td select {
     background-color: #fff;
     /* border: 2px solid #ccc; */
     border: none;
@@ -224,7 +224,7 @@ td .select {
     background-repeat: no-repeat;
 }
 
-td .select:focus {
+td select:focus {
     border: 2px solid #ccc;
     animation: glow 1s ease-in-out infinite alternate;
 }
@@ -241,7 +241,7 @@ td .select:focus {
     }
 }
 
-td .select option:checked {
+td select option:checked {
     background-color: #e52e2e;
     /* 선택된 option의 배경색 */
     color: white;

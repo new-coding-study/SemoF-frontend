@@ -45,7 +45,7 @@ function Calendar() {
     days.map((day) => (
       <td
         key={`day-${day}`}
-        className={
+        className={`${CalendarCSS["day-cell"]} ${
           date.getFullYear() === new Date().getFullYear() &&
           date.getMonth() === new Date().getMonth() &&
           day === new Date().getDate()
@@ -53,7 +53,7 @@ function Calendar() {
             : isHoliday(day)
             ? CalendarCSS.holiday
             : ""
-        }
+        }`}
       >
         {day}
       </td>
@@ -104,7 +104,7 @@ function Calendar() {
           {">"}
         </button>
       </div>
-      <table>
+      <table clasName={CalendarCSS.table}>
         <thead>
           <tr className={CalendarCSS["weekday-row"]}>
             <th className={CalendarCSS.weekend}>Sun</th>
