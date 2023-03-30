@@ -8,16 +8,16 @@ import {
     POST_STICKER,
     PUT_STICKER,
     DELETE_STICKER
-} from '../modules/StickerModule.js';
+} from '../modules/AttendanceModule.js';
 
-// 스티커 검색
-export const callSearchStickerAPI = ({searchValue, condition}) => {
-    console.log('[StickerAPICalls] callSearchStickerAPI Call');
+// 근태 검색
+export const callSearchAttendanceAPI = ({searchValue, condition}) => {
+    console.log('[AttendanceAPICalls] callSearchAttendanceAPI Call');
 
     console.log(searchValue)
     console.log(condition)
 
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers/search?condition=${condition}&searchValue=${searchValue}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance/search?condition=${condition}&searchValue=${searchValue}`;
 
     console.log(requestURL)
     
@@ -32,25 +32,25 @@ export const callSearchStickerAPI = ({searchValue, condition}) => {
         })
         .then(response => response.json());
 
-        console.log('[StickerAPICalls] callSearchStickerAPI RESULT : ', result);
+        console.log('[AttendanceAPICalls] callSearchAttendanceAPI RESULT : ', result);
 
         dispatch({ type: GET_STICKERS,  payload: result.data });
         
     };    
 };
 
-// 스티커 전체조회
-export const callStickerListAPI = ({currentPage}) => {
+// 근태 전체조회
+export const callAttendanceListAPI = ({currentPage}) => {
     
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers?offset=${currentPage}`;
+        requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance?offset=${currentPage}`;
     }else {
-        requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers`;
+        requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance`;
     }
     
-    console.log('[StickerAPICalls] requestURL : ', requestURL);
+    console.log('[AttendanceAPICalls] requestURL : ', requestURL);
 
     return async (dispatch, getState) => {
 
@@ -63,16 +63,16 @@ export const callStickerListAPI = ({currentPage}) => {
         })
         .then(response => response.json());
         if(result.status === 200){
-            console.log('[StickerAPICalls] callStickerAPI RESULT : ', result);
+            console.log('[AttendanceAPICalls] callAttendanceAPI RESULT : ', result);
             dispatch({ type: GET_STICKERS,  payload: result.data });
         }
         
     };
 }
 
-// 스티커 상세조회
-export const callStickerDetailAPI = ({stickerCode}) => {
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers/${stickerCode}`;
+// 근태 상세조회
+export const callAttendanceDetailAPI = ({attendanceCode}) => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance/${attendanceCode}`;
 
     return async (dispatch, getState) => {
 
@@ -86,9 +86,9 @@ export const callStickerDetailAPI = ({stickerCode}) => {
         })
         .then(response => response.json());
 
-        console.log('[StickerAPICalls] callStickerDetailAPI RESULT : ', result);
+        console.log('[AttendanceAPICalls] callAttendanceDetailAPI RESULT : ', result);
         if(result.status === 200){
-            console.log('[StickerAPICalls] callStickerDetailAPI SUCCESS');
+            console.log('[AttendanceAPICalls] callAttendanceDetailAPI SUCCESS');
             dispatch({ type: GET_STICKER,  payload: result.data });
         }
         
@@ -96,17 +96,17 @@ export const callStickerDetailAPI = ({stickerCode}) => {
     };
 }
 
-// 관리자용 스티커 리스트 조회
-export const callStickerListForAdminAPI = ({currentPage}) => {
+// 관리자용 근태 리스트 조회
+export const callAttendanceListForAdminAPI = ({currentPage}) => {
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers-management?offset=${currentPage}`;
+        requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance-management?offset=${currentPage}`;
     }else {
-        requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers-management`;
+        requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance-management`;
     }
     
-    console.log('[StickerAPICalls] requestURL : ', requestURL);
+    console.log('[AttendanceAPICalls] requestURL : ', requestURL);
 
     return async (dispatch, getState) => {
 
@@ -120,16 +120,16 @@ export const callStickerListForAdminAPI = ({currentPage}) => {
         })
         .then(response => response.json());
         if(result.status === 200){
-            console.log('[StickerAPICalls] callStickerListForAdminAPI RESULT : ', result);
+            console.log('[AttendanceAPICalls] callAttendanceListForAdminAPI RESULT : ', result);
             dispatch({ type: GET_STICKERS,  payload: result.data });
         }
         
     };
 }
 
-// 관리자용 스티커 상세조회
-export const callStickerDetailForAdminAPI = ({stickerCode}) => {
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers-management/${stickerCode}`;
+// 관리자용 근태 상세조회
+export const callAttendanceDetailForAdminAPI = ({attendanceCode}) => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance-management/${attendanceCode}`;
 
     return async (dispatch, getState) => {
 
@@ -144,19 +144,19 @@ export const callStickerDetailForAdminAPI = ({stickerCode}) => {
         })
         .then(response => response.json());
 
-        console.log('[StickerAPICalls] callStickerDetailAPI RESULT : ', result);
+        console.log('[AttendanceAPICalls] callAttendanceDetailAPI RESULT : ', result);
         if(result.status === 200){
-            console.log('[StickerAPICalls] callStickerDetailAPI SUCCESS');
+            console.log('[AttendanceAPICalls] callAttendanceDetailAPI SUCCESS');
             dispatch({ type: GET_STICKER,  payload: result.data });
         }
     };
 }
 
-// 관리자용 스티커 등록
-export const callStickerRegistAPI = ({form}) => {
-    console.log('[StickerAPICalls] callStickerRegistAPI Call');
+// 관리자용 근태 등록
+export const callAttendanceRegistAPI = ({form}) => {
+    console.log('[AttendanceAPICalls] callAttendanceRegistAPI Call');
 
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers-management`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance-management`;
 
     return async (dispatch, getState) => {
 
@@ -170,18 +170,18 @@ export const callStickerRegistAPI = ({form}) => {
         })
         .then(response => response.json());
 
-        console.log('[StickerAPICalls] callStickerRegistAPI RESULT : ', result);
+        console.log('[AttendanceAPICalls] callAttendanceRegistAPI RESULT : ', result);
 
         dispatch({ type: POST_STICKER,  payload: result });
         
     };    
 }
 
-// 관리자용 스티커 삭제
-export const callStickerDeleteAPI = ({stickerCode}) => {
-    console.log('[StickerAPICalls] callStickerDeleteAPI Call');
+// 관리자용 근태 삭제
+export const callAttendanceDeleteAPI = ({attendanceCode}) => {
+    console.log('[AttendanceAPICalls] callAttendanceDeleteAPI Call');
 
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers-management/${stickerCode}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance-management/${attendanceCode}`;
 
     return async (dispatch, getState) => {
 
@@ -195,20 +195,20 @@ export const callStickerDeleteAPI = ({stickerCode}) => {
         })
         .then(response => response.json());
 
-        console.log('[StickerAPICalls] callStickerDeleteAPI RESULT : ', result);
+        console.log('[AttendanceAPICalls] callAttendanceDeleteAPI RESULT : ', result);
 
         dispatch({ type: DELETE_STICKER,  payload: result });
         
     };    
 }
 
-// 관리자용 스티커 수정
-export const callStickerUpdateAPI = ({form}) => {
-    console.log('[StickerAPICalls] callStickerUpdateAPI Call');
+// 관리자용 근태 수정
+export const callAttendanceUpdateAPI = ({form}) => {
+    console.log('[AttendanceAPICalls] callAttendanceUpdateAPI Call');
     
-    const stickerCode = form.get('stickerCode')     // # formData에 있는 값을 가져올땐 .get메소드로 가져옴
+    const attendanceCode = form.get('attendanceCode')     // # formData에 있는 값을 가져올땐 .get메소드로 가져옴
 
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers-management/${stickerCode}`;
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance-management/${attendanceCode}`;
 
     return async (dispatch, getState) => {
 
@@ -222,16 +222,16 @@ export const callStickerUpdateAPI = ({form}) => {
         })
         .then(response => response.json());
 
-        console.log('[StickerAPICalls] callStickerUpdateAPI RESULT : ', result);
+        console.log('[AttendanceAPICalls] callAttendanceUpdateAPI RESULT : ', result);
 
         dispatch({ type: PUT_STICKER,  payload: result });
         
     };    
 }
 
-//카테고리별 스티커 목록 조회
-export const callStickerListAboutCategoryAPI = ({categoryCode}) => {
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers/categories/${categoryCode}`;
+//카테고리별 근태 목록 조회
+export const callAttendanceListAboutCategoryAPI = ({categoryCode}) => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance/categories/${categoryCode}`;
 
     return async (dispatch, getState) => {
 
@@ -244,16 +244,16 @@ export const callStickerListAboutCategoryAPI = ({categoryCode}) => {
         })
         .then(response => response.json());
         if(result.status === 200){
-            console.log('[StickerAPICalls] callStickerListAboutCategoryAPI RESULT : ', result);
+            console.log('[AttendanceAPICalls] callAttendanceListAboutCategoryAPI RESULT : ', result);
             dispatch({ type: GET_STICKERS,  payload: result.data });
         }
         
     };
 }
 
-//타입별 스티커 목록 조회
-export const callStickerListAboutTypeAPI = ({typeCode}) => {
-    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/stickers/types/${typeCode}`;
+//타입별 근태 목록 조회
+export const callAttendanceListAboutTypeAPI = ({typeCode}) => {
+    const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/attendance/types/${typeCode}`;
 
     return async (dispatch, getState) => {
 
@@ -266,7 +266,7 @@ export const callStickerListAboutTypeAPI = ({typeCode}) => {
         })
         .then(response => response.json());
         if(result.status === 200){
-            console.log('[StickerAPICalls] callStickerListAboutTypeAPI RESULT : ', result);
+            console.log('[AttendanceAPICalls] callAttendanceListAboutTypeAPI RESULT : ', result);
             dispatch({ type: GET_STICKERS,  payload: result.data });
         }
         
