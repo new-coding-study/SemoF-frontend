@@ -1,0 +1,49 @@
+.todoWrapper {
+  border: 1px solid black;
+  border-radius: 4px;
+  height: 60px;
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.colorBar {
+  width: 6px;
+  height: 60px;
+  border-radius: 2px;
+  /* border: 1px solid blue; */
+  /* background-color: blue; */
+}
+
+.contentWrapper {
+  width: 100%;
+}
+
+.todo {
+  display: flex;
+  /* width: 330px; */
+  /* border: 1px solid black; */
+}
+
+.todo input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 8px;
+}
+
+.todo label {
+  width: 200px;
+  height: 20px;
+  margin: 8px 4px;
+}
+
+.todo img {
+  width: 20px;
+  height: 20px;
+  margin: 8px 12px;
+  margin-left: auto;
+}
+
+.date {
+  margin-left: 38px;
+  font-size: 14px;
+}

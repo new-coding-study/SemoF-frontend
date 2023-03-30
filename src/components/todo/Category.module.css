@@ -1,0 +1,61 @@
+/* .star {
+  display: flex;
+  height: 20px;
+  margin-bottom: 12px;
+}
+
+.star img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.star div {
+  line-height: 24px;
+} */
+
+.wrapper {
+  display: flex;
+  height: 20px;
+  margin-bottom: 12px;
+  line-height: 24px;
+  position: relative;
+}
+
+.wrapper:hover {
+  background-color: bisque;
+  cursor: pointer;
+}
+
+.colorBox {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.name {
+  width: 150px;
+}
+
+.editBar {
+  float: right;
+  position: absolute;
+  left: 160px;
+  display: none;
+}
+
+.wrapper:hover .editBar {
+  display: block;
+}
+
+/* .addCate {
+  display: flex;
+}
+
+.addCate div {
+  color: gray;
+  margin: 0 6px;
+  font-size: 14px;
+} */
