@@ -45,13 +45,13 @@
     transform: rotate(135deg);
 }
 
-button {
+.calendar button {
     border: none;
     background-color: white;
     font-weight: bolder;
 }
 
-table {
+.table {
     border-collapse: collapse;
     width: 100%;
     max-width: 300px;
@@ -62,9 +62,15 @@ table {
     background-color: transparent;
 }
 
+.weekend,
+.weekday {
+    border-bottom: none;
+}
+
 .weekday {
     padding: 10px;
     font-weight: bold;
+
 }
 
 .weekend {
@@ -73,13 +79,13 @@ table {
     color: red;
 }
 
-td {
+.day-cell {
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
 
-td:hover {
+.day-cell:hover {
     background-color: #eee;
 }
 
@@ -88,10 +94,6 @@ td:hover {
     color: #fff;
     font-weight: bold;
     border-radius: 50%;
-}
-
-th {
-    border-bottom: none;
 }
 
 .current-day:hover {
