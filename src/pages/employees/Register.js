@@ -247,7 +247,7 @@ function Register() {
                 <td className={RegisterCSS.indent}> {today}</td>
                 <td className={RegisterCSS.tableCell}>퇴사년월일</td>
                 <td>
-                  <input type="text" />
+                  <input type="text" placeholder="재직중" readOnly />
                 </td>
               </tr>
               <tr>
@@ -278,7 +278,7 @@ function Register() {
                   <input
                     type="text"
                     name="phone"
-                    placeholder="010-0000-0000"
+                    placeholder="  010-0000-0000"
                     ref={phoneRef}
                     onChange={onChangeHandler}
                     onKeyDown={(e) => handleKeyDown(e, addressRef)}
@@ -338,7 +338,7 @@ function Register() {
                   <input
                     type="email"
                     name="email"
-                    placeholder="semof@gmail.com"
+                    placeholder=" semof@gmail.com"
                     ref={emailRef}
                     onChange={onChangeHandler}
                   />
