@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import "react-calendar/dist/Calendar.css";
 import { Link } from "react-router-dom";
 import EmployeeCSS from "./Employees.module.css";
-import Calendar from "./Calendar";
+import Calendar from "../../components/employees/Calendar";
 
 function Employees() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
