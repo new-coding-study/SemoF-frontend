@@ -222,7 +222,6 @@ function Register() {
                 <td className={RegisterCSS.tableCell}>성명</td>
                 <td>
                   <input
-                    className={RegisterCSS.input}
                     type="text"
                     name="empName"
                     ref={nameRef}
@@ -234,7 +233,6 @@ function Register() {
                 <td>
                   <input
                     type="text"
-                    className={RegisterCSS.input}
                     name="empReg"
                     ref={regRef}
                     onChange={handleRegNumberChange}
@@ -249,17 +247,13 @@ function Register() {
                 <td className={RegisterCSS.indent}> {today}</td>
                 <td className={RegisterCSS.tableCell}>퇴사년월일</td>
                 <td>
-                  <input type="text" />
+                  <input type="text" placeholder="재직중" readOnly />
                 </td>
               </tr>
               <tr>
                 <td className={RegisterCSS.tableCell}>성별</td>
                 <td>
-                  <select
-                    name="gender"
-                    onChange={onChangeHandler}
-                    className={RegisterCSS.select}
-                  >
+                  <select name="gender" onChange={onChangeHandler}>
                     <option value="">성별 선택</option>
                     <option value="M">남성</option>
                     <option value="F">여성</option>
@@ -267,11 +261,7 @@ function Register() {
                 </td>
                 <td className={RegisterCSS.tableCell}>부서</td>
                 <td>
-                  <select
-                    name="deptCode"
-                    className={RegisterCSS.select}
-                    onChange={onChangeHandler}
-                  >
+                  <select name="deptCode" onChange={onChangeHandler}>
                     <option value="NO">없음</option>
                     <option value="PL">기획</option>
                     <option value="HR">인사관리</option>
@@ -287,9 +277,8 @@ function Register() {
                 <td>
                   <input
                     type="text"
-                    className={RegisterCSS.input}
                     name="phone"
-                    placeholder="010-0000-0000"
+                    placeholder="  010-0000-0000"
                     ref={phoneRef}
                     onChange={onChangeHandler}
                     onKeyDown={(e) => handleKeyDown(e, addressRef)}
@@ -297,11 +286,7 @@ function Register() {
                 </td>
                 <td className={RegisterCSS.tableCell}>지점</td>
                 <td>
-                  <select
-                    name="branchCode"
-                    onChange={onChangeHandler}
-                    className={RegisterCSS.select}
-                  >
+                  <select name="branchCode" onChange={onChangeHandler}>
                     <option value="">지점선택</option>
                     <option value="1">SEMOF 본사</option>
                     <option value="2">SEMOF 구로점</option>
@@ -317,7 +302,6 @@ function Register() {
                 <td>
                   <input
                     type="text"
-                    className={RegisterCSS.input}
                     name="address"
                     ref={addressRef}
                     onChange={onChangeHandler}
@@ -326,11 +310,7 @@ function Register() {
                 </td>
                 <td className={RegisterCSS.tableCell}>직급</td>
                 <td>
-                  <select
-                    name="jobCode"
-                    onChange={onChangeHandler}
-                    className={RegisterCSS.select}
-                  >
+                  <select name="jobCode" onChange={onChangeHandler}>
                     <option value="">직급선택</option>
                     <option value="1">임원</option>
                     <option value="2">부장</option>
@@ -347,7 +327,6 @@ function Register() {
                 <td>
                   <input
                     type="text"
-                    className={RegisterCSS.input}
                     name="salary"
                     ref={salaryRef}
                     onChange={onChangeHandler}
@@ -358,9 +337,8 @@ function Register() {
                 <td className={RegisterCSS.indent}>
                   <input
                     type="email"
-                    className={RegisterCSS.input}
                     name="email"
-                    placeholder="semof@gmail.com"
+                    placeholder=" semof@gmail.com"
                     ref={emailRef}
                     onChange={onChangeHandler}
                   />
