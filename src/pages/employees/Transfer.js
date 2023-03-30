@@ -16,66 +16,51 @@ function Transfer() {
   const navigate = useNavigate();
 
   const employees = useSelector((state) => state.empReducer);
-  const employeeList = employees?.data;
-  const pageInfo = employees?.pageInfo || { endPage: 1 };
+
+  console.log("[Transfer] employees", employees);
+
+  const employeeList = employees.data;
+
+  console.log("[Transfer] employee list", employeeList);
+
+  const pageInfo = employees.pageInfo;
+
+  console.log("[Transfer] page info", pageInfo);
 
   const [currentPage, setCurrentPage] = useState(1);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
 
-  const searchResults = useSelector((state) => state.searchEmpReducer);
-  const searchList = searchResults?.data;
-
   const pageNumber = [];
   if (pageInfo) {
-    for (let i = 1; i <= pageInfo.endPage; i++) {
+    for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
       pageNumber.push(i);
     }
   }
 
-  const onClickTableRow = (empNo) => {
-    navigate(`/employees/${empNo}`, { replace: false });
-  };
-
-  const handleSearch = () => {
-    setCurrentPage(1);
-    // 검색어가 있는 경우에만 API 요청을 보냅니다.
-    if (searchTerm !== "" && searchCategory !== "") {
+  useEffect(
+    () => {
+      // setStart((currentPage - 1) * 5);
       dispatch(
-        callSearchEmployeesAPI({
-          search: searchTerm,
-          searchCategory: searchCategory,
-          currentPage: 1,
-        })
-      );
-    }
-  };
-
-  useEffect(() => {
-    dispatch(
-      callGetEmployeesAPI({
-        currentPage: currentPage,
-      })
-    );
-  }, [currentPage]);
-
-  useEffect(() => {
-    // 검색어가 있는 경우에만 API 요청을 보냅니다.
-    if (searchTerm !== "" && searchCategory !== "") {
-      dispatch(
-        callSearchEmployeesAPI({
-          search: searchTerm,
-          searchCategory: searchCategory,
+        callGetEmployeesAPI({
           currentPage: currentPage,
+          searchTerm: searchTerm,
+          searchCategory: searchCategory,
         })
       );
-    }
-  }, [searchTerm, searchCategory, currentPage]);
+    }, // eslint-disable-next-line
+    [currentPage, searchTerm, searchCategory, dispatch]
+  );
+
+  const onClickTableRow = (empNo) => {
+    navigate(`employees/${empNo}`, { replace: false });
+  };
 
   return (
     <>
       <div className={TransferCSS.header}>
-        <div className={TransferCSS.title}> SMART 인사관리 </div>
+        <div className={TransferCSS.title}> 발령관리 </div>
       </div>
       <div className={TransferCSS.searchWrapper}>
         <div>
@@ -97,9 +82,7 @@ function Transfer() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className={TransferCSS.searchButton} onClick={handleSearch}>
-          검색하기
-        </button>
+        <button className={TransferCSS.searchButton}>검색하기</button>
       </div>
       <div className={TransferCSS.cardBody}>
         <table className="table table-hover table-striped">
@@ -119,23 +102,7 @@ function Transfer() {
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(searchList) &&
-            searchList.length > 0 &&
-            searchCategory !== "" ? (
-              searchList.map((employee) => (
-                <tr
-                  key={employee.empNo}
-                  className={TransferCSS.tableBody}
-                  onClick={() => onClickTableRow(employee.empNo)}
-                >
-                  <td>{employee.empName}</td>
-                  <td>{employee.branchName}</td>
-                  <td>{employee.deptName}</td>
-                  <td>{employee.jobName}</td>
-                </tr>
-              ))
-            ) : // 검색 결과가 없거나 검색어가 없는 경우 employeeList를 출력합니다.
-            Array.isArray(employeeList) && employeeList.length > 0 ? (
+            {Array.isArray(employeeList) &&
               employeeList.map((employee) => (
                 <tr
                   key={employee.empNo}
@@ -147,14 +114,7 @@ function Transfer() {
                   <td>{employee.deptName}</td>
                   <td>{employee.jobName}</td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="5" className={TransferCSS.noData}>
-                  데이터가 없습니다.
-                </td>
-              </tr>
-            )}
+              ))}
           </tbody>
         </table>
         <div

@@ -104,7 +104,7 @@ function Calendar() {
           {">"}
         </button>
       </div>
-      <table clasName={CalendarCSS.table}>
+      <table className={CalendarCSS.table}>
         <thead>
           <tr className={CalendarCSS["weekday-row"]}>
             <th className={CalendarCSS.weekend}>Sun</th>

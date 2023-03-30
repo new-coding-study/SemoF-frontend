@@ -23,6 +23,8 @@ export const callRegisterAPI = ({ form }) => {
 export const callGetEmployeesAPI = ({ currentPage }) => {
   let requestURL;
 
+  console.log("[GetEmployeesAPI] currentPage : ", currentPage);
+
   if (currentPage !== undefined || currentPage !== null) {
     requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/all?offset=${currentPage}`;
   } else {
@@ -40,10 +42,17 @@ export const callGetEmployeesAPI = ({ currentPage }) => {
         // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
       },
     }).then((response) => response.json());
-
-    console.log("[GetEmployeesAPICalls] callGetEmployeesAPI RESULT : ", result);
-
-    dispatch({ type: GET_EMPLOYEES, payload: result.data });
+    if (result.status === 200) {
+      console.log(
+        "[GetEmployeesAPICalls] callGetEmployeesAPI RESULT : ",
+        result
+      );
+      console.log(
+        "[GetEmployeesAPICalls] callGetEmployeesAPI RESULT DATA : ",
+        result.data
+      );
+      dispatch({ type: GET_EMPLOYEES, payload: result.data });
+    }
   };
 };
 

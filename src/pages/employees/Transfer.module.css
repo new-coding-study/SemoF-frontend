@@ -1,15 +1,20 @@
 .header {
+    height: 60px;
     background-color: #e52e2e;
-    color: white;
+    padding-left: 40px;
+    border-radius: 8px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 50px;
+    flex: 0 1 auto;
+    position: sticky;
+    margin-bottom: 2%;
 }
 
 .title {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
+    color: white;
+    width: 25em;
 }
 
 .searchWrapper {
