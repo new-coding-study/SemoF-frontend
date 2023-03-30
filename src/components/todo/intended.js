@@ -1,19 +1,23 @@
 import IntendedCSS from "./Intended.module.css";
+import TodoDetailModal from "./TodoDetailModal";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   callUpdateStarAPI,
   callIntendedTodoListAPI,
+  callTodoDetailAPI,
 } from "../../apis/TodoAPICalls";
 
 function Intended(intendedList) {
   // console.log(intendedList);
   const intended = intendedList.todo;
-  // const dispatch = useDispatch();
+  const setStar = intendedList.setStar;
+  // const star = intendedList.star;
+  const dispatch = useDispatch();
   // console.log("todo", intended);
   // console.log("intendedList", intendedList);
 
-  // const [star, setStar] = useState();
+  const [todoDetailModal, setTodoDetailModal] = useState(false);
 
   // console.log("intended", intended);
 
@@ -41,8 +45,51 @@ function Intended(intendedList) {
   //   //   });
   // };
 
+  const onClickHandler = (e) => {
+    const todoNo = parseInt(e.target.id);
+    console.log("todoNo 확인 : ", todoNo);
+    // console.log("todo 확인 : ", intendedList[todoNo]);
+
+    // const todo = intendedList.filter((todo) => todo.todoNo === todoNo);
+
+    // console.log(todo[0]);
+    // console.log("todo.todoStar : ", todo[0].todoStar);
+
+    dispatch(callUpdateStarAPI(todoNo));
+    setStar(true);
+
+    // window.location.reload();
+
+    // if (todo[0].todoStar === 1) {
+    //   dispatch(callUpdateStarAPI(todoNo));
+    //   setStar(0);
+    // } else {
+    //   dispatch(callUpdateStarAPI(todoNo));
+    //   setStar(1);
+    // }
+    // console.log(star);
+  };
+
+  const onClickTodoDetailHandler = (intended) => {
+    console.log("onClick 이벤트 발생");
+    dispatch(callTodoDetailAPI(intended.todoNo));
+    // setTodoNo(intended.todoNo);
+    setTodoDetailModal(true);
+  };
+
   return (
     <>
+      {/* {todoDetailModal ? (
+        <TodoDetailModal
+          todoNo={intended.todoNo}
+          setTodoDetailModal={setTodoDetailModal}
+        />
+      ) : null} */}
+      {/* <TodoDetailModal
+        todoNo={intended.todoNo}
+        setTodoDetailModal={setTodoDetailModal}
+        intended={intended}
+      /> */}
       <div className={IntendedCSS.todoWrapper}>
         <div
           className={IntendedCSS.colorBar}
@@ -61,20 +108,26 @@ function Intended(intendedList) {
               id={intended.todoNo}
               // onChange={onChangeHandler}
             />
-            <label htmlFor={intended.todoNo}> {intended.todoName} </label>
+            <label>
+              <div onClick={() => onClickTodoDetailHandler(intended)}>
+                {intended.todoName}
+              </div>
+            </label>
             {intended.todoStar === 0 ? (
               <img
                 id={intended.todoNo}
                 src={"/images/star_gray.png"}
                 alt="이미지확인!"
-                onClick={intendedList.changeStar}
+                // onClick={intendedList.changeStar}
+                onClick={onClickHandler}
               ></img>
             ) : (
               <img
                 id={intended.todoNo}
                 src={"/images/star_fill.png"}
                 alt="이미지확인!"
-                onClick={intendedList.changeStar}
+                // onClick={intendedList.changeStar}
+                onClick={onClickHandler}
               ></img>
             )}
           </div>

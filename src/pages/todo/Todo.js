@@ -10,6 +10,7 @@ import {
   callIntendedTodoListAPI,
   callCategoryListAPI,
   callUpdateStarAPI,
+  callSearchTodoAPI,
 } from "../../apis/TodoAPICalls";
 
 function Todo() {
@@ -23,7 +24,25 @@ function Todo() {
   // console.log("state = intendedList 확인 : ", intendedList);
   // console.log("state = categoryList 확인 : ", categoryList);
 
-  const [star, setStar] = useState();
+  const [star, setStar] = useState(false);
+  console.log("star 상태값 확인 : ", star);
+
+  const [search, setSearch] = useState();
+
+  const onSearchChangeHandler = (e) => {
+    setSearch({
+      ...search,
+      [e.target.name]: e.target.value,
+    });
+    console.log(search);
+  };
+
+  const onEnterkeyHandler = (e) => {
+    console.log(search);
+    if (e.key === "Enter") {
+      dispatch(callSearchTodoAPI(search, 41));
+    }
+  };
 
   // const [todayTodo, setTodayTodo] = useState();
 
@@ -49,6 +68,14 @@ function Todo() {
     [star]
   );
 
+  useEffect(
+    () => {
+      // 나중에 localStorage 에서 empNo 받아와서 보내주기!
+      setStar(false);
+    }, // eslint-disable-next-line
+    [star]
+  );
+
   // useEffect(
   //   () => {
   //     // 나중에 localStorage 에서 empNo 받아와서 보내주기!
@@ -57,25 +84,25 @@ function Todo() {
   //   [todayTodo]
   // );
 
-  const onClickHandler = (e) => {
-    const todoNo = parseInt(e.target.id);
-    console.log("todoNo 확인 : ", todoNo);
-    // console.log("todo 확인 : ", intendedList[todoNo]);
+  // const onClickHandler = (e) => {
+  //   const todoNo = parseInt(e.target.id);
+  //   console.log("todoNo 확인 : ", todoNo);
+  //   // console.log("todo 확인 : ", intendedList[todoNo]);
 
-    const todo = intendedList.filter((todo) => todo.todoNo === todoNo);
+  //   const todo = intendedList.filter((todo) => todo.todoNo === todoNo);
 
-    // console.log(todo[0]);
-    // console.log("todo.todoStar : ", todo[0].todoStar);
+  //   // console.log(todo[0]);
+  //   // console.log("todo.todoStar : ", todo[0].todoStar);
 
-    if (todo[0].todoStar === 1) {
-      dispatch(callUpdateStarAPI(todoNo));
-      setStar(0);
-    } else {
-      dispatch(callUpdateStarAPI(todoNo));
-      setStar(1);
-    }
-    // console.log(star);
-  };
+  //   if (todo[0].todoStar === 1) {
+  //     dispatch(callUpdateStarAPI(todoNo));
+  //     setStar(0);
+  //   } else {
+  //     dispatch(callUpdateStarAPI(todoNo));
+  //     setStar(1);
+  //   }
+  //   // console.log(star);
+  // };
 
   return (
     <>
@@ -89,8 +116,8 @@ function Todo() {
               type="text"
               placeholder="할 일 검색"
               // value={search}
-              // onKeyUp={onEnterkeyHandler}
-              // onChange={onSearchChangeHandler}
+              onKeyUp={onEnterkeyHandler}
+              onChange={onSearchChangeHandler}
             />
           </div>
           {/* <Category /> */}
@@ -107,9 +134,8 @@ function Todo() {
               <input
                 type="text"
                 placeholder="새로운 할 일을 입력하세요"
-                // value={search}
-                // onKeyUp={onEnterkeyHandler}
-                // onChange={onSearchChangeHandler}
+                // value={newTodo}
+                // onChange={onInsertTodoHandler}
               />
               <img src={"/images/star_gray.png"} alt="이미지확인!"></img>
               <img src={"/images/calendar_gray.png"} alt="이미지확인!"></img>
@@ -147,7 +173,9 @@ function Todo() {
                   <Intended
                     key={intended.todoNo}
                     todo={intended}
-                    changeStar={onClickHandler}
+                    // changeStar={onClickHandler}
+                    setStar={setStar}
+                    // star={star}
                   />
                 ))}
             </div>

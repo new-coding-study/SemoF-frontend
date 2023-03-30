@@ -9,6 +9,7 @@ const initialState = {
 export const GET_TODAYTODOLIST = "todo/GET_TODAYTODOLIST";
 export const GET_INTENDEDTODOLIST = "todo/GET_INTENDEDTODOLIST";
 export const GET_TODO = "todo/GET_TODO";
+export const GET_SEARCHTODO = "todo/GET_SEARCHTODO";
 export const GET_CATEGORYLIST = "todo/GET_CATEGORYOLIST";
 export const POST_CATEGORY = "todo/POST_CATEGORY";
 export const PUT_CATEGORY = "todo/PUT_CATEGORY";
@@ -23,6 +24,7 @@ const actions = createActions({
   [GET_TODAYTODOLIST]: () => {},
   [GET_INTENDEDTODOLIST]: () => {},
   [GET_TODO]: () => {},
+  [GET_SEARCHTODO]: () => {},
   [GET_CATEGORYLIST]: () => {},
   [POST_CATEGORY]: () => {},
   [PUT_CATEGORY]: () => {},
@@ -44,6 +46,9 @@ const todoReducer = handleActions(
       return { ...state, intendedList: payload };
     },
     [GET_TODO]: (state, { payload }) => {
+      return payload;
+    },
+    [GET_SEARCHTODO]: (state, { payload }) => {
       return payload;
     },
     [GET_CATEGORYLIST]: (state, { payload }) => {
