@@ -161,7 +161,7 @@ function Transfer() {
         <table className="table table-hover table-striped">
           <colgroup>
             <col width="10%" />
-            <col width="30%" />
+            <col width="20%" />
             <col width="20%" />
             <col width="20%" />
             <col width="20%" />
@@ -170,7 +170,9 @@ function Transfer() {
             <tr>
               <th>이름</th>
               <th>지점</th>
+              <th>발령 지점</th>
               <th>부서</th>
+              <th>발령 부서</th>
               <th>직급</th>
             </tr>
           </thead>
