@@ -1,4 +1,4 @@
-.star {
+/* .star {
   display: flex;
   height: 20px;
   margin-bottom: 12px;
@@ -12,12 +12,14 @@
 
 .star div {
   line-height: 24px;
-}
+} */
 
 .wrapper {
   display: flex;
   height: 20px;
   margin-bottom: 12px;
+  line-height: 24px;
+  position: relative;
 }
 
 .wrapper:hover {
@@ -33,11 +35,22 @@
   border-radius: 2px;
 }
 
-.wrapper div {
-  line-height: 24px;
+.name {
+  width: 150px;
 }
 
-.addCate {
+.editBar {
+  float: right;
+  position: absolute;
+  left: 160px;
+  display: none;
+}
+
+.wrapper:hover .editBar {
+  display: block;
+}
+
+/* .addCate {
   display: flex;
 }
 
@@ -45,4 +58,4 @@
   color: gray;
   margin: 0 6px;
   font-size: 14px;
-}
+} */

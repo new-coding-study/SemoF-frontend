@@ -10,9 +10,14 @@ import Todo from "./pages/todo/Todo";
 import Approval from "./pages/approval/Approval";
 import ApprovalIn from "./pages/approval/ApprovalIn";
 import Board from "./pages/board/Board";
+
 import Hr from "./pages/hr/HRMain";
 import ApprovalOut from "./pages/approval/ApprovalOut";
 import RegistApproval from "./pages/approval/RegistApproval";
+
+import Employees from "./pages/employees/Employees";
+import EmpRegister from "./pages/employees/Register";
+import Transfer from "./pages/employees/Transfer";
 
 function App() {
   return (
@@ -32,7 +37,11 @@ function App() {
 
           <Route path="board" element={<Board />} />
           <Route path="hr" element={<Hr />} />
-          
+
+          <Route path="employees" element={<Employees />} />
+          <Route path="employees/register" element={<EmpRegister />} />
+          <Route path="employees/transfer" element={<Transfer />} />
+
         </Route>
 
         <Route path="*" element={<Error />} />

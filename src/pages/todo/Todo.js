@@ -9,6 +9,7 @@ import {
   callTodayTodoListAPI,
   callIntendedTodoListAPI,
   callCategoryListAPI,
+  callUpdateStarAPI,
 } from "../../apis/TodoAPICalls";
 
 function Todo() {
@@ -18,9 +19,11 @@ function Todo() {
   const intendedList = useSelector((state) => state.todoReducer.intendedList);
   const categoryList = useSelector((state) => state.todoReducer.categoryList);
   // const todoList = todos.data;
-  console.log("state = todayList 확인 : ", todayList);
-  console.log("state = intendedList 확인 : ", intendedList);
-  console.log("state = categoryList 확인 : ", categoryList);
+  // console.log("state = todayList 확인 : ", todayList);
+  // console.log("state = intendedList 확인 : ", intendedList);
+  // console.log("state = categoryList 확인 : ", categoryList);
+
+  const [star, setStar] = useState();
 
   // const [todayTodo, setTodayTodo] = useState();
 
@@ -43,7 +46,7 @@ function Todo() {
       dispatch(callCategoryListAPI(41));
       // setTodayTodo(dispatch(callTodayTodoListAPI(41))); // promise 객체가 담김
     }, // eslint-disable-next-line
-    []
+    [star]
   );
 
   // useEffect(
@@ -53,6 +56,26 @@ function Todo() {
   //   }, // eslint-disable-next-line
   //   [todayTodo]
   // );
+
+  const onClickHandler = (e) => {
+    const todoNo = parseInt(e.target.id);
+    console.log("todoNo 확인 : ", todoNo);
+    // console.log("todo 확인 : ", intendedList[todoNo]);
+
+    const todo = intendedList.filter((todo) => todo.todoNo === todoNo);
+
+    // console.log(todo[0]);
+    // console.log("todo.todoStar : ", todo[0].todoStar);
+
+    if (todo[0].todoStar === 1) {
+      dispatch(callUpdateStarAPI(todoNo));
+      setStar(0);
+    } else {
+      dispatch(callUpdateStarAPI(todoNo));
+      setStar(1);
+    }
+    // console.log(star);
+  };
 
   return (
     <>
@@ -121,7 +144,11 @@ function Todo() {
               <h2> 예정된 할 일 </h2>
               {Array.isArray(intendedList) &&
                 intendedList.map((intended) => (
-                  <Intended key={intended.todoNo} todo={intended} />
+                  <Intended
+                    key={intended.todoNo}
+                    todo={intended}
+                    changeStar={onClickHandler}
+                  />
                 ))}
             </div>
           </div>
