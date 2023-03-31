@@ -28,11 +28,8 @@ function Transfer() {
   // console.log("[Transfer] page info", pageInfo);
 
   const [currentPage, setCurrentPage] = useState(1);
-
   const [search, setSearch] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
-
-  const [showModal, setShowModal] = useState(false);
   // let [searchResult, setSearchResult] = useState({
   //   data: [],
   //   pageInfo: {},
@@ -66,8 +63,7 @@ function Transfer() {
   }, [currentPage, search, searchCategory, dispatch]);
 
   const onClickTableRow = (empNo) => {
-    // navigate(`employees/${empNo}`, { replace: false });
-    setShowModal(true);
+    navigate(`employees/${empNo}`, { replace: false });
   };
 
   const onSearchChangeHandler = (e) => {
@@ -129,12 +125,6 @@ function Transfer() {
         </tr>
       );
     }
-  };
-
-  const onModalSubmitHandler = (e) => {
-    e.preventDefault();
-    // TODO: 서버로 전송하여 지점 및 부서 이동 정보 수정
-    setShowModal(false);
   };
 
   return (
@@ -235,38 +225,6 @@ function Transfer() {
           )}
         </div>
       </div>
-      {showModal && (
-        <div className={TransferCSS.modalContainer}>
-          <div className={TransferCSS.modal}>
-            <div className={TransferCSS.modalHeader}>
-              <h3>사원 이동 정보 수정</h3>
-              <button
-                className={TransferCSS.closeButton}
-                onClick={() => setShowModal(false)}
-              >
-                X
-              </button>
-            </div>
-            <div className={TransferCSS.modalBody}>
-              <form onSubmit={onModalSubmitHandler}>
-                <div className={TransferCSS.modalForm}>
-                  <div className={TransferCSS.modalFormGroup}>
-                    <label htmlFor="branchName">지점명</label>
-                    <input type="text" id="branchName" name="branchName" />
-                  </div>
-                  <div className={TransferCSS.modalFormGroup}>
-                    <label htmlFor="deptName">부서명</label>
-                    <input type="text" id="deptName" name="deptName" />
-                  </div>
-                </div>
-                <button type="submit" className={TransferCSS.submitButton}>
-                  저장
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }

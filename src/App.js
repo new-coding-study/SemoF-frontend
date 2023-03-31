@@ -11,7 +11,12 @@ import Approval from "./pages/approval/Approval";
 import ApprovalIn from "./pages/approval/ApprovalIn";
 import Board from "./pages/board/Board";
 
+
 // import Hr from "./pages/hr/HRMain";
+
+import NoticeDetail from "./components/common/boards/NoticeDetail";
+import PostingDetail from "./components/common/boards/PostingDetail";
+
 import ApprovalOut from "./pages/approval/ApprovalOut";
 import RegistApproval from "./pages/approval/RegistApproval";
 import ApprovLineList from "./pages/approval/ApprovLineList";
@@ -41,7 +46,12 @@ function App() {
 
 
           <Route path="board" element={<Board />} />
+
           {/* <Route path="hr" element={<Hr />} /> */}
+
+          <Route path="notice-detail/:boardNo" element={<NoticeDetail/>}/>
+          <Route path="posting-detail/:boardNo" element={<PostingDetail/>}/>
+
 
           <Route path="employees" element={<Employees />} />
           <Route path="employees/register" element={<EmpRegister />} />
