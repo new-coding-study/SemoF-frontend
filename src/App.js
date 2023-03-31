@@ -14,7 +14,6 @@ import Board from "./pages/board/Board";
 import NoticeDetail from "./components/common/boards/NoticeDetail";
 import PostingDetail from "./components/common/boards/PostingDetail";
 
-import Hr from "./pages/hr/HRMain";
 import ApprovalOut from "./pages/approval/ApprovalOut";
 import RegistApproval from "./pages/approval/RegistApproval";
 
