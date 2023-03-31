@@ -11,7 +11,7 @@ import {
 function Intended(intendedList) {
   // console.log(intendedList);
   const intended = intendedList.todo;
-  const setStar = intendedList.setStar;
+  const intededStar = intendedList.setIntededStar;
   // const star = intendedList.star;
   const dispatch = useDispatch();
   // console.log("todo", intended);
@@ -56,7 +56,7 @@ function Intended(intendedList) {
     // console.log("todo.todoStar : ", todo[0].todoStar);
 
     dispatch(callUpdateStarAPI(todoNo));
-    setStar(true);
+    intededStar(true);
 
     // window.location.reload();
 
