@@ -1,4 +1,8 @@
-import { POST_REGISTER, GET_EMPLOYEES } from "../modules/EmployeeModule";
+import {
+  POST_REGISTER,
+  GET_EMPLOYEES,
+  SEARCH_EMPLOYEES,
+} from "../modules/EmployeeModule";
 
 export const callRegisterAPI = ({ form }) => {
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/register`;
@@ -26,7 +30,7 @@ export const callGetEmployeesAPI = ({ currentPage }) => {
   console.log("[GetEmployeesAPI] currentPage : ", currentPage);
 
   if (currentPage !== undefined || currentPage !== null) {
-    requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/all?offset=${currentPage}`;
+    requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/all?pageNo=${currentPage}`;
   } else {
     requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/all`;
   }
@@ -56,7 +60,7 @@ export const callGetEmployeesAPI = ({ currentPage }) => {
   };
 };
 
-export const callSearchEmployeesAPI = ({ search, searchCategory }) => {
+export const callSearchEmployeesAPI = ({ search, searchCategory = "" }) => {
   const requestURL = `http://${
     process.env.REACT_APP_RESTAPI_IP
   }:8090/employees/present/search?${searchCategory}=${encodeURIComponent(
@@ -80,6 +84,6 @@ export const callSearchEmployeesAPI = ({ search, searchCategory }) => {
       result
     );
 
-    dispatch({ type: GET_EMPLOYEES, payload: result.data });
+    dispatch({ type: SEARCH_EMPLOYEES, payload: result.data });
   };
 };

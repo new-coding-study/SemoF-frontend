@@ -18,11 +18,10 @@
 }
 
 .searchWrapper {
-    width: 90%;
-    margin: 20px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 20px 0;
 }
 
 .select {
@@ -61,8 +60,6 @@
 }
 
 .cardBody {
-    width: 90%;
-    margin: 2% auto;
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 5px;
@@ -73,9 +70,6 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    /* 테이블을 중앙에 정렬 */
 }
 
 .table th {
@@ -107,7 +101,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 3%;
+    margin-top: 20px;
 }
 
 .pagingBtn {
@@ -117,12 +111,11 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    background-color: #e52e2e;
-    color: white;
 }
 
 .pagingBtn:hover {
-    background-color: #c42020;
+    background-color: #e52e2e;
+    color: white;
 }
 
 .pagingBtnSide {

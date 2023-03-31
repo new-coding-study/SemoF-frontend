@@ -15,22 +15,27 @@ function Transfer() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const employees = useSelector((state) => state.empReducer);
-
-  console.log("[Transfer] employees", employees);
-
+  const employees = useSelector((state) => state.empReducer) || {
+    data: [],
+    pageInfo: {},
+  };
   const employeeList = employees.data;
-
-  console.log("[Transfer] employee list", employeeList);
-
   const pageInfo = employees.pageInfo;
 
-  console.log("[Transfer] page info", pageInfo);
+  // console.log("[Transfer] searchResult", searchResult);
+  // console.log("[Transfer] employees", employees);
+  // console.log("[Transfer] employee list", employeeList);
+  // console.log("[Transfer] page info", pageInfo);
 
   const [currentPage, setCurrentPage] = useState(1);
-
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
+  // let [searchResult, setSearchResult] = useState({
+  //   data: [],
+  //   pageInfo: {},
+  // });
+
+  let searchResult = employees;
 
   const pageNumber = [];
   if (pageInfo) {
@@ -39,35 +44,98 @@ function Transfer() {
     }
   }
 
-  useEffect(
-    () => {
-      // setStart((currentPage - 1) * 5);
+  useEffect(() => {
+    if (searchCategory && search) {
+      dispatch(
+        callSearchEmployeesAPI({
+          currentPage: currentPage,
+          searchCategory: searchCategory,
+          search: search,
+        })
+      );
+    } else {
       dispatch(
         callGetEmployeesAPI({
           currentPage: currentPage,
-          searchTerm: searchTerm,
-          searchCategory: searchCategory,
         })
       );
-    }, // eslint-disable-next-line
-    [currentPage, searchTerm, searchCategory, dispatch]
-  );
+    }
+  }, [currentPage, search, searchCategory, dispatch]);
 
   const onClickTableRow = (empNo) => {
     navigate(`employees/${empNo}`, { replace: false });
   };
 
+  const onSearchChangeHandler = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const onSelectChangeHandler = (e) => {
+    setSearchCategory(e.target.value);
+  };
+
+  const onSearchButtonClick = () => {
+    setCurrentPage(1);
+    dispatch(
+      callSearchEmployeesAPI({
+        currentPage: 1,
+        searchCategory: searchCategory,
+        search: search,
+      })
+    );
+  };
+
+  const renderEmployees = () => {
+    if (
+      searchResult &&
+      Array.isArray(searchResult) &&
+      searchResult.length > 0
+    ) {
+      return searchResult.map((employee) => (
+        <tr
+          key={employee.empNo}
+          className={TransferCSS.tableBody}
+          onClick={() => onClickTableRow(employee.empNo)}
+        >
+          <td>{employee.empName}</td>
+          <td>{employee.branchName}</td>
+          <td>{employee.deptName}</td>
+          <td>{employee.jobName}</td>
+        </tr>
+      ));
+    } else {
+      return employeeList && employeeList.length > 0 ? (
+        employeeList.map((employee) => (
+          <tr
+            key={employee.empNo}
+            className={TransferCSS.tableBody}
+            onClick={() => onClickTableRow(employee.empNo)}
+          >
+            <td>{employee.empName}</td>
+            <td>{employee.branchName}</td>
+            <td>{employee.deptName}</td>
+            <td>{employee.jobName}</td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colSpan="4">데이터가 없습니다.</td>
+        </tr>
+      );
+    }
+  };
+
   return (
     <>
       <div className={TransferCSS.header}>
-        <div className={TransferCSS.title}> 발령관리 </div>
+        <div className={TransferCSS.title}> 사원 이동 </div>
       </div>
       <div className={TransferCSS.searchWrapper}>
         <div>
           <select
             className={TransferCSS.select}
             value={searchCategory}
-            onChange={(e) => setSearchCategory(e.target.value)}
+            onChange={onSelectChangeHandler}
           >
             <option value="">전체</option>
             <option value="empName">이름</option>
@@ -79,16 +147,21 @@ function Transfer() {
           className={TransferCSS.searchBox}
           type="text"
           placeholder="검색할 단어를 입력해주세요"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={search}
+          onChange={onSearchChangeHandler}
         />
-        <button className={TransferCSS.searchButton}>검색하기</button>
+        <button
+          className={TransferCSS.searchButton}
+          onClick={() => setCurrentPage(1)}
+        >
+          검색하기
+        </button>
       </div>
       <div className={TransferCSS.cardBody}>
         <table className="table table-hover table-striped">
           <colgroup>
             <col width="10%" />
-            <col width="30%" />
+            <col width="20%" />
             <col width="20%" />
             <col width="20%" />
             <col width="20%" />
@@ -97,25 +170,13 @@ function Transfer() {
             <tr>
               <th>이름</th>
               <th>지점</th>
+              <th>발령 지점</th>
               <th>부서</th>
+              <th>발령 부서</th>
               <th>직급</th>
             </tr>
           </thead>
-          <tbody>
-            {Array.isArray(employeeList) &&
-              employeeList.map((employee) => (
-                <tr
-                  key={employee.empNo}
-                  className={TransferCSS.tableBody}
-                  onClick={() => onClickTableRow(employee.empNo)}
-                >
-                  <td>{employee.empName}</td>
-                  <td>{employee.branchName}</td>
-                  <td>{employee.deptName}</td>
-                  <td>{employee.jobName}</td>
-                </tr>
-              ))}
-          </tbody>
+          <tbody>{renderEmployees()}</tbody>
         </table>
         <div
           className={TransferCSS.pageBox}
