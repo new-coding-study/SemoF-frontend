@@ -1,0 +1,183 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modalContainer {
+  position: absolute;
+  width: 600px;
+  height: 500px;
+  padding: 10px;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  z-index: 1000;
+}
+
+.todoDetailModalModalDiv {
+  width: 600px;
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  /*수평 정렬*/
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  /* border: solid 1px black; */
+  border-radius: 10px;
+}
+
+.todoHeader {
+  display: flex;
+  align-items: center;
+  margin: 0 20px;
+  padding-right: 12px;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 2px solid black;
+}
+
+.todoHeader div:first-of-type {
+  display: flex;
+  align-items: center;
+}
+
+.todoHeader img {
+  width: 24px;
+  height: 24px;
+  margin: 0 8px;
+}
+
+.todoHeader img:hover {
+  cursor: pointer;
+}
+
+.todoHeader div:last-of-type {
+  font-size: 30px;
+}
+
+.todoHeader div:last-of-type:hover {
+  cursor: pointer;
+}
+
+.todoTitle {
+  display: flex;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+  margin: 0 20px;
+}
+
+.todoTitle div {
+  width: 100px;
+  font-size: 20px;
+  margin-left: 8px;
+  /* border: 1px solid red; */
+  text-align: left;
+}
+
+.todoTitle input {
+  width: 360px;
+  height: 20px;
+  margin-left: 80px;
+}
+
+.todoCategory {
+  display: flex;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+  margin: 0 20px;
+}
+
+.todoCategory div {
+  width: 100px;
+  font-size: 20px;
+  margin-left: 8px;
+  /* border: 1px solid red; */
+  text-align: left;
+}
+
+.todoCategory input {
+  width: 360px;
+  height: 20px;
+  margin-left: 80px;
+}
+
+.todoDate {
+  display: flex;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+  margin: 0 20px;
+}
+
+.todoDate div {
+  width: 100px;
+  font-size: 20px;
+  margin-left: 8px;
+  margin-right: 80px;
+  /* border: 1px solid red; */
+  text-align: left;
+}
+
+.todoDate input {
+  width: 120px;
+  height: 20px;
+  margin-right: 16px;
+}
+
+.todoContent {
+  display: flex;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+  margin: 0 20px;
+}
+
+.todoContent div {
+  width: 100px;
+  font-size: 20px;
+  margin-left: 8px;
+  /* border: 1px solid red; */
+  text-align: left;
+}
+
+.todoContent textarea {
+  width: 360px;
+  height: 100px;
+  margin-left: 80px;
+}
+
+.TodoButtonDiv {
+  /* border: 1px solid black; */
+  /* padding: 12px; */
+  /* margin-left: 190px; */
+}
+
+.TodoButtonDiv button {
+  margin: 0 20px;
+  padding: 0 16px;
+  height: 36px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+}
+
+.TodoButtonDiv button:hover {
+  background-color: #e52e2e;
+  color: white;
+  cursor: pointer;
+}
