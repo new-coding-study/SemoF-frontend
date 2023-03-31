@@ -10,7 +10,10 @@ import Todo from "./pages/todo/Todo";
 import Approval from "./pages/approval/Approval";
 import ApprovalList from "./pages/approval/Approval";
 import Board from "./pages/board/Board";
+
 import Hr from "./pages/hr/HRMain";
+import NoticeDetail from "./components/common/boards/NoticeDetail";
+import PostingDetail from "./components/common/boards/PostingDetail";
 
 
 function App() {
@@ -27,7 +30,10 @@ function App() {
           <Route path="approval" element={<Approval/>} />
 
           <Route path="board" element={<Board />} />
+          <Route path="notice-detail/:boardNo" element={<NoticeDetail/>}/>
+          <Route path="posting-detail/:boardNo" element={<PostingDetail/>}/>
           <Route path="hr" element={<Hr />} />
+
 
         </Route>
 

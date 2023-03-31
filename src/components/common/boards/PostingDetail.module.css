@@ -1,0 +1,46 @@
+.title{
+    height: 60px;
+    border-radius: 8px;
+    background-color: #E52E2E;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 40px;
+    line-height: 57px;
+    border: none;
+}
+
+.displayBox{
+    height:500px;
+    background-color: white;
+    border-radius: 10px;
+}
+.boardTitle{
+    text-indent: 5%;
+    width: 50%;
+    position: relative;
+    top: 100%;
+    transform: translate(0, 50%);
+    
+}
+hr{
+    border-color: #E52E2E;
+}
+.writer{
+    float: left;
+    margin-right: 20px;
+    
+}
+.date{
+    float: left;
+    margin-right: 50px;
+}
+.content{
+    text-indent: 20px;
+    font-size: 20px;
+    
+}
+.boardTitle{
+    font-size: 30px;
+    font-weight: bold;
+}

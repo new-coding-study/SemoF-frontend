@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./HRMain.css";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import moment from "moment"; // moment.js import
+// import Calendar from "react-calendar";
+// import "react-calendar/dist/Calendar.css";
+// import moment from "moment"; // moment.js import
 
 function HRMain() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
@@ -95,7 +95,7 @@ function HRMain() {
       <div className="content">
         <div className="card"></div>
         <div className="calender">
-          <Calendar onChange={onChange} value={value} />
+          {/* <Calendar onChange={onChange} value={value} /> */}
         </div>
         <div className="card2"></div>
       </div>
