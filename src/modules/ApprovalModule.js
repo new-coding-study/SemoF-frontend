@@ -1,6 +1,10 @@
 import { createActions, handleActions } from "redux-actions";
 
-const initialState = [];
+const initialState = {
+    approval : [],
+    line : [],
+    form : []
+};
 
 export const GET_APPROVALS = 'approval/GET_APPROVALS';
 export const GET_APPROVAL = 'approval/GET_APPROVAL';
@@ -28,34 +32,34 @@ const actions = createActions({
 
 const approvalReducer = handleActions({
     [GET_APPROVALS]: (state, {payload})=>{
-        return payload;
+        return {...state, approval : payload};
     },
     [GET_APPROVAL]: (state, {payload})=>{
-        return payload;
+        return {...state, approval : payload};
     },
     [GET_LINES]: (state, {payload})=>{
-        return payload;
+        return {...state, line : payload};
     },
     [GET_FORM]: (state, {payload})=>{
-        return payload;
+        return {...state, form : payload};
     },
     [POST_APPROVAL]: (state, {payload})=>{
-        return payload;
+        return {...state, approval : payload};
     },
     [PUT_APPROVAL]: (state, {payload})=>{
-        return payload;
+        return {...state, approval : payload};
     },
     [DELETE_APPROVAL]: (state, {payload})=>{
-        return payload;
+        return {...state, approval : payload};
     },
     [POST_LINE]: (state, {payload})=>{
-        return payload;
+        return {...state, line : payload};
     },
     [PUT_LINE]: (state, {payload})=>{
-        return payload;
+        return {...state, line : payload};
     },
     [DELETE_LINE]: (state, {payload})=>{
-        return payload;
+        return {...state, line : payload};
     }
 }, initialState);
 export default approvalReducer;
