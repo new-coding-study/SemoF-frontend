@@ -10,7 +10,7 @@ function Employees() {
   return (
     <>
       <div className={EmployeeCSS.header}>
-        <div className={EmployeeCSS.title}> SMART 인사관리 </div>
+        <div className={EmployeeCSS.title}> 인사 </div>
 
         <div className={EmployeeCSS.menu}>
           <ul>
@@ -21,7 +21,7 @@ function Employees() {
             </li>
             <li>
               <Link to="/semof/employees/transfer">
-                <span>사원발령</span>
+                <span>사원이동</span>
               </Link>
             </li>
             <li>
