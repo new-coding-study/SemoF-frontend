@@ -89,3 +89,13 @@
     font-weight: bold;
     font-size: 20px;
 }
+.logo{
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-left: 10%;
+}
+.btnTitle{
+    line-height: 60px;
+    text-align: center;
+}
