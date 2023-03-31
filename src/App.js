@@ -12,6 +12,10 @@ import ApprovalIn from "./pages/approval/ApprovalIn";
 import Board from "./pages/board/Board";
 
 import Hr from "./pages/hr/HRMain";
+import NoticeDetail from "./components/common/boards/NoticeDetail";
+import PostingDetail from "./components/common/boards/PostingDetail";
+
+import Hr from "./pages/hr/HRMain";
 import ApprovalOut from "./pages/approval/ApprovalOut";
 import RegistApproval from "./pages/approval/RegistApproval";
 
@@ -36,6 +40,8 @@ function App() {
           <Route path="add-approval" element={<RegistApproval/>}/>
 
           <Route path="board" element={<Board />} />
+          <Route path="notice-detail/:boardNo" element={<NoticeDetail/>}/>
+          <Route path="posting-detail/:boardNo" element={<PostingDetail/>}/>
           <Route path="hr" element={<Hr />} />
 
           <Route path="employees" element={<Employees />} />
