@@ -199,7 +199,7 @@
     outline: none;
 }
 
-.pagingBtn.selected {
+.pagingBtnSelected {
     background-color: #e52e2e;
     color: white;
     border: 2px solid #e52e2e;
