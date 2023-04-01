@@ -21,9 +21,9 @@ function Transfer() {
   const pageInfo = employees.pageInfo;
 
   // console.log("[Transfer] searchResult", searchResult);
-  console.log("[Transfer] employees", employees);
-  console.log("[Transfer] employee list", employeeList);
-  console.log("[Transfer] page info", pageInfo);
+  // console.log("[Transfer] employees", employees);
+  // console.log("[Transfer] employee list", employeeList);
+  // console.log("[Transfer] page info", pageInfo);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -63,6 +63,8 @@ function Transfer() {
     oldBranch: null,
     oldDept: null,
   });
+
+  // console.log("employeeData : ", JSON.stringify(employeeData));
 
   console.log("form: ", JSON.stringify(form));
 
@@ -357,9 +359,9 @@ function Transfer() {
                 style={
                   currentPage === num
                     ? {
-                        backgroundColor: "#0d6efd",
+                        backgroundColor: "#e52e2e",
                         color: "white",
-                        border: "2px solid #0d6efd",
+                        border: "2px solid #e52e2e",
                       }
                     : null
                 }

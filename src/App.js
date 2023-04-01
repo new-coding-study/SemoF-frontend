@@ -17,6 +17,7 @@ import RegistApproval from "./pages/approval/RegistApproval";
 import Employees from "./pages/employees/Employees";
 import EmpRegister from "./pages/employees/Register";
 import Transfer from "./pages/employees/Transfer";
+import Evaluation from "./pages/employees/Evaluation";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="employees" element={<Employees />} />
           <Route path="employees/register" element={<EmpRegister />} />
           <Route path="employees/transfer" element={<Transfer />} />
+          <Route path="employees/evaluation" element={<Evaluation />} />
         </Route>
 
         <Route path="*" element={<Error />} />
