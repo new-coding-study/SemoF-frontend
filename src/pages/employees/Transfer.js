@@ -356,16 +356,9 @@ function Transfer() {
           {pageNumber.map((num) => (
             <li key={num} onClick={() => setCurrentPage(num)}>
               <button
-                style={
-                  currentPage === num
-                    ? {
-                        backgroundColor: "#e52e2e",
-                        color: "white",
-                        border: "2px solid #e52e2e",
-                      }
-                    : null
-                }
-                className={TransferCSS.pagingBtn}
+                className={`${TransferCSS.pagingBtn} ${
+                  currentPage === num ? "active" : ""
+                }`}
               >
                 {num}
               </button>
