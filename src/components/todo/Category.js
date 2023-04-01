@@ -17,7 +17,7 @@ function Category(categoryList) {
           style={{ backgroundColor: category.cateColor }}
         ></div>
         <div className={CategoryCSS.name}> {category.cateName} </div>
-        <div className={CategoryCSS.editBar}>⋮</div>
+        {/* <div className={CategoryCSS.editBar} onClick>⋮</div> */}
       </div>
       {/* <div className={CategoryCSS.addCate}>
         <div> + </div>

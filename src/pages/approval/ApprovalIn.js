@@ -37,7 +37,7 @@ function ApprovalIn() {
                 currentPage : currentPage
             }));            
         } // eslint-disable-next-line
-        ,[]
+        ,[currentPage]
     );
 
     return (
@@ -56,7 +56,8 @@ function ApprovalIn() {
             }
         </div>
         <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
-            { Array.isArray(approvalList) &&
+            { 
+            // Array.isArray(approvalList) &&
             <button 
                 onClick={() => setCurrentPage(currentPage - 1)} 
                 disabled={currentPage === 1}
@@ -75,14 +76,15 @@ function ApprovalIn() {
                 </button>
             </li>
             ))}
-            { Array.isArray(approvalList) &&
-            <button 
-                // className={ ProductManagementCSS.pagingBtn }
-                onClick={() => setCurrentPage(currentPage + 1)} 
-                disabled={currentPage === pageInfo.endPage || pageInfo.total === 0}
-            >
-                &gt;
-            </button>
+            { 
+            // Array.isArray(approvalList) &&
+            // <button 
+            //     // className={ ProductManagementCSS.pagingBtn }
+            //     onClick={() => setCurrentPage(currentPage + 1)} 
+            //     disabled={currentPage === pageInfo.endPage || pageInfo.total === 0}
+            // >
+            //     &gt;
+            // </button>
             }
         </div>
         <div>

@@ -6,8 +6,8 @@ function Today(todayList) {
   // console.log("Today todo 확인 : ", todoList.todo);
 
   const today = todayList.todo;
-  console.log("todo", today);
-  console.log("todayList", todayList);
+  // console.log("todo", today);
+  // console.log("todayList", todayList);
 
   return (
     <>

@@ -57,11 +57,46 @@
 }
 
 .addInputWrapper div {
-  width: 20px;
-  height: 20px;
-  border: 1px solid black;
+  width: 24px;
+  height: 24px;
+  /* border: 1px solid black; */
   border-radius: 4px;
   margin: 8px;
+}
+
+.selectCateList {
+  /* width: 20px; */
+  /* height: 20px; */
+  list-style: none;
+  padding: 0;
+  margin: auto;
+  /* visibility: hidden; */
+  /* border: 1px solid black; */
+  background-color: white;
+  position: relative;
+  z-index: 10000;
+}
+
+.selectCateList li {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 8px;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+/* .selectCate li > button {
+  width: 20px;
+  height: 20px;
+} */
+
+.addInputWrapper span {
+  padding-top: 10px;
+}
+
+.addInputWrapper span:hover {
+  cursor: pointer;
+  /* visibility: visible; */
 }
 
 .addInputWrapper input {

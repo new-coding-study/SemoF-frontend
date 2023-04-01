@@ -121,7 +121,7 @@ export const callBoardNoticeListAPI=({currentPage})=>{
     export const callBoardPostingDetail = ({boardNo}) => {
         let requestURL;
 
-        requestURL = `http://localhost:8090/boards/board-posting/${boardNo}`;
+        requestURL = `http://localhost:8090/boards/board-posting-lists/${boardNo}`;
 
         console.log('게시글 상세조회')
 
@@ -143,4 +143,158 @@ export const callBoardNoticeListAPI=({currentPage})=>{
         }; 
     }    
 
+    export const callRegistNoticeAPI = ({noticeInfo}) => {
+        console.log('공시사항 API 시작');
+
+        const requestURL = `http://localhost:8090/boards/board-notice-lists`;
+        
+        return async (dispatch, getState) => {
+            console.log('공지사항 등록 비동기시작');
+            const result = await fetch(requestURL, {
+                method:"POST",
+                headers:{
+                    "Accept":"*/*",
+                    "Authorization":"Bearer" + window.localStorage.getItem("accessToken")
+                },
+                body: noticeInfo
+            })
+            .then(response => response.json());
+
+            dispatch({type:POST_BOARD_NOTICE, payload: result});
+
+            console.log('공지사항등록==========완료')
+        };
+         
+    }
+
+    export const callRegistPostingAPI = ({postingInfo}) => {
+        console.log('게시글 등록 api call');
+
+        const requestURL = `http://localhost:8090/boards/board-posting-lists`;
+
+        return async (dispatch, getState) => {
+            console.log('게시글 등록 api 시작');
+            const result = await fetch(requestURL,{
+                method:"POST",
+                headers:{
+                    "Accept":"*/*",
+                    "Authorization":"Bearer" + window.localStorage.getItem("accessToken")
+                },
+                body: postingInfo
+            })
+            .then(response => response.json());
+            
+            console.log(result);
+
+            dispatch({type:POST_BOARD_POSTING, payload:result});
+        }
+    }
+
+    export const callUpdateNoticeAPI = ({form, boardNo}) => {
+        const requestURL = `http://localhost:8090/boards/board-all-lists/${boardNo}`;
+
+        return async (dispatch, getState) => {
+            const result = await fetch(requestURL, {
+                method:"PUT",
+                headers:{
+                    "Accept": "*/*",
+                    "Authorization":"Bearer" + window.localStorage.getItem("accessToekn")
+                },
+                body: form
+            })
+            .then(response => response.json());
+
+            console.log("callupdatenoticeapi"+result);
+
+            dispatch({type: PUT_BOARD_NOTICE, payload: result})
+        }
+    }
+
+    export const callUpdatePostingAPIForAdmin = ({form, boardNo}) => {
+        const requestURL = `http://localhost:8090/boards/board-all-lists/${boardNo}`;
+
+        return async (dispatch, getState) => {
+            const result = await fetch(requestURL, {
+                method:"PUT",
+                headers:{
+                    "Accept": "*/*",
+                    "Authorization":"Bearer" + window.localStorage.getItem("accessToekn")
+                },
+                body: form
+            })
+            .then(response => response.json());
+
+            console.log("callupdatenoticeapi"+result);
+
+            dispatch({type: PUT_BOARD_POSTING, payload: result})
+        }
+    }
+
     
+    export const callUpdatePostingAPIForEmp = ({form, boardNo, empNo}) => {
+        const requestURL = `http://localhost:8090/boards/board-all-lists/${boardNo}/${empNo}`;
+
+        return async (dispatch, getState) => {
+            const result = await fetch(requestURL, {
+                method:"PUT",
+                headers:{
+                    "Accept": "*/*",
+                    "Authorization":"Bearer" + window.localStorage.getItem("accessToekn")
+                },
+                body: form
+            })
+            .then(response => response.json());
+
+            console.log("callupdatenoticeapi"+result);
+
+            dispatch({type: PUT_BOARD_POSTING, payload: result})
+        }
+    }
+
+    export const callDeleteNoticeAPI = ({boardNo}) => {
+        const requestURL = `http://localhost:8090/boards/board-all-lists/${boardNo}`;
+        
+        return async (dispatch, getState) => {
+            const result = await fetch(requestURL,{
+                method: "DELETE",
+                headers:{
+                    "Accept":"*/*",
+                    "Authorization" : "Bearer"+window.localStorage.getItem("accessToken")
+                }
+            })
+            .then(response => response.json());
+            dispatch({type: DELETE_BOARD_NOTICE, payload: result})
+        };
+    }
+
+    export const callDeletePostingAPIForAdmin = ({boardNo}) => {
+        const requestURL = `http://localhost:8090/boards/board-all-lists/${boardNo}`;
+        
+        return async (dispatch, getState) => {
+            const result = await fetch(requestURL,{
+                method: "DELETE",
+                headers:{
+                    "Accept":"*/*",
+                    "Authorization" : "Bearer"+window.localStorage.getItem("accessToken")
+                }
+            })
+            .then(response => response.json());
+            dispatch({type: DELETE_BOARD_POSTING, payload: result})
+        };
+    }
+    
+    export const callDeletePostingAPIForEmp = ({boardNo, empNo}) => {
+        const requestURL = `http://localhost:8090/boards/board-posting-lists/${boardNo}/${empNo}`;
+        
+        return async (dispatch, getState) => {
+            const result = await fetch(requestURL,{
+                method: "DELETE",
+                headers:{
+                    "Accept":"*/*",
+                    "Authorization" : "Bearer"+window.localStorage.getItem("accessToken")
+                }
+            })
+            .then(response => response.json());
+            dispatch({type: DELETE_BOARD_POSTING, payload: result})
+        };
+    }

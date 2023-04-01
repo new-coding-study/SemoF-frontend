@@ -10,6 +10,8 @@ import {
   callIntendedTodoListAPI,
   callCategoryListAPI,
   callUpdateStarAPI,
+  callSearchTodoAPI,
+  callProductRegistAPI,
 } from "../../apis/TodoAPICalls";
 
 function Todo() {
@@ -23,7 +25,85 @@ function Todo() {
   // console.log("state = intendedList 확인 : ", intendedList);
   // console.log("state = categoryList 확인 : ", categoryList);
 
-  const [star, setStar] = useState();
+  const [intededStar, setIntededStar] = useState(false);
+  // console.log("intededStar 상태값 확인 : ", intededStar);
+
+  const [search, setSearch] = useState();
+  const [visibleCate, setVisibleCate] = useState(false);
+  const [addTodoStar, setAddTodoStar] = useState(false);
+  const [newTodo, setNewTodo] = useState({
+    cateNo: "",
+    todoName: "",
+    todoDate: "",
+    todoTime: "",
+    todoStar: "",
+  });
+  const [addTodo, setAddTodo] = useState(false);
+
+  const onSearchChangeHandler = (e) => {
+    setSearch({
+      ...search,
+      [e.target.name]: e.target.value,
+    });
+    console.log(search);
+  };
+
+  const onEnterkeyHandler = (e) => {
+    console.log(search);
+    if (e.key === "Enter") {
+      dispatch(callSearchTodoAPI(search, 41));
+    }
+  };
+
+  const onInsertTodoHandler = (e) => {
+    setNewTodo({
+      ...newTodo,
+      todoName: e.target.value,
+    });
+    console.log(newTodo);
+  };
+
+  const onChooseCate = (e) => {
+    setNewTodo({
+      ...newTodo,
+      cateNo: e.target.value,
+    });
+    setVisibleCate(false);
+  };
+
+  const onSetAddStarHandler = () => {
+    const value = addTodoStar ? 0 : 1;
+    console.log("value 확인", value);
+
+    setNewTodo({
+      ...newTodo,
+      todoStar: value,
+    });
+    setAddTodoStar(!addTodoStar);
+    // console.log(newTodo);
+  };
+
+  const onClickInsertTodoHandler = () => {
+    console.log("할 일 등록 메소드 실행합니다");
+
+    const formData = new FormData();
+
+    formData.append("cateNo", newTodo.cateNo);
+    formData.append("todoName", newTodo.todoName);
+    formData.append("todoDate", newTodo.todoDate);
+    formData.append("todoTime", newTodo.todoTime);
+    formData.append("todoStar", newTodo.todoStar);
+
+    dispatch(
+      callProductRegistAPI({
+        form: formData,
+      })
+    );
+
+    alert("할 일이 정상 등록되었습니다.");
+    // window.location.reload();
+    setAddTodo(true);
+  };
 
   // const [todayTodo, setTodayTodo] = useState();
 
@@ -46,7 +126,25 @@ function Todo() {
       dispatch(callCategoryListAPI(41));
       // setTodayTodo(dispatch(callTodayTodoListAPI(41))); // promise 객체가 담김
     }, // eslint-disable-next-line
-    [star]
+    [intededStar]
+  );
+
+  useEffect(
+    () => {
+      // 나중에 localStorage 에서 empNo 받아와서 보내주기!
+      // dispatch(callIntendedTodoListAPI(41));
+      setIntededStar(false);
+    }, // eslint-disable-next-line
+    [intededStar]
+  );
+
+  useEffect(
+    () => {
+      // 나중에 localStorage 에서 empNo 받아와서 보내주기!
+      // dispatch(callIntendedTodoListAPI(41));
+      setIntededStar(false);
+    }, // eslint-disable-next-line
+    [addTodo]
   );
 
   // useEffect(
@@ -57,24 +155,52 @@ function Todo() {
   //   [todayTodo]
   // );
 
-  const onClickHandler = (e) => {
-    const todoNo = parseInt(e.target.id);
-    console.log("todoNo 확인 : ", todoNo);
-    // console.log("todo 확인 : ", intendedList[todoNo]);
+  // const onClickHandler = (e) => {
+  //   const todoNo = parseInt(e.target.id);
+  //   console.log("todoNo 확인 : ", todoNo);
+  //   // console.log("todo 확인 : ", intendedList[todoNo]);
 
-    const todo = intendedList.filter((todo) => todo.todoNo === todoNo);
+  //   const todo = intendedList.filter((todo) => todo.todoNo === todoNo);
 
-    // console.log(todo[0]);
-    // console.log("todo.todoStar : ", todo[0].todoStar);
+  //   // console.log(todo[0]);
+  //   // console.log("todo.todoStar : ", todo[0].todoStar);
 
-    if (todo[0].todoStar === 1) {
-      dispatch(callUpdateStarAPI(todoNo));
-      setStar(0);
-    } else {
-      dispatch(callUpdateStarAPI(todoNo));
-      setStar(1);
-    }
-    // console.log(star);
+  //   if (todo[0].todoStar === 1) {
+  //     dispatch(callUpdateStarAPI(todoNo));
+  //     setStar(0);
+  //   } else {
+  //     dispatch(callUpdateStarAPI(todoNo));
+  //     setStar(1);
+  //   }
+  //   // console.log(star);
+  // };
+
+  const SelectBox = (props) => {
+    return (
+      <ul className={TodoCSS.selectCateList}>
+        {props.categorys.map((category) => (
+          <li
+            name="cateNo"
+            value={category.cateNo}
+            key={category.cateNo}
+            style={{
+              backgroundColor: category.cateColor,
+            }}
+            onClick={onChooseCate}
+          >
+            {/* <button
+              type="button"
+              style={{
+                backgroundColor: category.cateColor,
+              }}
+            >
+              {category.cateName}
+            </button> */}
+            {/* <div style={{ backgroundColor: category.cateColor }}></div> */}
+          </li>
+        ))}
+      </ul>
+    );
   };
 
   return (
@@ -89,8 +215,8 @@ function Todo() {
               type="text"
               placeholder="할 일 검색"
               // value={search}
-              // onKeyUp={onEnterkeyHandler}
-              // onChange={onSearchChangeHandler}
+              onKeyUp={onEnterkeyHandler}
+              onChange={onSearchChangeHandler}
             />
           </div>
           {/* <Category /> */}
@@ -103,22 +229,39 @@ function Todo() {
         <div className={TodoCSS.content}>
           <div className={TodoCSS.addWrapper}>
             <div className={TodoCSS.addInputWrapper}>
-              <div></div>
+              <div>{visibleCate && <SelectBox categorys={categoryList} />}</div>
+              <span
+                onClick={() => {
+                  setVisibleCate(!visibleCate);
+                }}
+              >
+                ▼
+              </span>
               <input
                 type="text"
                 placeholder="새로운 할 일을 입력하세요"
-                // value={search}
-                // onKeyUp={onEnterkeyHandler}
-                // onChange={onSearchChangeHandler}
+                // value={newTodo}
+                onChange={onInsertTodoHandler}
+                name="todoName"
               />
-              <img src={"/images/star_gray.png"} alt="이미지확인!"></img>
+              {addTodoStar ? (
+                <img
+                  src={"/images/star_fill.png"}
+                  alt="이미지확인!"
+                  onClick={onSetAddStarHandler}
+                  // value={1}
+                ></img>
+              ) : (
+                <img
+                  src={"/images/star_gray.png"}
+                  alt="이미지확인!"
+                  onClick={onSetAddStarHandler}
+                  // value={0}
+                ></img>
+              )}
               <img src={"/images/calendar_gray.png"} alt="이미지확인!"></img>
             </div>
-            <button
-            // onClick={onClickLoginHandler}
-            >
-              할 일 추가
-            </button>
+            <button onClick={onClickInsertTodoHandler}>할 일 추가</button>
           </div>
           <div className={TodoCSS.graphWrapper}>
             <div className={TodoCSS.graphTitle}>
@@ -147,7 +290,9 @@ function Todo() {
                   <Intended
                     key={intended.todoNo}
                     todo={intended}
-                    changeStar={onClickHandler}
+                    // changeStar={onClickHandler}
+                    setIntededStar={setIntededStar}
+                    // star={star}
                   />
                 ))}
             </div>
