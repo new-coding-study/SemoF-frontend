@@ -92,7 +92,6 @@
     background-color: #e52e2e;
     border: 2px solid #e52e2e;
     border-radius: 8px;
-    border: none;
     font-size: medium;
     color: white;
     cursor: pointer;
@@ -102,8 +101,8 @@
 }
 
 .fileButton:hover {
-    background-color: white;
-    color: #e52e2e;
+    background-color: #e52e2e;
+    color: white;
     border: 1px solid #e52e2e;
 }
 
@@ -126,17 +125,13 @@
 
 .tableWrapper {
     flex: 2;
-    /* 테이블과의 간격을 조정합니다. */
     overflow: scroll;
     height: 450px;
-    /* 원하는 높이 값으로 변경 */
-    /* border: 1px solid #D3D3D3; */
 }
 
 .tableWrapper {
     border-radius: 10px;
     overflow: hidden;
-    /* wrapper 영역을 넘어가는 선을 숨깁니다. */
     border: 1px solid #D3D3D3;
 }
 
@@ -146,14 +141,14 @@
     /* border-collapse: separate; */
     width: 100%;
     height: 100%;
-    /* table 너비를 100%로 설정합니다. */
+    /* table 너비를 100%로 설정 */
 }
 
 .table td,
 .table th {
     border: none;
     border-bottom: 1px solid #D3D3D3;
-    /* 테이블 내부의 선만 남기고, 외곽선을 제거합니다. */
+    /* 테이블 내부의 선만 남기고, 외곽선을 제거 */
     padding: 8px;
 }
 
@@ -177,7 +172,7 @@
 .table tr:last-child td,
 .table tr:last-child th {
     border-bottom: none;
-    /* 마지막 행의 하단 선을 제거합니다. */
+    /* 마지막 행의 하단 선을 제거 */
 }
 
 .table td:not(:last-child),
@@ -257,7 +252,7 @@ td .select option:checked {
 .buttonWrapper button {
     margin: 0 1rem;
     padding: 1rem 2rem;
-    border: none;
+    border: 1px solid #e52e2e;
     border-radius: 8px;
     background-color: #e52e2e;
     color: white;

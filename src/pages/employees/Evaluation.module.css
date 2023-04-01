@@ -1,0 +1,87 @@
+.header {
+    height: 60px;
+    background-color: #e52e2e;
+    padding-left: 40px;
+    /* line-height: 60px; */
+    border-radius: 8px;
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    flex: 0 1 auto;
+    position: sticky;
+    margin-bottom: 2%;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    width: 25em;
+}
+
+.basicInfo {
+    margin-left: 1%;
+    font-size: 30px;
+    font-weight: bolder;
+    width: 15%;
+    margin-bottom: 1%;
+}
+
+.buttonBox {
+    display: flex;
+    vertical-align: center;
+}
+
+
+.buttonBox button {
+    background-color: #e52e2e;
+    border: 1px solid #e52e2e;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 12em;
+    height: 4em;
+    transition: all 0.3s ease-in-out;
+}
+
+.buttonBox button:hover {
+    background-color: #e52e2e;
+    color: white;
+    border: 1px solid #e52e2e;
+}
+
+.buttonBox span {
+    font-size: large;
+    color: white;
+    font-weight: bold;
+}
+
+.buttonBox img {
+    vertical-align: center;
+    width: 25px;
+    height: 25px;
+}
+
+.cardBody {
+    width: 97.5%;
+    margin: 2% auto;
+    border: 1px solid #D9D9D9;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cardTitle {
+    display: flex;
+}
+
+.bar {
+    margin: 0.3% 0.8%;
+    background: #D3D3D3;
+    width: 2px;
+    height: 1em;
+}
+
+.cardTitle span {
+    font-size: large;
+    font-weight: bold;
+}
