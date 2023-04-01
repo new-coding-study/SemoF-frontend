@@ -216,7 +216,7 @@ function Register() {
           </div>
         </div>
         <div className={RegisterCSS.tableWrapper}>
-          <table className={RegisterCSS.table}>
+          <table className={RegisterCSS.registerTable}>
             <tbody className={RegisterCSS.tableBody}>
               <tr>
                 <td className={RegisterCSS.tableCell}>성명</td>

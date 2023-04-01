@@ -320,7 +320,7 @@ function Transfer() {
         </button>
       </div>
       <div className={TransferCSS.cardBody}>
-        <table className="table table-hover table-striped">
+        <table className={TransferCSS.transferTable}>
           <colgroup>
             <col width="10%" />
             <col width="20%" />
