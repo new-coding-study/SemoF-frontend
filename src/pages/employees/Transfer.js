@@ -1,19 +1,17 @@
 import TransferCSS from "./Transfer.module.css";
 
-import queryString from "query-string";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import Employee from "../../components/employees/Employee";
 
 import {
   callGetEmployeesAPI,
   callSearchEmployeesAPI,
+  callTransferBranchesAPI,
+  callTransferDepartmentsAPI,
 } from "../../apis/EmployeeAPICalls";
 
 function Transfer() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const employees = useSelector((state) => state.empReducer) || {
     data: [],
@@ -23,22 +21,52 @@ function Transfer() {
   const pageInfo = employees.pageInfo;
 
   // console.log("[Transfer] searchResult", searchResult);
-  // console.log("[Transfer] employees", employees);
-  // console.log("[Transfer] employee list", employeeList);
-  // console.log("[Transfer] page info", pageInfo);
+  console.log("[Transfer] employees", employees);
+  console.log("[Transfer] employee list", employeeList);
+  console.log("[Transfer] page info", pageInfo);
 
   const [currentPage, setCurrentPage] = useState(1);
 
   const [search, setSearch] = useState("");
   const [searchCategory, setSearchCategory] = useState("");
 
+  const [selectedEmpNo, setSelectedEmpNo] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  // let [searchResult, setSearchResult] = useState({
-  //   data: [],
-  //   pageInfo: {},
-  // });
+  const [selectedBranch, setSelectedBranch] = useState("");
+  const [selectedDept, setSelectedDept] = useState("");
+  const [form, setForm] = useState({});
 
-  let searchResult = employees;
+  const [displayedEmployees, setDisplayedEmployees] = useState([]);
+
+  const [employeeData, setEmployeeData] = useState({
+    employees: [],
+    branches: [
+      { code: "1", name: "SEMOF 본사" },
+      { code: "2", name: "SEMOF 구로점" },
+      { code: "3", name: "SEMOF 도봉점" },
+      { code: "4", name: "SEMOF 여의도점" },
+      { code: "5", name: "SEMOF 동대문점" },
+      { code: "6", name: "SEMOF 상암점" },
+    ],
+    departments: [
+      { code: "NO", name: "없음" },
+      { code: "PL", name: "기획" },
+      { code: "HR", name: "인사관리" },
+      { code: "AC", name: "회계" },
+      { code: "SL", name: "영업" },
+      { code: "MT", name: "마케팅" },
+      { code: "BS", name: "경영지원" },
+    ],
+    selectedEmp: null,
+    selectedBranch: null,
+    selectedDept: null,
+    oldBranch: null,
+    oldDept: null,
+  });
+
+  console.log("form: ", JSON.stringify(form));
+
+  const searchResult = employees;
 
   const pageNumber = [];
   if (pageInfo) {
@@ -48,26 +76,78 @@ function Transfer() {
   }
 
   useEffect(() => {
-    if (searchCategory && search) {
-      dispatch(
-        callSearchEmployeesAPI({
-          currentPage: currentPage,
-          searchCategory: searchCategory,
-          search: search,
-        })
-      );
+    dispatch(
+      callGetEmployeesAPI({
+        currentPage: currentPage,
+      })
+    );
+  }, [currentPage, dispatch]);
+
+  useEffect(() => {
+    if (
+      searchResult &&
+      Array.isArray(searchResult) &&
+      searchResult.length > 0
+    ) {
+      setDisplayedEmployees(searchResult);
     } else {
-      dispatch(
-        callGetEmployeesAPI({
-          currentPage: currentPage,
-        })
-      );
+      setDisplayedEmployees(employeeList);
     }
-  }, [currentPage, search, searchCategory, dispatch]);
+  }, [searchResult, employeeList]);
+
+  // useEffect(() => {
+  //   if (searchResult && searchResult.data && searchResult.data.length > 0) {
+  //     setDisplayedEmployees(searchResult.data);
+  //   } else {
+  //     setDisplayedEmployees(employeeList);
+  //   }
+  // }, [searchResult, employeeList]);
 
   const onClickTableRow = (empNo) => {
-    // navigate(`employees/${empNo}`, { replace: false });
-    setShowModal(true);
+    // const selectedEmployee = employeeList.find(
+    //   (employee) => employee.empNo === empNo
+    // );
+
+    // Search for the employee in the searchResult array
+    // let selectedEmployee = searchResult.find(
+    //   (employee) => employee.empNo === empNo
+    // );
+
+    // Search for the employee in the searchResult array
+    // let selectedEmployee = searchResult.find(
+    //   (employee) => employee.empNo === empNo
+    // );
+
+    // If the employee is not found in the searchResult, search in the employeeList
+    // if (!selectedEmployee) {
+    //   selectedEmployee = employeeList.find(
+    //     (employee) => employee.empNo === empNo
+    //   );
+    // }
+
+    // If the employee is still not found, search in the employees.data
+    // if (!selectedEmployee) {
+    //   selectedEmployee = employees.data.find(
+    //     (employee) => employee.empNo === empNo
+    //   );
+    // }
+
+    const selectedEmployee = displayedEmployees.find(
+      (employee) => employee.empNo === empNo
+    );
+
+    setEmployeeData((prevState) => ({
+      ...prevState,
+      oldBranch: selectedEmployee.branchName,
+      oldDept: selectedEmployee.deptName,
+    }));
+
+    setSelectedEmpNo(empNo);
+    setForm({
+      ...form,
+      empNo: empNo,
+    });
+    setShowModal(true); // 모달창으로 처리
   };
 
   const onSearchChangeHandler = (e) => {
@@ -80,50 +160,72 @@ function Transfer() {
 
   const onSearchButtonClick = () => {
     setCurrentPage(1);
-    dispatch(
-      callSearchEmployeesAPI({
-        currentPage: 1,
-        searchCategory: searchCategory,
-        search: search,
-      })
-    );
+    if (searchCategory && search) {
+      dispatch(
+        callSearchEmployeesAPI({
+          currentPage: 1,
+          searchCategory: searchCategory,
+          search: search,
+        })
+      );
+    } else {
+      dispatch(
+        callGetEmployeesAPI({
+          currentPage: 1,
+        })
+      );
+    }
+  };
+
+  const onKeyPressHandler = (e) => {
+    if (e.key === "Enter") {
+      onSearchButtonClick();
+    }
   };
 
   const renderEmployees = () => {
-    if (
-      searchResult &&
-      Array.isArray(searchResult) &&
-      searchResult.length > 0
-    ) {
-      return searchResult.map((employee) => (
-        <tr
-          key={employee.empNo}
-          className={TransferCSS.tableBody}
-          onClick={() => onClickTableRow(employee.empNo)}
-        >
-          <td>{employee.empName}</td>
-          <td>{employee.branchName}</td>
-          <td>{employee.deptName}</td>
-          <td>{employee.jobName}</td>
-        </tr>
-      ));
-    } else {
-      return employeeList && employeeList.length > 0 ? (
-        employeeList.map((employee) => (
+    // const employeeDataToRender =
+    //   searchResult && Array.isArray(searchResult) && searchResult.length > 0
+    //     ? searchResult
+    //     : employeeList;
+
+    // if (employeeDataToRender && employeeDataToRender.length > 0) {
+    //   return employeeDataToRender.map((employee) => {
+    //     const selected = selectedEmpNo === employee.empNo;
+    //     return (
+
+    if (displayedEmployees && displayedEmployees.length > 0) {
+      return displayedEmployees.map((employee) => {
+        const selected = selectedEmpNo === employee.empNo;
+        return (
           <tr
             key={employee.empNo}
             className={TransferCSS.tableBody}
             onClick={() => onClickTableRow(employee.empNo)}
           >
             <td>{employee.empName}</td>
-            <td>{employee.branchName}</td>
-            <td></td>
-            <td>{employee.deptName}</td>
-            <td></td>
+            <td>{selected ? employeeData.oldBranch : employee.branchName}</td>
+            <td>
+              {selected && selectedBranch
+                ? employeeData.branches.find(
+                    (branch) => branch.code === selectedBranch
+                  ).name
+                : ""}
+            </td>
+            <td>{selected ? employeeData.oldDept : employee.deptName}</td>
+            <td>
+              {selected && selectedDept
+                ? employeeData.departments.find(
+                    (dept) => dept.code === selectedDept
+                  ).name
+                : ""}
+            </td>
             <td>{employee.jobName}</td>
           </tr>
-        ))
-      ) : (
+        );
+      });
+    } else {
+      return (
         <tr>
           <td colSpan="4">데이터가 없습니다.</td>
         </tr>
@@ -133,8 +235,52 @@ function Transfer() {
 
   const onModalSubmitHandler = (e) => {
     e.preventDefault();
-    // TODO: 서버로 전송하여 지점 및 부서 이동 정보 수정
+
+    if (selectedBranch || selectedDept) {
+      const updatedForm = {
+        ...form,
+        ...(selectedBranch ? { branchCode: selectedBranch } : {}),
+        ...(selectedDept ? { deptCode: selectedDept } : {}),
+      };
+
+      if (selectedBranch) {
+        dispatch(callTransferBranchesAPI({ form: updatedForm })).then(() => {
+          dispatch(
+            callGetEmployeesAPI({
+              currentPage: currentPage,
+            })
+          );
+        });
+      }
+
+      if (selectedDept) {
+        dispatch(callTransferDepartmentsAPI({ form: updatedForm })).then(() => {
+          dispatch(
+            callGetEmployeesAPI({
+              currentPage: currentPage,
+            })
+          );
+        });
+      }
+    }
+
     setShowModal(false);
+  };
+
+  const onBranchSelectHandler = (e) => {
+    setSelectedBranch(e.target.value);
+    setForm({
+      ...form,
+      branchCode: e.target.value,
+    });
+  };
+
+  const onDeptSelectHandler = (e) => {
+    setSelectedDept(e.target.value);
+    setForm({
+      ...form,
+      deptCode: e.target.value,
+    });
   };
 
   return (
@@ -149,7 +295,7 @@ function Transfer() {
             value={searchCategory}
             onChange={onSelectChangeHandler}
           >
-            <option value="">전체</option>
+            <option value="null">전체</option>
             <option value="empName">이름</option>
             <option value="deptName">부서</option>
             <option value="branchName">지점</option>
@@ -161,11 +307,12 @@ function Transfer() {
           placeholder="검색할 단어를 입력해주세요"
           value={search}
           onChange={onSearchChangeHandler}
-          onClick={onSearchButtonClick}
+          onKeyDown={onKeyPressHandler}
         />
         <button
           className={TransferCSS.searchButton}
-          onClick={() => setCurrentPage(1)}
+          // onClick={() => setCurrentPage(1)}
+          onClick={onSearchButtonClick}
         >
           검색하기
         </button>
@@ -252,11 +399,37 @@ function Transfer() {
                 <div className={TransferCSS.modalForm}>
                   <div className={TransferCSS.modalFormGroup}>
                     <label htmlFor="branchName">지점명</label>
-                    <input type="text" id="branchName" name="branchName" />
+                    <select
+                      id="branchName"
+                      name="branchName"
+                      value={selectedBranch}
+                      onChange={onBranchSelectHandler}
+                    >
+                      <option value="">지점선택</option>
+                      <option value="1">SEMOF 본사</option>
+                      <option value="2">SEMOF 구로점</option>
+                      <option value="3">SEMOF 도봉점</option>
+                      <option value="4">SEMOF 여의도점</option>
+                      <option value="5">SEMOF 동대문점</option>
+                      <option value="6">SEMOF 상암점</option>
+                    </select>
                   </div>
                   <div className={TransferCSS.modalFormGroup}>
                     <label htmlFor="deptName">부서명</label>
-                    <input type="text" id="deptName" name="deptName" />
+                    <select
+                      id="deptName"
+                      name="deptName"
+                      value={selectedDept}
+                      onChange={onDeptSelectHandler}
+                    >
+                      <option value="NO">없음</option>
+                      <option value="PL">기획</option>
+                      <option value="HR">인사관리</option>
+                      <option value="AC">회계</option>
+                      <option value="SL">영업</option>
+                      <option value="MT">마케팅</option>
+                      <option value="BS">경영지원</option>
+                    </select>
                   </div>
                 </div>
                 <button type="submit" className={TransferCSS.submitButton}>
