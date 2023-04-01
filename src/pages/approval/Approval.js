@@ -70,7 +70,7 @@ function Approval(){
             </button>
             </div>
             <div>
-            <button className={ApprovalCSS.line} onClick={()=>{navigate(`/semof/line`)}}>
+            <button className={ApprovalCSS.line} onClick={()=>{navigate(`/semof/lines`)}}>
             <img
                 src={"/images/결재라인.png"}
                 alt="이미지확인!"

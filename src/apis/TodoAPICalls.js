@@ -2,6 +2,7 @@ import {
   GET_TODAYTODOLIST,
   GET_INTENDEDTODOLIST,
   GET_CATEGORYLIST,
+  GET_SEARCHTODO,
   GET_TODO,
   POST_CATEGORY,
   PUT_CATEGORY,
@@ -54,6 +55,49 @@ export const callIntendedTodoListAPI = (empNo) => {
   };
 };
 
+export const callTodoDetailAPI = (todoNo) => {
+  console.log("GET_TODO call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/todos/todo/${todoNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+    if (result.status === 200) {
+      console.log("GET_TODO result : ", result);
+      dispatch({ type: GET_TODO, payload: result.data });
+    }
+  };
+};
+
+export const callSearchTodoAPI = (searchWord, empNo) => {
+  console.log("GET_SEARCHTODO call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/todos/todo/search?s=${searchWord}&e=${empNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+        "Access-Control-Allow-Origin": "*",
+      },
+    }).then((response) => response.json());
+    if (result.status === 200) {
+      console.log("GET_SEARCHTODO result : ", result);
+      dispatch({ type: GET_SEARCHTODO, payload: result.data });
+    }
+  };
+};
+
 export const callCategoryListAPI = (empNo) => {
   console.log("GET_CATEGORYLIST call");
 
@@ -72,6 +116,30 @@ export const callCategoryListAPI = (empNo) => {
       console.log("GET_CATEGORYLIST result : ", result);
       dispatch({ type: GET_CATEGORYLIST, payload: result.data });
     }
+  };
+};
+
+export const callProductRegistAPI = ({ form }) => {
+  console.log("POST_TODO call");
+  console.log("form", form);
+
+  // console.log(form.get("musicalRuntime"));
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/todos/todo`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "POST",
+      headers: {
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: form,
+    }).then((response) => response.json());
+
+    console.log("POST_TODO result : ", result);
+
+    dispatch({ type: POST_TODO, payload: result });
   };
 };
 

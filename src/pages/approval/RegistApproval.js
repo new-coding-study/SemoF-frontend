@@ -4,10 +4,13 @@ import { callGetFormTitleAPI, callApprovRegistAPI } from "../../apis/ApprovalAPI
 import { useNavigate, useParams } from 'react-router-dom';
 
 function RegistApproval() {
-    const params = useNavigate();
+    const nav = useNavigate();
     const dispatch = useDispatch();
     const formInfo = useSelector(state => state.approvalReducer.form);
+    // const form = formInfo.data;
     const [files, setFiles] = useState([]);
+    const [isSelect, setIsSelect] = useState(false);
+    const [selectForm, setSelectForm] = useState('');
     const [filePath, setFilePath] = useState();
     const fileInput = useRef();
     const [approval, setApproval] = useState({
@@ -17,13 +20,15 @@ function RegistApproval() {
         , approvContentDTOList : [
             { content : ''}
         ]
-
+        // 이게 content값들로 인식이 될까?
     })
+    console.log(formInfo);
+    // console.log(form.formTitle);
     useEffect(
         () => {
-            dispatch(callGetFormTitleAPI({	
-                formCode: params.formCode
-            }));  
+            dispatch(callGetFormTitleAPI());  
+            
+
 
         } // eslint-disable-next-line
         ,[]
@@ -43,9 +48,15 @@ function RegistApproval() {
     // },
     // [files]);
 
+// selectbox에서 onchange들어오면 폼 뜨게 이거를 잘 저장
 
     const selectHandler = (e)=>{
 // select에서 받은 값을 저장해서 일치여부를 확인하고 form을 띄워야하나?
+        setIsSelect(true);
+        setSelectForm(e.target.value);
+        console.log(isSelect);
+        console.log(e.target.value);
+        
     }
     const onChangeFileUpload= (e) =>{
         setFiles(e.target.files);
@@ -62,9 +73,12 @@ function RegistApproval() {
 
     const onClickApprovRegistrationHandler = () => {
 
-        console.log('[ProductRegistration] onClickProductRegistrationHandler');
+        console.log('[RegistApproval] onClickApprovRegistrationHandler');
 
         const formData = new FormData();
+        // const formData = new FormData();
+        // formData.append('file', form.file);
+        // formData.append('data', JSON.stringify(form.data));
 
         formData.append("approvTitle", approval.approvTitle);
         formData.append("content", approval.content);
@@ -83,11 +97,15 @@ function RegistApproval() {
         // console.log('[ProductRegistration] formData : ', formData.get("productStock"));
         // console.log('[ProductRegistration] formData : ', formData.get("productDescription"));
         // console.log('[ProductRegistration] formData : ', formData.get("productImageUrl"));
+        // const files = document.querySelector('input[type="file"]').files;
 
+        // for(let i=0; i<files.length; i++) {
+        //     formData.append('files[]', files[i]);
+        // }
         dispatch(callApprovRegistAPI({	// 상품 상세 정보 조회
             approval: formData
         }));        
-        
+    }
         
         // alert('상품 리스트로 이동합니다.');
         // navigate('/product-management', { replace: true });
@@ -98,7 +116,7 @@ function RegistApproval() {
     return(
         <>
             <div 
-            // className={title}
+
             >
                 결재 상신
             </div>
@@ -106,8 +124,18 @@ function RegistApproval() {
             // className={category}
             >
                 <p>카테고리</p>
+                {/* <select name="formType" onChange={selectHandler}>
+                <option value="none" disabled>작성유형선택</option>
+                {formInfo.map(form => (
+                <option key={form.formCode} value={form.formCode} name="formCode">{form.formTitle}</option>
+                ))}
+                </select> */}
                 <select onChange={selectHandler}>
+                    {/* 여기서 선택한 옵션 값이 map에서 적용되야하는데 어떻게? */}
                     <option value="none" disabled>작성유형선택</option>
+                    {/* {
+                        지히는 이거 반복을 돌리라 했다. 그러면 api또 만들어야함
+                    } */}
                     <option value="A" name="formCode">지출결의서</option>
                     <option value="B" name="formCode">지출계획서</option>
                     <option value="C" name="formCode">경조금지급신청서</option>
@@ -135,33 +163,26 @@ function RegistApproval() {
                 <div 
                 // className={application}
                 >
-                {formInfo.approvContentDTOList.map(dto => (
-                <div key={dto.contentNo}>
-                <span>{dto.formTitle}</span>:
-                <span>{dto.content}</span>
-                </div>
-                ))}
-            </div>
-                <div 
-                // className={contentTitle}
-                >
-                    {formInfo.formTitle.map(t =>(
-                        <div key={t.formCode}>
-                        <span>{t.formTitle}</span>:
-                        <input name='content' onChange={onChangeHandler}
-                                        // className={  }
-                                            />
-                    </div>
-                    ))
-
-                    }
-
-                </div>
-                {/* { filePath && <img 
-                            // className={ ProductRegistrationCSS.productImage } 
-                            src={ filePath } 
-                            alt="preview"
-                        />} */}
+             
+            </div> 
+            {isSelect && (
+  <div>
+    {formInfo
+      .filter((t) => t.formCode === selectForm)
+      .map((t) => (
+        <div key={t.formCode}>
+          <span>{t.formTitle}</span>:
+          <input
+            name="content"
+            onChange={onChangeHandler}
+            // className={  }
+          />
+        </div>
+      ))}
+  </div>
+)}
+                        {/* 중복문제.... 파일처리 문제 fetch로 했더니 boundary 뭐가 안되있고 axios로는 또 에러 */}
+                  
                 <input                
                             // style={ { display: 'none' }}
                             type="file"
@@ -184,7 +205,7 @@ function RegistApproval() {
             // className={btnSend} 
             onClick={onClickApprovRegistrationHandler}>결재상신</button>
         </>
-    )
-}
+        )
+    
 }
 export default RegistApproval;
