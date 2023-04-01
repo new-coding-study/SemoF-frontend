@@ -1,0 +1,126 @@
+.title{
+    height: 60px;
+    border-radius: 8px;
+    background-color: #E52E2E;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 40px;
+    line-height: 57px;
+    border: none;
+}
+
+table{
+    width: 80%;
+    border-collapse: collapse;
+    margin-left: 10%;
+    margin-right: auto;
+    background-color: white;
+    text-align: center;
+}
+th{
+    border-bottom: 1px solid gray; 
+    height: 40px;
+}
+
+td{
+    height: 30px;
+    padding-top: 10px;
+    font-size: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+.tableheader{
+    background-color : #ff7f00;
+    color: white;
+}
+
+tbody>tr:hover{
+    background-color:gray;
+    color:white;
+    font-weight: bold;
+}
+
+tfoot>tr:hover{
+    background-color:gray;
+    color:white;
+    font-weight: bold;
+}
+.btnstyle1{
+    border: none;
+    background: #E52E2E;
+    border-radius: 8px;
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    float: right;
+    margin-right: 10%;
+    margin-top: 0.5%;
+}
+.btnstyle2{
+    border: none;
+    background: #E52E2E;
+    border-radius: 8px;
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    float: right;
+    margin-right: 1%;
+    margin-top: 0.5%;
+}
+.btnstyle1:hover{
+    background-color: gray;
+    text-shadow: 1px 1px 1px white;
+}
+.btnstyle2:hover{
+    background-color: gray;
+    text-shadow: 1px 1px 1px white;
+}
+.pagingbtn{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    margin-left: 15%;
+}
+li>button{
+    background-color : rgba(237, 237, 240, 1); 
+    font-size: 20px;
+    border: none; 
+    color: yellowGreen;
+}
+
+li>button:hover{
+    color:red;
+}
+
+.btnPosition{
+    position: relative;
+    top:43px;
+    margin-left: 10%;
+}
+.btnPosition>button{
+    height: 35px;
+    width: 150px;
+    color: white;
+    font-weight: bold;
+    /* border-bottom: none; */
+    background-color: #ff7f00;
+    border: 1px solid white;
+    
+}
+.btnPosition>button:hover{
+    background-color: gray;
+    text-shadow: 1px 1px 1px white;
+}
+img{
+    height: 20px;
+}
+.my-title-class{
+    text-align: left;
+}
