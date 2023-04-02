@@ -205,12 +205,12 @@ function Register() {
                   alt="preview"
                 />
 
-                <button
+                {/* <button
                   className={RegisterCSS.fileButton}
                   onClick={onClickImageUpload}
                 >
                   사진등록
-                </button>
+                </button> */}
               </>
             )}
           </div>

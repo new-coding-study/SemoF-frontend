@@ -264,7 +264,7 @@ th:not(:last-child) {
 }
 
 .buttonWrapper button:hover {
-    background-color: #e52e2e;
-    color: #fff;
+    background-color: #fff;
+    color: #e52e2e;
     border: 1px solid #e52e2e;
 }
