@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-function Approve({approve : {approvNo, formTitle, approvTitle, appstatus, approvDate}}){
+function ApproveOut({approve : {approvNo, formTitle, approvTitle, empName, approvDate}}){
 // formTitle 과 appstatus 받아올 수 있을 까????
     const navigate = useNavigate();
     const onClickHandler = (approvNo) =>{
@@ -12,11 +12,11 @@ function Approve({approve : {approvNo, formTitle, approvTitle, appstatus, approv
             <div onClick={onClickHandler(approvNo)}>
                 <h3>{formTitle}</h3>
                 <h3>{approvTitle}</h3>
-                <h3>{appstatus}</h3>
+                <h3>{empName}</h3>
                 <h3>{approvDate}</h3> 
             </div>  
         </>
     );
 
 }
-export default Approve;
+export default ApproveOut;
