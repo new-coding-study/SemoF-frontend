@@ -12,8 +12,8 @@ const rootReducer = combineReducers({
   boardReducer,
   todoReducer,
   approvalReducer,
-  replyReducer
-  empReducer,
+  replyReducer,
+  empReducer
 });
 
 export default rootReducer;
