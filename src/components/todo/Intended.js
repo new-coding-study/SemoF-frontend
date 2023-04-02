@@ -8,10 +8,10 @@ import {
   callTodoDetailAPI,
 } from "../../apis/TodoAPICalls";
 
-function Intended(intendedList) {
+function Intended({ todo, setIntededStar }) {
   // console.log(intendedList);
-  const intended = intendedList.todo;
-  const intededStar = intendedList.setIntededStar;
+  // const intended = intendedList.todo;
+  // const intededStar = intendedList.setIntededStar;
   // const star = intendedList.star;
   const dispatch = useDispatch();
   // console.log("todo", intended);
@@ -56,7 +56,7 @@ function Intended(intendedList) {
     // console.log("todo.todoStar : ", todo[0].todoStar);
 
     dispatch(callUpdateStarAPI(todoNo));
-    intededStar(true);
+    setIntededStar(true);
 
     // window.location.reload();
 
@@ -94,28 +94,28 @@ function Intended(intendedList) {
         <div
           className={IntendedCSS.colorBar}
           style={{
-            backgroundColor: intended.cateColor,
-            border: intended.cateColor,
+            backgroundColor: todo.cateColor,
+            border: todo.cateColor,
           }}
         ></div>
         <div className={IntendedCSS.contentWrapper}>
           <div className={IntendedCSS.todo}>
             <input
               type="checkbox"
-              style={{ accentColor: intended.cateColor }}
+              style={{ accentColor: todo.cateColor }}
               // value={search}
               // onKeyUp={onEnterkeyHandler}
-              id={intended.todoNo}
+              id={todo.todoNo}
               // onChange={onChangeHandler}
             />
             <label>
-              <div onClick={() => onClickTodoDetailHandler(intended)}>
-                {intended.todoName}
+              <div onClick={() => onClickTodoDetailHandler(todo)}>
+                {todo.todoName}
               </div>
             </label>
-            {intended.todoStar === 0 ? (
+            {todo.todoStar === 0 ? (
               <img
-                id={intended.todoNo}
+                id={todo.todoNo}
                 src={"/images/star_gray.png"}
                 alt="이미지확인!"
                 // onClick={intendedList.changeStar}
@@ -123,7 +123,7 @@ function Intended(intendedList) {
               ></img>
             ) : (
               <img
-                id={intended.todoNo}
+                id={todo.todoNo}
                 src={"/images/star_fill.png"}
                 alt="이미지확인!"
                 // onClick={intendedList.changeStar}
@@ -132,7 +132,7 @@ function Intended(intendedList) {
             )}
           </div>
           <div className={IntendedCSS.date}>
-            {intended.todoDate} {intended.todoTime.substr(0, 5)}
+            {todo.todoDate} {todo.todoTime.substr(0, 5)}
           </div>
         </div>
       </div>

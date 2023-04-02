@@ -39,6 +39,7 @@ function Todo() {
     todoStar: "",
   });
   const [addTodo, setAddTodo] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState({});
 
   const onSearchChangeHandler = (e) => {
     setSearch({
@@ -60,10 +61,11 @@ function Todo() {
       ...newTodo,
       todoName: e.target.value,
     });
-    console.log(newTodo);
   };
 
   const onChooseCate = (e) => {
+    console.log(e.target);
+    setSelectedCategory(e.target.cateName);
     setNewTodo({
       ...newTodo,
       cateNo: e.target.value,
@@ -176,6 +178,9 @@ function Todo() {
   // };
 
   const SelectBox = (props) => {
+    useEffect(() => {
+      setSelectedCategory(props.categorys[0]);
+    }, []);
     return (
       <ul className={TodoCSS.selectCateList}>
         {props.categorys.map((category) => (
@@ -229,7 +234,14 @@ function Todo() {
         <div className={TodoCSS.content}>
           <div className={TodoCSS.addWrapper}>
             <div className={TodoCSS.addInputWrapper}>
-              <div>{visibleCate && <SelectBox categorys={categoryList} />}</div>
+              <div>
+                {visibleCate && (
+                  <SelectBox
+                    categorys={categoryList}
+                    setSelectedCategory={setSelectedCategory}
+                  />
+                )}
+              </div>
               <span
                 onClick={() => {
                   setVisibleCate(!visibleCate);
