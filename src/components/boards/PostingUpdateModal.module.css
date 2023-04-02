@@ -32,3 +32,37 @@
     line-height: 57px;
     border: none;
 }
+.displayBox{
+    height:500px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 600px;
+    height: 540px;
+}
+form{
+    text-align: left;
+    margin-left: 30px;
+}
+form>label{
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.modalbtn{
+    text-align: center;
+}
+.modalbtn>button{
+    background-color: #E52E2E;
+    border: none;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+.modalbtn>button:hover{
+    background-color:gray;
+    text-shadow: 1px 1px 1px white;
+}

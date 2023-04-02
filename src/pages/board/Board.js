@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Posting from "../../components/common/boards/Posting";
-import Notice from "../../components/common/boards/Notice";
+import Posting from "../../components/boards/Posting";
+import Notice from "../../components/boards/Notice";
 import boardcss from "./Board.module.css"
 function Board(){
 
