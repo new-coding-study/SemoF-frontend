@@ -79,23 +79,21 @@
     padding: 20px;
     border-radius: 5px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: center;
 }
 
 .transferTable {
     width: 90%;
-    margin-bottom: 1rem;
+    margin: 2% auto;
     color: rgba(0, 0, 0, 0.87);
     border-collapse: collapse;
     border-spacing: 0;
+    text-align: center;
 }
 
 .transferTable th {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    font-weight: 500;
-    text-align: start;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 1% 0%;
 }
 
 .transferTable td {
@@ -120,12 +118,6 @@
 
 .transferTable .tableBody td:first-child {
     padding-left: 0.75rem;
-}
-
-.noData {
-    text-align: center;
-    font-size: 16px;
-    padding: 20px;
 }
 
 /*페이지 버튼 CSS*/
@@ -199,7 +191,7 @@
     outline: none;
 }
 
-.pagingBtnSelected {
+.pagingBtn.selected {
     background-color: #e52e2e;
     color: white;
     border: 2px solid #e52e2e;
@@ -271,14 +263,14 @@
     margin-bottom: 10px;
 }
 
-.modalFormGroup .label {
+.modalFormGroup label {
     font-size: 14px;
     font-weight: bold;
     color: #555;
     margin-bottom: 5px;
 }
 
-.modalFormGroup .select {
+.modalFormGroup select {
     height: 30px;
     padding: 5px;
     border: 1px solid #ccc;
@@ -288,7 +280,7 @@
     font-size: 14px;
 }
 
-.select:focus {
+.modalFormGroup select:focus {
     outline: none;
     border: 1px solid #e52e2e;
 }

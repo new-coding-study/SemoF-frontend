@@ -58,12 +58,11 @@
     margin: 0 auto;
 }
 
-.weekday-row {
+.calendarTable tr {
     background-color: transparent;
 }
 
-.weekend,
-.weekday {
+.calendarTable th {
     border-bottom: none;
 }
 
@@ -79,13 +78,13 @@
     color: red;
 }
 
-.day-cell {
+.calendarTable td {
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
 
-.day-cell:hover {
+.calendarTable td:hover {
     background-color: #eee;
 }
 
