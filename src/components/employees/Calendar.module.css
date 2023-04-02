@@ -1,0 +1,117 @@
+.calendar {
+    font-family: 'Helvetica Neue', sans-serif;
+    text-align: center;
+    padding: 10px;
+}
+
+.month-year {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.prev-month,
+.next-month {
+    background-color: transparent;
+    font-size: 20px;
+    cursor: pointer;
+    color: #5c5c5c;
+    margin: 0 10px;
+    transition: color 0.2s ease-in-out;
+}
+
+.prev-month:focus-visible,
+.next-month:focus-visible {
+    box-shadow: 0px 0px 0px 3px #fff;
+}
+
+.prev-month:hover,
+.next-month:hover {
+    color: #000;
+}
+
+.prev-month:before,
+.next-month:before {
+    display: inline-block;
+    border: solid #5c5c5c;
+    border-width: 0 3px 3px 0;
+    padding: 3px;
+    transform: rotate(-45deg);
+}
+
+.next-month:before {
+    transform: rotate(135deg);
+}
+
+.calendar button {
+    border: none;
+    background-color: white;
+    font-weight: bolder;
+}
+
+.calendarTable {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.calendarTable tr {
+    background-color: transparent;
+}
+
+.calendarTable th {
+    border-bottom: none;
+}
+
+.weekday {
+    padding: 10px;
+    font-weight: bold;
+
+}
+
+.weekend {
+    padding: 10px;
+    font-weight: bold;
+    color: red;
+}
+
+.calendarTable td {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.calendarTable td:hover {
+    background-color: #eee;
+}
+
+.current-day {
+    background-color: #ff6f6f;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.current-day:hover {
+    box-shadow: 0px 0px 0px 3px #ff4c4c;
+}
+
+.prev-month {
+    margin-right: auto;
+}
+
+.next-month {
+    margin-left: auto;
+}
+
+.holiday {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.sunday {
+    color: #ff0000;
+}

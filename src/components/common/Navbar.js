@@ -105,14 +105,14 @@ function Navbar() {
             </li>
           </NavLink>
 
-          <NavLink to="/semof/hr">
+          <NavLink to="/semof/employees">
             <li>
               <img
                 src={"/images/emp_evaluation.png"}
                 alt="이미지확인!"
                 className={NavbarCSS.logo}
               ></img>
-              <div> 인사관리 </div>
+              <div> 인사 </div>
             </li>
           </NavLink>
         </ul>

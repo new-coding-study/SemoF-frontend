@@ -1,0 +1,270 @@
+.header {
+    height: 60px;
+    background-color: #e52e2e;
+    padding-left: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    flex: 0 1 auto;
+    position: sticky;
+    margin-bottom: 2%;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    width: 25em;
+}
+
+.container {
+    margin-top: 1%;
+    width: 98%;
+    margin: 0 auto;
+    /* 가운데 정렬 */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.basicInfo {
+    margin-left: 1%;
+    font-size: 30px;
+    font-weight: bolder;
+    width: 15%;
+    margin-bottom: 1%;
+}
+
+.underLine {
+    border-bottom: 4px solid black;
+    /* 밑줄 굵기 */
+    text-decoration: none;
+    /* 기본 밑줄 제거 */
+}
+
+.photoBox {
+    width: 15em;
+    height: 19em;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+    flex: 0 0 auto;
+    margin-right: 2em;
+    position: relative;
+    background-size: cover;
+    background-position: center center;
+}
+
+.photoBox label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background-color: #e52e2e;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid #e52e2e;
+    font-size: medium;
+    width: 5em;
+    height: 2em;
+    transition: all 0.3s ease-in-out;
+}
+
+.photoBox label:hover {
+    background-color: white;
+    color: #e52e2e;
+    border: 1px solid #e52e2e;
+}
+
+.fileInput {
+    position: absolute;
+    left: 50%;
+    top: 115%;
+    transform: translate(-50%, -50%);
+}
+
+.fileButton {
+    position: absolute;
+    left: 50%;
+    top: 115%;
+    transform: translate(-50%, -50%);
+    background-color: #e52e2e;
+    border: 2px solid #e52e2e;
+    border-radius: 8px;
+    font-size: medium;
+    color: white;
+    cursor: pointer;
+    width: 5em;
+    height: 2em;
+    transition: all 0.3s ease-in-out;
+}
+
+.fileButton:hover {
+    background-color: #e52e2e;
+    color: white;
+    border: 1px solid #e52e2e;
+}
+
+.photoBox img {
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+}
+
+.photoPreview {
+    margin: 5px 0;
+    width: 80%;
+    height: 90%;
+    object-fit: contain;
+}
+
+.photoBox label span {
+    display: none;
+}
+
+.tableWrapper {
+    flex: 2;
+    overflow: scroll;
+    height: 450px;
+}
+
+.tableWrapper {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #D3D3D3;
+}
+
+.registerTable {
+    margin: 0;
+    border-collapse: collapse;
+    /* border-collapse: separate; */
+    width: 100%;
+    height: 100%;
+    /* table 너비를 100%로 설정 */
+}
+
+.registerTable td,
+.registerTable th {
+    border: none;
+    border-bottom: 1px solid #D3D3D3;
+    /* 테이블 내부의 선만 남기고, 외곽선을 제거 */
+    padding: 8px;
+}
+
+.registerTable td {
+    height: 40px;
+}
+
+.tableBody {
+    text-align: center;
+}
+
+.registerTable input {
+    border: none;
+    outline: none;
+}
+
+.registerTable td {
+    text-align: left;
+}
+
+.registerTable tr:last-child td,
+.registerTable tr:last-child th {
+    border-bottom: none;
+    /* 마지막 행의 하단 선을 제거 */
+}
+
+.registerTable td:not(:last-child),
+th:not(:last-child) {
+    border-right: 1px solid #d3d3d309;
+}
+
+.registerTable tbody tr:not(:last-child) td {
+    border-bottom: 1px solid #D3D3D3;
+}
+
+.tableCell {
+    background-color: #FCFCFC;
+    font-weight: bolder;
+}
+
+.indent {
+    text-indent: 0.5em;
+}
+
+.registerTable td .input:focus {
+    caret-color: #e52e2e;
+}
+
+.registerTable td .input::placeholder {
+    color: rgba(204, 204, 204, 0.8);
+    font-style: italic;
+}
+
+.registerTable td .select {
+    background-color: #fff;
+    /* border: 2px solid #ccc; */
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    color: #555;
+    font-size: 16px;
+    padding: 10px;
+    width: 200px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+}
+
+.registerTable td .select:focus {
+    border: 2px solid #ccc;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        border-color: #ccc;
+        box-shadow: 0 0 5px rgba(204, 204, 204, 0.8);
+    }
+
+    to {
+        border-color: #e52e2e;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+}
+
+.registerTable td .select option:checked {
+    background-color: #e52e2e;
+    /* 선택된 option의 배경색 */
+    color: white;
+    /* 선택된 option의 글자색 */
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.buttonWrapper button {
+    margin: 0 1rem;
+    padding: 1rem 2rem;
+    border: 1px solid #e52e2e;
+    border-radius: 8px;
+    background-color: #e52e2e;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+}
+
+.buttonWrapper button:hover {
+    background-color: #e52e2e;
+    color: #fff;
+    border: 1px solid #e52e2e;
+}
