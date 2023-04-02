@@ -247,9 +247,12 @@ function Register() {
               <tr>
                 <td className={RegisterCSS.tableCell}>입사년월일</td>
                 <td className={RegisterCSS.indent}> {today}</td>
-                <td className={RegisterCSS.tableCell}>퇴사년월일</td>
+                <td className={RegisterCSS.tableCell}>재직여부</td>
                 <td>
-                  <input type="text" />
+                  <select name="workStatus" className={RegisterCSS.select}>
+                    <option value="">재직</option>
+                    <option value="N">퇴사</option>
+                  </select>
                 </td>
               </tr>
               <tr>
@@ -272,6 +275,7 @@ function Register() {
                     className={RegisterCSS.select}
                     onChange={onChangeHandler}
                   >
+                    <option value="">부서선택</option>
                     <option value="NO">없음</option>
                     <option value="PL">기획</option>
                     <option value="HR">인사관리</option>
