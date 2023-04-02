@@ -12,8 +12,8 @@ import ApprovalList from "./pages/approval/Approval";
 import Board from "./pages/board/Board";
 
 import Hr from "./pages/hr/HRMain";
-import NoticeDetail from "./components/common/boards/NoticeDetail";
-import PostingDetail from "./components/common/boards/PostingDetail";
+import NoticeDetail from "./components/boards/NoticeDetail";
+import PostingDetail from "./components/boards/PostingDetail";
 
 
 function App() {

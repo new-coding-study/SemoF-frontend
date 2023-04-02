@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { callBoardNoticeDetail, callUpdateNoticeAPI } from "../../../apis/BoardAPICalls";
+import { callBoardNoticeDetail, callUpdateNoticeAPI } from "../../apis/BoardAPICalls";
 import Swal from "sweetalert2";
 import modalcss from "./UpdateModal.module.css";
+import noticedetailcss from "./NoticeDetail.module.css";
 
-function NoticeUpdate({boardNo, setIsUpdateNotice}){
+function NoticeUpdate({boardNo, setIsUpdateNotice, setNoticeModal}){
 
     const dispatch = useDispatch();
     const noticeDetail = useSelector(state => state.boardReducer.noticeDetail);
@@ -50,6 +51,7 @@ function NoticeUpdate({boardNo, setIsUpdateNotice}){
         Swal.fire({
             title:'변경된 내용을 저장하시겠습니까?',
             showCancelButton: true,
+            cancelButtonText: '취소',
             confirmButtonText: '저장하기'
         }).then((result) =>{
             if(result.isConfirmed){
@@ -59,8 +61,9 @@ function NoticeUpdate({boardNo, setIsUpdateNotice}){
                 }))
                 Swal.fire('저장하기', '게시판으로 돌아갑니다.', 'success')
                 .then(
-                    navigate(`/semof/board`, {replace: true}),
-                    window.location.reload()
+                    setIsUpdateNotice(false),
+                    setNoticeModal(false),
+                    navigate(`/semof/board`, {replace: true})
                 )
             }
 
@@ -72,8 +75,12 @@ function NoticeUpdate({boardNo, setIsUpdateNotice}){
         <div className={modalcss.modal}>
             <div className={modalcss.modalContainer}>
                 <div className={modalcss.title}>공지사항 수정</div>
+            <br/>
+            <div className={modalcss.displayBox}>
             {noticeDetail &&
             <form>
+                <br/>
+                <label for="boardTitle">제목 : </label>
                 <input
                     name="boardTitle"
                     placeholder={noticeDetail.boardTitle}
@@ -81,11 +88,20 @@ function NoticeUpdate({boardNo, setIsUpdateNotice}){
                     onChange={onChangeHandler}
                     required
                 />
-                    <label for="category">카테고리선택</label>
-                            <select name="boardCateCode" onChange={onChangeHandler} value={ form.boardCateCode} required>
-                                <option value="1">공지사항</option>
-                                <option value="2">게시글</option>
-                            </select>  
+                <br/>
+                <br/>
+                <br/>
+                <label for="category"> 게시글 유형 : </label>
+                    <select name="boardCateCode" onChange={onChangeHandler} value={ form.boardCateCode} required>
+                        <option disabled>게시글 유형을 선택하세요</option>
+                        <option value="1" selected>공지사항</option>
+                        <option value="2">게시글</option>
+                    </select>
+                <br/>
+                <br/>
+                <br/>  
+                <label for = "boardContent">내용 : </label>
+                <br/>
                 <textarea
                     name="boardContent"
                     placeholder={noticeDetail.boardContent}
@@ -95,8 +111,12 @@ function NoticeUpdate({boardNo, setIsUpdateNotice}){
                 ></textarea>
             </form>
             }
-            <button onClick={onClickUpdateNoticeHandler}>완료</button>
-            <button onClick={()=> setIsUpdateNotice(false)}>닫기</button>
+        </div>
+        <br/>
+        <div className={noticedetailcss.modalbtn}>
+        <button onClick={onClickUpdateNoticeHandler}>완료</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button onClick={()=> setIsUpdateNotice(false)}>닫기</button>
+        </div>
         </div>
         </div>
         </>
