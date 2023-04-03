@@ -20,11 +20,6 @@ function Transfer() {
   const employeeList = employees.data;
   const pageInfo = employees.pageInfo;
 
-  // console.log("[Transfer] searchResult", searchResult);
-  // console.log("[Transfer] employees", employees);
-  // console.log("[Transfer] employee list", employeeList);
-  // console.log("[Transfer] page info", pageInfo);
-
   const [currentPage, setCurrentPage] = useState(1);
 
   const [search, setSearch] = useState("");
@@ -83,7 +78,8 @@ function Transfer() {
         currentPage: currentPage,
       })
     );
-  }, [currentPage, dispatch]);
+    //eslint-disable-next-line
+  }, [currentPage]);
 
   useEffect(() => {
     if (
@@ -97,43 +93,7 @@ function Transfer() {
     }
   }, [searchResult, employeeList]);
 
-  // useEffect(() => {
-  //   if (searchResult && searchResult.data && searchResult.data.length > 0) {
-  //     setDisplayedEmployees(searchResult.data);
-  //   } else {
-  //     setDisplayedEmployees(employeeList);
-  //   }
-  // }, [searchResult, employeeList]);
-
   const onClickTableRow = (empNo) => {
-    // const selectedEmployee = employeeList.find(
-    //   (employee) => employee.empNo === empNo
-    // );
-
-    // Search for the employee in the searchResult array
-    // let selectedEmployee = searchResult.find(
-    //   (employee) => employee.empNo === empNo
-    // );
-
-    // Search for the employee in the searchResult array
-    // let selectedEmployee = searchResult.find(
-    //   (employee) => employee.empNo === empNo
-    // );
-
-    // If the employee is not found in the searchResult, search in the employeeList
-    // if (!selectedEmployee) {
-    //   selectedEmployee = employeeList.find(
-    //     (employee) => employee.empNo === empNo
-    //   );
-    // }
-
-    // If the employee is still not found, search in the employees.data
-    // if (!selectedEmployee) {
-    //   selectedEmployee = employees.data.find(
-    //     (employee) => employee.empNo === empNo
-    //   );
-    // }
-
     const selectedEmployee = displayedEmployees.find(
       (employee) => employee.empNo === empNo
     );
@@ -186,16 +146,6 @@ function Transfer() {
   };
 
   const renderEmployees = () => {
-    // const employeeDataToRender =
-    //   searchResult && Array.isArray(searchResult) && searchResult.length > 0
-    //     ? searchResult
-    //     : employeeList;
-
-    // if (employeeDataToRender && employeeDataToRender.length > 0) {
-    //   return employeeDataToRender.map((employee) => {
-    //     const selected = selectedEmpNo === employee.empNo;
-    //     return (
-
     if (displayedEmployees && displayedEmployees.length > 0) {
       return displayedEmployees.map((employee) => {
         const selected = selectedEmpNo === employee.empNo;
@@ -417,6 +367,7 @@ function Transfer() {
                       value={selectedDept}
                       onChange={onDeptSelectHandler}
                     >
+                      <option value="">부서선택</option>
                       <option value="NO">없음</option>
                       <option value="PL">기획</option>
                       <option value="HR">인사관리</option>

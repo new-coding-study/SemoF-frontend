@@ -44,3 +44,21 @@ hr{
     font-size: 30px;
     font-weight: bold;
 }
+
+.postingbtn{
+    text-align: center;
+}
+.postingbtn>button{
+    background-color: #E52E2E;
+    border: none;
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+.postingbtn>button:hover{
+    background-color:gray;
+    text-shadow: 1px 1px 1px white;
+}

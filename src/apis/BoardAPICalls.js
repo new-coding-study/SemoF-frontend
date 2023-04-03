@@ -143,10 +143,10 @@ export const callBoardNoticeListAPI=({currentPage})=>{
         }; 
     }    
 
-    export const callRegistNoticeAPI = ({noticeInfo}) => {
+    export const callRegistAPIForAdmin = ({boardInfo}) => {
         console.log('공시사항 API 시작');
 
-        const requestURL = `http://localhost:8090/boards/board-notice-lists`;
+        const requestURL = `http://localhost:8090/boards/board-all-lists`;
         
         return async (dispatch, getState) => {
             console.log('공지사항 등록 비동기시작');
@@ -156,7 +156,7 @@ export const callBoardNoticeListAPI=({currentPage})=>{
                     "Accept":"*/*",
                     "Authorization":"Bearer" + window.localStorage.getItem("accessToken")
                 },
-                body: noticeInfo
+                body: boardInfo
             })
             .then(response => response.json());
 
@@ -232,7 +232,7 @@ export const callBoardNoticeListAPI=({currentPage})=>{
 
     
     export const callUpdatePostingAPIForEmp = ({form, boardNo, empNo}) => {
-        const requestURL = `http://localhost:8090/boards/board-all-lists/${boardNo}/${empNo}`;
+        const requestURL = `http://localhost:8090/boards/board-posting-lists/${boardNo}/${empNo}`;
 
         return async (dispatch, getState) => {
             const result = await fetch(requestURL, {
@@ -259,7 +259,8 @@ export const callBoardNoticeListAPI=({currentPage})=>{
                 method: "DELETE",
                 headers:{
                     "Accept":"*/*",
-                    "Authorization" : "Bearer"+window.localStorage.getItem("accessToken")
+                    "Authorization" : "Bearer"+window.localStorage.getItem("accessToken"),
+                    "Access-Control-Allow-Origin" : "*"
                 }
             })
             .then(response => response.json());
