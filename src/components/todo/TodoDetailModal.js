@@ -1,46 +1,41 @@
 import TodoDetailModalCSS from "./TodoDetailModal.module.css";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-import { callTodoDetailAPI } from "../../apis/TodoAPICalls";
+import { callTodoDetailAPI, callDeleteTodoAPI } from "../../apis/TodoAPICalls";
 
-function TodoDetailModal({ todoNo, setTodoDetailModal }) {
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+function TodoDetailModal({ todoNo, setTodoDetailModal, setTodoUpdateModal }) {
+  const dispatch = useDispatch();
+  const todoDetail = useSelector((state) => state.todoReducer.todoDetail);
+  const navigate = useNavigate();
 
-  //   const [form, setForm] = useState({
-  //     productCode: productCode,
-  //     memberCode: memberCode,
-  //     reviewTitle: "",
-  //     reviewContent: "",
-  //   });
+  useEffect(() => {
+    dispatch(callTodoDetailAPI(todoNo));
+  }, []);
 
-  //   const onChangeHandler = (e) => {
-  //     setForm({
-  //       ...form,
-  //       [e.target.name]: e.target.value,
-  //     });
-  //   };
-
-  //   const onClickProductReviewHandler = () => {
-  //     console.log("[ProductReviewModal] onClickProductReviewHandler Start!!");
-
-  //     dispatch(
-  //       callReviewWriteAPI({
-  //         // 리뷰 작성
-  //         form: form,
-  //       })
-  //     );
-
-  //     setProductReviewModal(false);
-
-  //     alert("리뷰 등록이 완료되었습니다.");
-
-  //     navigate(`/review/${productCode}`, { replace: true });
-  //     window.location.reload();
-
-  //     console.log("[ProductReviewModal] onClickProductReviewHandler End!!");
-  //   };
+  const deleteTodo = (todoNo) => {
+    Swal.fire({
+      title: "공지사항을 삭제하시겠습니까?",
+      showCancelButton: true,
+      confirmButtonText: "취소",
+      confirmButtonText: "삭제",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(callDeleteTodoAPI(todoNo));
+        Swal.fire(
+          "공지사항이 삭제되었습니다.",
+          "게시판으로 돌아갑니다",
+          "success"
+        ).then(
+          navigate(`/semof/todo`, { replace: true }),
+          setTodoDetailModal(false),
+          window.location.reload()
+        );
+      }
+    });
+  };
 
   return (
     <div className={TodoDetailModalCSS.modal}>
@@ -57,7 +52,7 @@ function TodoDetailModal({ todoNo, setTodoDetailModal }) {
                 // onClick={onClickHandler}
               ></img>
             </div>
-            <div> x </div>
+            <div onClick={() => setTodoDetailModal(false)}> x </div>
           </div>
 
           <div className={TodoDetailModalCSS.todoTitle}>
@@ -139,20 +134,8 @@ function TodoDetailModal({ todoNo, setTodoDetailModal }) {
           </div>
 
           <div className={TodoDetailModalCSS.TodoButtonDiv}>
-            <button
-            //   onClick={onClickBackHandler}
-            // className={MusicalUpdateCSS.backButton}
-            >
-              수정
-            </button>
-
-            <button
-            //   onClick={() =>
-            //     onClickMusicalDeleteHandler(musicalOneDetail.musicalCode)
-            //   }
-            >
-              삭제
-            </button>
+            <button onClick={() => setTodoUpdateModal(true)}>수정</button>
+            <button onClick={() => deleteTodo(todoNo)}>삭제</button>
           </div>
         </div>
       </div>

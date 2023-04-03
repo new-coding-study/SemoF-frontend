@@ -1,23 +1,28 @@
 import TodayCSS from "./Today.module.css";
 import { useDispatch } from "react-redux";
-import { callUpdateStarAPI } from "../../apis/TodoAPICalls";
+import {
+  callUpdateStarAPI,
+  callUpdateFinishAPI,
+} from "../../apis/TodoAPICalls";
 
-function Today({ todo, setIntededStar }) {
+function Today({ todo, setCheckStarAndFinish }) {
   const dispatch = useDispatch();
-  // console.log("Today todoList 확인 : ", todoList);
 
-  // console.log("Today todo 확인 : ", todoList.todo);
-
-  // const today = todayList.todo;
-  // console.log("todo", today);
-  // console.log("todayList", todayList);
-
+  // 중요표시 업데이트 (별)
   const onClickChangeStarHandler = (e) => {
     const todoNo = parseInt(e.target.id);
-    console.log("todoNo 확인 : ", todoNo);
 
     dispatch(callUpdateStarAPI(todoNo));
-    setIntededStar(true);
+    setCheckStarAndFinish(true);
+  };
+
+  // 완료여부 업데이트 (체크박스)
+  const onChangeFinishHandler = (e) => {
+    const todoNo = parseInt(e.target.id);
+    // console.log("체크박스 Change 이벤트 발생");
+
+    dispatch(callUpdateFinishAPI(todoNo));
+    setCheckStarAndFinish(true);
   };
 
   return (
@@ -32,9 +37,9 @@ function Today({ todo, setIntededStar }) {
         <input
           type="checkbox"
           style={{ accentColor: todo.cateColor }}
-          // value={search}
-          // onKeyUp={onEnterkeyHandler}
-          // onChange={onSearchChangeHandler}
+          id={todo.todoNo}
+          onChange={onChangeFinishHandler}
+          checked={todo.todoFinish === 1}
         />
         <label>
           <div>{todo.todoName} </div>

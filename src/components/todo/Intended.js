@@ -6,90 +6,56 @@ import {
   callUpdateStarAPI,
   callIntendedTodoListAPI,
   callTodoDetailAPI,
+  callUpdateFinishAPI,
 } from "../../apis/TodoAPICalls";
 
-function Intended({ todo, setIntededStar }) {
-  // console.log(intendedList);
-  // const intended = intendedList.todo;
-  // const intededStar = intendedList.setIntededStar;
-  // const star = intendedList.star;
+function Intended({ todo, setCheckStarAndFinish }) {
   const dispatch = useDispatch();
-  // console.log("todo", intended);
-  // console.log("intendedList", intendedList);
 
   const [todoDetailModal, setTodoDetailModal] = useState(false);
+  const [todoUpdateModal, setTodoUpdateModal] = useState(false);
+  const [selectTodoNo, setSelectTodoNo] = useState("");
 
-  // console.log("intended", intended);
-
-  // useEffect(() => {
-  //   dispatch(callIntendedTodoListAPI(41));
-  // }, [star]);
-
-  // const onClickHandler = (e) => {
-  //   const todoNo = parseInt(e.target.id);
-  //   // console.log(todoNo);
-  //   // console.log(intended.todoStar);
-  //   if (intended.todoStar === 1) {
-  //     setStar(0);
-  //   } else setStar(1);
-  //   dispatch(callUpdateStarAPI(todoNo));
-  //   // const changeFinish =
-  //   //   intendedList &&
-  //   //   intendedList.map((one) => {
-  //   //     if (one.todoNo === parseInt(e.target.id)) {
-  //   //       one.todoFinish = e.target.checked;
-  //   //       console.log("종료여부 : ", one.todoFinish);
-  //   //       console.log("할일번호 : ", one.todoNo);
-  //   //     }
-  //   //     return one;
-  //   //   });
-  // };
-
-  const onClickHandler = (e) => {
+  // 중요표시 업데이트 (별)
+  const onClickChangeStarHandler = (e) => {
     const todoNo = parseInt(e.target.id);
-    console.log("todoNo 확인 : ", todoNo);
-    // console.log("todo 확인 : ", intendedList[todoNo]);
-
-    // const todo = intendedList.filter((todo) => todo.todoNo === todoNo);
-
-    // console.log(todo[0]);
-    // console.log("todo.todoStar : ", todo[0].todoStar);
 
     dispatch(callUpdateStarAPI(todoNo));
-    setIntededStar(true);
-
-    // window.location.reload();
-
-    // if (todo[0].todoStar === 1) {
-    //   dispatch(callUpdateStarAPI(todoNo));
-    //   setStar(0);
-    // } else {
-    //   dispatch(callUpdateStarAPI(todoNo));
-    //   setStar(1);
-    // }
-    // console.log(star);
+    setCheckStarAndFinish(true);
   };
 
-  const onClickTodoDetailHandler = (intended) => {
-    console.log("onClick 이벤트 발생");
-    dispatch(callTodoDetailAPI(intended.todoNo));
-    // setTodoNo(intended.todoNo);
+  // 완료여부 업데이트 (체크박스)
+  const onChangeFinishHandler = (e) => {
+    const todoNo = parseInt(e.target.id);
+    // console.log("체크박스 Change 이벤트 발생");
+
+    dispatch(callUpdateFinishAPI(todoNo));
+    setCheckStarAndFinish(true);
+  };
+
+  // 할 일 상세조회
+  const onClickTodoDetailHandler = (todoNo) => {
+    // setSelectTodoNo(todoNo);
+    console.log(todoNo);
     setTodoDetailModal(true);
   };
 
   return (
     <>
-      {/* {todoDetailModal ? (
+      {todoDetailModal ? (
         <TodoDetailModal
-          todoNo={intended.todoNo}
+          todoNo={selectTodoNo}
           setTodoDetailModal={setTodoDetailModal}
+          setTodoUpdateModal={setTodoUpdateModal}
         />
-      ) : null} */}
-      {/* <TodoDetailModal
-        todoNo={intended.todoNo}
-        setTodoDetailModal={setTodoDetailModal}
-        intended={intended}
-      /> */}
+      ) : null}
+      {todoUpdateModal ? (
+        <TodoDetailModal
+          todoNo={selectTodoNo}
+          setTodoDetailModal={setTodoDetailModal}
+          setTodoUpdateModal={setTodoUpdateModal}
+        />
+      ) : null}
       <div className={IntendedCSS.todoWrapper}>
         <div
           className={IntendedCSS.colorBar}
@@ -103,13 +69,12 @@ function Intended({ todo, setIntededStar }) {
             <input
               type="checkbox"
               style={{ accentColor: todo.cateColor }}
-              // value={search}
-              // onKeyUp={onEnterkeyHandler}
               id={todo.todoNo}
-              // onChange={onChangeHandler}
+              onChange={onChangeFinishHandler}
+              checked={todo.todoFinish === 1}
             />
             <label>
-              <div onClick={() => onClickTodoDetailHandler(todo)}>
+              <div onClick={() => onClickTodoDetailHandler(todo.todoNo)}>
                 {todo.todoName}
               </div>
             </label>
@@ -118,16 +83,14 @@ function Intended({ todo, setIntededStar }) {
                 id={todo.todoNo}
                 src={"/images/star_gray.png"}
                 alt="이미지확인!"
-                // onClick={intendedList.changeStar}
-                onClick={onClickHandler}
+                onClick={onClickChangeStarHandler}
               ></img>
             ) : (
               <img
                 id={todo.todoNo}
                 src={"/images/star_fill.png"}
                 alt="이미지확인!"
-                // onClick={intendedList.changeStar}
-                onClick={onClickHandler}
+                onClick={onClickChangeStarHandler}
               ></img>
             )}
           </div>

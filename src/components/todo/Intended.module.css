@@ -30,6 +30,10 @@
   margin: 8px;
 }
 
+.todo input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+}
+
 .todo label {
   width: 200px;
   height: 20px;

@@ -1,6 +1,7 @@
 import TodoCSS from "./Todo.module.css";
 import Category from "../../components/todo/Category";
 import Today from "../../components/todo/Today";
+import CategorySelectBox from "../../components/todo/CategorySelectBox";
 import Intended from "../../components/todo/Intended";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,32 +10,29 @@ import {
   callTodayTodoListAPI,
   callIntendedTodoListAPI,
   callCategoryListAPI,
-  callUpdateStarAPI,
   callSearchTodoAPI,
   callProductRegistAPI,
 } from "../../apis/TodoAPICalls";
 
 function Todo() {
   const dispatch = useDispatch();
+
   // useSelector : store에서 사용하고 있는 state를 전달받아서 다시 전달해주는 역할
   const todayList = useSelector((state) => state.todoReducer.todayList);
   const intendedList = useSelector((state) => state.todoReducer.intendedList);
   const categoryList = useSelector((state) => state.todoReducer.categoryList);
 
-  // const defaultCateColor = categoryList[0].cateColor;
-
-  // const todoList = todos.data;
-  // console.log("state = todayList 확인 : ", todayList);
-  // console.log("state = intendedList 확인 : ", intendedList);
-  // console.log("state = categoryList 확인 : ", categoryList);
-
-  const [intededStar, setIntededStar] = useState(false);
-  // console.log("intededStar 상태값 확인 : ", intededStar);
-
+  // 중요표시 및 완료여부 관리
+  const [checkStarAndFinish, setCheckStarAndFinish] = useState(false);
+  // 검색어 관리
   const [search, setSearch] = useState();
+  // Todo 입력창에서의 카테고리 보일지 말지에 대한 상태 관리
   const [visibleCate, setVisibleCate] = useState(false);
-  // console.log("visibleCate 확인 ", visibleCate);
+  // Todo 입력창에서의 선택된 카테고리 값 관리 (일단은 중요표시에 대한 색을 초기값으로 넣어둠)
+  const [selectedCateColor, setSelectedCateColor] = useState("#F5F938");
+  // Todo 입력창에서의 중요표시 관리
   const [addTodoStar, setAddTodoStar] = useState(0);
+  // Todo 입력창 값 관리
   const [newTodo, setNewTodo] = useState({
     cateNo: "",
     todoName: "",
@@ -42,26 +40,26 @@ function Todo() {
     todoTime: "",
     todoStar: addTodoStar,
   });
+  // Todo 추가 버튼 상태 관리
   const [addTodo, setAddTodo] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState();
 
-  // console.log("categoryList", categoryList[0]);
-
+  // 검색어 입력 핸들러
   const onSearchChangeHandler = (e) => {
     setSearch({
       ...search,
       [e.target.name]: e.target.value,
     });
-    console.log(search);
   };
 
+  // 검색어 입력 후 값을 보내는 핸들러
   const onEnterkeyHandler = (e) => {
-    console.log(search);
+    // console.log(search);
     if (e.key === "Enter") {
       dispatch(callSearchTodoAPI(search, 41));
     }
   };
 
+  // 새로운 Todo 제목 입력 핸들러
   const onInsertTodoHandler = (e) => {
     setNewTodo({
       ...newTodo,
@@ -69,32 +67,19 @@ function Todo() {
     });
   };
 
-  const onChooseCate = (e) => {
-    console.log(e.target);
-    console.log("categoryList", categoryList[0]);
-    // setSelectedCategory(e.target.cateColor);
-    setNewTodo({
-      ...newTodo,
-      cateNo: e.target.value,
-    });
-    setVisibleCate(false);
-  };
-
+  // 새로운 Todo 중요표시 여부 핸들러
   const onSetAddStarHandler = () => {
     const value = addTodoStar === 0 ? 0 : 1;
-    console.log("value 확인", value);
 
     setNewTodo({
       ...newTodo,
       todoStar: value,
     });
+    // 중요한 일은 노란 별, 아니면 빈 별을 보여줘야해서 set으로 상태값을 바꿔줌
     setAddTodoStar(addTodoStar === 0 ? 1 : 0);
-    // console.log(newTodo);
   };
 
   const onClickInsertTodoHandler = () => {
-    console.log("할 일 등록 메소드 실행합니다");
-
     const formData = new FormData();
 
     if (newTodo.cateNo == null || newTodo.cateNo.length === 0) {
@@ -113,22 +98,8 @@ function Todo() {
     );
 
     alert("할 일이 정상 등록되었습니다.");
-    // window.location.reload();
     setAddTodo(true);
   };
-
-  // const [todayTodo, setTodayTodo] = useState();
-
-  // console.log("todayTodo 확인", todayTodo);
-  // console.log("todoList 확인 : ", todoList);
-  // console.log(todos.data);
-  // console.log(todoList);
-  // console.log(
-  //   "map 함수 확인",
-  //   todoList.map((todo) => ("todoName : ", todo.todoName))
-  // );
-
-  // setTodayTodo([...todoList]); // 무한루프
 
   useEffect(
     () => {
@@ -136,90 +107,18 @@ function Todo() {
       dispatch(callTodayTodoListAPI(41));
       dispatch(callIntendedTodoListAPI(41));
       dispatch(callCategoryListAPI(41));
-      // setTodayTodo(dispatch(callTodayTodoListAPI(41))); // promise 객체가 담김
-      // setSelectedCategory(categoryList[0].cateColor);
     }, // eslint-disable-next-line
-    [intededStar, addTodo]
+    [checkStarAndFinish, addTodo]
   );
 
   useEffect(
     () => {
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-      // dispatch(callIntendedTodoListAPI(41));
-      setIntededStar(false);
+      setCheckStarAndFinish(false);
       setAddTodo(false);
-      // setSelectedCategory(categoryList[0].cateColor);
     }, // eslint-disable-next-line
-    [intededStar, addTodo]
+    [checkStarAndFinish, addTodo]
   );
-
-  // useEffect(
-  //   () => {
-  //     // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-  //     // dispatch(callIntendedTodoListAPI(41));
-  //     setIntededStar(false);
-  //   }, // eslint-disable-next-line
-  //   [addTodo]
-  // );
-
-  // useEffect(
-  //   () => {
-  //     // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-  //     // dispatch(callIntendedTodoListAPI(41));
-  //   }, // eslint-disable-next-line
-  //   [todayTodo]
-  // );
-
-  // const onClickHandler = (e) => {
-  //   const todoNo = parseInt(e.target.id);
-  //   console.log("todoNo 확인 : ", todoNo);
-  //   // console.log("todo 확인 : ", intendedList[todoNo]);
-
-  //   const todo = intendedList.filter((todo) => todo.todoNo === todoNo);
-
-  //   // console.log(todo[0]);
-  //   // console.log("todo.todoStar : ", todo[0].todoStar);
-
-  //   if (todo[0].todoStar === 1) {
-  //     dispatch(callUpdateStarAPI(todoNo));
-  //     setStar(0);
-  //   } else {
-  //     dispatch(callUpdateStarAPI(todoNo));
-  //     setStar(1);
-  //   }
-  //   // console.log(star);
-  // };
-
-  const SelectBox = (props) => {
-    useEffect(() => {
-      setSelectedCategory(props.categorys[0].cateColor);
-    }, []);
-    return (
-      <ul className={TodoCSS.selectCateList}>
-        {props.categorys.map((category) => (
-          <li
-            name="cateNo"
-            value={category.cateNo}
-            key={category.cateNo}
-            style={{
-              backgroundColor: category.cateColor,
-            }}
-            onClick={onChooseCate}
-          >
-            {/* <button
-              type="button"
-              style={{
-                backgroundColor: category.cateColor,
-              }}
-            >
-              {category.cateName}
-            </button> */}
-            {/* <div style={{ backgroundColor: category.cateColor }}></div> */}
-          </li>
-        ))}
-      </ul>
-    );
-  };
 
   return (
     <>
@@ -237,8 +136,6 @@ function Todo() {
               onChange={onSearchChangeHandler}
             />
           </div>
-          {/* <Category /> */}
-          {/* 리스트로 받아서 for문으로 출력해야함 */}
           {Array.isArray(categoryList) &&
             categoryList.map((category) => (
               <Category key={category.cateNo} category={category} />
@@ -247,12 +144,14 @@ function Todo() {
         <div className={TodoCSS.content}>
           <div className={TodoCSS.addWrapper}>
             <div className={TodoCSS.addInputWrapper}>
-              {/* <div> */}
               {visibleCate ? (
                 <div>
-                  <SelectBox
+                  <CategorySelectBox
                     categorys={categoryList}
-                    setSelectedCategory={setSelectedCategory}
+                    setSelectedCateColor={setSelectedCateColor}
+                    setVisibleCate={setVisibleCate}
+                    setNewTodo={setNewTodo}
+                    newTodo={newTodo}
                   />
                 </div>
               ) : (
@@ -260,11 +159,11 @@ function Todo() {
                   className={TodoCSS.defaultCate}
                   style={{
                     // backgroundColor: defaultCateColor,
+                    backgroundColor: selectedCateColor,
                     border: "1px solid black",
                   }}
                 ></div>
               )}
-              {/* </div> */}
               <span
                 onClick={() => {
                   setVisibleCate(!visibleCate);
@@ -284,14 +183,12 @@ function Todo() {
                   src={"/images/star_fill.png"}
                   alt="이미지확인!"
                   onClick={onSetAddStarHandler}
-                  // value={1}
                 ></img>
               ) : (
                 <img
                   src={"/images/star_gray.png"}
                   alt="이미지확인!"
                   onClick={onSetAddStarHandler}
-                  // value={0}
                 ></img>
               )}
               <img src={"/images/calendar_gray.png"} alt="이미지확인!"></img>
@@ -303,6 +200,7 @@ function Todo() {
               <div> 오늘의 달성률 </div>
               <span> 4 </span>
               <span> / 6</span>
+              {/* 변수로 리스트 사이즈 선언해서 변수를 가져다 써야함 */}
             </div>
             <div className={TodoCSS.graph}>
               <div> </div>
@@ -317,7 +215,7 @@ function Todo() {
                   <Today
                     key={today.todoNo}
                     todo={today}
-                    setIntededStar={setIntededStar}
+                    setCheckStarAndFinish={setCheckStarAndFinish}
                   />
                 ))}
             </div>
@@ -329,9 +227,7 @@ function Todo() {
                   <Intended
                     key={intended.todoNo}
                     todo={intended}
-                    // changeStar={onClickHandler}
-                    setIntededStar={setIntededStar}
-                    // star={star}
+                    setCheckStarAndFinish={setCheckStarAndFinish}
                   />
                 ))}
             </div>
