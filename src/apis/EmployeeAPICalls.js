@@ -1,8 +1,11 @@
 import {
   POST_REGISTER,
+  POST_EMPLOYEES_CONTRIBUTIONS,
   GET_EMPLOYEES,
   GET_EMPLOYEES_BRANCHES,
   GET_EMPLOYEES_DEPARTMENTS,
+  GET_EMPLOYEES_CONTRIBUTION,
+  GET_EMPLOYEES_CONTRIBUTIONS,
   SEARCH_EMPLOYEES,
   PUT_EMPLOYEES_BRANCHES,
   PUT_EMPLOYEES_DEPARTMENTS,
@@ -174,6 +177,73 @@ export const callGetEmpDepartmentsAPI = () => {
     if (result.status === 200) {
       console.log("[EmployeeAPICalls] callGetEmpDepartmentsAPI SUCCESS");
       dispatch({ type: GET_EMPLOYEES_DEPARTMENTS, payload: result.data });
+    }
+  };
+};
+
+export const callEmpEvaluationAPI = ({ form }) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/evaluation`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "POST",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        empNo: form.empNo,
+        categoryNo: form.categoryNo,
+        grade: form.grade,
+      }),
+    }).then((response) => response.json());
+
+    console.log("[EmployeeAPICalls] callEmpEvaluationAPI RESULT : ", result);
+
+    if (result.status === 201) {
+      dispatch({ type: POST_EMPLOYEES_CONTRIBUTIONS, payload: result });
+    }
+  };
+};
+
+export const callGetEmpContAPI = (empNo) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/contributions/${empNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+
+    console.log("[EmployeeAPICalls] callGetEmpContAPI RESULT : ", result);
+    if (result.status === 200) {
+      console.log("[EmployeeAPICalls] callGetEmpContAPI SUCCESS");
+      dispatch({ type: GET_EMPLOYEES_CONTRIBUTION, payload: result.data });
+    }
+  };
+};
+
+export const callGetEmpContsAPI = () => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/evaluation/contributions`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+
+    console.log("[EmployeeAPICalls] callGetEmpContsAPI RESULT : ", result);
+    if (result.status === 200) {
+      console.log("[EmployeeAPICalls] callGetEmpContsAPI SUCCESS");
+      dispatch({ type: GET_EMPLOYEES_CONTRIBUTIONS, payload: result.data });
     }
   };
 };
