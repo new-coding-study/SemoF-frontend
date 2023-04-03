@@ -51,8 +51,9 @@ function App() {
 
           <Route path="board" element={<Board />} />
 
-          <Route path="notice-detail/:boardNo" element={<NoticeDetail />} />
-          <Route path="posting-detail/:boardNo" element={<PostingDetail />} />
+
+          <Route path="posting-detail/:boardNo" element={<PostingDetail/>}/>
+
 
           <Route path="employees" element={<Employees />} />
           <Route path="employees/register" element={<EmpRegister />} />

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import PostingUpdate from "./PostingUpdate";
 import PostingUpdateForAdmin from "./PostingUpdateForAdmin"
 import Swal from "sweetalert2";
-
+import Reply from "../reply/Reply";
 
 function PostingDetail(){
     const dispatch = useDispatch();
@@ -76,6 +76,7 @@ function PostingDetail(){
                     <br/>
                     <br/>
                     <hr/>
+                    <div className={postingdetailcss.replyArea}><Reply/></div>
                     <br/>
                     <div className={postingdetailcss.content}>{postingDetail.boardContent}</div>
                 </div>
