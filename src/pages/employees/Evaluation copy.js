@@ -103,16 +103,6 @@ function Evaluation() {
     //eslint-disable-next-line
   }, [selectedEmployee]);
 
-  useEffect(() => {
-    setDisplayedEmployees(employeeList);
-  }, [employeeList]);
-
-  useEffect(() => {
-    dispatch(callGetEmpContsAPI({})).then(() => {
-      setDisplayedEmployees(employeeList);
-    });
-    //eslint-disable-next-line
-  }, []);
   const openModalHandler = () => {
     setShowModal(true); // 모달창으로 처리
     setSelectedEmployee(null);
@@ -182,8 +172,26 @@ function Evaluation() {
     });
   };
 
+  // console.log(
+  //   "[Evaluation] selectedEmployee: " + JSON.stringify(selectedEmployee)
+  // );
+
   // 평가 저장
   const onEvaluationSubmitHandler = () => {
+    // dispatch(
+    //   callEmpEvaluationAPI({
+    //     form: {
+    //       empNo: selectedEmployee.empNo,
+    //       categoryNo: "2",
+    //       grade: form.grade,
+    //     },
+    //   })
+    // );
+    // setForm({
+    //   ...form,
+    //   empNo: selectedEmployee.empNo,
+    // });
+    // window.location.reload(); //화면 초기화
     if (changeMod) {
       // 등급 수정
       dispatch(
@@ -258,19 +266,7 @@ function Evaluation() {
     });
   };
 
-  console.log(
-    "[Evaluation] contributionList : " + JSON.stringify(contributionList)
-  );
-
-  const onDeleteHandler = (empNo) => {
-    dispatch(callDeleteEmpContAPI({ empNo })).then(() => {
-      dispatch(callGetEmpContsAPI({})).then(() => {
-        // contributionList 업데이트
-        setDisplayedEmployees([]);
-        dispatch(callGetEmployeesAPI({ currentPage: 1 })); // 첫 페이지로 초기화
-      });
-    });
-  };
+  const onDeleteHandler = (empNo) => {};
 
   return (
     <>
