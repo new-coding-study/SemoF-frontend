@@ -44,6 +44,9 @@ function Evaluation() {
   const [selectedEmployee, setSelectedEmployee] = useState(null); //검색 결과 중 선택된 사원 정보를 저장하기 위한 state
   const [showEvaluationForm, setShowEvaluationForm] = useState(false); //등급 입력 폼을 보여줄지 여부를 결정하는 state
 
+  const [showSearchModal, setShowSearchModal] = useState(false); // 이전 검색 결과를 표시하는 모달의 상태
+  const [prevSearchResult, setPrevSearchResult] = useState([]); // 이전 검색 결과를 저장하는 state
+
   const [form, setForm] = useState({
     empNo: selectedEmployee?.empNo ?? "",
     categoryNo: "2",
@@ -53,6 +56,8 @@ function Evaluation() {
   console.log("[Evaluation] form: " + JSON.stringify(form));
 
   const searchResult = employees;
+
+  const [DropDown, setDropDown] = useState(false);
 
   useEffect(() => {
     dispatch(
@@ -82,6 +87,8 @@ function Evaluation() {
 
   const openModalHandler = () => {
     setShowModal(true); // 모달창으로 처리
+    setSelectedEmployee(null);
+    setShowEvaluationForm(false);
   };
 
   const onSearchChangeHandler = (e) => {
@@ -127,6 +134,17 @@ function Evaluation() {
       ...form,
       empNo: selectedEmployee.empNo,
     });
+    setDisplayedEmployees([]);
+  };
+
+  const onModalCloseHandler = () => {
+    setShowModal(false);
+    setSelectedEmployee(null);
+    setShowEvaluationForm(false);
+    setSearch("");
+    setSearchCategory("");
+    setDisplayedEmployees([]);
+    dispatch(callGetEmployeesAPI({ currentPage: 1 })); // 첫 페이지로 초기화
   };
 
   const onRadioChangeHandler = (e) => {
@@ -136,9 +154,9 @@ function Evaluation() {
     });
   };
 
-  console.log(
-    "[Evaluation] selectedEmployee: " + JSON.stringify(selectedEmployee)
-  );
+  // console.log(
+  //   "[Evaluation] selectedEmployee: " + JSON.stringify(selectedEmployee)
+  // );
 
   const onEvaluationSubmitHandler = () => {
     dispatch(
@@ -155,6 +173,16 @@ function Evaluation() {
       empNo: selectedEmployee.empNo,
     });
     window.location.reload(); //화면 초기화
+  };
+
+  const onEvaluationMoveHandler = (e) => {
+    setShowSearchModal(true);
+    setSelectedEmployee(null);
+    setShowEvaluationForm(false);
+  };
+
+  const dropDownMenu = () => {
+    setDropDown(!DropDown);
   };
 
   return (
@@ -196,18 +224,41 @@ function Evaluation() {
                   className={EvaluationCSS.cardContainer}
                   key={contribution.empNo}
                 >
-                  <span>
-                    {year}년 {month}월{" "}
-                  </span>
-                  <div className={EvaluationCSS.vertical} />
-                  <span className={EvaluationCSS.evalName}>
-                    {contribution.empName}
-                  </span>
-                  <div className={EvaluationCSS.vertical} />
-                  <span>실적</span>
-                  <span className={EvaluationCSS.evalGrade}>
-                    {contribution.grade}
-                  </span>
+                  <div className={EvaluationCSS.row}>
+                    <span className={EvaluationCSS.date}>
+                      {year}년 {month}월
+                    </span>
+                    <div className={EvaluationCSS.vertical} />
+                    <span className={EvaluationCSS.evalName}>
+                      {contribution.empName}
+                    </span>
+                    <div className={EvaluationCSS.vertical} />
+                    <span>실적</span>
+                    <button onClick={dropDownMenu}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="20"
+                        viewBox="0 96 960 960"
+                        width="25"
+                      >
+                        <path d="M479.858 896Q460 896 446 881.858q-14-14.141-14-34Q432 828 446.142 814q14.141-14 34-14Q500 800 514 814.142q14 14.141 14 34Q528 868 513.858 882q-14.141 14-34 14Zm0-272Q460 624 446 609.858q-14-14.141-14-34Q432 556 446.142 542q14.141-14 34-14Q500 528 514 542.142q14 14.141 14 34Q528 596 513.858 610q-14.141 14-34 14Zm0-272Q460 352 446 337.858q-14-14.141-14-34Q432 284 446.142 270q14.141-14 34-14Q500 256 514 270.142q14 14.141 14 34Q528 324 513.858 338q-14.141 14-34 14Z" />
+                      </svg>
+                    </button>
+                    {DropDown && (
+                      <div className={EvaluationCSS.dropdownMenu}>
+                        <ul>
+                          <li>수정</li>
+                          <li>삭제</li>
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                  <div className={EvaluationCSS.row}>
+                    <span className={EvaluationCSS.evalGrade}>
+                      <img src={"/images/balance.png"} alt="등급!" />
+                      {contribution.grade}등급
+                    </span>
+                  </div>
                 </div>
               ))}
           </div>
@@ -221,7 +272,8 @@ function Evaluation() {
               <h3>정기 인사 평가</h3>
               <button
                 className={EvaluationCSS.closeButton}
-                onClick={() => setShowModal(false)}
+                // onClick={() => setShowModal(false)}
+                onClick={onModalCloseHandler}
               >
                 X
               </button>
@@ -401,7 +453,7 @@ function Evaluation() {
                         <button
                           type="button"
                           className={EvaluationCSS.submitButton}
-                          // onClick={onEvaluationSubmitHandler}
+                          onClick={onEvaluationMoveHandler}
                         >
                           이전으로
                         </button>
