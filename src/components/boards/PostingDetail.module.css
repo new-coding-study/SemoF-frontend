@@ -38,6 +38,7 @@ hr{
 .content{
     text-indent: 20px;
     font-size: 20px;
+    width: 70%;
     
 }
 .boardTitle{
@@ -48,7 +49,7 @@ hr{
 .postingbtn{
     text-align: center;
 }
-.postingbtn>button{
+.postingbtn button{
     background-color: #E52E2E;
     border: none;
     width: 200px;
@@ -58,7 +59,14 @@ hr{
     font-weight: bold;
     font-size: 20px;
 }
-.postingbtn>button:hover{
+.postingbtn button:hover{
     background-color:gray;
     text-shadow: 1px 1px 1px white;
+}
+.replyArea{
+    border: 1px solid black;
+    width: 30%;
+    height: 83%;
+    float: right;
+
 }

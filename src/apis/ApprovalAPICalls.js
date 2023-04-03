@@ -14,6 +14,7 @@ import {
     , POST_ORDERS
     , GET_DEPT
 }from '../modules/ApprovalModule.js'
+
 import axios from 'axios';
 export const callApprovalListAPI = ({currentPage}) => {
     let requestURL;
@@ -200,15 +201,17 @@ export const callLineListAPI = ({currentPage}) => {
 export const callLineRegistAPI = ({form}) => {
     console.log('[ApprovalAPICalls] callLineRegistAPI Call');
 
-    const requestURL = `http://localhost:8090/approval/line`;
+    const requestURL = `http://localhost:8090/approvals/line`;
 
     return async (dispatch, getState) => {
 
         const result = await fetch(requestURL, {
             method: "POST",
             headers: {
-                "Accept": "*/*",
-                "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                "Accept": "*/*"
+                ,
+                // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                "Content-Type": "application/json"
             },
             body: form
         })
@@ -335,7 +338,7 @@ export const callGetJobNEmpNameAPI = () => {
 export const callOrderRegistAPI = ({data}) => {
     console.log('[ApprovalAPICalls] callOrderRegistAPI Call');
   
-    const requestURL = `http://localhost:8090/approval/orders`;
+    const requestURL = `http://localhost:8090/approvals/orders`;
   
     return async (dispatch, getState) => {
   

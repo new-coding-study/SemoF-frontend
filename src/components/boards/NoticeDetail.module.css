@@ -70,7 +70,7 @@ hr{
 .modalbtn{
     text-align: center;
 }
-.modalbtn>button{
+.registBtn{
     background-color: #E52E2E;
     border: none;
     width: 100px;
@@ -80,7 +80,25 @@ hr{
     font-weight: bold;
     font-size: 15px;
 }
-.modalbtn>button:hover{
+.registBtn:hover{
+    background-color:gray;
+    text-shadow: 1px 1px 1px white;
+}
+.writerInfo{
+    float: right;
+    margin-top: -2.7%;
+}
+.modalbtn button{
+    background-color: #E52E2E;
+    border: none;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+.modalbtn button:hover{
     background-color:gray;
     text-shadow: 1px 1px 1px white;
 }

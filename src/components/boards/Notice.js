@@ -50,8 +50,8 @@ const onClickNotice = (boardNo) => {
           
         <br/>
         <br/>
-            <div>
-                <table>
+            <div className={boardcss.NoticelistDisply}>
+                <table className={boardcss.noticeTable}>
                     <colgroup>
                         <col width="10%"/>
                         <col width="50%"/>
@@ -61,7 +61,7 @@ const onClickNotice = (boardNo) => {
                     <thead>
                         <tr 
                         className={boardcss.tableheader}>
-                            <th className={boardcss.tableheader} style={{borderRight:'1px solid lightGray'}}>No.</th>
+                            <th style={{borderRight:'1px solid lightGray'}}>No.</th>
                             <th style={{borderRight:'1px solid lightGray'}}>제 목</th>
                             <th style={{borderRight:'1px solid lightGray'}}>등록자</th>
                             <th>날 짜</th>
@@ -79,6 +79,7 @@ const onClickNotice = (boardNo) => {
                             <td style={{borderRight:'1px solid lightGray'}}><img
                             src={"/images/noticeAlarm.png"}
                             alt="공지사항 이미지"
+                            className={boardcss.noticeImg}
                             /></td>
                             <td style={{textAlign:'left', borderRight:'1px solid lightGray', textIndent: '10px'}}>{n.boardTitle}</td>
                             <td style={{borderRight:'1px solid lightGray'}}>{n.empName}</td>
@@ -94,7 +95,8 @@ const onClickNotice = (boardNo) => {
                  className={boardcss.btnstyle1}>
                     메인으로
                 </button>
-                <button onClick = {() => setIsRegistModalForAdmin(true)}className={boardcss.btnstyle2}>
+                <button 
+                onClick = {() => setIsRegistModalForAdmin(true)} className={boardcss.btnstyle2}>
                     등 록(foradmin)
                 </button>
                 </div>

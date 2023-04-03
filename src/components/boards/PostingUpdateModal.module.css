@@ -40,19 +40,51 @@
     width: 600px;
     height: 540px;
 }
-form{
+.displayBox form{
     text-align: left;
     margin-left: 30px;
 }
-form>label{
+.displayBox form label{
     font-size: 20px;
     font-weight: bold;
     margin-right: 10px;
 }
+.displayBox form input{
+    width: 300px;
+    height: 30px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding-left:7px
+}
+.displayBox form select{
+    width: 240px;
+    height: 30px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding-left:5px
+    
+}
+.displayBox form textarea{
+    width: 450px;
+    font-size: 20px;
+    resize: none;
+    height: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-left: 60px;
+    margin-right:auto;
+    margin-top: -27px;
+}
+.displayBox form select:focus{
+    outline: none;
+}
 .modalbtn{
     text-align: center;
 }
-.modalbtn>button{
+.modalbtn button{
     background-color: #E52E2E;
     border: none;
     width: 100px;
@@ -62,7 +94,7 @@ form>label{
     font-weight: bold;
     font-size: 15px;
 }
-.modalbtn>button:hover{
+.modalbtn button:hover{
     background-color:gray;
     text-shadow: 1px 1px 1px white;
 }

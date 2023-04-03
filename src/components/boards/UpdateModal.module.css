@@ -40,16 +40,16 @@
     width: 600px;
     height: 540px;
 }
-form{
+.displayBox form{
     text-align: left;
     margin-left: 30px;
 }
-form>label{
+.displayBox form label{
     font-size: 20px;
     font-weight: bold;
     margin-right: 10px;
 }
-form>input{
+.displayBox form input{
     width: 300px;
     height: 30px;
     font-size: 15px;
@@ -57,7 +57,7 @@ form>input{
     border-radius: 3px;
     padding-left:7px
 }
-form>select{
+.displayBox form select{
     width: 240px;
     height: 30px;
     font-size: 15px;
@@ -66,7 +66,7 @@ form>select{
     padding-left:5px
     
 }
-form>textarea{
+.displayBox form textarea{
     width: 450px;
     font-size: 20px;
     resize: none;
@@ -78,7 +78,7 @@ form>textarea{
     margin-right:auto;
     margin-top: -27px;
 }
-form>select:focus{
+.displayBox form select:focus{
     outline: none;
 }
 

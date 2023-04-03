@@ -53,7 +53,7 @@ function NoticeDetailModal({boardNo, setNoticeModal, setIsUpdateNotice}){
                     <div className={noticedetailcss.boardTitle}>
                     {noticeDetail.boardTitle}
                     </div>
-                    <div style={{float:'right'}}>
+                    <div className={noticedetailcss.writerInfo}>
                     <div className={noticedetailcss.writer}>작성자: {noticeDetail.empName}</div>
                     <div className={noticedetailcss.date}>일시: {noticeDetail.writeDate}</div>
                     </div>

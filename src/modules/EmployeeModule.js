@@ -20,6 +20,9 @@ export const GET_EMPLOYEES_CONTRIBUTIONS =
 export const SEARCH_EMPLOYEES = "employee/SEARCH_EMPLOYEES ";
 export const PUT_EMPLOYEES_BRANCHES = "employee/PUT_EMPLOYEES_BRANCHES";
 export const PUT_EMPLOYEES_DEPARTMENTS = "employee/PUT_EMPLOYEES_DEPARTMENTS";
+export const PUT_EMPLOYEES_CONTRIBUTION = "employee/PUT_EMPLOYEES_CONTRIBUTION"; // 사원
+export const DELETE_EMPLOYEES_CONTRIBUTION =
+  "employee/DELETE_EMPLOYEES_CONTRIBUTION"; // 사원
 
 // eslint-disable-next-line
 const actions = createActions({
@@ -33,6 +36,8 @@ const actions = createActions({
   [SEARCH_EMPLOYEES]: () => {},
   [PUT_EMPLOYEES_BRANCHES]: () => {},
   [PUT_EMPLOYEES_DEPARTMENTS]: () => {},
+  [PUT_EMPLOYEES_CONTRIBUTION]: () => {},
+  [DELETE_EMPLOYEES_CONTRIBUTION]: () => {},
 });
 
 /* 리듀서 */
@@ -57,7 +62,10 @@ const empReducer = handleActions(
       };
     },
     [GET_EMPLOYEES_CONTRIBUTION]: (state, { payload }) => {
-      return payload;
+      return {
+        ...state,
+        contribution: payload,
+      };
     },
     [GET_EMPLOYEES_CONTRIBUTIONS]: (state, { payload }) => {
       return {
@@ -73,6 +81,12 @@ const empReducer = handleActions(
     },
     [PUT_EMPLOYEES_DEPARTMENTS]: (state, { payload }) => {
       return payload;
+    },
+    [PUT_EMPLOYEES_CONTRIBUTION]: (state, { payload }) => {
+      return payload;
+    },
+    [DELETE_EMPLOYEES_CONTRIBUTION]: (state) => {
+      return state;
     },
   },
   initialState

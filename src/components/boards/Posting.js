@@ -71,8 +71,8 @@ const onClickPosting = (boardNo) => {
         {isUpdateNotice? <NoticeUpdate boardNo={selectNo} setIsUpdateNotice={setIsUpdateNotice} setNoticeModal={setNoticeModal}/> : null}
         <br/>
         <br/>
-            <div>
-                <table>
+            <div className={boardcss.postingList}>
+                <table className={boardcss.postingList}>
                     <colgroup>
                         <col width="10%"/>
                         <col width="50%"/>
@@ -98,6 +98,7 @@ const onClickPosting = (boardNo) => {
                             <td style={{borderRight:'1px solid lightGray'}}><img
                             src={"/images/noticeAlarm.png"}
                             alt="공지사항 이미지"
+                            className={boardcss.noticeImg}
                             /></td>
                             <td style={{textAlign:'left', borderRight:'1px solid lightGray', textIndent:'10px'}}>{p.boardTitle}</td>
                             <td style={{borderRight:'1px solid lightGray'}}>{p.empName}</td>
