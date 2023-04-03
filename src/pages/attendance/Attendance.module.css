@@ -1,7 +1,7 @@
-/* 상단 네비바 */
+/*      상단 네비바 */
 .contour {
     height: 60px;
-    background-color: #e52e2e;
+    background-color: #E52E2E;
     color: white;
     font-size: 30px;
     font-weight: bold;
@@ -11,7 +11,7 @@
 }
 
 
-/* 근태 시간, 전자결재 */
+/*      근태 시간, 전자결재 */
 .horizontalDiv{
     display: flex;
     flex-wrap: wrap;
@@ -63,12 +63,13 @@
     border-radius: 8px;
     font-size: 25px;
     padding: 10px 36px 10px 36px;
+    cursor: pointer;
 }
 
 
-/* 전자결재 */
+/*      전자결재 */
 .approvals {
-    background-color: #e52e2e;
+    background-color: #E52E2E;
     width: 700px;
     height: 220px;
     align-self: auto;
@@ -96,9 +97,10 @@
     margin: 50px 0 8px 25px;
 }
 
+/* 아이콘 */
 .approvalsContent svg {
     margin-top: 28px;
-    color: #e52e2e;
+    color: #E52E2E;
 }
 
 .approvalsContent span {
@@ -109,10 +111,15 @@
 }
 
 
-/* 연차 현황 */
+/*      연차 현황 */
 .vacation {
-    height: 200px;
-    background-color: aqua;
+    height: 150px;
+    padding-top: 20px;
+    border: 2px solid red;
+    border-radius: 15px;
+    margin-left: 66px;
+    margin-right: 70px;
+    margin-top: -30px;
 }
 
 .vacation::first-line {
@@ -123,30 +130,56 @@
 .totalVacation {
     font-size: 26px;
     font-weight: bold;
-    margin: 0 10px 30px 15px;
+    margin: 0 10px 0 10px;
 }
 
 .vacationDiv {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 20px;
 }
 
+/* 연차별 영역 */
 .vacationDiv div {
-    width: 400px;
-    height: 70px;
-    border: 1px solid black;
+    width: 330px;
+    height: 58px;
+    background-color: #FFD6D6;
+    border-radius: 15px;
     display: flex;
-    justify-content: flex-start;
-    font-size: 18px;
+    font-size: 24px;
+    padding: 25px 20px 0 20px;
+    margin-right: 10px;
 }
 
-.vacationDiv div>span {
+/* 첫 div 여백 */
+.vacationDiv div:first-child {
+    margin-left: 15px;
+}
+
+/* 글자간 여백 */
+.vacationDiv div span:first-child {
     margin-right: auto;
-    border: 1px solid black;
+}
+
+/* 연차갯수 */
+.vacationDiv div span:nth-child(2) {
+    font-weight: 600;
+}
+
+.vacationDiv div span {
+    font-weight: 500;
+}
+
+.vacationDiv div:nth-child(3) {
+    background-color: #EE7D7D;
+}
+
+.vacationDiv div:nth-child(4) {
+    background-color: #E04848;
 }
 
 
-/* 총 근무시간 */
+/*      총 근무시간 */
 .totalAttendance {
     height: 600px;
     background-color: aliceblue;
