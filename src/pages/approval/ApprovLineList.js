@@ -13,11 +13,14 @@ function ApprovalLineList() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const lineList = useSelector(state => state.approvalReducer.line); 
+  
     const pageInfo = lineList.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
-    console.log('이거 되긴하니',lineList.length);
+    console.log('이거 되긴하니',lineList);
     console.log(pageInfo);
-  
+    const line = lineList.data;
+    // const lineLength = line.length;
+    console.log(line);
     const pageNumber = [];
     if(pageInfo){
         for(let i = 1; i <= pageInfo.endPage ; i++){
@@ -32,7 +35,7 @@ function ApprovalLineList() {
         } // eslint-disable-next-line
         ,[]
     );
-        console.log(lineList.length);
+        // console.log(lineList.size());
     return (
         <>
         <div 
@@ -40,9 +43,13 @@ function ApprovalLineList() {
         
         >결재라인</div>
         <div>
+        {/* line?.length > 0 */}
             { 
-               lineList.length > 0 && 
-               lineList.map((line) => (
+            // Array.isArray(lineLength) && 
+            // lineLength>0
+            line?.length > 0 
+                &&
+               line.map((line) => (
                 <Line key={ line.lineNo } line={ line } />
                ))
             }

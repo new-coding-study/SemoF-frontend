@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import RegisterCSS from "./Register.module.css";
 import { callRegisterAPI } from "../../apis/EmployeeAPICalls";
 
-function Register() {
+function RegisterApproval() {
   const navigate = useNavigate();
 
   const [employeePhoto, setEmployeePhoto] = useState(null);
@@ -381,4 +381,4 @@ function Register() {
     </>
   );
 }
-export default Register;
+export default RegisterApproval;

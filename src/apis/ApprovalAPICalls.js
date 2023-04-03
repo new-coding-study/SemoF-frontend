@@ -71,22 +71,23 @@ export const callApprovRegistAPI = ({form}) => {
     const requestURL = `http://localhost:8090/approvals/approval`;
     
     return async (dispatch, getState) => {
-        try {
-          const response = await axios.post(requestURL, form, {
-            headers: {
-              "Accept": "*/*",
-              "Content-Type": `multipart/form-data`,
-            },
-          });
+        const result = await fetch(requestURL, {
+          method: "POST",
+          headers: {
+            // 'Content-Type': `multipart/form-data`,
+            Accept: "*/*"
+          },
+        //   body: JSON.stringify(form)
+          body: form
+        }).then((response) => response.json());
     
-          const result = response.data;
+        //   const result = response.data;
           console.log("[ApprovalAPICalls] callApprovRegistAPI RESULT : ", result);
     
-          dispatch({ type: POST_APPROVAL, payload: result });
-        } catch (error) {
-          console.error("[ApprovalAPICalls] callApprovRegistAPI ERROR : ", error);
-        }
-      };
+          if (result.status === 201) {
+            dispatch({ type: POST_APPROVAL, payload: result });
+          }
+        };
     };
 // import axios from "axios";
 
@@ -112,6 +113,7 @@ export const callApprovRegistAPI = ({form}) => {
 //           "Accept": "*/*",
 //           "Content-Type": `multipart/form-data`,
 //         },
+            // body: form
 //       });
 
 //       const result = response.data;
@@ -193,6 +195,8 @@ export const callLineListAPI = ({currentPage}) => {
         .then(response => response.json());
         if(result.status === 200){
             console.log(`[ApprovalAPICalls] result = ${result}`);
+            const { data: { dtoList, ...restData } } = result;
+            const data = { ...restData, approvOrderDTOList: dtoList };
             dispatch({type:GET_LINES, payload : result.data});
         }
     };
@@ -212,7 +216,7 @@ export const callLineRegistAPI = ({form}) => {
                 // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
                 "Content-Type": "application/json"
             },
-            body: form
+            body: JSON.stringify(form)
         })
         .then(response => response.json());
 

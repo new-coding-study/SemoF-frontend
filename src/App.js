@@ -38,7 +38,7 @@ function App() {
           <Route path="approval" element={<Approval />} />
           <Route path="inbox" element={<ApprovalIn />} />
           <Route path="outbox" element={<ApprovalOut />} />
-          <Route path="add-approval" element={<RegistApproval />} />
+          {/* <Route path="add-approval" element={<RegistApproval />} /> */}
 
           <Route path="board" element={<Board />} />
 

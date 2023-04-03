@@ -1,0 +1,79 @@
+.title{
+    height: 60px;
+    border-radius: 8px;
+    background-color: #E52E2E;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 40px;
+    line-height: 57px;
+    border: none;
+}
+.writeArea{
+    text-align: center;;
+}
+.categorytitle{
+    margin-top: 5%;
+}
+.submitButton1{
+    border: none;
+    background: #E52E2E;
+    border-radius: 8px;
+    width: 200px;
+    height: 45px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cancel{
+    border: none;
+    background: #E52E2E;
+    border-radius: 8px;
+    width: 200px;
+    height: 45px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+.submitButton1:hover{
+    background-color: gray;
+    text-shadow: 1px 1px 1px white;
+}
+.cancel:hover{
+    background-color: gray;
+    text-shadow: 1px 1px 1px white;
+}
+.writeArea label{
+    font-size: 25px;
+    text-align: left;
+    font-weight: bold;
+}
+.formArea{
+    padding: 10px;
+}
+.categorytitle select{
+    width: 250px;
+    height: 35px;
+    border-radius: 5px;
+}
+.inputTitle input{
+    width: 250px;
+    height: 35px;
+    border-radius: 5px;
+}
+.formArea input{
+    width: 250px;
+    height: 35px; 
+    border-radius: 5px; 
+    
+}
+.formContent{
+    border: 1px solid orange;
+    width: 50%;
+    height: 30vh;
+    margin-left: auto;
+    margin-right: auto;
+}
