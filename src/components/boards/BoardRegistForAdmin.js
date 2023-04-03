@@ -106,8 +106,8 @@ function BoardRegistForAdmin({setIsRegistModalForAdmin}){
         </div>
         <br/>
         <div className={ResgistForAdmin.modalbtn}>
-        <button onClick={onClickRegistBoard}>완료</button>&nbsp;&nbsp;&nbsp;&nbsp;
-        <button onClick={()=> setIsRegistModalForAdmin(false)}>닫기</button>
+        <button className={ResgistForAdmin.registBtn} onClick={onClickRegistBoard}>완료</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button className={ResgistForAdmin.registBtn} onClick={()=> setIsRegistModalForAdmin(false)}>닫기</button>
         </div>
         </div>
         </div>
