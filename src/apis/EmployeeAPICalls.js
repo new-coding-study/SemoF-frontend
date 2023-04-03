@@ -9,6 +9,8 @@ import {
   SEARCH_EMPLOYEES,
   PUT_EMPLOYEES_BRANCHES,
   PUT_EMPLOYEES_DEPARTMENTS,
+  PUT_EMPLOYEES_CONTRIBUTION,
+  DELETE_EMPLOYEES_CONTRIBUTION,
 } from "../modules/EmployeeModule";
 
 export const callRegisterAPI = ({ form }) => {
@@ -206,7 +208,7 @@ export const callEmpEvaluationAPI = ({ form }) => {
   };
 };
 
-export const callGetEmpContAPI = (empNo) => {
+export const callGetEmpContAPI = ({ empNo }) => {
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/contributions/${empNo}`;
 
   return async (dispatch, getState) => {
@@ -245,5 +247,52 @@ export const callGetEmpContsAPI = () => {
       console.log("[EmployeeAPICalls] callGetEmpContsAPI SUCCESS");
       dispatch({ type: GET_EMPLOYEES_CONTRIBUTIONS, payload: result.data });
     }
+  };
+};
+
+export const callEmpContUpdateAPI = ({ form, empNo }) => {
+  console.log("[EmployeeAPICalls] callEmpContUpdateAPI Call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/evaluation/contributions/${empNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: JSON.stringify({
+        evalContNo: form.evalContNo,
+        categoryNo: form.categoryNo,
+        grade: form.grade,
+      }),
+    }).then((response) => response.json());
+
+    console.log("[EmployeeAPICalls] form : ", form);
+    console.log("[EmployeeAPICalls] callEmpContUpdateAPI RESULT : ", result);
+
+    dispatch({ type: PUT_EMPLOYEES_CONTRIBUTION, payload: result });
+  };
+};
+
+export const callDeleteEmpContAPI = ({ empNo }) => {
+  console.log("[EmployeeAPICalls] callDeleteEmpContAPI Call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/evaluation/contributions/${empNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "DELETE",
+      headers: {
+        // "Content-Type": "application/json",
+        Accept: "*/*",
+      },
+    }).then((response) => response.json());
+
+    console.log("[EmployeeAPICalls] callDeleteEmpContAPI RESULT : ", result);
+
+    dispatch({ type: DELETE_EMPLOYEES_CONTRIBUTION, payload: result.data });
   };
 };
