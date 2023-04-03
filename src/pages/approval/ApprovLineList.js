@@ -15,7 +15,7 @@ function ApprovalLineList() {
     const lineList = useSelector(state => state.approvalReducer.line); 
     const pageInfo = lineList.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
-  
+    console.log('이거 되긴하니',lineList.length);
     console.log(pageInfo);
   
     const pageNumber = [];
@@ -32,15 +32,17 @@ function ApprovalLineList() {
         } // eslint-disable-next-line
         ,[]
     );
-
+        console.log(lineList.length);
     return (
         <>
         <div 
         // className={ MainCSS.productDiv }
         
-        >결재라인
+        >결재라인</div>
+        <div>
             { 
-               lineList.length > 0 && lineList.map((line) => (
+               lineList.length > 0 && 
+               lineList.map((line) => (
                 <Line key={ line.lineNo } line={ line } />
                ))
             }
