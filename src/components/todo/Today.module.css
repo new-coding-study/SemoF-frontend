@@ -20,9 +20,13 @@
 }
 
 .todo label {
-  width: 200px;
+  width: 250px;
   height: 20px;
   margin: 8px 4px;
+}
+
+.todo label > div {
+  width: 250px;
 }
 
 .todo img {

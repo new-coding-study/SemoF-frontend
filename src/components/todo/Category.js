@@ -1,7 +1,7 @@
 import CategoryCSS from "./Category.module.css";
 
-function Category(categoryList) {
-  const category = categoryList.category;
+function Category({ category }) {
+  // const category = categoryList.category;
 
   // console.log("category", category);
 
