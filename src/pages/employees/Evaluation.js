@@ -103,6 +103,16 @@ function Evaluation() {
     //eslint-disable-next-line
   }, [selectedEmployee]);
 
+  useEffect(() => {
+    setDisplayedEmployees(employeeList);
+  }, [employeeList]);
+
+  useEffect(() => {
+    dispatch(callGetEmpContsAPI({})).then(() => {
+      setDisplayedEmployees(employeeList);
+    });
+    //eslint-disable-next-line
+  }, []);
   const openModalHandler = () => {
     setShowModal(true); // 모달창으로 처리
     setSelectedEmployee(null);
@@ -254,7 +264,11 @@ function Evaluation() {
 
   const onDeleteHandler = (empNo) => {
     dispatch(callDeleteEmpContAPI({ empNo })).then(() => {
-      dispatch(callGetEmpContsAPI({}));
+      dispatch(callGetEmpContsAPI({})).then(() => {
+        // contributionList 업데이트
+        setDisplayedEmployees([]);
+        dispatch(callGetEmployeesAPI({ currentPage: 1 })); // 첫 페이지로 초기화
+      });
     });
   };
 
