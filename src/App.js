@@ -23,6 +23,7 @@ import EmpRegister from "./pages/employees/Register";
 import Transfer from "./pages/employees/Transfer";
 import Evaluation from "./pages/employees/Evaluation";
 import Email from "./pages/email/Email";
+import SendMail from "./pages/email/SendMail";
 
 import ModifyApproval from "./pages/approval/ModifyApproval";
 
@@ -53,6 +54,7 @@ function App() {
           <Route path="employees/transfer" element={<Transfer />} />
           <Route path="employees/evaluation" element={<Evaluation />} />
           <Route path="email" element={<Email />} />
+          <Route path="email/send" element={<SendMail />} />
         </Route>
 
         {/* <Route path="*" element={<Error />} /> */}

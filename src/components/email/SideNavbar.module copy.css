@@ -1,8 +1,7 @@
 .title {
     display: flex;
-    align-items: center;
+    vertical-align: center;
     justify-content: center;
-    height: 4.5rem;
 }
 
 .title span {
@@ -10,7 +9,6 @@
     text-align: center;
     font-size: x-large;
     font-weight: 900;
-    color: #2e4454;
 }
 
 .logo {
@@ -38,7 +36,6 @@
 
 .composeButton svg {
     margin-left: 1%;
-    fill: white;
 }
 
 .composeButton span {
@@ -47,8 +44,17 @@
 }
 
 .composeButton:hover {
-    background-color: #c20000;
-    border-color: #c20000;
+    border-top: 1px solid #e52e2e;
+    border-bottom: 1px solid #e52e2e;
+    border-right: 1px solid #e52e2e;
+    border-left: none;
+    background-color: #e8e8e8;
+    font-weight: bold;
+    color: #e52e2e;
+}
+
+.composeButton:hover svg {
+    fill: #e52e2e;
 }
 
 .navList {
@@ -60,7 +66,7 @@
 
 .navList a {
     text-decoration: none;
-    color: #2e4454;
+    color: black;
 }
 
 .navItem {
@@ -72,7 +78,7 @@
 }
 
 .navItem:hover {
-    background-color: rgba(229, 46, 46, 0.1);
+    background-color: #e8e8e8;
 }
 
 .navItem i {
@@ -86,7 +92,6 @@
     width: 90px;
     font-size: 14px;
     font-weight: 500;
-    color: #2e4454;
 }
 
 .navText span {
@@ -106,7 +111,7 @@
 }
 
 .navCount:hover {
-    background-color: rgba(229, 46, 46, 0.1);
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
 .navCount span {
@@ -132,10 +137,14 @@
 }
 
 .navLabel:hover {
-    background-color: #e52e2e;
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
-.navLabel:hover span,
-.navLabel:hover svg {
-    color: white;
+.navLabel span {
+    margin-right: 8px;
+}
+
+.navLabel svg {
+    margin-right: 10px;
+    color: #5f6368;
 }
