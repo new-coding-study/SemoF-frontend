@@ -7,17 +7,17 @@ function MailItem({ email }) {
       <li className={MailItemCSS.listItem}>
         <div className={MailItemCSS.info}>
           <div className={MailItemCSS.senderWrapper}>
-            <span className={MailItemCSS.sender}>{email.sender}</span>
+            <span className={MailItemCSS.sender}>{email.senderName}</span>
           </div>
           <div className={MailItemCSS.subjectWrapper}>
-            <span className={MailItemCSS.subject}>{email.subject}</span>
+            <span className={MailItemCSS.subject}>{email.title}</span>
           </div>
         </div>
         <div className={MailItemCSS.body}>
-          <p>{email.body}</p>
+          <p>{email.content}</p>
         </div>
         <div className={MailItemCSS.infoDate}>
-          <span className={MailItemCSS.date}>{email.date}</span>
+          <span className={MailItemCSS.date}>{email.sendDate}</span>
         </div>
       </li>
     </div>

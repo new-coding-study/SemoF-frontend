@@ -58,7 +58,7 @@ function MailList({ category }) {
       <div className={MailListCSS.mailList}>
         <ul>
           {filteredEmails.map((email) => (
-            <MailItem key={email.mailNo} email={email} />
+            <MailItem key={email.mailNo} email={email} category={category} />
           ))}
         </ul>
       </div>
