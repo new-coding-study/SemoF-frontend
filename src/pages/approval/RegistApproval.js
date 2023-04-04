@@ -1,3 +1,4 @@
+import RegistCSS from './RegistApproval.module.css';
 import {useSelector, useDispatch} from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
 import { callGetFormTitleAPI, callApprovRegistAPI } from "../../apis/ApprovalAPICalls"
@@ -9,7 +10,10 @@ function RegistApproval() {
     const formInfo = useSelector(state => state.approvalReducer.form);
     // const form = formInfo.data;
     const [files, setFiles] = useState([]);
+    const [title, setTitle] = useState('');
+    const [contents, setContents] = useState([]);
     const [isSelect, setIsSelect] = useState(false);
+    const [isCategorySelect, setIsCategorySelect] = useState(false);
     const [selectForm, setSelectForm] = useState('');
     const [filePath, setFilePath] = useState();
     const fileInput = useRef();
@@ -18,8 +22,8 @@ function RegistApproval() {
         approvTitle:''
         // ,이게 리스트로 들어가려면??
         , approvContentDTOList : [
-            { content : ''}
-        ]
+            
+        ], approvFileDTOList : []
         // 이게 content값들로 인식이 될까?
     })
     console.log(formInfo);
@@ -56,21 +60,46 @@ function RegistApproval() {
         setSelectForm(e.target.value);
         console.log(isSelect);
         console.log(e.target.value);
+        setIsCategorySelect(true);
         
     }
     const onChangeFileUpload= (e) =>{
-        setFiles(e.target.files);
+        const files = e.target.files; // 선택한 파일 리스트
+        console.log('여기',files);
+        console.log('여기도',files[0]);
+        // const fileList = []; // 파일 정보 리스트
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          const fileDTO = {
+            originName: file.name
+          };
+          setFiles.push(fileDTO);
+        }
+      
+
+        // setFiles(e.target.files);
     }
     const onClickfilesUpload = () => {
         fileInput.current.click();
     }
     const onChangeHandler = (e) => {
-        setApproval({
-            ...approval,
-            [e.target.name]: e.target.value
-        });
+        setTitle(e.target.value);
     };
+    const contentChange = (e) => {
+        const { value } = e.target;
+        setContents((prevContents) => [...prevContents, value]);
 
+    }
+
+    useEffect(() => {
+        setApproval(prevState => ({
+          ...prevState,
+          approvTitle: title,
+          approvContentDTOList: contents,
+          approvFileDTOList: files
+        }));
+      }, [title, contents, files]);
+    console.log(approval);
     const onClickApprovRegistrationHandler = () => {
 
         console.log('[RegistApproval] onClickApprovRegistrationHandler');
@@ -80,15 +109,16 @@ function RegistApproval() {
         // formData.append('file', form.file);
         // formData.append('data', JSON.stringify(form.data));
 
-        formData.append("approvTitle", approval.approvTitle);
-        formData.append("content", approval.content);
+        formData.append("approvTitle", JSON.stringify(approval.approvTitle));
+        formData.append("approvContentDTOList", JSON.stringify(approval.approvContentDTOList));
         // formData.append("productOrderable", approval.productOrderable);
         // formData.append("categoryCode", approval.categoryCode);
         // formData.append("productStock", approval.productStock);
         // formData.append("productDescription", approval.productDescription);
 
         if(files){
-            formData.append("files", files);
+            console.log('파일비어있니?')
+            formData.append("approvFileDTOList", approval.approvFileDTOList);
         }
         // console.log('[ProductRegistration] formData : ', formData.get("productName"));
         // console.log('[ProductRegistration] formData : ', formData.get("productPrice"));
@@ -103,7 +133,7 @@ function RegistApproval() {
         //     formData.append('files[]', files[i]);
         // }
         dispatch(callApprovRegistAPI({	// 상품 상세 정보 조회
-            approval: formData
+            form: formData
         }));        
     }
         
@@ -115,15 +145,14 @@ function RegistApproval() {
 // 어떻게 해야할까 이게 아예 안될 문제는 아닐텐데
     return(
         <>
+        <div className={RegistCSS.writeArea}>
             <div 
-
+            className={RegistCSS.title}
             >
                 결재 상신
             </div>
-            <div 
-            // className={category}
-            >
-                <p>카테고리</p>
+            <div className={RegistCSS.categorytitle}>
+                <label style={{marginRight:'17%'}}>카테고리 : </label>
                 {/* <select name="formType" onChange={selectHandler}>
                 <option value="none" disabled>작성유형선택</option>
                 {formInfo.map(form => (
@@ -135,6 +164,9 @@ function RegistApproval() {
                     <option value="none" disabled>작성유형선택</option>
                     {/* {
                         지히는 이거 반복을 돌리라 했다. 그러면 api또 만들어야함
+                         {branch.map(b => (
+                <option key={b.branchCode} value={b.branchCode} name="branchCode">{b.branchName}</option>
+              ))}
                     } */}
                     <option value="A" name="formCode">지출결의서</option>
                     <option value="B" name="formCode">지출계획서</option>
@@ -147,63 +179,63 @@ function RegistApproval() {
                 </select>
 
             </div>
-            <div 
-            // className={docuName}
-            >
-                <p>제목</p>
+            <br/>
+            <div className={RegistCSS.inputTitle}>
+                <label style={{marginRight:'12%'}}>제목 : </label>
                 <input 
                 // className={nameInput} 
                 onChange={onChangeHandler} placeholder="제목 입력" name='approvTitle'></input>
                 
             </div>
-            <div 
-            // className={application}
-            >
-                <p>신청서 작성</p>
-                <div 
-                // className={application}
-                >
-             
-            </div> 
-            {isSelect && (
-  <div>
-    {formInfo
-      .filter((t) => t.formCode === selectForm)
-      .map((t) => (
-        <div key={t.formCode}>
-          <span>{t.formTitle}</span>:
-          <input
-            name="content"
-            onChange={onChangeHandler}
-            // className={  }
-          />
-        </div>
-      ))}
-  </div>
-)}
+            <br/>
+            <div>
+                <label style={{marginRight:'45%'}}>신청서 작성 : </label>
+                <div>
+            {isSelect &&  (
+                    <div className={RegistCSS.formContent}>
+                        { 
+                        // 눌리면 다시는 안뜨게? useState에서 boolean을 
+                        formInfo
+                        .filter((t) => t.formCode === selectForm)
+                        .map((t) => (
+                            <div className={RegistCSS.formArea} key={t.formCode}>
+                            <span style={{fontSize:'20px', float:'left', marginLeft:'10%'}}>{t.formTitle} : </span>
+                            <div style={{width:'70%', float:'right', padding:'5px'}}>
+                            <input
+                                name="content"
+                                onChange={contentChange}
+                                
+                            />
+                            </div>
+                            </div>
+                        ))}
+                    </div>
+                    )}
+                </div>
                         {/* 중복문제.... 파일처리 문제 fetch로 했더니 boundary 뭐가 안되있고 axios로는 또 에러 */}
-                  
+                  <br/>
                 <input                
-                            // style={ { display: 'none' }}
                             type="file"
                             name='file' 
                             accept=""
                             multiple onChange={ onChangeFileUpload }
                             ref={ fileInput }
+                            className={RegistCSS.fileUpload}
                         />
-                        <button 
+                        {/* <button 
                             // className={ ProductRegistrationCSS.productImageButton }
                             onClick={ onClickfilesUpload } 
                         >
                             파일 업로드
-                            </button>
+                            </button> */}
             </div>
-            <button 
-            // className={btnTurn}
-            >취소</button>
-            <button type="submit" 
-            // className={btnSend} 
-            onClick={onClickApprovRegistrationHandler}>결재상신</button>
+            <br/>
+            <br/>
+            <div>
+            <button type="submit" className={RegistCSS.submitButton1} onClick={onClickApprovRegistrationHandler}>결재상신</button>&nbsp;&nbsp;&nbsp;
+            <button className={RegistCSS.cancel} onClick={()=> nav(-1)}>취소</button> 
+            </div>
+            </div>
         </>
         )
     
