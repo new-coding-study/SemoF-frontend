@@ -6,13 +6,13 @@ const initialState = [];
 /* 액션 */
 export const GET_STATUS               = 'attendance/GET_STATUS';
 export const GET_HISTORIES           = 'attendance/GET_HISTORIES';
-export const GET_ANNUAL           = 'attendance/GET_ANNUAL';
+export const PUT_STATUSNAME           = 'attendance/PUT_STATUSNAME';
 export const PUT_STATUS            = 'attendance/PUT_STATUS';
 // eslint-disable-next-line
 const actions = createActions({
     [GET_STATUS]: () => {},
     [GET_HISTORIES]: () => {},
-    [GET_ANNUAL]: () => {},
+    [PUT_STATUSNAME]: () => {},
     [PUT_STATUS]: () => {}
 });
 
@@ -27,14 +27,14 @@ const attendanceReducer = handleActions(
             
             return payload;
         },
-        [GET_ANNUAL]: (state, { payload }) => {
+        [PUT_STATUSNAME]: (state, { payload }) => {
 
             return payload;
         },
         [PUT_STATUS]: (state, { payload }) => {
 
             return payload;
-        }         
+        }       
     },
     initialState
 );
