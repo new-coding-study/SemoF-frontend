@@ -1,21 +1,23 @@
 .actionMenu {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
 }
 
 .menuButton {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 30px;
     border: none;
     background-color: transparent;
     color: #000;
     font-size: 16px;
     line-height: 24px;
     cursor: pointer;
+    padding: 0;
+    margin-left: 5px;
 }
 
 .menuButton:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    /* background-color: rgba(0, 0, 0, 0.05); */
 }
 
 .menuList {
@@ -40,4 +42,54 @@
 
 .menuItem:hover {
     background-color: rgba(0, 0, 0, 0.05);
+}
+
+.spin {
+    margin-top: 1.5%;
+}
+
+.checkBox {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 1%;
+    margin-left: 4em;
+    margin-right: 1.5em;
+}
+
+.checkBox:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    background-color: #f7f7f7;
+    border: 1px solid #d6d6d6;
+}
+
+.checkBox:checked:before {
+    background-color: #e52e2e;
+    border-color: #e52e2e;
+}
+
+.checkBox:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+}
+
+.checkBox:checked:after {
+    opacity: 1;
 }
