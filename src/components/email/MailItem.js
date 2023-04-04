@@ -7,6 +7,12 @@ function MailItem({ email }) {
       <li className={MailItemCSS.listItem}>
         <div className={MailItemCSS.info}>
           <div className={MailItemCSS.senderWrapper}>
+            <input
+              type="checkbox"
+              // checked={isChecked}
+              // onChange={handleChange}
+              className={MailItemCSS.checkBox}
+            />
             <span className={MailItemCSS.sender}>{email.senderName}</span>
           </div>
           <div className={MailItemCSS.subjectWrapper}>
