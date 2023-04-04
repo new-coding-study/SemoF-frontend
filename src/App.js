@@ -22,6 +22,7 @@ import Employees from "./pages/employees/Employees";
 import EmpRegister from "./pages/employees/Register";
 import Transfer from "./pages/employees/Transfer";
 import Evaluation from "./pages/employees/Evaluation";
+import ModifyApproval from "./pages/approval/ModifyApproval";
 
 function App() {
   return (
@@ -40,7 +41,7 @@ function App() {
           <Route path="regist-approval" element={<RegistApproval />} />
           <Route path="lines" element={<ApprovLineList />} />
           <Route path="add-line" element={<RegistLine />} />
-
+          <Route path="modify-approval" element= {<ModifyApproval/>}/>
           <Route path="board" element={<Board />} />
 
 
