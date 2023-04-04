@@ -11,7 +11,7 @@ import {
   callIntendedTodoListAPI,
   callCategoryListAPI,
   callSearchTodoAPI,
-  callProductRegistAPI,
+  callTodoRegistAPI,
 } from "../../apis/TodoAPICalls";
 
 function Todo() {
@@ -22,6 +22,20 @@ function Todo() {
   const intendedList = useSelector((state) => state.todoReducer.intendedList);
   const categoryList = useSelector((state) => state.todoReducer.categoryList);
 
+  // 달성률에 나타낼 때 필요한 값들을 변수에 미리 저장
+  const todayAllTodo = todayList?.length;
+  const todayFinishTodoList = todayList?.filter(
+    (today) => today.todoFinish === 1
+  );
+  const todayFinishTodo = todayFinishTodoList?.length;
+
+  // 위에서 구한 값들로 달성률을 구함
+  const achievementRate =
+    Math.round((todayFinishTodo / todayAllTodo) * 100 * 10) / 10;
+
+  // 카테고리 선택 창에서 기본적으로 띄워줄 색을 구함
+  const defaultCateColor = categoryList[0]?.cateColor;
+
   // 중요표시 및 완료여부 관리
   const [checkStarAndFinish, setCheckStarAndFinish] = useState(false);
   // 검색어 관리
@@ -29,7 +43,8 @@ function Todo() {
   // Todo 입력창에서의 카테고리 보일지 말지에 대한 상태 관리
   const [visibleCate, setVisibleCate] = useState(false);
   // Todo 입력창에서의 선택된 카테고리 값 관리 (일단은 중요표시에 대한 색을 초기값으로 넣어둠)
-  const [selectedCateColor, setSelectedCateColor] = useState("#F5F938");
+  const [selectedCateColor, setSelectedCateColor] = useState();
+
   // Todo 입력창에서의 중요표시 관리
   const [addTodoStar, setAddTodoStar] = useState(0);
   // Todo 입력창 값 관리
@@ -59,17 +74,20 @@ function Todo() {
     }
   };
 
-  // 새로운 Todo 제목 입력 핸들러
+  // 새로운 Todo 입력 핸들러
   const onInsertTodoHandler = (e) => {
+    // console.log(e.target.name);
+    // console.log(e.target.value);
     setNewTodo({
       ...newTodo,
-      todoName: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
   // 새로운 Todo 중요표시 여부 핸들러
   const onSetAddStarHandler = () => {
-    const value = addTodoStar === 0 ? 0 : 1;
+    const value = addTodoStar === 0 ? 1 : 0;
+    console.log("value 확인 :", value);
 
     setNewTodo({
       ...newTodo,
@@ -77,6 +95,7 @@ function Todo() {
     });
     // 중요한 일은 노란 별, 아니면 빈 별을 보여줘야해서 set으로 상태값을 바꿔줌
     setAddTodoStar(addTodoStar === 0 ? 1 : 0);
+    console.log("addTodoStar 확인 : ", addTodoStar);
   };
 
   const onClickInsertTodoHandler = () => {
@@ -92,7 +111,7 @@ function Todo() {
     formData.append("todoStar", newTodo.todoStar);
 
     dispatch(
-      callProductRegistAPI({
+      callTodoRegistAPI({
         form: formData,
       })
     );
@@ -113,9 +132,9 @@ function Todo() {
 
   useEffect(
     () => {
-      // 나중에 localStorage 에서 empNo 받아와서 보내주기!
       setCheckStarAndFinish(false);
       setAddTodo(false);
+      setSelectedCateColor(defaultCateColor);
     }, // eslint-disable-next-line
     [checkStarAndFinish, addTodo]
   );
@@ -131,7 +150,6 @@ function Todo() {
             <input
               type="text"
               placeholder="할 일 검색"
-              // value={search}
               onKeyUp={onEnterkeyHandler}
               onChange={onSearchChangeHandler}
             />
@@ -158,7 +176,6 @@ function Todo() {
                 <div
                   className={TodoCSS.defaultCate}
                   style={{
-                    // backgroundColor: defaultCateColor,
                     backgroundColor: selectedCateColor,
                     border: "1px solid black",
                   }}
@@ -173,10 +190,9 @@ function Todo() {
               </span>
               <input
                 type="text"
-                placeholder="새로운 할 일을 입력하세요"
-                // value={newTodo}
-                onChange={onInsertTodoHandler}
                 name="todoName"
+                onChange={onInsertTodoHandler}
+                placeholder="새로운 할 일을 입력하세요"
               />
               {addTodoStar ? (
                 <img
@@ -191,20 +207,31 @@ function Todo() {
                   onClick={onSetAddStarHandler}
                 ></img>
               )}
-              <img src={"/images/calendar_gray.png"} alt="이미지확인!"></img>
+              {/* <img src={"/images/calendar_gray.png"} alt="이미지확인!"></img> */}
+              <input
+                type="date"
+                name="todoDate"
+                onChange={onInsertTodoHandler}
+                className={TodoCSS.addInputDate}
+              />
+              <input
+                type="time"
+                name="todoTime"
+                onChange={onInsertTodoHandler}
+                className={TodoCSS.addInputTime}
+              />
             </div>
             <button onClick={onClickInsertTodoHandler}>할 일 추가</button>
           </div>
           <div className={TodoCSS.graphWrapper}>
             <div className={TodoCSS.graphTitle}>
               <div> 오늘의 달성률 </div>
-              <span> 4 </span>
-              <span> / 6</span>
-              {/* 변수로 리스트 사이즈 선언해서 변수를 가져다 써야함 */}
+              <span> {todayFinishTodo} </span>
+              <span> / {todayAllTodo} </span>
             </div>
             <div className={TodoCSS.graph}>
               <div> </div>
-              <span> 66%</span>
+              <span> {achievementRate}%</span>
             </div>
           </div>
           <div className={TodoCSS.todoList}>

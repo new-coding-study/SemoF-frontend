@@ -120,7 +120,7 @@ export const callCategoryListAPI = (empNo) => {
   };
 };
 
-export const callProductRegistAPI = ({ form }) => {
+export const callTodoRegistAPI = ({ form }) => {
   // console.log("POST_TODO call");
   // console.log("form", form);
 
@@ -139,6 +139,27 @@ export const callProductRegistAPI = ({ form }) => {
     console.log("POST_TODO result : ", result);
 
     dispatch({ type: POST_TODO, payload: result });
+  };
+};
+
+export const callTodoUpdateAPI = ({ form }) => {
+  console.log("PUT_TODO call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/todos/todo`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "PUT",
+      headers: {
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: form,
+    }).then((response) => response.json());
+
+    console.log("PUT_TODO result : ", result);
+
+    dispatch({ type: PUT_TODO, payload: result });
   };
 };
 
@@ -163,7 +184,7 @@ export const callDeleteTodoAPI = (todoNo) => {
   };
 };
 
-export const callUpdateStarAPI = (todoNo) => {
+export const callUpdateStarAPI = (todoNo, changeStar) => {
   // console.log("PUT_STAR call");
 
   const requestURL = `http://localhost:8090/todos/star/${todoNo}`;
@@ -176,6 +197,7 @@ export const callUpdateStarAPI = (todoNo) => {
         Accept: "*/*",
         // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
       },
+      body: changeStar,
     }).then((response) => response.json());
     if (result.status === 200) {
       console.log("PUT_STAR result : ", result);
@@ -184,7 +206,7 @@ export const callUpdateStarAPI = (todoNo) => {
   };
 };
 
-export const callUpdateFinishAPI = (todoNo) => {
+export const callUpdateFinishAPI = (todoNo, changeFinish) => {
   // console.log("PUT_FINISH call");
 
   const requestURL = `http://localhost:8090/todos/finish/${todoNo}`;
@@ -197,6 +219,7 @@ export const callUpdateFinishAPI = (todoNo) => {
         Accept: "*/*",
         // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
       },
+      body: changeFinish,
     }).then((response) => response.json());
     if (result.status === 200) {
       console.log("PUT_FINISH result : ", result);

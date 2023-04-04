@@ -45,6 +45,8 @@
 .addWrapper {
   display: flex;
   align-items: center;
+  width: 1000px;
+  /* border: 1px solid red; */
 }
 
 .addInputWrapper {
@@ -53,7 +55,7 @@
   border: 1px solid gray;
   border-radius: 4px;
   height: 36px;
-  /* padding: 4px; */
+  padding: 0 4px;
 }
 
 .addInputWrapper div {
@@ -76,12 +78,14 @@
   cursor: pointer;
 }
 
-.addInputWrapper input {
+.addInputWrapper input[type="text"] {
   border: none;
-  height: 24px;
-  width: 300px;
-  margin: 6px 4px;
-  border-left: 1px solid gray;
+  height: 20px;
+  width: 320px;
+  margin: 8px;
+  /* border-left: 1px solid gray; */
+  /* border: 1px dotted gray; */
+  border-radius: 2px;
   padding-left: 8px;
 }
 
@@ -89,6 +93,29 @@
   width: 20px;
   height: 20px;
   margin: 8px 4px;
+  padding: 0 8px;
+  border-right: 1px solid gray;
+  /* border-left: 1px solid gray; */
+}
+
+.addInputDate {
+  width: 120px;
+  height: 20px;
+  font-size: 12px;
+  border: none;
+  margin-top: 10px;
+  /* margin-right: 12px; */
+}
+
+.addInputTime {
+  width: 120px;
+  height: 20px;
+  font-size: 12px;
+  border: none;
+  margin-left: 12px;
+  margin-top: 8px;
+  padding-left: 4px;
+  border-left: 1px solid gray;
 }
 
 .addWrapper button {

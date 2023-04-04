@@ -1,5 +1,6 @@
 import IntendedCSS from "./Intended.module.css";
 import TodoDetailModal from "./TodoDetailModal";
+import TodoUpdateModal from "./TodoUpdateModal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -18,7 +19,9 @@ function Intended({ todo, setCheckStarAndFinish }) {
   const onClickChangeStarHandler = (e) => {
     const todoNo = parseInt(e.target.id);
 
-    dispatch(callUpdateStarAPI(todoNo));
+    const changeStar = todo.todoStar === 0 ? 1 : 0;
+
+    dispatch(callUpdateStarAPI(todoNo, changeStar));
     setCheckStarAndFinish(true);
   };
 
@@ -27,14 +30,15 @@ function Intended({ todo, setCheckStarAndFinish }) {
     const todoNo = parseInt(e.target.id);
     // console.log("체크박스 Change 이벤트 발생");
 
-    dispatch(callUpdateFinishAPI(todoNo));
+    const changeFinish = todo.todoFinish === 0 ? 1 : 0;
+
+    dispatch(callUpdateFinishAPI(todoNo, changeFinish));
     setCheckStarAndFinish(true);
   };
 
   // 할 일 상세조회
   const onClickTodoDetailHandler = (todoNo) => {
     setSelectTodoNo(todoNo);
-    console.log(todoNo);
     setTodoDetailModal(true);
   };
 
@@ -45,10 +49,11 @@ function Intended({ todo, setCheckStarAndFinish }) {
           todoNo={selectTodoNo}
           setTodoDetailModal={setTodoDetailModal}
           setTodoUpdateModal={setTodoUpdateModal}
+          // setCheckStarAndFinish={setCheckStarAndFinish}
         />
       ) : null}
       {todoUpdateModal ? (
-        <TodoDetailModal
+        <TodoUpdateModal
           todoNo={selectTodoNo}
           setTodoDetailModal={setTodoDetailModal}
           setTodoUpdateModal={setTodoUpdateModal}

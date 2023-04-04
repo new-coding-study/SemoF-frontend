@@ -1,4 +1,7 @@
 import TodayCSS from "./Today.module.css";
+import TodoDetailModal from "./TodoDetailModal";
+import TodoUpdateModal from "./TodoUpdateModal";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   callUpdateStarAPI,
@@ -8,11 +11,17 @@ import {
 function Today({ todo, setCheckStarAndFinish }) {
   const dispatch = useDispatch();
 
+  const [todoDetailModal, setTodoDetailModal] = useState(false);
+  const [todoUpdateModal, setTodoUpdateModal] = useState(false);
+  const [selectTodoNo, setSelectTodoNo] = useState("");
+
   // 중요표시 업데이트 (별)
   const onClickChangeStarHandler = (e) => {
     const todoNo = parseInt(e.target.id);
 
-    dispatch(callUpdateStarAPI(todoNo));
+    const changeStar = todo.todoStar === 0 ? 1 : 0;
+
+    dispatch(callUpdateStarAPI(todoNo, changeStar));
     setCheckStarAndFinish(true);
   };
 
@@ -20,13 +29,35 @@ function Today({ todo, setCheckStarAndFinish }) {
   const onChangeFinishHandler = (e) => {
     const todoNo = parseInt(e.target.id);
     // console.log("체크박스 Change 이벤트 발생");
+    const changeFinish = todo.todoFinish === 0 ? 1 : 0;
 
-    dispatch(callUpdateFinishAPI(todoNo));
+    dispatch(callUpdateFinishAPI(todoNo, changeFinish));
     setCheckStarAndFinish(true);
+  };
+
+  // 할 일 상세조회
+  const onClickTodoDetailHandler = (todoNo) => {
+    setSelectTodoNo(todoNo);
+    setTodoDetailModal(true);
   };
 
   return (
     <>
+      {todoDetailModal ? (
+        <TodoDetailModal
+          todoNo={selectTodoNo}
+          setTodoDetailModal={setTodoDetailModal}
+          setTodoUpdateModal={setTodoUpdateModal}
+          // setCheckStarAndFinish={setCheckStarAndFinish}
+        />
+      ) : null}
+      {todoUpdateModal ? (
+        <TodoUpdateModal
+          todoNo={selectTodoNo}
+          setTodoDetailModal={setTodoDetailModal}
+          setTodoUpdateModal={setTodoUpdateModal}
+        />
+      ) : null}
       <div className={TodayCSS.todo}>
         <div
           style={{
@@ -42,7 +73,9 @@ function Today({ todo, setCheckStarAndFinish }) {
           checked={todo.todoFinish === 1}
         />
         <label>
-          <div>{todo.todoName} </div>
+          <div onClick={() => onClickTodoDetailHandler(todo.todoNo)}>
+            {todo.todoName}
+          </div>
         </label>
         {todo.todoStar === 0 ? (
           <img
