@@ -40,7 +40,7 @@ function Header(props) {
             <path
               d="M7.12581 10.2075L2.92748 6L7.12581 1.7925L5.83331 0.5L0.333313 6L5.83331 11.5L7.12581 10.2075Z"
               fill="black"
-              fill-opacity="0.37"
+              fillOpacity="0.37"
             />
           </svg>
         </button>
@@ -55,7 +55,7 @@ function Header(props) {
             <path
               d="M0.874268 10.2075L5.0726 6L0.874268 1.7925L2.16677 0.5L7.66677 6L2.16677 11.5L0.874268 10.2075Z"
               fill="black"
-              fill-opacity="0.37"
+              fillOpacity="0.37"
             />
           </svg>
         </button>

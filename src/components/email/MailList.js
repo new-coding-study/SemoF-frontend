@@ -3,30 +3,18 @@ import MailListCSS from "./MailList.module.css";
 import MailItem from "./MailItem";
 import Header from "./Header";
 
-function MailList(props) {
-  const emails = [
-    {
-      id: 1,
-      sender: "John Doe",
-      subject: "Meeting Request",
-      date: "10:00 AM",
-      body: "Hi, I'd like to schedule a meeting with you next week. Are you available?",
-    },
-    {
-      id: 2,
-      sender: "Jane Smith",
-      subject: "Reminder: Staff Meeting",
-      date: "9:00 AM",
-      body: "Don't forget that we have a staff meeting at 2:00 PM today in the conference room.",
-    },
-  ];
+function MailList({ category, emailList = [] }) {
+  const filteredEmails =
+    category === "send"
+      ? emailList.filter((email) => email.category === "send")
+      : emailList.filter((email) => email.category === "receive");
 
   return (
     <>
       <Header />
       <div className={MailListCSS.mailList}>
         <ul>
-          {emails.map((email) => (
+          {filteredEmails.map((email) => (
             <MailItem key={email.id} email={email} />
           ))}
         </ul>

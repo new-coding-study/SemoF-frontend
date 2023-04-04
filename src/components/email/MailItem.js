@@ -1,8 +1,8 @@
 import React from "react";
 import MailItemCSS from "./MailItem.module.css";
 
-function MailItem(props) {
-  const { email } = props;
+function MailItem(category) {
+  const { email } = category;
 
   return (
     <div className={MailItemCSS.container}>
