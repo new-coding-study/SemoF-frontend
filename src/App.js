@@ -27,6 +27,8 @@ import SendMail from "./pages/email/SendMail";
 
 import ModifyApproval from "./pages/approval/ModifyApproval";
 
+import Attendance from "./pages/attendance/Attendance";
+
 function App() {
   return (
     <BrowserRouter>
@@ -55,6 +57,8 @@ function App() {
           <Route path="employees/evaluation" element={<Evaluation />} />
           <Route path="email" element={<Email />} />
           <Route path="email/send" element={<SendMail />} />
+
+          <Route path="attendance" element={<Attendance />} />
         </Route>
 
         {/* <Route path="*" element={<Error />} /> */}
