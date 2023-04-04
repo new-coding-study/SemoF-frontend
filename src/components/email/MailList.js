@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import MailListCSS from "./MailList.module.css";
 import MailItem from "./MailItem";
 import Header from "./Header";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-
-import { callSendListAPI } from "../../apis/EmailAPICalls";
+import { callSendListAPI, callTakeListAPI } from "../../apis/EmailAPICalls";
+import EmailDetail from "./EmailDetail";
+import { useNavigate } from "react-router-dom";
 
 function MailList({ category }) {
   const dispatch = useDispatch();
-  const sendMails = useSelector((state) => state.emailReducer);
+  const navigate = useNavigate();
+  const mails = useSelector((state) => state.emailReducer);
+  const mailList = mails.data;
 
-  console.log("[MailList] sendMails: " + JSON.stringify(sendMails));
+  console.log("[MailList] mails : " + JSON.stringify(mails));
 
-  const pageInfo = sendMails.pageInfo;
+  const pageInfo = mails.pageInfo;
 
-  console.log("[MailList] pageInfo: " + JSON.stringify(pageInfo));
+  console.log("[MailList] pageInfo : " + JSON.stringify(pageInfo));
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -27,40 +29,88 @@ function MailList({ category }) {
     }
   }
 
-  useEffect(
-    () => {
-      dispatch(
-        callSendListAPI({
-          currentPage: currentPage,
-        })
-      );
-    }, // eslint-disable-next-line
-    [currentPage]
-  );
+  useEffect(() => {
+    dispatch(
+      callSendListAPI({
+        currentPage: currentPage,
+        category: category,
+      })
+    );
+  }, [currentPage, category, dispatch]);
+
+  useEffect(() => {
+    dispatch(
+      callTakeListAPI({
+        currentPage: currentPage,
+        category: category,
+      })
+    );
+  }, [currentPage, category, dispatch]);
+
+  // useEffect(
+  //   () => {
+  //     dispatch(
+  //       callSendListAPI({
+  //         currentPage: currentPage,
+  //       })
+  //     );
+  //   }, // eslint-disable-next-line
+  //   [currentPage]
+  // );
+  // useEffect(
+  //   () => {
+  //     dispatch(
+  //       callTakeListAPI({
+  //         currentPage: currentPage,
+  //       })
+  //     );
+  //   }, // eslint-disable-next-line
+  //   [currentPage]
+  // );
 
   const [filteredEmails, setFilteredEmails] = useState([]);
 
   useEffect(() => {
-    if (sendMails.data) {
-      const filteredEmails = sendMails.data.filter(
-        (email) => email.category === category
-      );
-      console.log(
-        "[MailList] filteredEmails: " + JSON.stringify(filteredEmails)
-      );
+    if (mailList) {
+      const filteredEmails =
+        mailList.filter((email) => email.category === category) ?? [];
       setFilteredEmails(filteredEmails);
     }
-  }, [sendMails, category]);
+  }, [mailList, category]);
+
+  const [selectedMailNo, setSelectedMailNo] = useState(null);
+
+  const handleSelectEmail = (mailNo) => {
+    console.log("[MailList] handleSelectEmail mailNo: " + mailNo);
+
+    navigate(`/email/detail/${mailNo}`);
+  };
+
+  const handleGoBack = () => {
+    setSelectedMailNo(null);
+  };
 
   return (
     <>
       <Header />
       <div className={MailListCSS.mailList}>
-        <ul>
-          {filteredEmails.map((email) => (
-            <MailItem key={email.mailNo} email={email} category={category} />
-          ))}
-        </ul>
+        {/* {console.log("[MailList] selectedMailNo: " + selectedMailNo)} */}
+        {selectedMailNo ? (
+          <EmailDetail mailNo={selectedMailNo} onGoBack={handleGoBack} />
+        ) : (
+          <ul>
+            {filteredEmails.map((email) => (
+              <MailItem
+                key={email.mailNo}
+                email={email}
+                category={category}
+                isSelected={email.mailNo === selectedMailNo}
+                onSelectEmail={handleSelectEmail}
+                mailNo={email.mailNo}
+              />
+            ))}
+          </ul>
+        )}
       </div>
     </>
   );
