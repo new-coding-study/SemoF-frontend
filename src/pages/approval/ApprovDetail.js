@@ -54,7 +54,7 @@ function ApprovDetail(){
             </div>
             <div className={opinion}></div>
             <button className={btnTurn} onClick={()=>{nav(-1)}}>돌아가기</button>
-            <button className={btnModify} onClick={()=>{nav(-1)}}>내용수정</button>
+            <button className={btnModify} onClick={()=>{nav(`semof/modify-approval`)}}>내용수정</button>
             <button className={btnRe} onClick={()=>{nav(-1)}}>결재 재상신</button>
             <button className={btnDelete} onClick={()=>{nav(-1)}}>결재 삭제</button>
         </>

@@ -24,6 +24,8 @@ import Transfer from "./pages/employees/Transfer";
 import Evaluation from "./pages/employees/Evaluation";
 import Email from "./pages/email/Email";
 
+import ModifyApproval from "./pages/approval/ModifyApproval";
+
 function App() {
   return (
     <BrowserRouter>
@@ -41,7 +43,7 @@ function App() {
           <Route path="regist-approval" element={<RegistApproval />} />
           <Route path="lines" element={<ApprovLineList />} />
           <Route path="add-line" element={<RegistLine />} />
-
+          <Route path="modify-approval" element= {<ModifyApproval/>}/>
           <Route path="board" element={<Board />} />
 
           <Route path="posting-detail/:boardNo" element={<PostingDetail />} />
