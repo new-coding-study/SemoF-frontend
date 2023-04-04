@@ -1,11 +1,9 @@
 import IntendedCSS from "./Intended.module.css";
 import TodoDetailModal from "./TodoDetailModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   callUpdateStarAPI,
-  callIntendedTodoListAPI,
-  callTodoDetailAPI,
   callUpdateFinishAPI,
 } from "../../apis/TodoAPICalls";
 
@@ -35,7 +33,7 @@ function Intended({ todo, setCheckStarAndFinish }) {
 
   // 할 일 상세조회
   const onClickTodoDetailHandler = (todoNo) => {
-    // setSelectTodoNo(todoNo);
+    setSelectTodoNo(todoNo);
     console.log(todoNo);
     setTodoDetailModal(true);
   };

@@ -1,5 +1,5 @@
 import TodoDetailModalCSS from "./TodoDetailModal.module.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
