@@ -91,6 +91,10 @@ function ApprovalIn() {
             <button type="button" onClick={onClickHandler}>
                 결재상신
             </button>
+            <button 
+            // className={btnModify} 
+            onClick={()=>{nav(`/semof/modify-approval`)}}>내용수정</button>
+
         </div>
         </>
     );
