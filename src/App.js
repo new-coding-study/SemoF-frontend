@@ -22,6 +22,8 @@ import Employees from "./pages/employees/Employees";
 import EmpRegister from "./pages/employees/Register";
 import Transfer from "./pages/employees/Transfer";
 import Evaluation from "./pages/employees/Evaluation";
+import Email from "./pages/email/Email";
+
 import ModifyApproval from "./pages/approval/ModifyApproval";
 
 function App() {
@@ -44,14 +46,13 @@ function App() {
           <Route path="modify-approval" element= {<ModifyApproval/>}/>
           <Route path="board" element={<Board />} />
 
-
-          <Route path="posting-detail/:boardNo" element={<PostingDetail/>}/>
-
+          <Route path="posting-detail/:boardNo" element={<PostingDetail />} />
 
           <Route path="employees" element={<Employees />} />
           <Route path="employees/register" element={<EmpRegister />} />
           <Route path="employees/transfer" element={<Transfer />} />
           <Route path="employees/evaluation" element={<Evaluation />} />
+          <Route path="email" element={<Email />} />
         </Route>
 
         {/* <Route path="*" element={<Error />} /> */}

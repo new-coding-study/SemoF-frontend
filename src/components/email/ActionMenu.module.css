@@ -1,0 +1,43 @@
+.actionMenu {
+    position: relative;
+    display: inline-block;
+}
+
+.menuButton {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background-color: transparent;
+    color: #000;
+    font-size: 16px;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.menuButton:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.menuList {
+    position: absolute;
+    top: 32px;
+    right: 0;
+    margin: 0;
+    padding: 8px 0;
+    list-style: none;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+}
+
+.menuItem {
+    padding: 8px 24px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #202124;
+    cursor: pointer;
+}
+
+.menuItem:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
