@@ -24,7 +24,8 @@ import Transfer from "./pages/employees/Transfer";
 import Evaluation from "./pages/employees/Evaluation";
 import Email from "./pages/email/Email";
 import SendMail from "./pages/email/SendMail";
-import EmailDetail from "./components/email/EmailDetail";
+import SendEmailDetail from "./components/email/SendEmailDetail";
+import ReceiveEmailDetail from "./components/email/ReceiveEmailDetail";
 
 import ModifyApproval from "./pages/approval/ModifyApproval";
 
@@ -58,7 +59,11 @@ function App() {
           <Route path="employees/evaluation" element={<Evaluation />} />
           <Route path="email" element={<Email />} />
           <Route path="email/send" element={<SendMail />} />
-          <Route path="email/send/:mailNo" element={<EmailDetail />} />
+          <Route path="email/send/:mailNo" element={<SendEmailDetail />} />
+          <Route
+            path="email/receive/:receiveNo"
+            element={<ReceiveEmailDetail />}
+          />
           <Route path="attendance" element={<Attendance />} />
         </Route>
 

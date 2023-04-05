@@ -1,28 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
+import React, { useState } from "react";
+// import { useParams } from "react-router-dom";
+import SendMailList from "../../components/email/SendMailList";
 
 import EmailCSS from "./Email.module.css";
 import SearchBox from "../../components/email/SearchBox";
 import SideNavbar from "../../components/email/SideNavbar";
-import MailList from "../../components/email/MailList";
 
 function SendMail() {
-  const location = useLocation();
-  const [mailList, setMailList] = useState([]);
-
-  useEffect(() => {
-    if (location.state && location.state.category === "send") {
-      axios
-        .get("mail/send")
-        .then((response) => {
-          setMailList(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [location.state]);
+  // const { mailNo } = useParams();
+  const [selectedMailNo, setSelectedMailNo] = useState(null);
 
   return (
     <div className={EmailCSS.contentWrapper}>
@@ -32,7 +18,12 @@ function SendMail() {
         </div>
         <div className={EmailCSS.content}>
           <SearchBox />
-          <MailList category="send" emailList={mailList} />
+          <SendMailList
+            category="send"
+            // selectedMailNo={mailNo}
+            selectedMailNo={selectedMailNo}
+            setSelectedMailNo={setSelectedMailNo}
+          />
         </div>
       </div>
     </div>
