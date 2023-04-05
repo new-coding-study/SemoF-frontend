@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import SideNavbarCSS from "./SideNavbar.module.css";
+import ComposeModal from "./ComposeModal"; // 모달 컴포넌트 import
 
 function SideNavbar() {
+  // 모달 열림 여부를 state로 관리
+  const [showModal, setShowModal] = useState(false);
+
+  // 모달을 여는 함수
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  // 모달을 닫는 함수
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className={SideNavbarCSS.sideNavbar}>
       <div className={SideNavbarCSS.title}>
@@ -13,7 +27,7 @@ function SideNavbar() {
         />
         <span>Mail</span>
       </div>
-      <button className={SideNavbarCSS.composeButton}>
+      <button className={SideNavbarCSS.composeButton} onClick={openModal}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 96 960 960"
@@ -107,6 +121,7 @@ function SideNavbar() {
           </li>
         </NavLink>
       </ul>
+      <ComposeModal isOpen={showModal} onClose={closeModal} />
     </div>
   );
 }

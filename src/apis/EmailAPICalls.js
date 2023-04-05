@@ -3,6 +3,7 @@ import {
   GET_SEND_EMAILS,
   GET_RECEIVE_EMAIL,
   GET_RECEIVE_EMAILS,
+  POST_SEND_EMAIL,
 } from "../modules/EmailModule.js";
 
 export const callSendListAPI = ({ currentPage, category }) => {
@@ -108,6 +109,28 @@ export const callReceiveEmailAPI = ({ receiveNo }) => {
     if (result.status === 200) {
       console.log("[EmailAPICalls] callReceiveEmailAPI RESULT : ", result);
       dispatch({ type: GET_RECEIVE_EMAIL, payload: result.data });
+    }
+  };
+};
+
+export const callPostEmailAPI = ({ form }) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/email/send`;
+
+  console.log("[EmailAPICalls] requestURL : ", requestURL);
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        body: form,
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+    if (result.status === 200) {
+      console.log("[EmailAPICalls] callPostEmailAPI RESULT : ", result);
+      dispatch({ type: POST_SEND_EMAIL, payload: result.data });
     }
   };
 };
