@@ -1,6 +1,7 @@
 import {
   GET_SEND_EMAIL,
   GET_SEND_EMAILS,
+  GET_RECEIVE_EMAIL,
   GET_RECEIVE_EMAILS,
 } from "../modules/EmailModule.js";
 
@@ -66,6 +67,36 @@ export const callTakeListAPI = ({ currentPage, category }) => {
   console.log("[EmailAPICalls] requestURL : ", requestURL);
 
   return async (dispatch, getState) => {
+    const response = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    });
+
+    if (response.status === 200) {
+      const result = await response.json();
+      console.log("[EmailAPICalls] callTakeListAPI RESULT : ", result);
+      dispatch({ type: GET_RECEIVE_EMAILS, payload: result.data });
+    } else {
+      console.error(
+        "[EmailAPICalls] callTakeListAPI failed with status: ",
+        response.status
+      );
+    }
+  };
+};
+
+export const callReceiveEmailAPI = ({ receiveNo }) => {
+  console.log("[callReceiveEmailAPI] receiveNo : ", receiveNo);
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/email/receive/${receiveNo}`;
+
+  console.log("[EmailAPICalls] requestURL : ", requestURL);
+
+  return async (dispatch, getState) => {
     const result = await fetch(requestURL, {
       method: "GET",
       headers: {
@@ -75,8 +106,8 @@ export const callTakeListAPI = ({ currentPage, category }) => {
       },
     }).then((response) => response.json());
     if (result.status === 200) {
-      console.log("[EmailAPICalls] callTakeListAPI RESULT : ", result);
-      dispatch({ type: GET_RECEIVE_EMAILS, payload: result.data });
+      console.log("[EmailAPICalls] callReceiveEmailAPI RESULT : ", result);
+      dispatch({ type: GET_RECEIVE_EMAIL, payload: result.data });
     }
   };
 };

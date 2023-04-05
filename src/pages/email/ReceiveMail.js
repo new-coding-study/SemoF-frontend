@@ -1,29 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import MailList from "../../components/email/MailList";
+import React, { useState } from "react";
+// import { useParams } from "react-router-dom";
+import ReceiveMailList from "../../components/email/ReceiveMailList";
+import ReceiveEmailDetail from "../../components/email/ReceiveEmailDetail";
 
 function ReceiveMail() {
-  const location = useLocation();
-  const [mailList, setMailList] = useState([]);
+  const [selectedMailNo, setSelectedMailNo] = useState(null);
+  // const { receiveNo } = useParams();
 
-  useEffect(() => {
-    if (location.state && location.state.category === "receive") {
-      // 받은 메일함 목록을 불러와서 mailList 상태에 저장
-      // 예시) axios.get("/api/mail/receive").then(response => setMailList(response.data));
-      setMailList([
-        {
-          id: 1,
-          from: "sender@example.com",
-          subject: "Hello, World!",
-          date: "2022-04-04 14:30",
-          content: "This is a test email.",
-        },
-        // ...
-      ]);
-    }
-  }, [location.state]);
-
-  return <MailList category="receive" emailList={mailList} />;
+  return selectedMailNo ? (
+    <ReceiveEmailDetail receiveNo={selectedMailNo} />
+  ) : (
+    <ReceiveMailList
+      category="receive"
+      selectedMailNo={selectedMailNo}
+      setSelectedMailNo={setSelectedMailNo}
+    />
+  );
 }
 
 export default ReceiveMail;
