@@ -2,6 +2,7 @@ import { createActions, handleActions } from "redux-actions";
 
 const initialState = {
     approval : [],
+    lines : [],
     line : [],
     form : [],
     branch : [],
@@ -12,6 +13,7 @@ const initialState = {
 export const GET_APPROVALS = 'approval/GET_APPROVALS';
 export const GET_APPROVAL = 'approval/GET_APPROVAL';
 export const GET_LINES = 'approval/GET_LINES';
+export const GET_LINE = 'approval/GET_LINE';
 export const GET_FORM = 'approval/GET_FORM';
 export const GET_BRANCHES = 'approval/GET_BRANCHES';
 export const GET_JOBS = 'approval/GET_JOBS';
@@ -28,6 +30,7 @@ const actions = createActions({
     [GET_APPROVALS]: () => {},
     [GET_APPROVAL]: () => {},
     [GET_LINES]: () => {},
+    [GET_LINE]: () => {},
     [GET_FORM]: () => {},
     [GET_BRANCHES]: () => {},
     [GET_JOBS]: () => {},
@@ -49,6 +52,9 @@ const approvalReducer = handleActions({
         return {...state, approval : payload};
     },
     [GET_LINES]: (state, {payload})=>{
+        return {...state, lines : payload};
+    },
+    [GET_LINE]: (state, {payload})=>{
         return {...state, line : payload};
     },
     [GET_FORM]: (state, {payload})=>{

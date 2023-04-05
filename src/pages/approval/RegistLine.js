@@ -88,7 +88,7 @@ function RegistLine(){
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    JSON.stringify(line.approvOrderDTOList);
     
     console.log("젭알", line);
     dispatch(callLineRegistAPI({	
@@ -107,18 +107,17 @@ function RegistLine(){
             </div>
             <div>
             <span>결재라인 : </span>
-              <select name="branch" 
-              onChange={selectBranchHandler}
-                >
-              <option value="none" disabled default>지점선택</option>
-              {branch.map(b => (
-                <option key={b.branchCode} value={b.branchCode} name="branchCode">{b.branchName}</option>
-              ))}
-              </select>
-              <select name="dept" 
+            <select name="branch" onChange={selectBranchHandler} defaultValue="default">
+            <option value="default" disabled>지점선택</option>
+            {branch.map((b, idx) => (
+              <option key={idx} value={b.branchCode} name="branchCode">{b.branchName}</option>
+            ))}
+            </select>
+            <select name="dept" 
               onChange={selectDeptHandler}
+              defaultValue="default"
               >
-              <option value="none" disabled>부서선택</option>
+              <option value="default" disabled>부서선택</option>
               {dept.map(b => (
                 <option key={b.deptCode} value={b.deptName} name="deptCode">{b.deptName}</option>
               ))}

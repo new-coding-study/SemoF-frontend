@@ -19,11 +19,11 @@ function ApprovalIn() {
     const pageInfo = approvalList.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
     // const pageEnd = approvalList.pageInfo.pageEnd;
-    console.log(pageInfo);
+    // console.log(pageInfo);
     // const [pageEnd, setPageEnd] = useState(1);
     const pageNumber = [];
     if(pageInfo){
-        for(let i = 1; i <= pageInfo.endPage ; i++){
+        for(let i = 1; i <= pageInfo?.endPage ; i++){
             pageNumber.push(i);
         }
     }
@@ -77,14 +77,14 @@ function ApprovalIn() {
             </li>
             ))}
             { 
-            // Array.isArray(approvalList) &&
-            // <button 
-            //     // className={ ProductManagementCSS.pagingBtn }
-            //     onClick={() => setCurrentPage(currentPage + 1)} 
-            //     disabled={currentPage === pageInfo.endPage || pageInfo.total === 0}
-            // >
-            //     &gt;
-            // </button>
+            Array.isArray(approvalList) &&
+            <button 
+                // className={ ProductManagementCSS.pagingBtn }
+                onClick={() => setCurrentPage(currentPage + 1)} 
+                disabled={currentPage === pageInfo?.endPage || pageInfo?.total === 0}
+            >
+                &gt;
+            </button>
             }
         </div>
         <div>
