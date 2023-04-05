@@ -6,15 +6,26 @@ import { useSelector } from "react-redux";
 import SendEmailDetail from "./SendEmailDetail";
 import ReceiveEmailDetail from "./ReceiveEmailDetail";
 
-function MailList({ category, selectedMailNo, currentPage, setCurrentPage }) {
-  const mails = useSelector((state) => state.emailReducer);
-  const mailList = mails.data;
+function MailList({
+  category,
+  emails,
+  setSelectedMailNo,
+  currentPage,
+  setCurrentPage,
+  selectedMailNo,
+}) {
+  const emailState = useSelector((state) => state.emailReducer);
 
-  console.log("[MailList] mails : " + JSON.stringify(mails));
+  const mailList =
+    category === "receive"
+      ? emailState.receivedEmails?.data ?? []
+      : emailState.sentEmails?.data ?? [];
 
-  const pageInfo = mails.pageInfo;
+  console.log("[MailList] emailState : " + JSON.stringify(emailState));
 
-  console.log("[MailList] pageInfo : " + JSON.stringify(pageInfo));
+  const pageInfo = emailState.pageInfo;
+
+  // console.log("[MailList] pageInfo : " + JSON.stringify(pageInfo));
 
   const pageNumber = [];
 
@@ -23,16 +34,6 @@ function MailList({ category, selectedMailNo, currentPage, setCurrentPage }) {
       pageNumber.push(i);
     }
   }
-
-  const [filteredEmails, setFilteredEmails] = useState([]);
-
-  useEffect(() => {
-    if (mailList) {
-      const filteredEmails =
-        mailList.filter((email) => email.category === category) ?? [];
-      setFilteredEmails(filteredEmails);
-    }
-  }, [mailList, category]);
 
   return (
     <>
@@ -49,10 +50,9 @@ function MailList({ category, selectedMailNo, currentPage, setCurrentPage }) {
           )
         ) : (
           <ul>
-            {filteredEmails.map((email) => {
+            {mailList.map((email) => {
               const mailId =
                 category === "receive" ? email.receiveNo : email.mailNo;
-
               return (
                 <MailItem
                   key={mailId}
@@ -60,6 +60,8 @@ function MailList({ category, selectedMailNo, currentPage, setCurrentPage }) {
                   category={category}
                   isSelected={mailId === selectedMailNo}
                   mailNo={mailId}
+                  // setSelectedMailNo={setSelectedMailNo}
+                  onSelectMailNo={setSelectedMailNo}
                 />
               );
             })}

@@ -23,19 +23,19 @@ const actions = createActions({
 const emailReducer = handleActions(
   {
     [GET_SEND_EMAIL]: (state, { payload }) => {
-      return payload;
+      return { ...state, sentEmails: payload };
     },
     [GET_SEND_EMAILS]: (state, { payload }) => {
-      return payload;
+      return { ...state, sentEmails: payload };
     },
     [GET_RECEIVE_EMAIL]: (state, { payload }) => {
-      return payload;
+      return { ...state, receivedEmails: payload };
     },
     [GET_RECEIVE_EMAILS]: (state, { payload }) => {
-      return payload;
+      return { ...state, receivedEmails: payload };
     },
     [POST_SEND_EMAIL]: (state, { payload }) => {
-      return payload;
+      return { ...state, sentEmails: payload };
     },
   },
   initialState

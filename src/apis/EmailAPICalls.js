@@ -57,6 +57,8 @@ export const callSendEmailAPI = ({ mailNo }) => {
 };
 
 export const callTakeListAPI = ({ currentPage, category }) => {
+  console.log("[callTakeListAPI] currentPage : " + currentPage);
+
   let requestURL;
 
   if (currentPage !== undefined || currentPage !== null) {
@@ -113,8 +115,10 @@ export const callReceiveEmailAPI = ({ receiveNo }) => {
   };
 };
 
-export const callPostEmailAPI = ({ form }) => {
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/email/send`;
+export const callPostEmailAPI = ({ form, empNo }) => {
+  // console.log("[callPostEmailAPI] form : ", JSON.stringify(form));
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/email/send?empNo=${empNo}`;
 
   console.log("[EmailAPICalls] requestURL : ", requestURL);
 
@@ -122,11 +126,12 @@ export const callPostEmailAPI = ({ form }) => {
     const result = await fetch(requestURL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Accept: "*/*",
-        body: form,
+
         // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
       },
+      body: form,
     }).then((response) => response.json());
     if (result.status === 200) {
       console.log("[EmailAPICalls] callPostEmailAPI RESULT : ", result);
