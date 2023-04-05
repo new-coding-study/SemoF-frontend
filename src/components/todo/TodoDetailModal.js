@@ -1,46 +1,64 @@
 import TodoDetailModalCSS from "./TodoDetailModal.module.css";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-import { callTodoDetailAPI } from "../../apis/TodoAPICalls";
+import {
+  callTodoDetailAPI,
+  callUpdateStarAPI,
+  callDeleteTodoAPI,
+} from "../../apis/TodoAPICalls";
 
-function TodoDetailModal({ todoNo, setTodoDetailModal }) {
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+function TodoDetailModal({
+  todoNo,
+  setTodoDetailModal,
+  setTodoUpdateModal,
+  setCheckStarAndFinish,
+}) {
+  const dispatch = useDispatch();
+  const todoDetail = useSelector((state) => state.todoReducer.todoDetail);
+  const navigate = useNavigate();
 
-  //   const [form, setForm] = useState({
-  //     productCode: productCode,
-  //     memberCode: memberCode,
-  //     reviewTitle: "",
-  //     reviewContent: "",
-  //   });
+  useEffect(() => {
+    dispatch(callTodoDetailAPI(todoNo));
+  }, []);
 
-  //   const onChangeHandler = (e) => {
-  //     setForm({
-  //       ...form,
-  //       [e.target.name]: e.target.value,
-  //     });
-  //   };
+  // 상세보기 창에서 중요표시 기능,, 상태값이 바뀌면서 페이지 전체가 리렌더링되면서 에러발생
+  // const onClickChangeStarHandler = (e) => {
+  //   const todoNo = parseInt(e.target.id);
 
-  //   const onClickProductReviewHandler = () => {
-  //     console.log("[ProductReviewModal] onClickProductReviewHandler Start!!");
+  //   dispatch(callUpdateStarAPI(todoNo));
+  //   setCheckStarAndFinish(true);
+  // };
 
-  //     dispatch(
-  //       callReviewWriteAPI({
-  //         // 리뷰 작성
-  //         form: form,
-  //       })
-  //     );
+  const onClickUpdateModeHandelr = () => {
+    setTodoDetailModal(false);
+    setTodoUpdateModal(true);
+  };
 
-  //     setProductReviewModal(false);
-
-  //     alert("리뷰 등록이 완료되었습니다.");
-
-  //     navigate(`/review/${productCode}`, { replace: true });
-  //     window.location.reload();
-
-  //     console.log("[ProductReviewModal] onClickProductReviewHandler End!!");
-  //   };
+  const deleteTodo = (todoNo) => {
+    Swal.fire({
+      title: "할 일을 삭제하시겠습니까?",
+      showCancelButton: true,
+      cancelButtonText: "취소",
+      confirmButtonText: "삭제",
+      confirmButtonColor: "#e52e2e",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(callDeleteTodoAPI(todoNo));
+        Swal.fire(
+          "할 일이 삭제되었습니다.",
+          "리스트로 돌아갑니다",
+          "success"
+        ).then(
+          navigate(`/semof/todo`, { replace: true }),
+          setTodoDetailModal(false),
+          window.location.reload()
+        );
+      }
+    });
+  };
 
   return (
     <div className={TodoDetailModalCSS.modal}>
@@ -48,16 +66,24 @@ function TodoDetailModal({ todoNo, setTodoDetailModal }) {
         <div className={TodoDetailModalCSS.todoDetailModalModalDiv}>
           <div className={TodoDetailModalCSS.todoHeader}>
             <div>
-              <h1>할 일 확인 </h1>
-              <img
-                // id={intended.todoNo}
-                src={"/images/star_gray.png"}
-                alt="이미지확인!"
-                // onClick={intendedList.changeStar}
-                // onClick={onClickHandler}
-              ></img>
+              <h1> {todoDetail?.todoName} </h1>
+              {todoDetail?.todoStar === 0 ? (
+                <img
+                  id={todoDetail?.todoNo}
+                  src={"/images/star_gray.png"}
+                  alt="이미지확인!"
+                  // onClick={onClickChangeStarHandler}
+                ></img>
+              ) : (
+                <img
+                  id={todoDetail?.todoNo}
+                  src={"/images/star_fill.png"}
+                  alt="이미지확인!"
+                  // onClick={onClickChangeStarHandler}
+                ></img>
+              )}
             </div>
-            <div> x </div>
+            <div onClick={() => setTodoDetailModal(false)}> x </div>
           </div>
 
           <div className={TodoDetailModalCSS.todoTitle}>
@@ -65,60 +91,37 @@ function TodoDetailModal({ todoNo, setTodoDetailModal }) {
             <input
               name="todoName"
               placeholder="할 일 제목"
-              //   value={
-              //     (!modifyMode
-              //       ? musicalOneDetail.musicalName
-              //       : form.musicalName) || ""
-              //   }
-              //   onChange={onChangeHandler}
-              //   readOnly={modifyMode ? false : true}
-              //   style={!modifyMode ? { backgroundColor: "lightgray" } : null}
+              value={todoDetail?.todoName}
+              disabled={true}
             />
           </div>
 
           <div className={TodoDetailModalCSS.todoCategory}>
-            <div> 카테고리 </div>
-            <input
-              name="todoCate"
-              placeholder="카테고리 -> select 박스로 변경해야함"
-              //   value={
-              //     (!modifyMode
-              //       ? musicalOneDetail.musicalName
-              //       : form.musicalName) || ""
-              //   }
-              //   onChange={onChangeHandler}
-              //   readOnly={modifyMode ? false : true}
-              //   style={!modifyMode ? { backgroundColor: "lightgray" } : null}
-            />
+            <div className={TodoDetailModalCSS.cateLabel}> 카테고리 </div>
+            <div className={TodoDetailModalCSS.cateBoxWrapper}>
+              <div
+                className={TodoDetailModalCSS.cateColorBox}
+                style={{
+                  backgroundColor: todoDetail?.cateColor,
+                }}
+              ></div>
+              <span> {todoDetail?.cateName} </span>
+            </div>
           </div>
 
           <div className={TodoDetailModalCSS.todoDate}>
-            <div> 날짜 </div>
+            <div> 날짜 및 시간 </div>
             <input
               type="Date"
               name="todoDate"
-              placeholder="날짜 -> Date"
-              //   value={
-              //     (!modifyMode
-              //       ? musicalOneDetail.musicalName
-              //       : form.musicalName) || ""
-              //   }
-              //   onChange={onChangeHandler}
-              //   readOnly={modifyMode ? false : true}
-              //   style={!modifyMode ? { backgroundColor: "lightgray" } : null}
+              value={todoDetail?.todoDate}
+              disabled={true}
             />
             <input
               type="Time"
               name="todoTime"
-              placeholder="시간 -> Time"
-              //   value={
-              //     (!modifyMode
-              //       ? musicalOneDetail.musicalName
-              //       : form.musicalName) || ""
-              //   }
-              //   onChange={onChangeHandler}
-              //   readOnly={modifyMode ? false : true}
-              //   style={!modifyMode ? { backgroundColor: "lightgray" } : null}
+              value={todoDetail?.todoTime}
+              disabled={true}
             />
           </div>
 
@@ -127,32 +130,14 @@ function TodoDetailModal({ todoNo, setTodoDetailModal }) {
             <textarea
               name="musicalName"
               placeholder="상세내용을 입력하세요"
-              //   value={
-              //     (!modifyMode
-              //       ? musicalOneDetail.musicalName
-              //       : form.musicalName) || ""
-              //   }
-              //   onChange={onChangeHandler}
-              //   readOnly={modifyMode ? false : true}
-              //   style={!modifyMode ? { backgroundColor: "lightgray" } : null}
+              value={todoDetail?.todoContent}
+              disabled={true}
             />
           </div>
 
           <div className={TodoDetailModalCSS.TodoButtonDiv}>
-            <button
-            //   onClick={onClickBackHandler}
-            // className={MusicalUpdateCSS.backButton}
-            >
-              수정
-            </button>
-
-            <button
-            //   onClick={() =>
-            //     onClickMusicalDeleteHandler(musicalOneDetail.musicalCode)
-            //   }
-            >
-              삭제
-            </button>
+            <button onClick={onClickUpdateModeHandelr}>수정</button>
+            <button onClick={() => deleteTodo(todoNo)}>삭제</button>
           </div>
         </div>
       </div>

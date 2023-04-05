@@ -22,7 +22,14 @@ import Employees from "./pages/employees/Employees";
 import EmpRegister from "./pages/employees/Register";
 import Transfer from "./pages/employees/Transfer";
 import Evaluation from "./pages/employees/Evaluation";
+import Email from "./pages/email/Email";
+import SendMail from "./pages/email/SendMail";
+import SendEmailDetail from "./components/email/SendEmailDetail";
+import ReceiveEmailDetail from "./components/email/ReceiveEmailDetail";
+
 import ModifyApproval from "./pages/approval/ModifyApproval";
+
+import Attendance from "./pages/attendance/Attendance";
 
 function App() {
   return (
@@ -41,17 +48,27 @@ function App() {
           <Route path="regist-approval" element={<RegistApproval />} />
           <Route path="lines" element={<ApprovLineList />} />
           <Route path="add-line" element={<RegistLine />} />
-          <Route path="modify-approval" element= {<ModifyApproval/>}/>
+          <Route path="modify-approval" element={<ModifyApproval />} />
           <Route path="board" element={<Board />} />
+
           <Route path="edit-line/:lineNo" element={<ModifyLine/>} />
 
           <Route path="posting-detail/:boardNo" element={<PostingDetail/>}/>
+
 
 
           <Route path="employees" element={<Employees />} />
           <Route path="employees/register" element={<EmpRegister />} />
           <Route path="employees/transfer" element={<Transfer />} />
           <Route path="employees/evaluation" element={<Evaluation />} />
+          <Route path="email" element={<Email />} />
+          <Route path="email/send" element={<SendMail />} />
+          <Route path="email/send/:mailNo" element={<SendEmailDetail />} />
+          <Route
+            path="email/receive/:receiveNo"
+            element={<ReceiveEmailDetail />}
+          />
+          <Route path="attendance" element={<Attendance />} />
         </Route>
 
         {/* <Route path="*" element={<Error />} /> */}
