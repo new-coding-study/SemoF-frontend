@@ -95,6 +95,7 @@
     display: flex;
     padding: 16px;
     justify-content: flex-start;
+    /* justify-content: space-between; */
     align-items: center;
 }
 
@@ -169,19 +170,18 @@
     font-size: 24px;
     cursor: pointer;
     transition: background-color 0.2s;
-    position: absolute;
-    /* add position absolute */
     top: 16px;
-    /* set top and right positions */
     right: 32px;
+    margin-left: auto;
 }
 
 .modalHeader {
     display: flex;
-    padding: 16px;
+    padding: 10px;
     justify-content: space-between;
     align-items: center;
     background-color: #e52e2e;
+    font-size: 15px;
 }
 
 .modalBtn {
@@ -226,7 +226,6 @@
     flex-direction: column;
     justify-content: flex-start;
     height: calc(100% - 128px);
-    justify-content: flex-start;
 }
 
 .modalTextArea {
@@ -241,4 +240,8 @@
 
 .modalTextArea:focus {
     border-bottom-color: #e52e2e;
+}
+
+.fileBtn {
+    display: none;
 }

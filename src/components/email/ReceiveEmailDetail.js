@@ -16,6 +16,13 @@ function ReceiveEmailDetail() {
   const dispatch = useDispatch();
 
   const email = useSelector((state) => state.emailReducer);
+  // const emailState = useSelector((state) => state.emailReducer);
+  // const receivedEmailsArray = Array.isArray(emailState.receivedEmails)
+  //   ? emailState.receivedEmails
+  //   : [];
+  // const email = receivedEmailsArray.find(
+  //   (email) => email.receiveNo === parseInt(receiveNo)
+  // );
 
   console.log("[ReceiveEmailDetail] email: " + JSON.stringify(email));
 

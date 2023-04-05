@@ -17,6 +17,13 @@ function SendEmailDetail() {
   const dispatch = useDispatch();
 
   const email = useSelector((state) => state.emailReducer);
+  // const emailState = useSelector((state) => state.emailReducer);
+  // const sentEmailsArray = Array.isArray(emailState.sentEmails)
+  //   ? emailState.sentEmails
+  //   : [];
+  // const email = sentEmailsArray.find(
+  //   (email) => email.mailNo === parseInt(mailNo)
+  // );
 
   console.log("[SendEmailDetail] email : " + JSON.stringify(email));
 
@@ -25,7 +32,7 @@ function SendEmailDetail() {
     dispatch(callSendEmailAPI({ mailNo }));
   }, [dispatch, mailNo]);
 
-  return (
+  return email ? (
     <div className={EmailCSS.contentWrapper}>
       <div className={EmailCSS.mailBody}>
         <div className={EmailCSS.navBar}>
@@ -56,6 +63,8 @@ function SendEmailDetail() {
         </div>
       </div>
     </div>
+  ) : (
+    <div>Loading email...</div>
   );
 }
 

@@ -2,12 +2,17 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import MailItemCSS from "./MailItem.module.css";
 
-function MailItem({ email, category }) {
+function MailItem({ email, category, isSelected, mailNo, onSelectMailNo }) {
   const linkRoute =
     category === "send"
       ? `/semof/email/send/${email.mailNo}`
       : `/semof/email/receive/${email.receiveNo}`;
 
+  // const handleClick = (e) => {
+  //   e.preventDefault(); // Prevent default navigation
+  //   onSelectMailNo(mailNo);
+  // };
+  // onClick = { handleClick };
   return (
     <div className={MailItemCSS.container}>
       <NavLink
