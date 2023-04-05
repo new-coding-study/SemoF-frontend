@@ -86,7 +86,8 @@ export const callAttendanceUpdateAPI = ({empNo}) => {
                 Swal.fire({
                     position: 'center',
                     icon: 'error',
-                    title: '잘못된 접근입니다. (출, 퇴근)',
+                    title: '기록 실패',
+                    text: '출, 퇴근 기록을 확인하세요.',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -95,7 +96,7 @@ export const callAttendanceUpdateAPI = ({empNo}) => {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: '정상 기록',
+                    title: '기록 성공',
                     showConfirmButton: false,
                     timer: 1500
                 });

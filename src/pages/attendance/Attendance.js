@@ -4,6 +4,8 @@ import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 
+import Swal from 'sweetalert2';
+
 import {
     callAttendanceDetailAPI,
     callAttendanceUpdateAPI,
@@ -13,8 +15,28 @@ function Attendance() {
     const dispatch = useDispatch();
     const status  = useSelector(state => state.AttendanceReducer); 
 
-    const [empNo, setEmpNo] = useState(2);      // 로그인 전까지 값 확인용 상태관리
+    const [empNo, setEmpNo] = useState(10);      // 로그인 전까지 값 확인용 상태관리
     const [check, setCheck] = useState(false);
+    const [activeBtn, setActiveBtn] = useState();
+    
+    const [intervalId, setIntervalId] = useState(null);
+    
+    // useEffect(() => {
+    //     dispatch(callAttendanceDetailAPI({                                      // # 마운트 시작 시 사원 정보 조회
+    //         empNo : empNo
+    //     }));
+    // }, [dispatch, empNo]);
+    
+    // useEffect(() => {
+    //     async function fetchData() {
+    //       await dispatch(callAttendanceDetailAPI({
+    //         empNo: empNo
+    //       }));
+    //       // do something else after the API call
+    //     }
+    //     fetchData();
+    //   }, [dispatch, empNo]);
+    
 
     // 현재 날짜용 (년월일요일 등 근무시간 위에)
     const todayDate = new Date();   //현재 날짜
@@ -34,27 +56,52 @@ function Attendance() {
 
     // 근무시간 비교용
         // 출근시간 문자열로 받아오는걸 Date형식으로 변환
-    const attTime = new Date(status.startTime ?? "00:00:00");   // # 초기값 없다면 00:00:00으로 설정
-    // const attTime = new Date('2023-04-04 09:30:00') // 임시확인용
+    // const attTime = new Date(status.startTime ?? "00:00:00");   // # 초기값 없다면 00:00:00으로 설정
+    // // const attTime = new Date('2023-04-04 09:30:00') // 임시확인용
+    // console.log(attTime)
+    
+    // // 마지막 근무시간 있을경우 초기값으로 설정 ()
+    // const diffTime = isNaN(todayDate - attTime) ? "11:11:11" : todayDate - attTime;
+    // console.log(diffTime)
+    
+    // const seconds = String(Math.floor((diffTime / 1000) % 60)).padStart(2, "0");
+    // const minutes = String(Math.floor((diffTime / 1000 / 60) % 60)).padStart(2, "0");
+    // const hours = String(Math.floor((diffTime / 1000 / 60 / 60) % 24)).padStart(2, "0");
+    // let now = `${hours}:${minutes}:${seconds}`;
 
-    // 시분초 계산 방식 변경하면서 안 쓰게 됨
-    // let oldTime = {
-    //     hours: String(attTime.getHours()).padStart(2, "0"), // 시간
-    //     minutes: String(attTime.getMinutes()).padStart(2, "0"), //현재 분
-    //     seconds: String(attTime.getSeconds()).padStart(2, "0") //현재 초
-    // };
-    
-    // 문자열로 비교 확인
-    // console.log(status.startTime);
-    // console.log(`${todayDate.getFullYear()}-${newTime.month}-${newTime.date} ${newTime.hours}:${newTime.minutes}:${todayDate.getSeconds()}`);
+    // console.log(seconds)
+    // console.log(minutes)
+    // console.log(hours)
+    // console.log(now)
+    // const [nowTime, setNowTime] = useState(now);
+                                                                        // # 여기도 날짜 비교 들어가야함 마지막 근무는 당일이어야 하는데, 첫번째는 당일 근무시간 확인 두번째는 인터벌중에 다른 페이지 이동했어도 현재 초 나오게, 즉 두개가 다름, 조건문으로 구별?
+    const attTime = Date.parse(status.startTime || "00:00:00");             // # 현재시간과 계산이 아니라 퇴근시간 - 출근시간이어야 함, 당일 근무는 스탑워치로 카운팅 되다가 멈춘거니까 노상관
+    console.log('attTime : ' + attTime)
+    const diffTime = isNaN(todayDate - attTime) ? 0 : todayDate - attTime;
+    console.log('diffTime : ' + diffTime)
+    const seconds = String(Math.floor(diffTime / 1000) % 60).padStart(2, "0");
+    const minutes = String(Math.floor(diffTime / (1000 * 60)) % 60).padStart(2, "0");
+    const hours = String(Math.floor(diffTime / (1000 * 60 * 60)) % 24).padStart(2, "0");
+    console.log(seconds)
+    console.log(minutes)
+    console.log(hours)
+    const [nowTime, setNowTime] = useState(`${hours}:${minutes}:${seconds}`);
 
-    // 출퇴근 시간처리 (최적화g)
-    const [nowTime, setNowTime] = useState("00:00:00");
-    const [intervalId, setIntervalId] = useState(null);
+        // 시분초 계산 방식 변경하면서 안 쓰게 됨
+        // let oldTime = {
+        //     hours: String(attTime.getHours()).padStart(2, "0"), // 시간
+        //     minutes: String(attTime.getMinutes()).padStart(2, "0"), //현재 분
+        //     seconds: String(attTime.getSeconds()).padStart(2, "0") //현재 초
+        // };
+        
+        // 문자열로 비교 확인
+        // console.log(status.startTime);
+        // console.log(`${todayDate.getFullYear()}-${newTime.month}-${newTime.date} ${newTime.hours}:${newTime.minutes}:${todayDate.getSeconds()}`);
+
+        // oldDate 전체문장
+        // let oldDate = `${String(attTime.getFullYear())}-${String(attTime.getMonth()+1).padStart(2, "0")}-${String(attTime.getDate()).padStart(2, "0")}`;
     
-    // oldDate 전체문장
-    // let oldDate = `${String(attTime.getFullYear())}-${String(attTime.getMonth()+1).padStart(2, "0")}-${String(attTime.getDate()).padStart(2, "0")}`;
-    
+     // 출퇴근 시간처리 (최적화g)
     useEffect(
         () => {
             dispatch(callAttendanceDetailAPI({                                      // # 마운트 시작 시 사원 정보 조회
@@ -66,55 +113,49 @@ function Attendance() {
             console.log('oldDate : ' + oldDate)
             console.log('newDate : ' + newDate)
 
-            if (oldDate !== newDate){
-                console.log('날짜 비교 타나요')
-                // status.statusName = "";
-            }
-
             if (oldDate === newDate && status.statusName === "출근") {
-                if (!intervalId) {
+                // if (!intervalId) {
                     const id = setInterval(() => {
                         const todayTime = new Date();
-                        // 에러 발생 방식 (현재시간 - 출근시간 계산, 60초 넘어갈때 음수)
-                        // const hours = String(todayTime.getHours() - oldTime.hours).padStart(2, "0");        // # pad 안 붙는거 계산식 순서 바꿔서 해결(계산된 값에 pad)
-                        // const minutes = String(todayTime.getMinutes() - oldTime.minutes).padStart(2, "0");
-                        // const seconds = String(todayTime.getSeconds() - oldTime.seconds).padStart(2, "0");
+                            // 에러 발생 방식 (현재시간 - 출근시간 계산, 60초 넘어갈때 음수)
+                            // const hours = String(todayTime.getHours() - oldTime.hours).padStart(2, "0");        // # pad 안 붙는거 계산식 순서 바꿔서 해결(계산된 값에 pad)
+                            // const minutes = String(todayTime.getMinutes() - oldTime.minutes).padStart(2, "0");
+                            // const seconds = String(todayTime.getSeconds() - oldTime.seconds).padStart(2, "0");
 
-                        // 시분초 계산 방식1 (음수일때 양수로 변경 후 다음 단위 변경)
-                        // const currentSeconds = todayTime.getSeconds();
-                        // const diffSeconds = currentSeconds - oldTime.seconds;
-                        // const seconds = String(diffSeconds < 0 ? diffSeconds + 60 : diffSeconds).padStart(2, "0");
+                            // 시분초 계산 방식1 (음수일때 양수로 변경 후 다음 단위 변경)
+                            // const currentSeconds = todayTime.getSeconds();
+                            // const diffSeconds = currentSeconds - oldTime.seconds;
+                            // const seconds = String(diffSeconds < 0 ? diffSeconds + 60 : diffSeconds).padStart(2, "0");
 
-                        // if (diffSeconds < 0) {
-                        // todayTime.setMinutes(todayTime.getMinutes() - 1);
-                        // }
+                            // if (diffSeconds < 0) {
+                            // todayTime.setMinutes(todayTime.getMinutes() - 1);
+                            // }
 
-                        // const currentMinutes = todayTime.getMinutes();
-                        // const diffMinutes = currentMinutes - oldTime.minutes;
-                        // const minutes = String(diffMinutes < 0 ? diffMinutes + 60 : diffMinutes).padStart(2, "0");
+                            // const currentMinutes = todayTime.getMinutes();
+                            // const diffMinutes = currentMinutes - oldTime.minutes;
+                            // const minutes = String(diffMinutes < 0 ? diffMinutes + 60 : diffMinutes).padStart(2, "0");
 
-                        // if (diffMinutes < 0) {
-                        // todayTime.setHours(todayTime.getHours() - 1);
-                        // }
+                            // if (diffMinutes < 0) {
+                            // todayTime.setHours(todayTime.getHours() - 1);
+                            // }
 
-                        // const currentHours = todayTime.getHours();
-                        // const diffHours = currentHours - oldTime.hours;
-                        // const hours = String(diffHours < 0 ? diffHours + 24 : diffHours).padStart(2, "0");
-                        // setNowTime(`${hours}:${minutes}:${seconds}`);
+                            // const currentHours = todayTime.getHours();
+                            // const diffHours = currentHours - oldTime.hours;
+                            // const hours = String(diffHours < 0 ? diffHours + 24 : diffHours).padStart(2, "0");
+                            // setNowTime(`${hours}:${minutes}:${seconds}`);
 
                         // 시분초 계산 방식2 (시간 계산 후 시,분,초 저장)
                         const diffTime = todayTime - attTime;
-                        console.log(diffTime / 1000)
+                        // console.log(diffTime / 1000)     // 초 단위 확인용
                         const seconds = String(Math.floor((diffTime / 1000) % 60)).padStart(2, "0");
                         const minutes = String(Math.floor((diffTime / 1000 / 60) % 60)).padStart(2, "0");
                         const hours = String(Math.floor((diffTime / 1000 / 60 / 60) % 24)).padStart(2, "0");
                         setNowTime(`${hours}:${minutes}:${seconds}`);
                     }, 1000);
                     setIntervalId(id);
-                }
+                // }
             }
             setCheck(false);
-            // console.log('JS check : ' + check)
         } // eslint-disable-next-line
         ,[check]
     );
@@ -130,24 +171,44 @@ function Attendance() {
             empNo : empNo
         }));
 
-        setCheck(true);
+        setCheck(true);         // # 상태 변경하여 반복(useEffect) 실행
 
+        setActiveBtn('left');
     };
 
     // 퇴근 버튼
-    const onClickStopAttendanceHandler = async () => {
-        // # 컨펌창 띄우고 시간 확인시켜주고 해야함
-        await dispatch(callAttendanceUpdateAPI({          // # 문제발생
-            empNo : empNo
-        }));
-
-        await dispatch(callAttendanceDetailAPI({
-            empNo : empNo
-        }));
-
-        clearInterval(intervalId);
-        setIntervalId(null);
-        setNowTime("00:00:00");
+    const onClickStopAttendanceHandler = () => {
+    
+        // clearInterval(intervalId);
+        setIntervalId(null);        // # 퇴근 클릭 시 반복을 멈춰 시간 고정
+    
+        Swal.fire({
+            icon: 'question',
+            title: '정말 퇴근하시겠습니까?',
+            text: `현재까지 근무 시간은 ${nowTime} 입니다.`,
+            showDenyButton: true,
+            confirmButtonText: '아니오',
+            denyButtonText: `예`,
+          }).then(async (result) => {        // # 핸들러에 있던 비동기 처리(async)를 이동
+            if (result.isDenied) {
+                Swal.fire('퇴근 완료!', '', 'success')
+                
+                await dispatch(callAttendanceUpdateAPI({ 
+                    empNo : empNo
+                }));
+        
+                await dispatch(callAttendanceDetailAPI({
+                    empNo : empNo
+                }));
+        
+                setNowTime(nowTime);    // # 멈췄을때의 시간을 설정하여 표시
+                
+                setActiveBtn('right');
+                
+            } else {
+                setCheck(true);         // # 상태 변경하여 다시 반복 실행
+            }
+          })
     };
 
     useEffect(() => {
@@ -219,6 +280,8 @@ function Attendance() {
                         <br></br>
                         <span className={ AttendanceCSS.time }>{nowTime}</span>
                         <div className={ AttendanceCSS.btnAtd }>
+                            {/* <button className={ `${AttendanceCSS.togglebtn} ${activeBtn === 'left' ? 'active' : ''}`} onClick={onClickStartAttendanceHandler}>출근</button>
+                            <button className={ `${AttendanceCSS.togglebtn} ${activeBtn === 'right' ? 'active' : ''}`} onClick={onClickStopAttendanceHandler}>퇴근</button> */}
                             {status.statusName === "출근" ? <button style={{background:'red', color:'white', fontWeight:'bold', pointerEvents:'none'}}>출근</button> : <button onClick={onClickStartAttendanceHandler}>출근</button>}
                             {status.statusName === "퇴근" ? <button style={{background:'red', color:'white', fontWeight:'bold', pointerEvents:'none'}}>퇴근</button> : <button onClick={onClickStopAttendanceHandler}>퇴근</button>}
                         </div>
