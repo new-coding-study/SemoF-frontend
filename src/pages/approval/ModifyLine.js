@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { callGetBranchesAPI, callGetDeptAPI, callGetJobNEmpNameAPI, callLineRegistAPI, callOrderRegistAPI } from '../../apis/ApprovalAPICalls';
+import { useNavigate, useParams } from 'react-router-dom';
+import { callGetBranchesAPI, callGetDeptAPI, callGetJobNEmpNameAPI, callLineModifyAPI, callLineDetailAPI } from '../../apis/ApprovalAPICalls';
 
 function ModifyLine(){
 
@@ -12,22 +12,24 @@ function ModifyLine(){
     const [nextId, setNextId] = useState(2);
     const [line, setLine] = useState({
       lineName:''
-      ,branchCode:0
-      ,approvOrderDTOList:[
+      , branchCode:0
+      , approvOrderDTOList:[
         // 여기에 객체를 동적으로 할당하기만 하면 많은 문제가 해결될듯
       ]
     })
+    const params = useParams();
     const dispatch = useDispatch();
     const empInfo = useSelector(state => state.approvalReducer.empInfo);
     const dept = useSelector(state => state.approvalReducer.dept);
     const branch = useSelector(state => state.approvalReducer.branch);
+    const lineInfo = useSelector(state => state.approvalReducer.line);
     
     // orderDTO List를 위한 ,, 
     // const [orders, setOrders] = useState([]);
 
-    // 지점코드저장 이거를 ,, formData로 어디에 넘겨줌 근데 db 수정해야할듯
-    const [selectBranch, setSelectBranch] = useState('');
-    const [selectDept, setSelectDept] = useState('');
+    //  useState hook을 사용하여 selectBranch와 selectDept 변수를 선언합니다. 이 변수들은 각각 branch와 dept select 요소의 value 값을 저장합니다.
+    const [selectBranch, setSelectBranch] = useState(lineInfo.branchName);
+    const [selectDept, setSelectDept] = useState(lineInfo.deptName);
 
     // 순서 입력 할 select를 띄울
     const [isShow, setIsShow] = useState(false);
@@ -40,8 +42,13 @@ function ModifyLine(){
         dispatch(callGetBranchesAPI());  
         dispatch(callGetDeptAPI());
         dispatch(callGetJobNEmpNameAPI());
+        dispatch(callLineDetailAPI({
+          lineNo: params.lineNo
+        }))
       console.log(branch);
       console.log(dept);
+      console.log('저는 이게 찍히는지가 중요합니다',lineInfo);
+
     } // eslint-disable-next-line
     ,[]
     );
@@ -55,6 +62,11 @@ function ModifyLine(){
       
       setSelectBranch(e.target.value);
     }
+    // const selectBranchHandler = (event) => {
+    //   const branchCode = event.target.value;
+    //   const branchName = event.target.options[event.target.selectedIndex].dataset.name;
+    //   // ...
+    // }
     const selectDeptHandler=(e)=>{
       setSelectDept(e.target.value);
       console.log(e.target.value);
@@ -75,7 +87,9 @@ function ModifyLine(){
     
      console.log('이게뭘까여',selects);
   };
-
+  useEffect(() => {
+    setSelectBranch(branch[0]?.branchCode || null);
+  }, [branch]);
 
   useEffect(() => {
     setLine(prevState => ({
@@ -91,11 +105,13 @@ function ModifyLine(){
 
     
     console.log("젭알", line);
-    dispatch(callLineRegistAPI({	
+    dispatch(callLineModifyAPI({	
       
       form: line
   }));   
-    
+    const modifyHandler = ()=>{
+      // 혹시 이걸 detail을 따로 안만들고 들고 올 방법이 있을 까?
+    }
     
   };
     return(
@@ -107,22 +123,29 @@ function ModifyLine(){
             </div>
             <div>
             <span>결재라인 : </span>
-              <select name="branch" 
-              onChange={selectBranchHandler}
-                >
-              <option value="none" disabled default>지점선택</option>
-              {branch.map(b => (
-                <option key={b.branchCode} value={b.branchCode} name="branchCode">{b.branchName}</option>
-              ))}
-              </select>
-              <select name="dept" 
-              onChange={selectDeptHandler}
-              >
-              <option value="none" disabled>부서선택</option>
-              {dept.map(b => (
-                <option key={b.deptCode} value={b.deptName} name="deptCode">{b.deptName}</option>
-              ))}
-              </select>
+            <select name="branch" 
+  onChange={selectBranchHandler}
+  defaultValue={lineInfo.branchName}
+  value={selectBranch}>
+  {/* <option value="default" disabled>지점선택</option> */}
+  {branch.map((b, idx) => (
+    <option key={idx} value={b.branchCode} data-name={b.branchName}>
+      {b.branchName}
+    </option>
+  ))}
+</select>
+
+<select name="dept" 
+  onChange={selectDeptHandler}
+  defaultValue={lineInfo.deptName}
+  value={selectDept}>
+  {/* <option value="none" disabled>부서선택</option> */}
+  {dept.map(b => (
+    <option key={b.deptCode} value={b.deptName} name="deptCode">
+      {b.deptName}
+    </option>
+  ))}
+</select>
             </div>
       
             
@@ -151,7 +174,15 @@ function ModifyLine(){
         <button type="button" onClick={handleAddSelect}>
          +
        </button>
-      <button type="submit" onClick={handleSubmit}>등록하기</button>
+       <button 
+      // onClick={modifyHandler}
+      >수정하기</button>
+      <button type="submit" onClick={handleSubmit}>저장</button>
+      <button 
+      onClick={()=>{
+        nav(-1)
+      }}
+      >취소</button>
       </div>
       </div>
       )}
