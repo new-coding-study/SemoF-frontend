@@ -16,16 +16,9 @@ function SendEmailDetail() {
 
   const dispatch = useDispatch();
 
-  const email = useSelector((state) => state.emailReducer);
-  // const emailState = useSelector((state) => state.emailReducer);
-  // const sentEmailsArray = Array.isArray(emailState.sentEmails)
-  //   ? emailState.sentEmails
-  //   : [];
-  // const email = sentEmailsArray.find(
-  //   (email) => email.mailNo === parseInt(mailNo)
-  // );
+  const email = useSelector((state) => state.emailReducer.emailDetail);
 
-  console.log("[SendEmailDetail] email : " + JSON.stringify(email));
+  // console.log("[SendEmailDetail] email : " + JSON.stringify(email));
 
   useEffect(() => {
     console.log("[EmailDetail] useEffect, mailNo: " + mailNo);

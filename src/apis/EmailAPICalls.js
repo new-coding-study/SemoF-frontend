@@ -3,6 +3,7 @@ import {
   GET_SEND_EMAILS,
   GET_RECEIVE_EMAIL,
   GET_RECEIVE_EMAILS,
+  RECEIVE_EMAIL_DETAIL,
   POST_SEND_EMAIL,
 } from "../modules/EmailModule.js";
 
@@ -110,7 +111,7 @@ export const callReceiveEmailAPI = ({ receiveNo }) => {
     }).then((response) => response.json());
     if (result.status === 200) {
       console.log("[EmailAPICalls] callReceiveEmailAPI RESULT : ", result);
-      dispatch({ type: GET_RECEIVE_EMAIL, payload: result.data });
+      dispatch({ type: RECEIVE_EMAIL_DETAIL, payload: result.data });
     }
   };
 };
