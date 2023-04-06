@@ -3,7 +3,8 @@ import HeaderCSS from "./Header.module.css";
 import ActionMenu from "./ActionMenu";
 
 function Header(props) {
-  const { currentPage, itemsPerPage, totalPages, onPageChange } = props;
+  const { currentPage, itemsPerPage, totalPages, onPageChange, onRefresh } =
+    props;
 
   // 이전 페이지로 이동
   const handlePrevPage = () => {
@@ -19,8 +20,12 @@ function Header(props) {
     }
   };
 
+  const handleRefresh = () => {
+    onRefresh();
+  };
+
   return (
-    <div className={HeaderCSS.header}>
+    <div className={HeaderCSS.header} onClick={handleRefresh}>
       <ActionMenu />
       <div className={HeaderCSS.buttons}>
         <span className={HeaderCSS.info}>

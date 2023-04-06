@@ -74,12 +74,43 @@ function RegisterApproval() {
   const dispatch = useDispatch(); // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
 
   // form 데이터 세팅
+  // const onChangeHandler = (e) => {
+  //   setForm({
+  //     ...form,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+  // form 데이터 세팅
   const onChangeHandler = (e) => {
-    console.log("[ProductRegistration] onClickProductRegistrationHandler");
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    if (name === "empReg") {
+      const formattedValue = value.replace(/-/g, "");
+      const formattedRegNumber =
+        formattedValue.substring(0, 6) + "-" + formattedValue.substring(6);
+      setForm({
+        ...form,
+        empReg: formattedRegNumber,
+      });
+    } else if (name === "phone") {
+      const formattedValue = value.replace(/-/g, "");
+      const formattedPhoneNumber =
+        formattedValue.substring(0, 3) +
+        "-" +
+        formattedValue.substring(3, 7) +
+        "-" +
+        formattedValue.substring(7);
+      setForm({
+        ...form,
+        phone: formattedPhoneNumber,
+      });
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      });
+    }
   };
 
   // 주민등록번호 마스킹 및 포맷팅 처리 함수
@@ -102,10 +133,18 @@ function RegisterApproval() {
 
   // 입력값이 변경될 때 처리 함수 수정
   const handleRegNumberChange = (e) => {
+    // const value = e.target.value;
+    // const maskedValue = maskAndFormatRegNumber(value);
+    // setRegNumber(maskedValue);
+    // onChangeHandler(e); // onChangeHandler 함수 호출
     const value = e.target.value;
     const maskedValue = maskAndFormatRegNumber(value);
     setRegNumber(maskedValue);
-    onChangeHandler(e); // onChangeHandler 함수 호출
+    setForm({
+      ...form,
+      empReg: maskedValue,
+    });
+    onChangeHandler(e);
   };
 
   //키다운 이벤트, tab키 누를시 input 이동
@@ -293,8 +332,9 @@ function RegisterApproval() {
                     type="text"
                     className={RegisterCSS.input}
                     name="phone"
-                    placeholder="010-0000-0000"
+                    placeholder="  ' - ' 없이 입력하세요"
                     ref={phoneRef}
+                    maxLength={11}
                     onChange={onChangeHandler}
                     onKeyDown={(e) => handleKeyDown(e, addressRef)}
                   />
