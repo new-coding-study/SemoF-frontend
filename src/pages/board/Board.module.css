@@ -10,31 +10,98 @@
     border: none;
 }
 
-table{
+.btnPosition{
+    position: relative;
+    top:43px;
+    margin-left: 10%;
+}
+
+.btnPosition button{
+    height: 35px;
+    width: 150px;
+    color: white;
+    font-weight: bold;
+    background-color: #ff7f00;
+    border: 1px solid white;
+    margin-bottom: 0.0015%;
+}
+.btnPosition button:hover{
+    background-color: gray;
+    text-shadow: 1px 1px 1px white;
+}
+
+.tableheader{
+    background-color : #ff7f00;
+    color: white;
+}
+
+.NoticelistDisply Table{
     width: 80%;
     border-collapse: collapse;
-    margin: auto;
+    margin-left: 10%;
+    margin-right: auto;
     background-color: white;
     text-align: center;
-    /* border: 1px solid black; */
-}
-th{
-    /* border-right : 1px solid black; */
-
-    border-bottom: 1px solid gray;
-
 }
 
-td{
-    /* border-left: 1px solid black; */
-    /* border-right: 1px solid black; */
-    /* border-bottom: 1px solid #E52E2E;     */
+.postingList Table{
+     width: 80%;
+    border-collapse: collapse;
+    margin-left: 10%;
+    margin-right: auto;
+    background-color: white;
+    text-align: center;
 }
-.btnstyle{
+
+.postingList Table th{
+    border-bottom: 1px solid gray; 
+    height: 40px;
+}
+
+.NoticelistDisply Table th{
+    border-bottom: 1px solid gray; 
+    height: 40px;
+}
+
+.postingList Table td{
+    height: 30px;
+    padding-top: 10px;
+    font-size: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.postingList tbody tr:hover{
+    background-color:gray;
+    color:white;
+    font-weight: bold;
+}
+
+.NoticelistDisply Table td{
+    height: 30px;
+    padding-top: 10px;
+    font-size: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.postingList tfoot tr:hover{
+    background-color:gray;
+    color:white;
+    font-weight: bold;
+}
+
+.NoticelistDisply tbody tr:hover{
+    background-color:gray;
+    color:white;
+    font-weight: bold;
+}
+
+.btnstyle1{
     border: none;
     background: #E52E2E;
     border-radius: 8px;
-    width: 90px;
+    width: 100px;
     height: 30px;
     font-size: 18px;
     color: white;
@@ -44,8 +111,161 @@ td{
     margin-right: 10%;
     margin-top: 0.5%;
 }
+.btnstyle2{
+    border: none;
+    background: #E52E2E;
+    border-radius: 8px;
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    float: right;
+    margin-right: 1%;
+    margin-top: 0.5%;
+}
+.btnstyle1:hover{
+    background-color: gray;
+    text-shadow: 1px 1px 1px white;
+}
+.btnstyle2:hover{
+    background-color: gray;
+    text-shadow: 1px 1px 1px white;
+}
 .pagingbtn{
     list-style-type: none;
     display: flex;
     justify-content: center;
+    margin-left: 15%;
 }
+
+.pagingbtn li button{
+    background-color : rgba(237, 237, 240, 1); 
+    font-size: 20px;
+    border: none; 
+    color: yellowGreen;
+}
+
+.pagingbtn li button:hover{
+    color:red;
+}
+
+.noticeImg{
+    height: 20px;
+}
+.my-title-class{
+    text-align: left;
+}
+
+/* .listDisply table{
+    width: 80%;
+    border-collapse: collapse;
+    margin-left: 10%;
+    margin-right: auto;
+    background-color: white;
+    text-align: center;
+}
+
+.listDisply table th{
+    border-bottom: 1px solid gray; 
+    height: 40px;
+}
+
+ */
+
+/* table{
+    width: 80%;
+    border-collapse: collapse;
+    margin-left: 10%;
+    margin-right: auto;
+    background-color: white;
+    text-align: center;
+} */
+
+/* 
+
+td{
+    height: 30px;
+    padding-top: 10px;
+    font-size: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+.tableheader{
+    background-color : #ff7f00;
+    color: white;
+}
+
+tbody>tr:hover{
+    background-color:gray;
+    color:white;
+    font-weight: bold;
+}
+
+tfoot>tr:hover{
+    background-color:gray;
+    color:white;
+    font-weight: bold;
+}
+.btnstyle1{
+    border: none;
+    background: #E52E2E;
+    border-radius: 8px;
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    float: right;
+    margin-right: 10%;
+    margin-top: 0.5%;
+}
+.btnstyle2{
+    border: none;
+    background: #E52E2E;
+    border-radius: 8px;
+    width: 100px;
+    height: 30px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    float: right;
+    margin-right: 1%;
+    margin-top: 0.5%;
+}
+.btnstyle1:hover{
+    background-color: gray;
+    text-shadow: 1px 1px 1px white;
+}
+.btnstyle2:hover{
+    background-color: gray;
+    text-shadow: 1px 1px 1px white;
+}
+.pagingbtn{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    margin-left: 15%;
+}
+li>button{
+    background-color : rgba(237, 237, 240, 1); 
+    font-size: 20px;
+    border: none; 
+    color: yellowGreen;
+}
+
+li>button:hover{
+    color:red;
+}
+
+
+
+/* img{
+    height: 20px;
+}
+.my-title-class{
+    text-align: left;
+} */ 
