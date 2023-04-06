@@ -29,7 +29,8 @@ const actions = createActions({
 const emailReducer = handleActions(
   {
     [GET_SEND_EMAIL]: (state, { payload }) => {
-      return { ...state, sentEmails: payload };
+      console.log("[emailReducer] GET_SEND_EMAIL payload: ", payload);
+      return { ...state, emailDetail: payload };
     },
     [GET_SEND_EMAILS]: (state, { payload }) => {
       return { ...state, sentEmails: payload };

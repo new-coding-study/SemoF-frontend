@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import ComposeModalCSS from "./ComposeModal.module.css";
 import { useDispatch } from "react-redux";
 import { callPostEmailAPI } from "../../apis/EmailAPICalls";
+import Swal from "sweetalert2";
 
 function ComposeModal({ isOpen, onClose }) {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function ComposeModal({ isOpen, onClose }) {
     title: "",
     content: "",
   });
+  const [fileName, setFileName] = useState(""); // 파일 이름을 관리하는 state
 
   // const handleToChange = (event) => {
   //   setToValue(event.target.value);
@@ -40,10 +42,12 @@ function ComposeModal({ isOpen, onClose }) {
 
   console.log("[ComposeModal] form : " + JSON.stringify(form));
 
+  // 파일 첨부 이벤트
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     // console.log(event.target.files[0]);
     setFile(file);
+    setFileName(file.name); // 파일 이름 저장
   };
 
   const handleSendClick = () => {
@@ -57,9 +61,9 @@ function ComposeModal({ isOpen, onClose }) {
       formData.get("receiverAddr")
     );
     formData.append("title", form.title);
-    console.log("[ComposeModal] formData title: ", formData.get("title"));
+    // console.log("[ComposeModal] formData title: ", formData.get("title"));
     formData.append("content", form.content);
-    console.log("[ComposeModal] formData content: ", formData.get("content"));
+    // console.log("[ComposeModal] formData content: ", formData.get("content"));
     // formData.append("file", file);
 
     if (file) {
@@ -73,13 +77,20 @@ function ComposeModal({ isOpen, onClose }) {
       console.log(`[ComposeModal] formData ${key}:`, value);
     }
 
+    //Todo : empNo 아이디에서 파싱해오기
     dispatch(
       callPostEmailAPI({
         form: formData,
         empNo: 20,
       })
     );
-    // onClose();
+
+    Swal.fire({
+      icon: "success",
+      text: "이메일을 성공적으로 전송했습니다.",
+    });
+
+    onClose();
   };
 
   const handleOverlayClick = (event) => {
@@ -162,6 +173,27 @@ function ComposeModal({ isOpen, onClose }) {
             className={ComposeModalCSS.fileBtn}
             onChange={handleFileChange}
           />
+          {/* <div className={ComposeModalCSS.fileName}>{fileName}</div> */}
+          {file && (
+            <div className={ComposeModalCSS.fileInfo}>
+              <span className={ComposeModalCSS.fileIcon}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="20"
+                  height="20"
+                >
+                  <path fill="none" d="M0 0h24v24H0z" />
+                  <path d="M6 2l6 6h6a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2zm6 11a1 1 0 100-2 1 1 0 000 2z" />
+                </svg>
+              </span>
+              <span className={ComposeModalCSS.fileInfoName}>{file.name}</span>
+              <span className={ComposeModalCSS.fileSize}>
+                ({(file.size / 1024 / 1024).toFixed(2)} MB)
+              </span>
+            </div>
+          )}
+          <div className={ComposeModalCSS.fileName}>{fileName}</div>
           {/* <button className={ComposeModalCSS.discardBtn} onClick={onClose}>
             저장하기
           </button> */}

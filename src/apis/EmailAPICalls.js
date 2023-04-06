@@ -42,17 +42,24 @@ export const callSendEmailAPI = ({ mailNo }) => {
   console.log("[EmailAPICalls] requestURL : ", requestURL);
 
   return async (dispatch, getState) => {
-    const result = await fetch(requestURL, {
+    const response = await fetch(requestURL, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Accept: "*/*",
         // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
       },
-    }).then((response) => response.json());
-    if (result.status === 200) {
+    });
+
+    if (response.status === 200) {
+      const result = await response.json();
       console.log("[EmailAPICalls] callSendEmailAPI RESULT : ", result);
       dispatch({ type: GET_SEND_EMAIL, payload: result.data });
+    } else {
+      console.error(
+        "[EmailAPICalls] callSendEmailAPI failed with status: ",
+        response.status
+      );
     }
   };
 };
@@ -117,8 +124,6 @@ export const callReceiveEmailAPI = ({ receiveNo }) => {
 };
 
 export const callPostEmailAPI = ({ form, empNo }) => {
-  // console.log("[callPostEmailAPI] form : ", JSON.stringify(form));
-
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/email/send?empNo=${empNo}`;
 
   console.log("[EmailAPICalls] requestURL : ", requestURL);
@@ -127,9 +132,8 @@ export const callPostEmailAPI = ({ form, empNo }) => {
     const result = await fetch(requestURL, {
       method: "POST",
       headers: {
-        // "Content-Type": "application/json",
-        Accept: "*/*",
-
+        Accept: "application/json; charset=utf-8",
+        "Content-Type": "multipart/form-data",
         // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
       },
       body: form,

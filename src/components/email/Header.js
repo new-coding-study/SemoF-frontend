@@ -3,8 +3,10 @@ import HeaderCSS from "./Header.module.css";
 import ActionMenu from "./ActionMenu";
 
 function Header(props) {
-  const { currentPage, itemsPerPage, totalPages, onPageChange, onRefresh } =
-    props;
+  const { currentPage, itemsPerPage, totalItems, onPageChange } = props;
+
+  // 전체 페이지 수 계산
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   // 이전 페이지로 이동
   const handlePrevPage = () => {
@@ -20,16 +22,12 @@ function Header(props) {
     }
   };
 
-  const handleRefresh = () => {
-    onRefresh();
-  };
-
   return (
-    <div className={HeaderCSS.header} onClick={handleRefresh}>
+    <div className={HeaderCSS.header}>
       <ActionMenu />
       <div className={HeaderCSS.buttons}>
         <span className={HeaderCSS.info}>
-          페이지 {currentPage} of {totalPages}
+          {itemsPerPage} {currentPage} of {totalPages}
         </span>
         <button onClick={handlePrevPage} disabled={currentPage === 1}>
           <svg
