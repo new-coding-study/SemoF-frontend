@@ -89,6 +89,7 @@ export const callTakeListAPI = ({ currentPage, category }) => {
 
     if (response.status === 200) {
       const result = await response.json();
+      console.log("Received emails count from API:", result.data.length);
       console.log("[EmailAPICalls] callTakeListAPI RESULT : ", result);
       dispatch({ type: GET_RECEIVE_EMAILS, payload: result.data });
     } else {
@@ -133,7 +134,7 @@ export const callPostEmailAPI = ({ form, empNo }) => {
       method: "POST",
       headers: {
         Accept: "application/json; charset=utf-8",
-        "Content-Type": "multipart/form-data",
+        // "Content-Type": "multipart/form-data",
         // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
       },
       body: form,

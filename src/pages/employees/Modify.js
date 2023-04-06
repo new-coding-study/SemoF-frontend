@@ -1,15 +1,27 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import {
+  callUpdateEmpAPI,
+  callGetEmployeeDetail,
+} from "../../apis/EmployeeAPICalls";
 import RegisterCSS from "./Register.module.css";
-import { callRegisterAPI } from "../../apis/EmployeeAPICalls";
 
-function Register() {
+function Modify(props) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const empNo = location.state?.empNo;
 
-  const [employeePhoto, setEmployeePhoto] = useState(null);
-  const [imageUrl, setImageUrl] = useState();
-  const imageInput = useRef();
+  console.log("[Modify] empNo : " + empNo);
+
+  // 상세 정보 조회 API 호출
+  useEffect(() => {
+    dispatch(callGetEmployeeDetail(empNo));
+  }, [dispatch, empNo]);
+
+  // Store에서 상세 정보 조회 결과를 가져옴
+  const { employeeDetail } = useSelector((state) => state.empReducer);
 
   const [today, setToday] = useState(
     new Date().toLocaleDateString("ko-KR", {
@@ -20,21 +32,51 @@ function Register() {
     })
   );
 
-  const [regNumber, setRegNumber] = useState(""); //주민등록번호 관리
-  const [phone, setPhone] = useState(""); //전화번호 관리
+  const [employeePhoto, setEmployeePhoto] = useState(null);
+  const [imageUrl, setImageUrl] = useState();
+  const imageInput = useRef();
+  const [form, setForm] = useState({});
+  //   const [form, setForm] = useState({
+  //     empName: "",
+  //     empReg: "",
+  //     email: "",
+  //     phone: "",
+  //     address: "",
+  //     salary: "",
+  //     gender: "",
+  //     jobCode: "",
+  //     deptCode: "",
+  //     branchCode: "",
+  //   });
 
-  const [form, setForm] = useState({
-    empName: "",
-    email: "",
-    empReg: "",
-    phone: "",
-    address: "",
-    salary: "",
-    gender: "",
-    jobCode: "",
-    deptCode: "",
-    branchCode: "",
-  });
+  useEffect(() => {
+    if (empNo) {
+      dispatch(callGetEmployeeDetail(empNo));
+    }
+  }, [dispatch, empNo]);
+
+  // 조회한 상세 정보를 Form에 적용
+  //   useEffect(() => {
+  //     if (employeeDetail) {
+  //       setForm({
+  //         empName: employeeDetail.empName,
+  //         empReg: employeeDetail.empReg,
+  //         email: employeeDetail.email,
+  //         phone: employeeDetail.phone,
+  //         address: employeeDetail.address,
+  //         salary: employeeDetail.salary,
+  //         gender: employeeDetail.gender,
+  //         jobCode: employeeDetail.jobCode,
+  //         deptCode: employeeDetail.deptCode,
+  //         branchCode: employeeDetail.branchCode,
+  //       });
+
+  // 상세 정보에 등록된 이미지가 있으면 미리보기 설정
+  //       if (employeeDetail.employeePhoto) {
+  //         setImageUrl(employeeDetail.employeePhoto);
+  //       }
+  //     }
+  //   }, [employeeDetail]);
 
   useEffect(() => {
     nameRef.current.focus();
@@ -63,6 +105,13 @@ function Register() {
     imageInput.current.click();
   };
 
+  const onChangeHandler = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   //탭 이동을 위한 Ref
   const nameRef = useRef(null);
   const regRef = useRef(null);
@@ -70,82 +119,6 @@ function Register() {
   const addressRef = useRef(null);
   const salaryRef = useRef(null);
   const emailRef = useRef(null);
-
-  const dispatch = useDispatch(); // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
-
-  // form 데이터 세팅
-  // const onChangeHandler = (e) => {
-  //   setForm({
-  //     ...form,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
-  // form 데이터 세팅
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-
-    if (name === "empReg") {
-      const formattedValue = value.replace(/-/g, "");
-      const formattedRegNumber =
-        formattedValue.substring(0, 6) + "-" + formattedValue.substring(6);
-      setForm({
-        ...form,
-        empReg: formattedRegNumber,
-      });
-    } else if (name === "phone") {
-      const formattedValue = value.replace(/-/g, "");
-      const formattedPhoneNumber =
-        formattedValue.substring(0, 3) +
-        "-" +
-        formattedValue.substring(3, 7) +
-        "-" +
-        formattedValue.substring(7);
-      setForm({
-        ...form,
-        phone: formattedPhoneNumber,
-      });
-    } else {
-      setForm({
-        ...form,
-        [name]: value,
-      });
-    }
-  };
-
-  // 주민등록번호 마스킹 및 포맷팅 처리 함수
-  const maskAndFormatRegNumber = (input) => {
-    const regex = /^[0-9]*$/;
-    const numbersOnly = input.replace(/[^0-9]/g, "");
-
-    if (numbersOnly.length > 13) {
-      return "";
-    } else if (numbersOnly.length === 13) {
-      const formattedValue =
-        numbersOnly.substring(0, 6) + "-" + numbersOnly.substring(6, 13);
-      const maskedValue =
-        formattedValue.substring(0, formattedValue.length - 7) + "*******";
-      return maskedValue;
-    } else {
-      return numbersOnly;
-    }
-  };
-
-  // 입력값이 변경될 때 처리 함수 수정
-  const handleRegNumberChange = (e) => {
-    // const value = e.target.value;
-    // const maskedValue = maskAndFormatRegNumber(value);
-    // setRegNumber(maskedValue);
-    // onChangeHandler(e); // onChangeHandler 함수 호출
-    const value = e.target.value;
-    const maskedValue = maskAndFormatRegNumber(value);
-    setRegNumber(maskedValue);
-    setForm({
-      ...form,
-      empReg: maskedValue,
-    });
-    onChangeHandler(e);
-  };
 
   //키다운 이벤트, tab키 누를시 input 이동
   const handleKeyDown = (e, ref) => {
@@ -155,9 +128,6 @@ function Register() {
     }
   };
 
-  console.log("form" + JSON.stringify(form));
-
-  //등록 이벤트
   const onClickRegisterHandler = () => {
     // console.log("[Register] onClickRegisterHandler");
 
@@ -180,23 +150,8 @@ function Register() {
       formData.append("employeePhoto", employeePhoto);
     }
 
-    // console.log("[Register] formData empName: ", formData.get("empName"));
-    // console.log("[Register] formData email: ", formData.get("email"));
-    // console.log("[Register] formData empReg: ", formData.get("empReg"));
-    // console.log("[Register] formData phone: ", formData.get("phone"));
-    // console.log("[Register] formData address: ", formData.get("address"));
-    // console.log("[Register] formData salary: ", formData.get("salary"));
-    // console.log("[Register] formData gender: ", formData.get("gender"));
-    // console.log("[Register] formData jobCode: ", formData.get("jobCode"));
-    // console.log("[Register] formData deptCode: ", formData.get("deptCode"));
-    // console.log("[Register] formData branchCode: ", formData.get("branchCode"));
-    // console.log(
-    //   "[Register] formData employeePhoto: ",
-    //   formData.get("employeePhoto")
-    // );
-
     dispatch(
-      callRegisterAPI({
+      callUpdateEmpAPI({
         form: formData,
       })
     );
@@ -211,11 +166,11 @@ function Register() {
   return (
     <>
       <div className={RegisterCSS.header}>
-        <div className={RegisterCSS.title}> 등록 </div>
+        <div className={RegisterCSS.title}> 사원 정보 </div>
       </div>
 
       <div className={RegisterCSS.basicInfo}>
-        <span className={RegisterCSS.underLine}>사원 등록</span>
+        <span className={RegisterCSS.underLine}>정보 수정</span>
       </div>
 
       <div className={RegisterCSS.container}>
@@ -261,6 +216,7 @@ function Register() {
                     className={RegisterCSS.input}
                     type="text"
                     name="empName"
+                    value={form.empName}
                     ref={nameRef}
                     onKeyDown={(e) => handleKeyDown(e, regRef)}
                     onChange={onChangeHandler}
@@ -272,9 +228,8 @@ function Register() {
                     type="text"
                     className={RegisterCSS.input}
                     name="empReg"
+                    value={form.empReg}
                     ref={regRef}
-                    onChange={handleRegNumberChange}
-                    value={regNumber}
                     maxLength={14}
                     onKeyDown={(e) => handleKeyDown(e, phoneRef)}
                   />
@@ -329,6 +284,7 @@ function Register() {
                     type="text"
                     className={RegisterCSS.input}
                     name="phone"
+                    value={form.phone}
                     placeholder="  ' - ' 없이 입력하세요"
                     ref={phoneRef}
                     maxLength={11}
@@ -418,4 +374,5 @@ function Register() {
     </>
   );
 }
-export default Register;
+
+export default Modify;

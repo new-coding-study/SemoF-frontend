@@ -18,8 +18,11 @@ import RegistApproval from "./pages/approval/RegistApproval";
 import ApprovLineList from "./pages/approval/ApprovLineList";
 import RegistLine from "./pages/approval/RegistLine";
 import ModifyLine from "./pages/approval/ModifyLine";
+
 import Employees from "./pages/employees/Employees";
+import Management from "./pages/employees/Management";
 import EmpRegister from "./pages/employees/Register";
+import Modify from "./pages/employees/Modify";
 import Transfer from "./pages/employees/Transfer";
 import Evaluation from "./pages/employees/Evaluation";
 import Email from "./pages/email/Email";
@@ -51,14 +54,14 @@ function App() {
           <Route path="modify-approval" element={<ModifyApproval />} />
           <Route path="board" element={<Board />} />
 
-          <Route path="edit-line/:lineNo" element={<ModifyLine/>} />
+          <Route path="edit-line/:lineNo" element={<ModifyLine />} />
 
-          <Route path="posting-detail/:boardNo" element={<PostingDetail/>}/>
-
-
+          <Route path="posting-detail/:boardNo" element={<PostingDetail />} />
 
           <Route path="employees" element={<Employees />} />
+          <Route path="employees/management" element={<Management />} />
           <Route path="employees/register" element={<EmpRegister />} />
+          <Route path="employees/modify" element={<Modify />} />
           <Route path="employees/transfer" element={<Transfer />} />
           <Route path="employees/evaluation" element={<Evaluation />} />
           <Route path="email" element={<Email />} />

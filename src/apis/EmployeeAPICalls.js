@@ -2,6 +2,7 @@ import {
   POST_REGISTER,
   POST_EMPLOYEES_CONTRIBUTIONS,
   GET_EMPLOYEES,
+  GET_EMPLOYEES_DETAIL,
   GET_EMPLOYEES_BRANCHES,
   GET_EMPLOYEES_DEPARTMENTS,
   GET_EMPLOYEES_CONTRIBUTION,
@@ -10,7 +11,9 @@ import {
   PUT_EMPLOYEES_BRANCHES,
   PUT_EMPLOYEES_DEPARTMENTS,
   PUT_EMPLOYEES_CONTRIBUTION,
+  PUT_EMPLOYEES_INFO,
   DELETE_EMPLOYEES_CONTRIBUTION,
+  DELETE_EMPLOYEES,
 } from "../modules/EmployeeModule";
 
 export const callRegisterAPI = ({ form }) => {
@@ -62,6 +65,27 @@ export const callGetEmployeesAPI = ({ currentPage }) => {
         result.data
       );
       dispatch({ type: GET_EMPLOYEES, payload: result.data });
+    }
+  };
+};
+
+export const callGetEmployeeDetail = (empNo) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/present/${empNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+
+    console.log("[EmployeeAPICalls] callGetEmployeeDetail RESULT : ", result);
+    if (result.status === 200) {
+      console.log("[EmployeeAPICalls] callGetEmployeeDetail SUCCESS");
+      dispatch({ type: GET_EMPLOYEES_DETAIL, payload: result.data });
     }
   };
 };
@@ -294,5 +318,51 @@ export const callDeleteEmpContAPI = ({ empNo }) => {
     console.log("[EmployeeAPICalls] callDeleteEmpContAPI RESULT : ", result);
 
     dispatch({ type: DELETE_EMPLOYEES_CONTRIBUTION, payload: result.data });
+  };
+};
+
+export const callUpdateEmpAPI = ({ form }) => {
+  console.log("[EmployeeAPICalls] callUpdateEmpAPI Call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/present`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "PUT",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: JSON.stringify(form),
+    }).then((response) => response.json());
+
+    console.log("[EmployeeAPICalls] callUpdateEmpAPI RESULT : ", result);
+
+    dispatch({ type: PUT_EMPLOYEES_INFO, payload: result });
+  };
+};
+
+export const callRetireEmpAPI = ({ form }) => {
+  console.log("[EmployeeAPICalls] callRetireEmpAPI Call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/present`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "DELETE",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: JSON.stringify({
+        empNo: form.empNo,
+      }),
+    }).then((response) => response.json());
+
+    console.log("[EmployeeAPICalls] callRetireEmpAPI RESULT : ", result);
+
+    dispatch({ type: DELETE_EMPLOYEES, payload: result });
   };
 };
