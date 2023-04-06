@@ -15,8 +15,10 @@ function Login() {
 
   // 폼 데이터 한번에 변경 및 State에 저장
   const [form, setForm] = useState({
-    memberId: "",
-    memberPwd: "",
+
+    loginId: "",
+    loginPwd: "",
+
   });
 
   useEffect(
@@ -59,6 +61,7 @@ function Login() {
   return (
     <div className={LoginCSS.cardBody}>
       <div className={LoginCSS.loginDiv}>
+
         <div className={LoginCSS.logoBox}>
           <img
             src={"/images/logo.png"}
@@ -75,7 +78,7 @@ function Login() {
           <div className={LoginCSS.registContainer}>
             <input
               type="text"
-              name="memberId"
+              name="loginId"
               id="fileInput"
               placeholder="아이디"
               autoComplete="off"
@@ -101,7 +104,7 @@ function Login() {
           <div className={LoginCSS.registContainer}>
             <input
               type="password"
-              name="memberPwd"
+              name="loginPwd"
               placeholder="비밀번호"
               autoComplete="off"
               onChange={onChangeHandler}
@@ -132,6 +135,7 @@ function Login() {
             Register
           </span>
         </div>
+
       </div>
     </div>
   );

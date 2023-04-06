@@ -90,7 +90,7 @@ const headers = {
         const result = await fetch(requestURL, {
           method: "POST",
           headers: {
-            'Content-Type': `multipart/form-data; boundary=${boundary}`,
+            // 'Content-Type': `multipart/form-data; boundary=${boundary}`,
             // "Content-Type": "application/json",
             Accept: "*/*"
           },
