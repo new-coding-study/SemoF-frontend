@@ -5,7 +5,7 @@ import CategorySelectBox from "../../components/todo/CategorySelectBox";
 import Intended from "../../components/todo/Intended";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import {
   callTodayTodoListAPI,
@@ -15,9 +15,8 @@ import {
   callTodoRegistAPI,
 } from "../../apis/TodoAPICalls";
 
-function Todo() {
+function Todo({ setSearchEnter }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   // useSelector : store에서 사용하고 있는 state를 전달받아서 다시 전달해주는 역할
   const todayList = useSelector((state) => state.todoReducer.todayList);
@@ -40,10 +39,6 @@ function Todo() {
 
   // 중요표시 및 완료여부 관리
   const [checkStarAndFinish, setCheckStarAndFinish] = useState(false);
-  // 검색어 관리
-  const [search, setSearch] = useState({
-    searchWord: "",
-  });
   // Todo 입력창에서의 카테고리 보일지 말지에 대한 상태 관리
   const [visibleCate, setVisibleCate] = useState(false);
   // Todo 입력창에서의 선택된 카테고리 값 관리 (일단은 중요표시에 대한 색을 초기값으로 넣어둠)
@@ -61,25 +56,6 @@ function Todo() {
   });
   // Todo 추가 버튼 상태 관리
   const [addTodo, setAddTodo] = useState(false);
-
-  // 검색어 입력 핸들러
-  const onSearchChangeHandler = (e) => {
-    const inputSearch = {
-      ...search,
-      [e.target.name]: e.target.value,
-    };
-
-    setSearch(inputSearch);
-
-    console.log(inputSearch);
-  };
-
-  // 검색어 입력 후 값을 보내는 핸들러
-  const onEnterkeyHandler = (e) => {
-    if (e.key === "Enter") {
-      navigate(`/semof/todo/search?s=${search.searchWord}`);
-    }
-  };
 
   // 새로운 Todo 입력 핸들러
   const onInsertTodoHandler = (e) => {
@@ -142,6 +118,7 @@ function Todo() {
     () => {
       setCheckStarAndFinish(false);
       setAddTodo(false);
+      setSearchEnter(false);
       // setSelectedCateColor(defaultCateColor);
     }, // eslint-disable-next-line
     [checkStarAndFinish, addTodo]
@@ -149,125 +126,103 @@ function Todo() {
 
   return (
     <>
-      <div className={TodoCSS.contour}> 할 일 </div>
-
-      <div className={TodoCSS.todoWrapper}>
-        <div className={TodoCSS.categoryWrapper}>
-          <div className={TodoCSS.searchBox}>
-            <img src={"/images/search_gray.png"} alt="이미지확인!"></img>
-            <input
-              type="text"
-              placeholder="할 일 검색"
-              onKeyUp={onEnterkeyHandler}
-              onChange={onSearchChangeHandler}
-              name="searchWord"
-            />
-          </div>
-          {Array.isArray(categoryList) &&
-            categoryList.map((category) => (
-              <Category key={category.cateNo} category={category} />
+      <div className={TodoCSS.addWrapper}>
+        <div className={TodoCSS.addInputWrapper}>
+          {visibleCate ? (
+            <div>
+              <CategorySelectBox
+                categorys={categoryList}
+                setSelectedCateColor={setSelectedCateColor}
+                setVisibleCate={setVisibleCate}
+                setNewTodo={setNewTodo}
+                newTodo={newTodo}
+              />
+            </div>
+          ) : (
+            <div
+              className={TodoCSS.defaultCate}
+              style={{
+                backgroundColor: selectedCateColor,
+                border: "1px solid black",
+              }}
+            ></div>
+          )}
+          <span
+            onClick={() => {
+              setVisibleCate(!visibleCate);
+            }}
+          >
+            ▼
+          </span>
+          <input
+            type="text"
+            name="todoName"
+            onChange={onInsertTodoHandler}
+            placeholder="새로운 할 일을 입력하세요"
+          />
+          {addTodoStar ? (
+            <img
+              src={"/images/star_fill.png"}
+              alt="이미지확인!"
+              onClick={onSetAddStarHandler}
+            ></img>
+          ) : (
+            <img
+              src={"/images/star_gray.png"}
+              alt="이미지확인!"
+              onClick={onSetAddStarHandler}
+            ></img>
+          )}
+          {/* <img src={"/images/calendar_gray.png"} alt="이미지확인!"></img> */}
+          <input
+            type="date"
+            name="todoDate"
+            onChange={onInsertTodoHandler}
+            className={TodoCSS.addInputDate}
+          />
+          <input
+            type="time"
+            name="todoTime"
+            onChange={onInsertTodoHandler}
+            className={TodoCSS.addInputTime}
+          />
+        </div>
+        <button onClick={onClickInsertTodoHandler}>할 일 추가</button>
+      </div>
+      <div className={TodoCSS.graphWrapper}>
+        <div className={TodoCSS.graphTitle}>
+          <div> 오늘의 달성률 </div>
+          <span> {todayFinishTodo} </span>
+          <span> / {todayAllTodo} </span>
+        </div>
+        <div className={TodoCSS.graph}>
+          <div> </div>
+          <span> {isNaN(achievementRate) ? 0 : achievementRate}%</span>
+        </div>
+      </div>
+      <div className={TodoCSS.todoList}>
+        <div className={TodoCSS.today}>
+          <h2> 오늘의 할 일 </h2>
+          {Array.isArray(todayList) &&
+            todayList.map((today) => (
+              <Today
+                key={today.todoNo}
+                todo={today}
+                setCheckStarAndFinish={setCheckStarAndFinish}
+              />
             ))}
         </div>
-        <div className={TodoCSS.content}>
-          <div className={TodoCSS.addWrapper}>
-            <div className={TodoCSS.addInputWrapper}>
-              {visibleCate ? (
-                <div>
-                  <CategorySelectBox
-                    categorys={categoryList}
-                    setSelectedCateColor={setSelectedCateColor}
-                    setVisibleCate={setVisibleCate}
-                    setNewTodo={setNewTodo}
-                    newTodo={newTodo}
-                  />
-                </div>
-              ) : (
-                <div
-                  className={TodoCSS.defaultCate}
-                  style={{
-                    backgroundColor: selectedCateColor,
-                    border: "1px solid black",
-                  }}
-                ></div>
-              )}
-              <span
-                onClick={() => {
-                  setVisibleCate(!visibleCate);
-                }}
-              >
-                ▼
-              </span>
-              <input
-                type="text"
-                name="todoName"
-                onChange={onInsertTodoHandler}
-                placeholder="새로운 할 일을 입력하세요"
-              />
-              {addTodoStar ? (
-                <img
-                  src={"/images/star_fill.png"}
-                  alt="이미지확인!"
-                  onClick={onSetAddStarHandler}
-                ></img>
-              ) : (
-                <img
-                  src={"/images/star_gray.png"}
-                  alt="이미지확인!"
-                  onClick={onSetAddStarHandler}
-                ></img>
-              )}
-              {/* <img src={"/images/calendar_gray.png"} alt="이미지확인!"></img> */}
-              <input
-                type="date"
-                name="todoDate"
-                onChange={onInsertTodoHandler}
-                className={TodoCSS.addInputDate}
-              />
-              <input
-                type="time"
-                name="todoTime"
-                onChange={onInsertTodoHandler}
-                className={TodoCSS.addInputTime}
-              />
-            </div>
-            <button onClick={onClickInsertTodoHandler}>할 일 추가</button>
-          </div>
-          <div className={TodoCSS.graphWrapper}>
-            <div className={TodoCSS.graphTitle}>
-              <div> 오늘의 달성률 </div>
-              <span> {todayFinishTodo} </span>
-              <span> / {todayAllTodo} </span>
-            </div>
-            <div className={TodoCSS.graph}>
-              <div> </div>
-              <span> {isNaN(achievementRate) ? 0 : achievementRate}%</span>
-            </div>
-          </div>
-          <div className={TodoCSS.todoList}>
-            <div className={TodoCSS.today}>
-              <h2> 오늘의 할 일 </h2>
-              {Array.isArray(todayList) &&
-                todayList.map((today) => (
-                  <Today
-                    key={today.todoNo}
-                    todo={today}
-                    setCheckStarAndFinish={setCheckStarAndFinish}
-                  />
-                ))}
-            </div>
 
-            <div className={TodoCSS.intended}>
-              <h2> 예정된 할 일 </h2>
-              {Array.isArray(intendedList) &&
-                intendedList.map((intended) => (
-                  <Intended
-                    key={intended.todoNo}
-                    todo={intended}
-                    setCheckStarAndFinish={setCheckStarAndFinish}
-                  />
-                ))}
-            </div>
-          </div>
+        <div className={TodoCSS.intended}>
+          <h2> 예정된 할 일 </h2>
+          {Array.isArray(intendedList) &&
+            intendedList.map((intended) => (
+              <Intended
+                key={intended.todoNo}
+                todo={intended}
+                setCheckStarAndFinish={setCheckStarAndFinish}
+              />
+            ))}
         </div>
       </div>
     </>
