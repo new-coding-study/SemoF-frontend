@@ -92,7 +92,6 @@
     background-color: #e52e2e;
     border: 2px solid #e52e2e;
     border-radius: 8px;
-    border: none;
     font-size: medium;
     color: white;
     cursor: pointer;
@@ -102,8 +101,8 @@
 }
 
 .fileButton:hover {
-    background-color: white;
-    color: #e52e2e;
+    background-color: #e52e2e;
+    color: white;
     border: 1px solid #e52e2e;
 }
 
@@ -126,38 +125,34 @@
 
 .tableWrapper {
     flex: 2;
-    /* 테이블과의 간격을 조정합니다. */
     overflow: scroll;
     height: 450px;
-    /* 원하는 높이 값으로 변경 */
-    /* border: 1px solid #D3D3D3; */
 }
 
 .tableWrapper {
     border-radius: 10px;
     overflow: hidden;
-    /* wrapper 영역을 넘어가는 선을 숨깁니다. */
     border: 1px solid #D3D3D3;
 }
 
-.table {
+.registerTable {
     margin: 0;
     border-collapse: collapse;
     /* border-collapse: separate; */
     width: 100%;
     height: 100%;
-    /* table 너비를 100%로 설정합니다. */
+    /* table 너비를 100%로 설정 */
 }
 
-.table td,
-.table th {
+.registerTable td,
+.registerTable th {
     border: none;
     border-bottom: 1px solid #D3D3D3;
-    /* 테이블 내부의 선만 남기고, 외곽선을 제거합니다. */
+    /* 테이블 내부의 선만 남기고, 외곽선을 제거 */
     padding: 8px;
 }
 
-.table td {
+.registerTable td {
     height: 40px;
 }
 
@@ -165,27 +160,27 @@
     text-align: center;
 }
 
-.table input {
+.registerTable input {
     border: none;
     outline: none;
 }
 
-.table td {
+.registerTable td {
     text-align: left;
 }
 
-.table tr:last-child td,
-.table tr:last-child th {
+.registerTable tr:last-child td,
+.registerTable tr:last-child th {
     border-bottom: none;
-    /* 마지막 행의 하단 선을 제거합니다. */
+    /* 마지막 행의 하단 선을 제거 */
 }
 
-.table td:not(:last-child),
+.registerTable td:not(:last-child),
 th:not(:last-child) {
     border-right: 1px solid #d3d3d309;
 }
 
-.table tbody tr:not(:last-child) td {
+.registerTable tbody tr:not(:last-child) td {
     border-bottom: 1px solid #D3D3D3;
 }
 
@@ -198,16 +193,16 @@ th:not(:last-child) {
     text-indent: 0.5em;
 }
 
-td .input:focus {
+.registerTable td .input:focus {
     caret-color: #e52e2e;
 }
 
-td .input::placeholder {
+.registerTable td .input::placeholder {
     color: rgba(204, 204, 204, 0.8);
     font-style: italic;
 }
 
-td .select {
+.registerTable td .select {
     background-color: #fff;
     /* border: 2px solid #ccc; */
     border: none;
@@ -224,7 +219,7 @@ td .select {
     background-repeat: no-repeat;
 }
 
-td .select:focus {
+.registerTable td .select:focus {
     border: 2px solid #ccc;
     animation: glow 1s ease-in-out infinite alternate;
 }
@@ -241,7 +236,7 @@ td .select:focus {
     }
 }
 
-td .select option:checked {
+.registerTable td .select option:checked {
     background-color: #e52e2e;
     /* 선택된 option의 배경색 */
     color: white;
@@ -257,7 +252,7 @@ td .select option:checked {
 .buttonWrapper button {
     margin: 0 1rem;
     padding: 1rem 2rem;
-    border: none;
+    border: 1px solid #e52e2e;
     border-radius: 8px;
     background-color: #e52e2e;
     color: white;

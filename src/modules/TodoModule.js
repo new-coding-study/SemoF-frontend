@@ -4,11 +4,13 @@ const initialState = {
   categoryList: [],
   todayList: [],
   intendedList: [],
+  todoDetail: [],
 };
 
 export const GET_TODAYTODOLIST = "todo/GET_TODAYTODOLIST";
 export const GET_INTENDEDTODOLIST = "todo/GET_INTENDEDTODOLIST";
 export const GET_TODO = "todo/GET_TODO";
+export const GET_SEARCHTODO = "todo/GET_SEARCHTODO";
 export const GET_CATEGORYLIST = "todo/GET_CATEGORYOLIST";
 export const POST_CATEGORY = "todo/POST_CATEGORY";
 export const PUT_CATEGORY = "todo/PUT_CATEGORY";
@@ -17,12 +19,14 @@ export const POST_TODO = "todo/POST_TODO";
 export const PUT_TODO = "todo/PUT_TODO";
 export const DELETE_TODO = "todo/DELETE_TODO";
 export const PUT_STAR = "todo/PUT_STAR";
+export const PUT_FINISH = "todo/PUT_FINISH";
 
 // eslint-disable-next-line
 const actions = createActions({
   [GET_TODAYTODOLIST]: () => {},
   [GET_INTENDEDTODOLIST]: () => {},
   [GET_TODO]: () => {},
+  [GET_SEARCHTODO]: () => {},
   [GET_CATEGORYLIST]: () => {},
   [POST_CATEGORY]: () => {},
   [PUT_CATEGORY]: () => {},
@@ -31,23 +35,28 @@ const actions = createActions({
   [PUT_TODO]: () => {},
   [DELETE_TODO]: () => {},
   [PUT_STAR]: () => {},
+  [PUT_FINISH]: () => {},
 });
 
 const todoReducer = handleActions(
   {
     [GET_TODAYTODOLIST]: (state, { payload }) => {
-      console.log("GET_TODAYTODOLIST Reducer 내부 payload : ", payload);
+      // console.log("GET_TODAYTODOLIST Reducer 내부 payload : ", payload);
       return { ...state, todayList: payload };
     },
     [GET_INTENDEDTODOLIST]: (state, { payload }) => {
-      console.log("GET_INTENDEDTODOLIST Reducer 내부 payload : ", payload);
+      // console.log("GET_INTENDEDTODOLIST Reducer 내부 payload : ", payload);
       return { ...state, intendedList: payload };
     },
     [GET_TODO]: (state, { payload }) => {
+      // console.log("GET_TODO Reducer 내부 payload : ", payload);
+      return { ...state, todoDetail: payload };
+    },
+    [GET_SEARCHTODO]: (state, { payload }) => {
       return payload;
     },
     [GET_CATEGORYLIST]: (state, { payload }) => {
-      console.log("GET_CATEGORYLIST Reducer 내부 payload : ", payload);
+      // console.log("GET_CATEGORYLIST Reducer 내부 payload : ", payload);
       return { ...state, categoryList: payload };
     },
     [POST_CATEGORY]: (state, { payload }) => {
@@ -69,6 +78,9 @@ const todoReducer = handleActions(
       return payload;
     },
     [PUT_STAR]: (state, { payload }) => {
+      return payload;
+    },
+    [PUT_FINISH]: (state, { payload }) => {
       return payload;
     },
   },

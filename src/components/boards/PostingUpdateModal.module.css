@@ -1,0 +1,100 @@
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+.modalContainer{
+    position: absolute;
+    width: 600px;
+    height: 700px;
+    padding: 10px;
+    text-align: left;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);    
+    z-index: 1000;
+}
+.title{
+    height: 60px;
+    border-radius: 8px;
+    background-color: #E52E2E;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 40px;
+    line-height: 57px;
+    border: none;
+}
+.displayBox{
+    height:500px;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 600px;
+    height: 540px;
+}
+.displayBox form{
+    text-align: left;
+    margin-left: 30px;
+}
+.displayBox form label{
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.displayBox form input{
+    width: 300px;
+    height: 30px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding-left:7px
+}
+.displayBox form select{
+    width: 240px;
+    height: 30px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding-left:5px
+    
+}
+.displayBox form textarea{
+    width: 450px;
+    font-size: 20px;
+    resize: none;
+    height: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-left: 60px;
+    margin-right:auto;
+    margin-top: -27px;
+}
+.displayBox form select:focus{
+    outline: none;
+}
+.modalbtn{
+    text-align: center;
+}
+.modalbtn button{
+    background-color: #E52E2E;
+    border: none;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+.modalbtn button:hover{
+    background-color:gray;
+    text-shadow: 1px 1px 1px white;
+}

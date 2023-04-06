@@ -1,0 +1,36 @@
+/* EmailCSS.module.css */
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.mailBody {
+    flex: 1;
+    display: flex;
+}
+
+.navBar {
+    flex: 1;
+    background-color: #f1f3f4;
+    min-width: 250px;
+}
+
+.content {
+    flex: 9;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    min-width: 700px;
+}
+
+.searchBox {
+    flex: 0 0 auto;
+    padding: 16px;
+}
+
+.mailContent {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+}

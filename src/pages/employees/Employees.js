@@ -6,11 +6,12 @@ import Calendar from "../../components/employees/Calendar";
 function Employees() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
   const [value, onChange] = useState(new Date());
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
 
   return (
     <>
       <div className={EmployeeCSS.header}>
-        <div className={EmployeeCSS.title}> SMART 인사관리 </div>
+        <div className={EmployeeCSS.title}> 인사 </div>
 
         <div className={EmployeeCSS.menu}>
           <ul>
@@ -21,13 +22,13 @@ function Employees() {
             </li>
             <li>
               <Link to="/semof/employees/transfer">
-                <span>사원발령</span>
+                <span>사원이동</span>
               </Link>
             </li>
             <li>
-              <a href="#">
+              <Link to="/semof/employees/evaluation">
                 <span>사원평가</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#">
@@ -42,17 +43,47 @@ function Employees() {
         <div className={EmployeeCSS.reportCard}>
           <h2>직원 현황</h2>
           <div className={EmployeeCSS.status}>
-            <div className={EmployeeCSS.attendance}>
-              <p>{today} 출근</p>
-              <span>21명</span>
-            </div>
             <div className={EmployeeCSS.vacation}>
-              <p>휴가자</p>
-              <span>5명</span>
+              <div className={EmployeeCSS.box}>
+                <img
+                  src={"/images/vacation.png"}
+                  alt="이미지확인!"
+                  className={EmployeeCSS.logo}
+                />
+                <p>휴가자</p>
+              </div>
+              <div className={EmployeeCSS.textBox}>
+                <span>5</span>
+                <span className={EmployeeCSS.count}>명</span>
+              </div>
+            </div>
+            <div className={EmployeeCSS.attendance}>
+              <div className={EmployeeCSS.box}>
+                <img
+                  src={"/images/bag.png"}
+                  alt="이미지확인!"
+                  className={EmployeeCSS.logo}
+                />
+                <p>{today} 출근</p>
+              </div>
+              <div className={EmployeeCSS.textBox}>
+                <span>21</span>
+                <span className={EmployeeCSS.count}>명</span>
+              </div>
             </div>
             <div className={EmployeeCSS.birthday}>
-              <p>3월 생일자</p>
-              <span>1명</span>
+              <div className={EmployeeCSS.box}>
+                <img
+                  src={"/images/birth.png"}
+                  alt="이미지확인!"
+                  className={EmployeeCSS.logo}
+                />
+                <p>{month}월 생일자</p>
+              </div>
+              <div className={EmployeeCSS.textBox}>
+                <span>1</span>
+                <span className={EmployeeCSS.count}>명</span>
+              </div>
             </div>
           </div>
         </div>
