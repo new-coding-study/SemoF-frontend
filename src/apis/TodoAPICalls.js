@@ -80,6 +80,9 @@ export const callTodoDetailAPI = (todoNo) => {
 export const callSearchTodoAPI = (searchWord, empNo) => {
   // console.log("GET_SEARCHTODO call");
 
+  console.log("searchWord", searchWord);
+  console.log("empNo", empNo);
+
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/todos/todo/search?s=${searchWord}&e=${empNo}`;
 
   return async (dispatch, getState) => {

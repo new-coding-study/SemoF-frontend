@@ -1,0 +1,43 @@
+.contour {
+  height: 60px;
+  background-color: #e52e2e;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  padding-left: 40px;
+  line-height: 60px;
+  border-radius: 8px;
+}
+
+.todoWrapper {
+  /* border: 1px solid black; */
+  height: 80%;
+  margin: 60px 40px;
+  display: flex;
+}
+
+.categoryWrapper {
+  margin-right: 60px;
+}
+
+.searchBox {
+  border: 1px solid gray;
+  border-radius: 4px;
+  display: flex;
+  height: 24px;
+  margin-bottom: 40px;
+  margin-top: 4px;
+}
+
+.searchBox img {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  margin: 2px 2px;
+}
+
+.searchBox input {
+  border: none;
+  height: 20px;
+  margin: 1px 0;
+}

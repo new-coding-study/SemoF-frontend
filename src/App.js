@@ -6,6 +6,7 @@ import Error from "./pages/Error";
 import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
 import Todo from "./pages/todo/Todo";
+import TodoSearch from "./pages/todo/TodoSearch";
 
 import Approval from "./pages/approval/Approval";
 import ApprovalIn from "./pages/approval/ApprovalIn";
@@ -40,6 +41,7 @@ function App() {
         <Route path="/semof" element={<Layout />}>
           <Route index element={<Main />} />
           <Route path="todo" element={<Todo />} />
+          <Route path="todo/search" element={<TodoSearch />} />
 
           <Route path="approval" element={<Approval />} />
           <Route path="inbox" element={<ApprovalIn />} />
