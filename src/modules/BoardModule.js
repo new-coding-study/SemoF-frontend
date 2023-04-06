@@ -13,17 +13,8 @@ export const PUT_BOARD_POSTING = 'board/PUT_BOARD_POSTING';
 export const DELETE_BOARD_POSTING = 'board/DELETE_BOARD_POSTING';
 // 
 const initialState = {
-    notices:[],
-    noticeTopList : [],
-    postingList : [],
-    noticeDetail:[],
-    postingDetail:[],
-    noticeUpdate:[],
-    postingUpdate:[],
-    noticeRegist:[],
-    postingRegist:[],
-    noticeDelete:[],
-    postingDelete:[]
+    noticeList : [],
+    boardList : []
 }
 
 const actions = createActions({
@@ -41,17 +32,20 @@ const actions = createActions({
 });
 
 const boardReducer = handleActions(
-    {
-    [GET_BOARD_NOTICE]: (state, {payload}) => {return {...state, noticeDetail:payload};},
-    [GET_BOARD_NOTICES]: (state, {payload}) => {return {...state, notices:payload};},
-    [GET_BOARD_NOTICES_TOP3]: (state, {payload}) => {return {...state, noticeTopList : payload};},
-    [GET_BOARD_POSTING]: (state, {payload}) => {return {...state, postingDetail:payload};},
-    [GET_BOARD_POSTINGS]: (state, {payload}) => {return {...state, postingList : payload};},
-    [POST_BOARD_NOTICE]: (state, {payload}) => {return {...state, noticeRegist:payload};},
-    [PUT_BOARD_NOTICE]: (state, {payload}) => {return {...state, noticeUpdate:payload};},
-    [DELETE_BOARD_NOTICE]: (state, {payload}) => {return {...state, noticeDelete:payload};},
-    [POST_BOARD_POSTING]: (state, {payload}) => {return {...state, postingRegist:payload};},
-    [PUT_BOARD_POSTING]: (state, {payload}) => {return {...state, postingUpdate:payload};},
-    [DELETE_BOARD_POSTING]: (state, {payload}) => {return {...state, postingDelete:payload};}
+    {[GET_BOARD_NOTICE]: (state, {payload}) => {
+        return payload;
+    },
+    [GET_BOARD_NOTICES]: (state, {payload}) => {
+        return payload;
+    },
+    [GET_BOARD_NOTICES_TOP3]: (state, {payload}) => {return {...state, noticeList : payload};},
+    [GET_BOARD_POSTING]: (state, {payload}) => {return payload;},
+    [GET_BOARD_POSTINGS]: (state, {payload}) => {return {...state, boardList : payload};},
+    [POST_BOARD_NOTICE]: (state, {payload}) => {return payload;},
+    [PUT_BOARD_NOTICE]: (state, {payload}) => {return payload;},
+    [DELETE_BOARD_NOTICE]: (state, {payload}) => {return payload;},
+    [POST_BOARD_POSTING]: (state, {payload}) => {return payload;},
+    [PUT_BOARD_POSTING]: (state, {payload}) => {return payload;},
+    [DELETE_BOARD_POSTING]: (state, {payload}) => {return payload;}
 }, initialState
 ); export default boardReducer;

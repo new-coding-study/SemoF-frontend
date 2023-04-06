@@ -1,104 +1,85 @@
 import IntendedCSS from "./Intended.module.css";
-import TodoDetailModal from "./TodoDetailModal";
-import TodoUpdateModal from "./TodoUpdateModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   callUpdateStarAPI,
-  callUpdateFinishAPI,
+  callIntendedTodoListAPI,
 } from "../../apis/TodoAPICalls";
 
-function Intended({ todo, setCheckStarAndFinish }) {
-  const dispatch = useDispatch();
+function Intended(intendedList) {
+  // console.log(intendedList);
+  const intended = intendedList.todo;
+  // const dispatch = useDispatch();
+  // console.log("todo", intended);
+  // console.log("intendedList", intendedList);
 
-  const [todoDetailModal, setTodoDetailModal] = useState(false);
-  const [todoUpdateModal, setTodoUpdateModal] = useState(false);
-  const [selectTodoNo, setSelectTodoNo] = useState("");
+  // const [star, setStar] = useState();
 
-  // 중요표시 업데이트 (별)
-  const onClickChangeStarHandler = (e) => {
-    const todoNo = parseInt(e.target.id);
+  // console.log("intended", intended);
 
-    const changeStar = todo.todoStar === 0 ? 1 : 0;
+  // useEffect(() => {
+  //   dispatch(callIntendedTodoListAPI(41));
+  // }, [star]);
 
-    dispatch(callUpdateStarAPI(todoNo, changeStar));
-    setCheckStarAndFinish(true);
-  };
-
-  // 완료여부 업데이트 (체크박스)
-  const onChangeFinishHandler = (e) => {
-    const todoNo = parseInt(e.target.id);
-    // console.log("체크박스 Change 이벤트 발생");
-
-    const changeFinish = todo.todoFinish === 0 ? 1 : 0;
-
-    dispatch(callUpdateFinishAPI(todoNo, changeFinish));
-    setCheckStarAndFinish(true);
-  };
-
-  // 할 일 상세조회
-  const onClickTodoDetailHandler = (todoNo) => {
-    setSelectTodoNo(todoNo);
-    setTodoDetailModal(true);
-  };
+  // const onClickHandler = (e) => {
+  //   const todoNo = parseInt(e.target.id);
+  //   // console.log(todoNo);
+  //   // console.log(intended.todoStar);
+  //   if (intended.todoStar === 1) {
+  //     setStar(0);
+  //   } else setStar(1);
+  //   dispatch(callUpdateStarAPI(todoNo));
+  //   // const changeFinish =
+  //   //   intendedList &&
+  //   //   intendedList.map((one) => {
+  //   //     if (one.todoNo === parseInt(e.target.id)) {
+  //   //       one.todoFinish = e.target.checked;
+  //   //       console.log("종료여부 : ", one.todoFinish);
+  //   //       console.log("할일번호 : ", one.todoNo);
+  //   //     }
+  //   //     return one;
+  //   //   });
+  // };
 
   return (
     <>
-      {todoDetailModal ? (
-        <TodoDetailModal
-          todoNo={selectTodoNo}
-          setTodoDetailModal={setTodoDetailModal}
-          setTodoUpdateModal={setTodoUpdateModal}
-          // setCheckStarAndFinish={setCheckStarAndFinish}
-        />
-      ) : null}
-      {todoUpdateModal ? (
-        <TodoUpdateModal
-          todoNo={selectTodoNo}
-          setTodoDetailModal={setTodoDetailModal}
-          setTodoUpdateModal={setTodoUpdateModal}
-        />
-      ) : null}
       <div className={IntendedCSS.todoWrapper}>
         <div
           className={IntendedCSS.colorBar}
           style={{
-            backgroundColor: todo.cateColor,
-            border: todo.cateColor,
+            backgroundColor: intended.cateColor,
+            border: intended.cateColor,
           }}
         ></div>
         <div className={IntendedCSS.contentWrapper}>
           <div className={IntendedCSS.todo}>
             <input
               type="checkbox"
-              style={{ accentColor: todo.cateColor }}
-              id={todo.todoNo}
-              onChange={onChangeFinishHandler}
-              checked={todo.todoFinish === 1}
+              style={{ accentColor: intended.cateColor }}
+              // value={search}
+              // onKeyUp={onEnterkeyHandler}
+              id={intended.todoNo}
+              // onChange={onChangeHandler}
             />
-            <label>
-              <div onClick={() => onClickTodoDetailHandler(todo.todoNo)}>
-                {todo.todoName}
-              </div>
-            </label>
-            {todo.todoStar === 0 ? (
+            <label htmlFor={intended.todoNo}> {intended.todoName} </label>
+            {intended.todoStar === 0 ? (
               <img
-                id={todo.todoNo}
+                id={intended.todoNo}
                 src={"/images/star_gray.png"}
                 alt="이미지확인!"
-                onClick={onClickChangeStarHandler}
+                onClick={intendedList.changeStar}
               ></img>
             ) : (
               <img
-                id={todo.todoNo}
+                id={intended.todoNo}
                 src={"/images/star_fill.png"}
                 alt="이미지확인!"
-                onClick={onClickChangeStarHandler}
+                onClick={intendedList.changeStar}
               ></img>
             )}
           </div>
           <div className={IntendedCSS.date}>
-            {todo.todoDate} {todo.todoTime.substr(0, 5)}
+            {intended.todoDate} {intended.todoTime.substr(0, 5)}
           </div>
         </div>
       </div>

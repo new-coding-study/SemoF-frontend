@@ -6,6 +6,8 @@ function Header() {
 
   const location = useLocation();
 
+  // console.log(location.pathname === "/semo" ? "일치" : "불일치");
+
   const onClickLogoHandler = () => {
     // 로고 클릭시 메인 페이지로 이동
     navigate("/semof", { replace: true });

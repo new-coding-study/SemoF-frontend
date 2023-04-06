@@ -83,7 +83,7 @@ function Navbar() {
             </li>
           </NavLink>
 
-          <NavLink to="/semof/email">
+          <NavLink to="/semof/mail">
             <li>
               <img
                 src={"/images/mail.png"}

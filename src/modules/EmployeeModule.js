@@ -1,95 +1,23 @@
 import { createActions, handleActions } from "redux-actions";
 
 /* 초기값 */
-const initialState = {
-  employees: [],
-  employeeBranches: [],
-  employeeDepartments: [],
-};
+const initialState = [];
 
 /* 액션 */
-export const POST_REGISTER = "employee/POST_REGISTER";
-export const POST_EMPLOYEES_CONTRIBUTIONS =
-  "employee/POST_EMPLOYEES_CONTRIBUTIONS";
-export const GET_EMPLOYEES = "employee/GET_EMPLOYEES";
-export const GET_EMPLOYEES_BRANCHES = "employee/GET_EMPLOYEES_BRANCHES";
-export const GET_EMPLOYEES_DEPARTMENTS = "employee/GET_EMPLOYEES_DEPARTMENTS";
-export const GET_EMPLOYEES_CONTRIBUTION = "employee/GET_EMPLOYEES_CONTRIBUTION"; // 사원
-export const GET_EMPLOYEES_CONTRIBUTIONS =
-  "employee/GET_EMPLOYEES_CONTRIBUTIONS"; //전체
-export const SEARCH_EMPLOYEES = "employee/SEARCH_EMPLOYEES ";
-export const PUT_EMPLOYEES_BRANCHES = "employee/PUT_EMPLOYEES_BRANCHES";
-export const PUT_EMPLOYEES_DEPARTMENTS = "employee/PUT_EMPLOYEES_DEPARTMENTS";
-export const PUT_EMPLOYEES_CONTRIBUTION = "employee/PUT_EMPLOYEES_CONTRIBUTION"; // 사원
-export const DELETE_EMPLOYEES_CONTRIBUTION =
-  "employee/DELETE_EMPLOYEES_CONTRIBUTION"; // 사원
-
+export const POST_REGISTER = "join/POST_REGISTER";
 // eslint-disable-next-line
 const actions = createActions({
   [POST_REGISTER]: () => {},
-  [POST_EMPLOYEES_CONTRIBUTIONS]: () => {},
-  [GET_EMPLOYEES]: () => {},
-  [GET_EMPLOYEES_BRANCHES]: () => {},
-  [GET_EMPLOYEES_DEPARTMENTS]: () => {},
-  [GET_EMPLOYEES_CONTRIBUTION]: () => {},
-  [GET_EMPLOYEES_CONTRIBUTIONS]: () => {},
-  [SEARCH_EMPLOYEES]: () => {},
-  [PUT_EMPLOYEES_BRANCHES]: () => {},
-  [PUT_EMPLOYEES_DEPARTMENTS]: () => {},
-  [PUT_EMPLOYEES_CONTRIBUTION]: () => {},
-  [DELETE_EMPLOYEES_CONTRIBUTION]: () => {},
 });
 
 /* 리듀서 */
-const empReducer = handleActions(
+const registerEmpReducer = handleActions(
   {
     [POST_REGISTER]: (state, { payload }) => {
       return payload;
-    },
-    [GET_EMPLOYEES]: (state, { payload }) => {
-      return payload;
-    },
-    [GET_EMPLOYEES_BRANCHES]: (state, action) => {
-      return {
-        ...state,
-        branches: action.payload,
-      };
-    },
-    [GET_EMPLOYEES_DEPARTMENTS]: (state, action) => {
-      return {
-        ...state,
-        departments: action.payload,
-      };
-    },
-    [GET_EMPLOYEES_CONTRIBUTION]: (state, { payload }) => {
-      return {
-        ...state,
-        contribution: payload,
-      };
-    },
-    [GET_EMPLOYEES_CONTRIBUTIONS]: (state, { payload }) => {
-      return {
-        ...state,
-        contributionList: payload,
-      };
-    },
-    [SEARCH_EMPLOYEES]: (state, { payload }) => {
-      return payload;
-    },
-    [PUT_EMPLOYEES_BRANCHES]: (state, { payload }) => {
-      return payload;
-    },
-    [PUT_EMPLOYEES_DEPARTMENTS]: (state, { payload }) => {
-      return payload;
-    },
-    [PUT_EMPLOYEES_CONTRIBUTION]: (state, { payload }) => {
-      return payload;
-    },
-    [DELETE_EMPLOYEES_CONTRIBUTION]: (state) => {
-      return state;
     },
   },
   initialState
 );
 
-export default empReducer;
+export default registerEmpReducer;

@@ -1,7 +1,7 @@
 import CategoryCSS from "./Category.module.css";
 
-function Category({ category }) {
-  // const category = categoryList.category;
+function Category(categoryList) {
+  const category = categoryList.category;
 
   // console.log("category", category);
 
@@ -17,7 +17,7 @@ function Category({ category }) {
           style={{ backgroundColor: category.cateColor }}
         ></div>
         <div className={CategoryCSS.name}> {category.cateName} </div>
-        {/* <div className={CategoryCSS.editBar} onClick>⋮</div> */}
+        <div className={CategoryCSS.editBar}>⋮</div>
       </div>
       {/* <div className={CategoryCSS.addCate}>
         <div> + </div>

@@ -106,14 +106,8 @@
     height: 10em;
 }
 
-.reportCard h2 {
-    margin: auto;
-}
-
 .reportCard .status {
-    margin-top: 1%;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
 }
 
@@ -126,45 +120,16 @@
     width: calc(33.33% - 1rem);
 }
 
-.box {
-    max-width: 100%;
-    width: 10em;
-    display: flex;
-    justify-content: center;
-    font-weight: bold;
-    margin: auto;
-}
-
-.logo {
-    width: 30px;
-    height: 25px;
-    margin-top: 7%;
-    margin-right: 5%;
-}
-
 .reportCard .status .attendance p,
 .reportCard .status .vacation p,
 .reportCard .status .birthday p {
     text-align: center;
 }
 
-
-.textBox {
-    justify-content: center;
-    text-align: center;
-}
-
-
 .reportCard .status .attendance span,
 .reportCard .status .vacation span,
 .reportCard .status .birthday span {
     text-align: center;
-    font-size: xx-large;
-    font-weight: bolder;
-}
-
-.count {
-    font-size: large !important;
 }
 
 .content {
