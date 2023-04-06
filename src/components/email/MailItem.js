@@ -13,6 +13,13 @@ function MailItem({ email, category, isSelected, mailNo, onSelectMailNo }) {
   //   onSelectMailNo(mailNo);
   // };
   // onClick = { handleClick };
+
+  // 이름 처리
+  const senderName = email.senderName;
+  const startIdx = senderName.indexOf('"') + 1;
+  const endIdx = senderName.lastIndexOf('"');
+  const name = senderName.substr(startIdx, endIdx - startIdx);
+
   return (
     <div className={MailItemCSS.container}>
       <NavLink
@@ -28,7 +35,7 @@ function MailItem({ email, category, isSelected, mailNo, onSelectMailNo }) {
                 // onChange={handleChange}
                 className={MailItemCSS.checkBox}
               />
-              <span className={MailItemCSS.sender}>{email.senderName}</span>
+              <span className={MailItemCSS.sender}>{name}</span>
             </div>
             <div className={MailItemCSS.subjectWrapper}>
               <span className={MailItemCSS.subject}>{email.title}</span>
