@@ -15,16 +15,9 @@ function ReceiveEmailDetail() {
   console.log("[ReceiveEmailDetail] Rendering ReceiveEmailDetail");
   const dispatch = useDispatch();
 
-  const email = useSelector((state) => state.emailReducer);
-  // const emailState = useSelector((state) => state.emailReducer);
-  // const receivedEmailsArray = Array.isArray(emailState.receivedEmails)
-  //   ? emailState.receivedEmails
-  //   : [];
-  // const email = receivedEmailsArray.find(
-  //   (email) => email.receiveNo === parseInt(receiveNo)
-  // );
+  const email = useSelector((state) => state.emailReducer.emailDetail);
 
-  console.log("[ReceiveEmailDetail] email: " + JSON.stringify(email));
+  // console.log("[ReceiveEmailDetail] email: " + JSON.stringify(email));
 
   useEffect(() => {
     console.log("[EmailDetail] useEffect, receiveNo: " + receiveNo);
@@ -32,7 +25,7 @@ function ReceiveEmailDetail() {
     dispatch(callReceiveEmailAPI({ receiveNo }));
   }, [dispatch, receiveNo]);
 
-  return (
+  return email ? (
     <div className={EmailCSS.contentWrapper}>
       <div className={EmailCSS.mailBody}>
         <div className={EmailCSS.navBar}>
@@ -63,6 +56,8 @@ function ReceiveEmailDetail() {
         </div>
       </div>
     </div>
+  ) : (
+    <div>Loading email...</div>
   );
 }
 
