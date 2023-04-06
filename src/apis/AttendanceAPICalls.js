@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { 
     GET_STATUS,
-    GET_HISTORIES,
+    // GET_HISTORIES,
     PUT_STATUS
 } from '../modules/AttendanceModule.js';
 

@@ -42,3 +42,91 @@
   background-color: white;
   font-weight: bold;
 }
+
+
+/* 성식 로그인 */
+/* .backgroundDiv{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background-color: #f7f7f7;
+}
+
+@font-face{
+  font-family: "Press Start 2P";
+  src: url("/src/fonts/PressStart2P-Regular.ttf");
+}
+
+.LogoBtn {
+  font-family: 'Press Start 2P';
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: 'Press Start 2P';
+  font-size: 1.3em;
+  cursor: pointer;
+}
+
+.loginDiv{
+  box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.25);
+  height: 400px;
+  width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background-color: #F7F8FD;
+  border: 2px solid #4916B4;
+  border-radius: 25px;    
+}
+
+.loginDiv>div {
+  width: 300px;
+  border-bottom: 1px solid #4916B4;
+  margin-bottom: 40px;
+}
+
+.loginDiv>h1 {
+  margin-top: -10px;
+}
+
+.loginDiv input {
+  background: #FDFDFD;
+  border: 1px solid #8E8F93;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 40px;
+  width: 300px;
+  border-radius: 5px;
+  text-indent: 10px;
+  font-size: 15px;
+  outline: none;
+}
+
+.loginDiv input:focus {
+  border: 1px solid #4916B4;
+  box-shadow: 0 0 10px #4916B4;
+}
+
+.loginDiv button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 50px;
+  width: 300px;
+  border: 1px solid #8E8F93;
+  border-radius: 5px;
+  background-color: #4916B4;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 17px;
+  color: white;
+  margin-bottom: 10px;
+} */
+

@@ -15,7 +15,7 @@ function Attendance() {
     const dispatch = useDispatch();
     const status  = useSelector(state => state.AttendanceReducer); 
 
-    const [empNo, setEmpNo] = useState(39);      // # 로그인 기능 구현 전까지 값 확인용 상태관리
+    const [empNo, setEmpNo] = useState(40);      // # 로그인 기능 구현 전까지 값 확인용 상태관리
     const [check, setCheck] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
     const [nowTime, setNowTime] = useState("00:00:00");
@@ -23,7 +23,7 @@ function Attendance() {
     // 현재 날짜용 (년월일요일 등 근무시간 위에)
     const todayDate = new Date();   //현재 날짜
 
-    let h = todayDate.getHours() < 12 ? "AM" : "PM"; // 시간 구분
+    let condition = todayDate.getHours() < 12 ? "AM" : "PM"; // 시간 구분
 
     const week = ['일', '월', '화', '수', '목', '금', '토'] // 요일 배열
 
@@ -51,19 +51,19 @@ function Attendance() {
         }
     }
     
-    // 시분초 계산 함수 (근무시간)
+    // 시분초 계산 함수 (근무시간) Date.now()
     function calculateTime(status) {
         const startTime = Date.parse(status.startTime || "00:00:00");
         const endTime = Date.parse(status.endTime || "00:00:00");
-        const diffTime = status.statusName === "출근" ? Date.now() - startTime : endTime - startTime;
-        console.log('startTime : ' + startTime);
-        console.log('endTime : ' + endTime);
-        console.log('diffTime : ' + diffTime);
+        const diffTime = status.statusName === "출근" ? new Date() - startTime : endTime - startTime;
+        // console.log('startTime : ' + startTime);
+        // console.log('endTime : ' + endTime);
+        // console.log('diffTime : ' + diffTime);
 
         const seconds = String(Math.floor(diffTime / 1000) % 60).padStart(2, "0");
         const minutes = String(Math.floor(diffTime / (1000 * 60)) % 60).padStart(2, "0");
         const hours = String(Math.floor(diffTime / (1000 * 60 * 60)) % 24).padStart(2, "0");
-        console.log(`${hours}:${minutes}:${seconds}`);
+        // console.log(`${hours}:${minutes}:${seconds}`);
         
         return `${hours}:${minutes}:${seconds}`;
     }
@@ -75,7 +75,7 @@ function Attendance() {
         }
     }, [status]);
     
-     // 출퇴근 시간처리 (최적화g)
+     // 스톱워치
     useEffect(
         () => {
             dispatch(callAttendanceDetailAPI({                                      // # 마운트 시작 시 사원 정보 조회
@@ -166,7 +166,7 @@ function Attendance() {
                 <div className={ AttendanceCSS.horizontalDiv }>
                     <div className={ AttendanceCSS.attendance }>
                         <div>
-                            <span>{h} {newTime.hours}:{newTime.minutes} {newTime.month}/{newTime.date}({newTime.day})</span>
+                            <span>{condition} {newTime.hours}:{newTime.minutes} {newTime.month}/{newTime.date}({newTime.day})</span>
                         </div>
                         <br></br>
                         <span className={ AttendanceCSS.empName }><strong>{status.empName}</strong>님의 근무시간은</span>
