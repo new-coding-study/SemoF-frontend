@@ -16,7 +16,7 @@ function Employees() {
         <div className={EmployeeCSS.menu}>
           <ul>
             <li>
-              <Link to="/semof/employees/register">
+              <Link to="/semof/employees/management">
                 <span>사원관리</span>
               </Link>
             </li>
@@ -31,9 +31,9 @@ function Employees() {
               </Link>
             </li>
             <li>
-              <a href="#">
+              {/* <a href="#">
                 <span>조직도</span>
-              </a>
+              </a> */}
             </li>
           </ul>
         </div>
