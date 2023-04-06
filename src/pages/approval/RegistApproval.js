@@ -136,7 +136,7 @@ function RegistApproval() {
         // formData.append("lineNo",approval.lineNo); 
 
         // formData.append("approvContentDTOList",approval.approvContentDTOList);
-        console.log(formData.get("approval"))
+        console.log("approval", formData.get("approval"))
 
         if(files){
             console.log('파일비어있니?')
@@ -145,7 +145,7 @@ function RegistApproval() {
         // console.log("formData : " + JSON.stringify(formData));
         // console.log(formData.get("fileList"))
         // console.log('파일 append',formData.append("fileList", files));
-        console.log(formData.get("fileList"))
+        console.log("fileList", formData.get("fileList"))
         // console.log(formData)
         // for(let i=0; i<files.length; i++) {
         //     formData.append('files[]', files[i]);
@@ -156,7 +156,7 @@ function RegistApproval() {
             // , fileList : files
           
         }));      
-        console.log(formData.getAll)
+        // console.log(formData.getAll)
     }
         
         

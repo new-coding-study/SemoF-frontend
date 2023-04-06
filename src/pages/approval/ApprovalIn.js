@@ -57,7 +57,7 @@ function ApprovalIn() {
         </div>
         <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
             { 
-            // Array.isArray(approvalList) &&
+            Array.isArray(approvalList) &&
             <button 
                 onClick={() => setCurrentPage(currentPage - 1)} 
                 disabled={currentPage === 1}

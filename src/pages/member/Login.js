@@ -15,8 +15,8 @@ function Login() {
 
   // 폼 데이터 한번에 변경 및 State에 저장
   const [form, setForm] = useState({
-    memberId: "",
-    memberPassword: "",
+    loginId: "",
+    loginPwd: "",
   });
 
   // 상태값 확인 후 로그인되어있는 상태면 메인으로 이동시킴
@@ -63,14 +63,14 @@ function Login() {
         <h1>로그인</h1>
         <input
           type="text"
-          name="memberId"
+          name="loginId"
           placeholder="아이디"
           autoComplete="off"
           onChange={onChangeHandler}
         />
         <input
           type="password"
-          name="memberPassword"
+          name="loginPwd"
           placeholder="패스워드"
           autoComplete="off"
           onChange={onChangeHandler}
