@@ -130,7 +130,7 @@ function TodoDetailModal({
             <textarea
               name="musicalName"
               placeholder="상세내용을 입력하세요"
-              value={todoDetail?.todoContent || ""}
+              value={todoDetail?.todoContent}
               disabled={true}
             />
           </div>

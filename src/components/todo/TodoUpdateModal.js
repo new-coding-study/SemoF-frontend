@@ -196,7 +196,7 @@ function TodoUpdateModal({
             <textarea
               name="todoContent"
               placeholder="상세내용을 입력하세요"
-              value={updateTodo.todoContent || ""}
+              value={updateTodo.todoContent}
               // readOnly={true}
               onChange={onChangeUpdateTodoHandler}
             />

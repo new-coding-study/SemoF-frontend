@@ -9,15 +9,15 @@
   border-radius: 8px;
 }
 
+.categoryWrapper {
+  margin-right: 60px;
+}
+
 .todoWrapper {
   /* border: 1px solid black; */
   height: 80%;
   margin: 60px 40px;
   display: flex;
-}
-
-.categoryWrapper {
-  margin-right: 60px;
 }
 
 .searchBox {
@@ -47,10 +47,6 @@
   align-items: center;
   width: 1000px;
   /* border: 1px solid red; */
-}
-
-.addWrapper button:hover {
-  cursor: pointer;
 }
 
 .addInputWrapper {
@@ -100,7 +96,6 @@
   padding: 0 8px;
   border-right: 1px solid gray;
   /* border-left: 1px solid gray; */
-  cursor: pointer;
 }
 
 .addInputDate {
@@ -108,9 +103,8 @@
   height: 20px;
   font-size: 12px;
   border: none;
-  margin-top: 8px;
+  margin-top: 10px;
   /* margin-right: 12px; */
-  cursor: pointer;
 }
 
 .addInputTime {
@@ -122,7 +116,6 @@
   margin-top: 8px;
   padding-left: 4px;
   border-left: 1px solid gray;
-  cursor: pointer;
 }
 
 .addWrapper button {

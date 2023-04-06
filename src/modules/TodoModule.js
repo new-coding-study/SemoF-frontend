@@ -5,7 +5,6 @@ const initialState = {
   todayList: [],
   intendedList: [],
   todoDetail: [],
-  todoSearchList: [],
 };
 
 export const GET_TODAYTODOLIST = "todo/GET_TODAYTODOLIST";
@@ -54,8 +53,7 @@ const todoReducer = handleActions(
       return { ...state, todoDetail: payload };
     },
     [GET_SEARCHTODO]: (state, { payload }) => {
-      // console.log("GET_SEARCHTODO Reducer 내부 payload : ", payload);
-      return { ...state, todoSearchList: payload };
+      return payload;
     },
     [GET_CATEGORYLIST]: (state, { payload }) => {
       // console.log("GET_CATEGORYLIST Reducer 내부 payload : ", payload);
