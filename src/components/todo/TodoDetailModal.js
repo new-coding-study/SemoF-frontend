@@ -128,9 +128,9 @@ function TodoDetailModal({
           <div className={TodoDetailModalCSS.todoContent}>
             <div> 상세내용 </div>
             <textarea
-              name="musicalName"
+              name="todoContent"
               placeholder="상세내용을 입력하세요"
-              value={todoDetail?.todoContent}
+              value={todoDetail?.todoContent ? todoDetail?.todoContent : ""}
               disabled={true}
             />
           </div>

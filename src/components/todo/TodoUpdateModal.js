@@ -56,8 +56,8 @@ function TodoUpdateModal({
   };
 
   const onChangeUpdateTodoHandler = (e) => {
-    console.log("e.target.name", e.target.name);
-    console.log("e.target.value", e.target.value);
+    // console.log("e.target.name", e.target.name);
+    // console.log("e.target.value", e.target.value);
     setUpdateTodo({
       ...updateTodo,
       [e.target.name]: e.target.value,
@@ -179,14 +179,12 @@ function TodoUpdateModal({
               type="Date"
               name="todoDate"
               value={updateTodo.todoDate}
-              // readOnly={true}
               onChange={onChangeUpdateTodoHandler}
             />
             <input
               type="Time"
               name="todoTime"
               value={updateTodo.todoTime}
-              // readOnly={true}
               onChange={onChangeUpdateTodoHandler}
             />
           </div>
@@ -197,7 +195,6 @@ function TodoUpdateModal({
               name="todoContent"
               placeholder="상세내용을 입력하세요"
               value={updateTodo.todoContent}
-              // readOnly={true}
               onChange={onChangeUpdateTodoHandler}
             />
           </div>

@@ -1,8 +1,8 @@
 import TodoCSS from "./Todo.module.css";
 import Category from "../../components/todo/Category";
 import Today from "../../components/todo/Today";
-import CategorySelectBox from "../../components/todo/CategorySelectBox";
 import Intended from "../../components/todo/Intended";
+import CategorySelectBox from "../../components/todo/CategorySelectBox";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,6 @@ import {
   callTodayTodoListAPI,
   callIntendedTodoListAPI,
   callCategoryListAPI,
-  callSearchTodoAPI,
   callTodoRegistAPI,
 } from "../../apis/TodoAPICalls";
 
