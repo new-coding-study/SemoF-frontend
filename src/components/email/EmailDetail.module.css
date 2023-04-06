@@ -16,11 +16,13 @@
 .emailDetailHeaderInfo {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-size: 14px;
     font-weight: 400;
     color: #5f6368;
     margin-top: 8px;
 }
+
 
 .emailDetailHeaderInfo>div:first-child {
     margin-right: 16px;
@@ -35,4 +37,37 @@
     font-weight: 400;
     color: #202124;
     line-height: 1.5;
+}
+
+.emailDeleteBtn {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.menuList {
+    position: absolute;
+    right: 3.8%;
+    margin: 0;
+    padding: 0px 0;
+    list-style: none;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+    
+}
+
+.menuItem {
+    padding: 8px 24px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #202124;
+    cursor: pointer;
+}
+
+.menuItem:hover {
+    /* background-color: rgba(0, 0, 0, 0.05); */
+    background-color: #e52e2e;
+    color: white;
 }
