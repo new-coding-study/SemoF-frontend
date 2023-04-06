@@ -15,17 +15,15 @@ function Login() {
 
   // 폼 데이터 한번에 변경 및 State에 저장
   const [form, setForm] = useState({
-
     loginId: "",
     loginPwd: "",
-
   });
 
   useEffect(
     () => {
       if (loginMember.status === 200) {
         console.log("[Login] Login SUCCESS {}", loginMember);
-        navigate("/", { replace: true });
+        navigate("/semof", { replace: true });
       }
     }, // eslint-disable-next-line
     [loginMember]
@@ -61,7 +59,6 @@ function Login() {
   return (
     <div className={LoginCSS.cardBody}>
       <div className={LoginCSS.loginDiv}>
-
         <div className={LoginCSS.logoBox}>
           <img
             src={"/images/logo.png"}
@@ -135,7 +132,6 @@ function Login() {
             Register
           </span>
         </div>
-
       </div>
     </div>
   );

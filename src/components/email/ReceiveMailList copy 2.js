@@ -10,7 +10,6 @@ function ReceiveMailList({ selectedMailNo, setSelectedMailNo }) {
   console.log("[ReceiveMailList] selectedMailNo : " + selectedMailNo);
 
   useEffect(() => {
-    console.log("[ReceiveMailList] useEffect called"); // Add this line
     dispatch(
       callTakeListAPI({
         currentPage: currentPage,

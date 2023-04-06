@@ -2,27 +2,6 @@ import React, { useState } from "react";
 import ActionMenuCSS from "./ActionMenu.module.css";
 
 function ActionMenu(props) {
-  // const { email, isOpen } = props;
-  // const [isMenuOpen, setIsMenuOpen] = useState(isOpen);
-
-  // const handleMenuClick = () => {
-  //   setIsMenuOpen(!isMenuOpen);
-  // };
-
-  // const handleDeleteClick = () => {
-  //   // 이메일 삭제 처리
-  // };
-
-  // const handleSpamClick = () => {
-  //   // 스팸 처리
-  // };
-
-  const { onRefresh } = props;
-
-  const handleRefreshClick = () => {
-    onRefresh();
-  };
-
   return (
     <>
       <div className={ActionMenuCSS.actionMenu}>
@@ -32,7 +11,7 @@ function ActionMenu(props) {
           // onChange={handleChange}
           className={ActionMenuCSS.checkBox}
         />
-        <button className={ActionMenuCSS.spinner} onClick={handleRefreshClick}>
+        <button className={ActionMenuCSS.spinner}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="16"
