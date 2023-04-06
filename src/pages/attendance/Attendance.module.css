@@ -34,7 +34,7 @@
     border-radius: 30px;
     background-color: red;
     color: white;
-    padding: 1px 20px 1px 20px;
+    padding: 1px 20px 3px 20px;
 }
 
 .empName {
@@ -64,48 +64,7 @@
     font-size: 25px;
     padding: 10px 36px 10px 36px;
     cursor: pointer;
-    transition: background-color 1s ease;
 }
-
-/* button:first-child {
-    margin-right: 10px;
-} */
-
-button.clicked {
-    background-color: red;
-}
-
-button.clicked ~ button {
-    background-color: gray;
-}
-
-button.clicked ~ button.clicked {
-    background-color: red;
-}
-
-/* .togglebtn {
-    background-color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 25px;
-    padding: 10px 36px 10px 36px;
-    cursor: pointer;
-    transition: background-position 0.3s ease;
-    background-image: linear-gradient(white, white), linear-gradient(red, red);
-    background-size: 0 2px, 100% 2px;
-    background-repeat: no-repeat;
-    background-position: 50% 100%, 50% 100%;
-}
-
-.togglebtn.active {
-    background-position: 50% 0, 50% 100%;
-}
-  
-.togglebtn:first-child {
-    margin-right: 10px;
-} */
-
-
 
 
 /*      전자결재 */
