@@ -7,6 +7,7 @@ import SideNavbar from "./SideNavbar";
 import Header from "./Header";
 import SearchBox from "./SearchBox";
 import { callSendEmailAPI } from "../../apis/EmailAPICalls";
+import DeleteButton from "./DeleteButton";
 
 function SendEmailDetail() {
   const { mailNo } = useParams();
@@ -41,11 +42,12 @@ function SendEmailDetail() {
               </h1>
               <div className={EmailDetailCSS.emailDetailHeaderInfo}>
                 <div>
-                  <span>From: </span>
+                  <span>From : </span>
                   <span>{email.senderName}</span>
                 </div>
                 <div>
                   <span>{email.sendDate}</span>
+                  <DeleteButton emailNo={mailNo} category="send" />
                 </div>
               </div>
             </div>

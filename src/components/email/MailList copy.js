@@ -13,7 +13,6 @@ function MailList({
   currentPage,
   setCurrentPage,
   selectedMailNo,
-  onPageChange,
 }) {
   const emailState = useSelector((state) => state.emailReducer);
 
@@ -25,7 +24,7 @@ function MailList({
   console.log("[MailList] emailState : " + JSON.stringify(emailState));
 
   const pageInfo = emailState.pageInfo;
-  const totalPages = pageInfo ? pageInfo.endPage : 1;
+  
 
   // console.log("[MailList] pageInfo : " + JSON.stringify(pageInfo));
 
@@ -68,36 +67,6 @@ function MailList({
               );
             })}
           </ul>
-        )}
-      </div>
-      <div style={{ listStyleType: "none", display: "flex" }}>
-        {Array.isArray(totalPages) && (
-          <button
-            onClick={() => setCurrentPage(currentPage - 1)}
-            disabled={currentPage === 1}
-            className={MailListCSS.pagingBtn}
-          >
-            &lt;
-          </button>
-        )}
-        {pageNumber.map((num) => (
-          <li key={num} onClick={() => setCurrentPage(num)}>
-            <button
-              style={currentPage === num ? { backgroundColor: "orange" } : null}
-              className={MailListCSS.pagingBtn}
-            >
-              {num}
-            </button>
-          </li>
-        ))}
-        {Array.isArray(totalPages) && (
-          <button
-            className={MailListCSS.pagingBtn}
-            onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage === pageInfo.endPage || pageInfo.total === 0}
-          >
-            &gt;
-          </button>
         )}
       </div>
     </>

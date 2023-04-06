@@ -7,6 +7,7 @@ import SideNavbar from "./SideNavbar";
 import Header from "./Header";
 import SearchBox from "./SearchBox";
 import { callReceiveEmailAPI } from "../../apis/EmailAPICalls";
+import DeleteButton from "./DeleteButton";
 
 function ReceiveEmailDetail() {
   const { receiveNo } = useParams();
@@ -39,14 +40,15 @@ function ReceiveEmailDetail() {
               <h1 className={EmailDetailCSS.emailDetailSubject}>
                 {email.title}
               </h1>
-              <div className={EmailDetailCSS.emailDetailHeaderInfo}>
-                <div>
-                  <span>To: </span>
-                  <span>{email.senderName}</span>
-                </div>
-                <div>
-                  <span>{email.sendDate}</span>
-                </div>
+            </div>
+            <div className={EmailDetailCSS.emailDetailHeaderInfo}>
+              <div>
+                <span>To : </span>
+                <span>{email.senderName}</span>
+              </div>
+              <div>
+                <span>{email.sendDate}</span>
+                <DeleteButton emailNo={receiveNo} category="receive" />
               </div>
             </div>
             <div className={EmailDetailCSS.emailDetailBody}>
