@@ -23,6 +23,7 @@ import Employees from "./pages/employees/Employees";
 import Management from "./pages/employees/Management";
 import EmpRegister from "./pages/employees/Register";
 import Modify from "./pages/employees/Modify";
+import Detail from "./pages/employees/Detail";
 import Transfer from "./pages/employees/Transfer";
 import Evaluation from "./pages/employees/Evaluation";
 import Email from "./pages/email/Email";
@@ -62,6 +63,7 @@ function App() {
           <Route path="employees/management" element={<Management />} />
           <Route path="employees/register" element={<EmpRegister />} />
           <Route path="employees/modify" element={<Modify />} />
+          <Route path="employees/detail" element={<Detail />} />
           <Route path="employees/transfer" element={<Transfer />} />
           <Route path="employees/evaluation" element={<Evaluation />} />
           <Route path="email" element={<Email />} />
