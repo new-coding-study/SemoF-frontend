@@ -49,6 +49,10 @@ function Category({
     // setChooseCate(category.cateNo)
   };
 
+  const onClickModifyModeHandler = () => {
+    setCateModifyMode(true);
+  };
+
   const onChangeUpdateCategoryHandler = (e) => {
     // console.log(e.target.name);
     // console.log(e.target.value);
@@ -72,7 +76,7 @@ function Category({
     );
 
     setAddAndDeleteCategory(true);
-    setCateModifyMode(true);
+    setCateModifyMode(false);
   };
 
   const onClickDeleteCateHandler = () => {
@@ -93,8 +97,8 @@ function Category({
         dispatch(callDeleteCategoryAPI(category.cateNo));
         Swal.fire(
           " 삭제되었습니다.",
-          "할 일 리스트로 돌아갑니다"
-          // "success"
+          "할 일 리스트로 돌아갑니다",
+          "success"
         ).then(
           // navigate(`/semof/todo`, { replace: true }),
           setAddAndDeleteCategory(true),
@@ -161,11 +165,17 @@ function Category({
             </div>
 
             <div
-              className={CategoryCSS.editBar}
+              className={CategoryCSS.deleteBtn}
               onClick={onClickDeleteCateHandler}
             >
               x
             </div>
+            <img
+              src={"/images/edit.png"}
+              alt="이미지확인!"
+              className={CategoryCSS.editIcon}
+              onClick={onClickModifyModeHandler}
+            ></img>
           </>
         )}
       </div>
