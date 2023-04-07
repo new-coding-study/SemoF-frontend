@@ -4,6 +4,7 @@
   height: 60px;
   display: flex;
   margin-bottom: 16px;
+  width: 350px;
 }
 
 .colorBar {
@@ -13,7 +14,7 @@
 }
 
 .contentWrapper {
-  width: 100%;
+  width: 98%;
 }
 
 .todo {

@@ -115,18 +115,33 @@
   text-align: left;
 }
 
+/* .selectUpdateCate {
+  width: 368px;
+  height: 24px;
+  margin-left: 80px;
+  border-radius: 2px;
+  display: flex;
+  line-height: 26px;
+  font-size: 14px;
+} */
+/* 
 .cateBoxWrapper {
+  border: 1px solid red;
+  position: relative;
+} */
+
+.defaultCate {
   width: 364px;
   height: 24px;
   margin-left: 80px;
-  border: 1px solid #d1d1d1;
+  border: 1px solid black;
   border-radius: 2px;
   display: flex;
-  background-color: #f8f8f8;
-  color: #545454;
+  line-height: 26px;
+  font-size: 14px;
 }
 
-.cateColorBox {
+.defaultCateColorBox {
   width: 16px;
   height: 16px;
   border: 1px solid black;
@@ -134,9 +149,14 @@
   margin: 3px 4px;
 }
 
-.todoCategory span:last-of-type {
-  font-size: 14px;
-  line-height: 24px;
+.defaultCate div:last-of-type {
+  width: 300px;
+  text-align: left;
+  margin-right: 16px;
+}
+
+.defaultCate span:hover {
+  cursor: pointer;
 }
 
 .todoDate {
@@ -183,12 +203,12 @@
   height: 100px;
   margin-left: 80px;
 }
-
+/* 
 .TodoButtonDiv {
-  /* border: 1px solid black; */
-  /* padding: 12px; */
-  /* margin-left: 190px; */
-}
+  border: 1px solid black;
+  padding: 12px;
+  margin-left: 190px;
+} */
 
 .TodoButtonDiv button {
   margin: 0 20px;

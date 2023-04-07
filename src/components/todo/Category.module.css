@@ -1,11 +1,26 @@
+.cateWrapper {
+  display: flex;
+  /* border: 1px solid red; */
+  height: 32px;
+  /* margin-bottom: 8px; */
+  padding: 4px 0 2px 4px;
+  line-height: 20px;
+}
+/* 
+.cateWrapper div {
+  border: 1px solid green;
+} */
+
 .wrapper {
   display: flex;
-  height: 20px;
-  margin-bottom: 8px;
-  padding: 4px 0 4px 4px;
-  line-height: 24px;
+  /* height: 20px; */
+  /* margin-bottom: 8px; */
+  /* padding: 2px 0 4px; */
+  padding: 4px;
+  /* line-height: 24px; */
   position: relative;
   border-radius: 4px;
+  /* border: 1px solid blue; */
 }
 
 .wrapper:hover {
@@ -13,35 +28,68 @@
   cursor: pointer;
 }
 
+.updateColorBox {
+  border: none;
+  width: 24px;
+  height: 28px;
+  background-color: white;
+  padding: 0;
+  margin: 0 2px;
+  /* border: 1px solid blue; */
+}
+
+.updateCateName {
+  margin-left: 4px;
+}
+
+.updateBtn {
+  width: 24px;
+  height: 20px;
+  font-size: 8px;
+  line-height: 28px;
+  background-color: aquamarine;
+  border-radius: 4px;
+  padding-bottom: 8px;
+  padding-left: 4px;
+  margin: 4px 0;
+  cursor: pointer;
+}
+
 .colorBox {
   width: 18px;
   height: 18px;
   margin-right: 8px;
+  margin-top: 2px;
   border: 1px solid black;
   border-radius: 2px;
 }
 
 .name {
-  width: 150px;
+  width: 120px;
+  margin-top: 2px;
 }
 
 .editBar {
-  float: right;
-  position: absolute;
-  left: 160px;
-  display: none;
+  /* float: right; */
+  /* position: absolute; */
+  /* left: 360px; */
+  /* display: none; */
+  visibility: hidden;
+  width: 20px;
+  text-align: center;
+  /* height: 32px; */
+  padding: 2px 0;
+  border-radius: 2px;
+  margin: 4px 0 4px 4px;
 }
 
-.wrapper:hover .editBar {
-  display: block;
+.cateWrapper:hover .editBar {
+  /* width: 20px; */
+  /* height: 20px; */
+  /* text-align: center; */
+  /* display: block; */
+  visibility: visible;
+  /* background-color: rgb(246, 210, 210); */
+  /* border-radius: 2px; */
+  cursor: pointer;
 }
-
-/* .addCate {
-  display: flex;
-}
-
-.addCate div {
-  color: gray;
-  margin: 0 6px;
-  font-size: 14px;
-} */

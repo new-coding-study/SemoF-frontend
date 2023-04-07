@@ -12,6 +12,7 @@ import {
   callIntendedTodoListAPI,
   callCategoryListAPI,
   callTodoRegistAPI,
+  callCategoryRegistAPI,
 } from "../../apis/TodoAPICalls";
 
 function Todo() {
@@ -59,6 +60,14 @@ function Todo() {
   const [search, setSearch] = useState({
     searchWord: "",
   });
+  const [newCategory, setNewCategory] = useState({
+    cateColor: "#e026b7",
+    cateName: "",
+  });
+  // 카테고리 추가 상태 관리
+  const [addAndDeleteCategory, setAddAndDeleteCategory] = useState(false);
+
+  const [inputCateStyle, setInputCateStyle] = useState({ display: "none" });
   // Todo 입력창에서의 카테고리 보일지 말지에 대한 상태 관리
   const [visibleCate, setVisibleCate] = useState(false);
   // Todo 입력창에서의 선택된 카테고리 값 관리 (일단은 중요표시에 대한 색을 초기값으로 넣어둠)
@@ -93,6 +102,46 @@ function Todo() {
   const onEnterkeyHandler = (e) => {
     if (e.key === "Enter") {
       navigate(`/semof/todo/search?s=${search.searchWord}`);
+    }
+  };
+
+  // 새로운 카테고리 입력 핸들러
+  const onChangeAddCategoryHandler = (e) => {
+    // console.log(e.target.name);
+    // console.log(e.target.value);
+    setNewCategory({
+      ...newCategory,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // 새로운 카테고리 입력 후 값을 보내는 핸들러
+  const onEnterkeyForAddCategoryHandler = (e) => {
+    if (e.key === "Enter") {
+      const formData = new FormData();
+
+      formData.append("cateName", newCategory.cateName);
+      formData.append("cateColor", newCategory.cateColor);
+      // 나중에 localStorage 에서 empNo 받아와서 보내주기!
+      formData.append("empNo", 41);
+
+      dispatch(
+        callCategoryRegistAPI({
+          form: formData,
+        })
+      );
+
+      setNewCategory({
+        ...newCategory,
+        cateColor: "#e026b7",
+        cateName: "",
+      });
+
+      setInputCateStyle({
+        display: "none",
+      });
+
+      setAddAndDeleteCategory(true);
     }
   };
 
@@ -150,16 +199,17 @@ function Todo() {
       dispatch(callIntendedTodoListAPI(41));
       dispatch(callCategoryListAPI(41));
     }, // eslint-disable-next-line
-    [checkStarAndFinish, addTodo]
+    [checkStarAndFinish, addTodo, addAndDeleteCategory]
   );
 
   useEffect(
     () => {
       setCheckStarAndFinish(false);
       setAddTodo(false);
+      setAddAndDeleteCategory(false);
       // setSelectedCateColor(defaultCateColor);
     }, // eslint-disable-next-line
-    [checkStarAndFinish, addTodo]
+    [checkStarAndFinish, addTodo, addAndDeleteCategory]
   );
 
   return (
@@ -185,8 +235,51 @@ function Todo() {
                 category={category}
                 setChooseCate={setChooseCate}
                 chooseCate={chooseCate}
+                setAddAndDeleteCategory={setAddAndDeleteCategory}
               />
             ))}
+          <div className={TodoCSS.inputCateWrapper} style={inputCateStyle}>
+            <input
+              type="color"
+              name="cateColor"
+              value={newCategory?.cateColor || ""}
+              onChange={onChangeAddCategoryHandler}
+              className={TodoCSS.inputCateColor}
+            ></input>
+            <input
+              type="text"
+              placeholder="카테고리 이름 입력"
+              name="cateName"
+              value={newCategory?.cateName || ""}
+              onKeyUp={onEnterkeyForAddCategoryHandler}
+              onChange={onChangeAddCategoryHandler}
+              className={TodoCSS.inputCateName}
+            ></input>
+            <span
+              onClick={() => {
+                setInputCateStyle({ display: "none" });
+              }}
+            >
+              x
+            </span>
+          </div>
+          {/* <input
+            id="addCateButton"
+            type="checkbox"
+            className={TodoCSS.addCateWrapper}
+          ></input>
+          <label htmlFor="addCateButton" className={TodoCSS.addCateLabel}>
+            + 카테고리 추가
+          </label> */}
+          <div
+            className={TodoCSS.addCateBtnWrapper}
+            onClick={() => {
+              setInputCateStyle({ display: "block" });
+            }}
+          >
+            <div> + </div>
+            <div> 카테고리 추가</div>
+          </div>
         </div>
         <div className={TodoCSS.content}>
           <div className={TodoCSS.addWrapper}>
