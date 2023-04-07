@@ -3,6 +3,8 @@ import TodoDetailModal from "./TodoDetailModal";
 import TodoUpdateModal from "./TodoUpdateModal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useLocation } from "react-router-dom";
+
 import {
   callUpdateStarAPI,
   callUpdateFinishAPI,
@@ -10,6 +12,7 @@ import {
 
 function Intended({ todo, setCheckStarAndFinish }) {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   const [todoDetailModal, setTodoDetailModal] = useState(false);
   const [todoUpdateModal, setTodoUpdateModal] = useState(false);
@@ -17,12 +20,14 @@ function Intended({ todo, setCheckStarAndFinish }) {
 
   // 중요표시 업데이트 (별)
   const onClickChangeStarHandler = (e) => {
-    const todoNo = parseInt(e.target.id);
+    if (pathname === "/semof/todo") {
+      const todoNo = parseInt(e.target.id);
 
-    const changeStar = todo.todoStar === 0 ? 1 : 0;
+      const changeStar = todo.todoStar === 0 ? 1 : 0;
 
-    dispatch(callUpdateStarAPI(todoNo, changeStar));
-    setCheckStarAndFinish(true);
+      dispatch(callUpdateStarAPI(todoNo, changeStar));
+      setCheckStarAndFinish(true);
+    }
   };
 
   // 완료여부 업데이트 (체크박스)
