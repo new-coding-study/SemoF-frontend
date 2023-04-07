@@ -1,21 +1,22 @@
 import TodoCSS from "./Todo.module.css";
 import Category from "../../components/todo/Category";
 import Today from "../../components/todo/Today";
-import CategorySelectBox from "../../components/todo/CategorySelectBox";
 import Intended from "../../components/todo/Intended";
+import CategorySelectBox from "../../components/todo/CategorySelectBox";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import {
   callTodayTodoListAPI,
   callIntendedTodoListAPI,
   callCategoryListAPI,
-  callSearchTodoAPI,
   callTodoRegistAPI,
 } from "../../apis/TodoAPICalls";
 
 function Todo() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // useSelector : store에서 사용하고 있는 state를 전달받아서 다시 전달해주는 역할
   const todayList = useSelector((state) => state.todoReducer.todayList);
@@ -34,16 +35,18 @@ function Todo() {
     Math.round((todayFinishTodo / todayAllTodo) * 100 * 10) / 10;
 
   // 카테고리 선택 창에서 기본적으로 띄워줄 색을 구함
-  const defaultCateColor = categoryList[0]?.cateColor;
+  // const defaultCateColor = categoryList[0]?.cateColor;
 
   // 중요표시 및 완료여부 관리
   const [checkStarAndFinish, setCheckStarAndFinish] = useState(false);
   // 검색어 관리
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState({
+    searchWord: "",
+  });
   // Todo 입력창에서의 카테고리 보일지 말지에 대한 상태 관리
   const [visibleCate, setVisibleCate] = useState(false);
   // Todo 입력창에서의 선택된 카테고리 값 관리 (일단은 중요표시에 대한 색을 초기값으로 넣어둠)
-  const [selectedCateColor, setSelectedCateColor] = useState();
+  const [selectedCateColor, setSelectedCateColor] = useState("#F5F937");
 
   // Todo 입력창에서의 중요표시 관리
   const [addTodoStar, setAddTodoStar] = useState(0);
@@ -60,17 +63,20 @@ function Todo() {
 
   // 검색어 입력 핸들러
   const onSearchChangeHandler = (e) => {
-    setSearch({
+    const inputSearch = {
       ...search,
       [e.target.name]: e.target.value,
-    });
+    };
+
+    setSearch(inputSearch);
+
+    console.log(inputSearch);
   };
 
   // 검색어 입력 후 값을 보내는 핸들러
   const onEnterkeyHandler = (e) => {
-    // console.log(search);
     if (e.key === "Enter") {
-      dispatch(callSearchTodoAPI(search, 41));
+      navigate(`/semof/todo/search?s=${search.searchWord}`);
     }
   };
 
@@ -98,6 +104,7 @@ function Todo() {
     console.log("addTodoStar 확인 : ", addTodoStar);
   };
 
+  // 새로운 Todo 추가 버튼 클릭 핸들러
   const onClickInsertTodoHandler = () => {
     const formData = new FormData();
 
@@ -134,7 +141,7 @@ function Todo() {
     () => {
       setCheckStarAndFinish(false);
       setAddTodo(false);
-      setSelectedCateColor(defaultCateColor);
+      // setSelectedCateColor(defaultCateColor);
     }, // eslint-disable-next-line
     [checkStarAndFinish, addTodo]
   );
@@ -152,6 +159,7 @@ function Todo() {
               placeholder="할 일 검색"
               onKeyUp={onEnterkeyHandler}
               onChange={onSearchChangeHandler}
+              name="searchWord"
             />
           </div>
           {Array.isArray(categoryList) &&
@@ -231,7 +239,7 @@ function Todo() {
             </div>
             <div className={TodoCSS.graph}>
               <div> </div>
-              <span> {achievementRate}%</span>
+              <span> {isNaN(achievementRate) ? 0 : achievementRate}%</span>
             </div>
           </div>
           <div className={TodoCSS.todoList}>
