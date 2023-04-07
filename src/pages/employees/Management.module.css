@@ -80,6 +80,23 @@
     text-align: center;
 }
 
+.joinButton {
+    background-color: #e52e2e;
+    border: 1px solid #e52e2e;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 0.5%;
+}
+
+.joinButton:hover {
+    background-color: white;
+    color: #e52e2e;
+    border: 1px solid #e52e2e;
+}
+
 .searchWrapper {
     width: 90%;
     margin: 20px auto;

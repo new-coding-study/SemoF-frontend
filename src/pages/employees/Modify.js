@@ -37,12 +37,14 @@ function Modify(props) {
   const [employeePhoto, setEmployeePhoto] = useState(null);
   const [imageUrl, setImageUrl] = useState();
   const imageInput = useRef();
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    phone: employeeDetail?.phone || "",
+  });
   //   const [form, setForm] = useState({
   //     empName: "",
   //     empReg: "",
   //     email: "",
-  //     phone: "",
+  // phone: "",
   //     address: "",
   //     salary: "",
   //     gender: "",
@@ -107,33 +109,40 @@ function Modify(props) {
     setEmployeePhoto(employeePhoto);
   };
 
-  //이미지 업로드 이벤트
-  const onClickImageUpload = () => {
-    imageInput.current.click();
-  };
-
   const onChangeHandler = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    if (name === "phone") {
+      // Remove all non-digit characters from the input value
+      const formattedValue = value.replace(/\D/g, "");
+
+      // If the formattedValue is an empty string or has less than 10 digits, don't format it
+      if (formattedValue === "" || formattedValue.length < 11) {
+        setForm({
+          ...form,
+          phone: value,
+        });
+      } else {
+        // Format the phone number as "010-1111-1111"
+        const formattedPhoneNumber =
+          formattedValue.substring(0, 3) +
+          "-" +
+          formattedValue.substring(3, 7) +
+          "-" +
+          formattedValue.substring(7);
+
+        setForm({
+          ...form,
+          phone: formattedPhoneNumber,
+        });
+      }
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      });
+    }
   };
-
-  //탭 이동을 위한 Ref
-  // const nameRef = useRef(null);
-  // const regRef = useRef(null);
-  // const phoneRef = useRef(null);
-  // const addressRef = useRef(null);
-  // const salaryRef = useRef(null);
-  // const emailRef = useRef(null);
-
-  //키다운 이벤트, tab키 누를시 input 이동
-  // const handleKeyDown = (e, ref) => {
-  //   if (e.key === "Tab") {
-  //     e.preventDefault();
-  //     ref.current.focus();
-  //   }
-  // };
 
   const onClickRegisterHandler = () => {
     // console.log("[Register] onClickRegisterHandler");
@@ -142,16 +151,16 @@ function Modify(props) {
     const formData = new FormData();
 
     // form 객체의 각 프로퍼티를 FormData에 추가
-    formData.append("empName", form.empName);
     formData.append("email", form.email);
-    formData.append("empReg", form.empReg);
+    console.log("[Register] formData email : " + formData.get("email"));
     formData.append("phone", form.phone);
+    console.log("[Register] formData phone : " + formData.get("phone"));
     formData.append("address", form.address);
+    console.log("[Register] formData address : " + formData.get("address"));
     formData.append("salary", form.salary);
-    formData.append("gender", form.gender);
-    formData.append("jobCode", form.jobCode);
-    formData.append("deptCode", form.deptCode);
-    formData.append("branchCode", form.branchCode);
+    console.log("[Register] formData salary : " + formData.get("salary"));
+    formData.append("empNo", empNo);
+    console.log("[Register] formData empNo : " + formData.get("empNo"));
 
     if (employeePhoto) {
       formData.append("employeePhoto", employeePhoto);
@@ -163,6 +172,7 @@ function Modify(props) {
       })
     );
     window.location.reload(); //화면 초기화
+    navigate(-1);
   };
 
   // 돌아가기 클릭시 메인 페이지로 이동
@@ -202,13 +212,6 @@ function Modify(props) {
                   src={imageUrl}
                   alt="preview"
                 />
-
-                {/* <button
-                  className={RegisterCSS.fileButton}
-                  onClick={onClickImageUpload}
-                >
-                  사진등록
-                </button> */}
               </>
             )}
           </div>
@@ -243,10 +246,8 @@ function Modify(props) {
                     name="phone"
                     value={form.phone}
                     placeholder={employeeDetail?.phone || ""}
-                    // ref={phoneRef}
                     maxLength={11}
                     onChange={onChangeHandler}
-                    // onKeyDown={(e) => handleKeyDown(e, addressRef)}
                   />
                 </td>
                 <td className={RegisterCSS.tableCell}>지점</td>

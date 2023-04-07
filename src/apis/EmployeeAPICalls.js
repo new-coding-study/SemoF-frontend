@@ -324,6 +324,10 @@ export const callDeleteEmpContAPI = ({ empNo }) => {
 export const callUpdateEmpAPI = ({ form }) => {
   console.log("[EmployeeAPICalls] callUpdateEmpAPI Call");
 
+  console.log(
+    "[EmployeeAPICalls] callUpdateEmpAPI form " + JSON.stringify(form)
+  );
+
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/present`;
 
   return async (dispatch, getState) => {
@@ -331,10 +335,10 @@ export const callUpdateEmpAPI = ({ form }) => {
       method: "PUT",
       headers: {
         Accept: "*/*",
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
       },
-      body: JSON.stringify(form),
+      body: form,
     }).then((response) => response.json());
 
     console.log("[EmployeeAPICalls] callUpdateEmpAPI RESULT : ", result);

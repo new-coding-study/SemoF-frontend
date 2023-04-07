@@ -144,6 +144,10 @@ function Management() {
     setShowModal(false);
   };
 
+  const onMovePage = () => {
+    navigate("/semof/employees/register");
+  };
+
   const renderEmployees = () => {
     if (displayedEmployees && displayedEmployees.length > 0) {
       return displayedEmployees.map((employee) => {
@@ -175,6 +179,9 @@ function Management() {
         <div className={ManagementCSS.title}> 사원관리 </div>
       </div>
       <div className={ManagementCSS.searchWrapper}>
+        <button className={ManagementCSS.joinButton} onClick={onMovePage}>
+          사원등록
+        </button>
         <div>
           <select
             className={ManagementCSS.select}
@@ -195,7 +202,6 @@ function Management() {
           onChange={onSearchChangeHandler}
           onKeyDown={onKeyPressHandler}
         />
-
         <button
           className={ManagementCSS.searchButton}
           onClick={onSearchButtonClick}
@@ -220,24 +226,7 @@ function Management() {
               <th>직급</th>
             </tr>
           </thead>
-          <tbody>
-            {/* {Array.isArray(employeeList) &&
-              employeeList.map((employee) => (
-                <tr
-                  key={employee.noticeNo}
-                  className={ManagementCSS.tableBody}
-                  onClick={() => onClickTableTr(employee.empNo)}
-                >
-                  <td>{employee.empName}</td>
-                  <td className={ManagementCSS.tableTitle}>
-                    {employee.branchName}
-                  </td>
-                  <td> {employee.deptName} </td>
-                  <td> {employee.jobName} </td>
-                </tr>
-              ))} */}
-            {renderEmployees()}
-          </tbody>
+          <tbody>{renderEmployees()}</tbody>
         </table>
         <div
           className={ManagementCSS.pageBox}
