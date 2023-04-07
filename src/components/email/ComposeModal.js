@@ -3,6 +3,7 @@ import ComposeModalCSS from "./ComposeModal.module.css";
 import { useDispatch } from "react-redux";
 import { callPostEmailAPI } from "../../apis/EmailAPICalls";
 import Swal from "sweetalert2";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 function ComposeModal({ isOpen, onClose }) {
   const dispatch = useDispatch();
@@ -12,24 +13,22 @@ function ComposeModal({ isOpen, onClose }) {
   // const [bodyValue, setBodyValue] = useState("");
   const [file, setFile] = useState(null);
   const [form, setForm] = useState({
-    empNo: 10,
+    empNo: "",
     receiverAddr: "",
     title: "",
     content: "",
   });
   const [fileName, setFileName] = useState(""); // 파일 이름을 관리하는 state
 
-  // const handleToChange = (event) => {
-  //   setToValue(event.target.value);
-  // };
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decodedUser = null;
 
-  // const handleSubjectChange = (event) => {
-  //   setSubjectValue(event.target.value);
-  // };
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decodedUser = temp.empNo;
+  }
 
-  // const handleBodyChange = (event) => {
-  //   setBodyValue(event.target.value);
-  // };
+  console.log("[ComposeModal] decodedUser: " + decodedUser);
 
   // form 데이터 세팅
   const onChangeHandler = (e) => {
@@ -81,7 +80,7 @@ function ComposeModal({ isOpen, onClose }) {
     dispatch(
       callPostEmailAPI({
         form: formData,
-        empNo: 20,
+        empNo: decodedUser,
       })
     );
 

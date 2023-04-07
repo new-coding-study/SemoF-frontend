@@ -21,7 +21,9 @@ function Modify(props) {
   }, [dispatch, empNo]);
 
   // Store에서 상세 정보 조회 결과를 가져옴
-  const { employeeDetail } = useSelector((state) => state.empReducer);
+  const employeeDetail = useSelector((state) => state.empReducer);
+
+  console.log("[Modify] employeeDetail : " + JSON.stringify(employeeDetail));
 
   const [today, setToday] = useState(
     new Date().toLocaleDateString("ko-KR", {
@@ -55,21 +57,26 @@ function Modify(props) {
     }
   }, [dispatch, empNo]);
 
-  // 조회한 상세 정보를 Form에 적용
-  //   useEffect(() => {
-  //     if (employeeDetail) {
-  //       setForm({
-  //         empName: employeeDetail.empName,
-  //         empReg: employeeDetail.empReg,
-  //         email: employeeDetail.email,
-  //         phone: employeeDetail.phone,
-  //         address: employeeDetail.address,
-  //         salary: employeeDetail.salary,
-  //         gender: employeeDetail.gender,
-  //         jobCode: employeeDetail.jobCode,
-  //         deptCode: employeeDetail.deptCode,
-  //         branchCode: employeeDetail.branchCode,
-  //       });
+  //재직날짜
+  const enrollDate = employeeDetail?.enrollDate || "";
+  const dateOnly = enrollDate.split(" ")[0];
+
+  //재직 주민등록번호 포맷
+  const regFormat = () => {
+    if (employeeDetail?.empReg) {
+      const maskedRegNo = employeeDetail.empReg.slice(0, 6) + "-*******";
+      return maskedRegNo;
+    }
+  };
+
+  //재직여부
+  const isWorking = () => {
+    if (employeeDetail?.workStatus === "Y") {
+      return <span>재직</span>;
+    } else {
+      return <span>퇴직</span>;
+    }
+  };
 
   // 상세 정보에 등록된 이미지가 있으면 미리보기 설정
   //       if (employeeDetail.employeePhoto) {
@@ -79,7 +86,7 @@ function Modify(props) {
   //   }, [employeeDetail]);
 
   useEffect(() => {
-    nameRef.current.focus();
+    // nameRef.current.focus();
 
     // 이미지 업로드시 미리보기 세팅
     if (employeePhoto) {
@@ -113,20 +120,20 @@ function Modify(props) {
   };
 
   //탭 이동을 위한 Ref
-  const nameRef = useRef(null);
-  const regRef = useRef(null);
-  const phoneRef = useRef(null);
-  const addressRef = useRef(null);
-  const salaryRef = useRef(null);
-  const emailRef = useRef(null);
+  // const nameRef = useRef(null);
+  // const regRef = useRef(null);
+  // const phoneRef = useRef(null);
+  // const addressRef = useRef(null);
+  // const salaryRef = useRef(null);
+  // const emailRef = useRef(null);
 
   //키다운 이벤트, tab키 누를시 input 이동
-  const handleKeyDown = (e, ref) => {
-    if (e.key === "Tab") {
-      e.preventDefault();
-      ref.current.focus();
-    }
-  };
+  // const handleKeyDown = (e, ref) => {
+  //   if (e.key === "Tab") {
+  //     e.preventDefault();
+  //     ref.current.focus();
+  //   }
+  // };
 
   const onClickRegisterHandler = () => {
     // console.log("[Register] onClickRegisterHandler");
@@ -211,71 +218,21 @@ function Modify(props) {
             <tbody className={RegisterCSS.tableBody}>
               <tr>
                 <td className={RegisterCSS.tableCell}>성명</td>
-                <td>
-                  <input
-                    className={RegisterCSS.input}
-                    type="text"
-                    name="empName"
-                    value={form.empName}
-                    ref={nameRef}
-                    onKeyDown={(e) => handleKeyDown(e, regRef)}
-                    onChange={onChangeHandler}
-                  />
-                </td>
+                <td>{employeeDetail?.empName || ""}</td>
                 <td className={RegisterCSS.tableCell}>주민등록번호</td>
-                <td>
-                  <input
-                    type="text"
-                    className={RegisterCSS.input}
-                    name="empReg"
-                    value={form.empReg}
-                    ref={regRef}
-                    maxLength={14}
-                    onKeyDown={(e) => handleKeyDown(e, phoneRef)}
-                  />
-                </td>
+                <td>{regFormat()}</td>
               </tr>
               <tr>
                 <td className={RegisterCSS.tableCell}>입사년월일</td>
-                <td className={RegisterCSS.indent}> {today}</td>
+                <td className={RegisterCSS.indent}>{dateOnly}</td>
                 <td className={RegisterCSS.tableCell}>재직여부</td>
-                <td>
-                  <select name="workStatus" className={RegisterCSS.select}>
-                    <option value="">재직</option>
-                    <option value="N">퇴사</option>
-                  </select>
-                </td>
+                <td>{isWorking()}</td>
               </tr>
               <tr>
                 <td className={RegisterCSS.tableCell}>성별</td>
-                <td>
-                  <select
-                    name="gender"
-                    onChange={onChangeHandler}
-                    className={RegisterCSS.select}
-                  >
-                    <option value="">성별 선택</option>
-                    <option value="M">남성</option>
-                    <option value="F">여성</option>
-                  </select>
-                </td>
+                <td>{employeeDetail?.gender || ""}</td>
                 <td className={RegisterCSS.tableCell}>부서</td>
-                <td>
-                  <select
-                    name="deptCode"
-                    className={RegisterCSS.select}
-                    onChange={onChangeHandler}
-                  >
-                    <option value="">부서선택</option>
-                    <option value="NO">없음</option>
-                    <option value="PL">기획</option>
-                    <option value="HR">인사관리</option>
-                    <option value="AC">회계</option>
-                    <option value="SL">영업</option>
-                    <option value="MT">마케팅</option>
-                    <option value="BS">경영지원</option>
-                  </select>
-                </td>
+                <td>{employeeDetail?.deptName || ""}</td>
               </tr>
               <tr>
                 <td className={RegisterCSS.tableCell}>휴대폰번호</td>
@@ -285,29 +242,15 @@ function Modify(props) {
                     className={RegisterCSS.input}
                     name="phone"
                     value={form.phone}
-                    placeholder="  ' - ' 없이 입력하세요"
-                    ref={phoneRef}
+                    placeholder={employeeDetail?.phone || ""}
+                    // ref={phoneRef}
                     maxLength={11}
                     onChange={onChangeHandler}
-                    onKeyDown={(e) => handleKeyDown(e, addressRef)}
+                    // onKeyDown={(e) => handleKeyDown(e, addressRef)}
                   />
                 </td>
                 <td className={RegisterCSS.tableCell}>지점</td>
-                <td>
-                  <select
-                    name="branchCode"
-                    onChange={onChangeHandler}
-                    className={RegisterCSS.select}
-                  >
-                    <option value="">지점선택</option>
-                    <option value="1">SEMOF 본사</option>
-                    <option value="2">SEMOF 구로점</option>
-                    <option value="3">SEMOF 도봉점</option>
-                    <option value="4">SEMOF 여의도점</option>
-                    <option value="5">SEMOF 동대문점</option>
-                    <option value="6">SEMOF 상암점</option>
-                  </select>
-                </td>
+                <td>{employeeDetail?.branchName || ""}</td>
               </tr>
               <tr>
                 <td className={RegisterCSS.tableCell}>주소</td>
@@ -316,28 +259,14 @@ function Modify(props) {
                     type="text"
                     className={RegisterCSS.input}
                     name="address"
-                    ref={addressRef}
+                    // ref={addressRef}
                     onChange={onChangeHandler}
-                    onKeyDown={(e) => handleKeyDown(e, salaryRef)}
+                    placeholder={employeeDetail?.address || ""}
+                    // onKeyDown={(e) => handleKeyDown(e, salaryRef)}
                   />
                 </td>
                 <td className={RegisterCSS.tableCell}>직급</td>
-                <td>
-                  <select
-                    name="jobCode"
-                    onChange={onChangeHandler}
-                    className={RegisterCSS.select}
-                  >
-                    <option value="">직급선택</option>
-                    <option value="1">임원</option>
-                    <option value="2">부장</option>
-                    <option value="3">지점장</option>
-                    <option value="4">차장</option>
-                    <option value="5">과장</option>
-                    <option value="6">대리</option>
-                    <option value="7">사원</option>
-                  </select>
-                </td>
+                <td>{employeeDetail?.jobName || ""}</td>
               </tr>
               <tr>
                 <td className={RegisterCSS.tableCell}>연봉</td>
@@ -346,9 +275,10 @@ function Modify(props) {
                     type="text"
                     className={RegisterCSS.input}
                     name="salary"
-                    ref={salaryRef}
+                    placeholder={employeeDetail?.salary || ""}
+                    // ref={salaryRef}
                     onChange={onChangeHandler}
-                    onKeyDown={(e) => handleKeyDown(e, emailRef)}
+                    // onKeyDown={(e) => handleKeyDown(e, emailRef)}
                   />
                 </td>
                 <td className={RegisterCSS.tableCell}>이메일</td>
@@ -357,8 +287,8 @@ function Modify(props) {
                     type="email"
                     className={RegisterCSS.input}
                     name="email"
-                    placeholder="semof@gmail.com"
-                    ref={emailRef}
+                    placeholder={employeeDetail?.email || ""}
+                    // ref={emailRef}
                     onChange={onChangeHandler}
                   />
                 </td>

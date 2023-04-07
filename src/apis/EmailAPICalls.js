@@ -125,6 +125,8 @@ export const callReceiveEmailAPI = ({ receiveNo }) => {
 };
 
 export const callPostEmailAPI = ({ form, empNo }) => {
+  console.log("[EmailAPICalls] callPostEmailAPI empNo : ", empNo);
+
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/email/send?empNo=${empNo}`;
 
   console.log("[EmailAPICalls] requestURL : ", requestURL);
