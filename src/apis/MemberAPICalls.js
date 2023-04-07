@@ -132,55 +132,55 @@ export const callCheckRegAPI = ( empReg ) => {
   };
 };
 
-export const callcheckIdAPI = ( loginId ) => {
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/compare-id`;
+// export const callcheckIdAPI = ( loginId ) => {
+//   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/compare-id`;
 
-  return async (dispatch, getState) => {
-    const result = await fetch(requestURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify(
-        loginId
-        // loginPwd: form.loginPwd
-        // ,
-        // memberName: form.memberName,
-        // memberEmail: form.memberEmail,
-      ),
-    }).then((response) => response.json());
+//   return async (dispatch, getState) => {
+//     const result = await fetch(requestURL, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "*/*",
+//       },
+//       body: JSON.stringify(
+//         loginId
+//         // loginPwd: form.loginPwd
+//         // ,
+//         // memberName: form.memberName,
+//         // memberEmail: form.memberEmail,
+//       ),
+//     }).then((response) => response.json());
 
-    console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
+//     console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
 
-    if (result.status === 201) {
-      dispatch({ type: POST_ID, payload: result });
-    }
-  };
-};
+//     if (result.status === 201) {
+//       dispatch({ type: POST_ID, payload: result });
+//     }
+//   };
+// };
 
-export const callCheckRegAPI = ( empReg ) => {
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/find-reg`;
+// export const callCheckRegAPI = ( empReg ) => {
+//   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/find-reg`;
 
-  return async (dispatch, getState) => {
-    const result = await fetch(requestURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify(
-        empReg
-      ),
-    }).then((response) => response.json());
+//   return async (dispatch, getState) => {
+//     const result = await fetch(requestURL, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "*/*",
+//       },
+//       body: JSON.stringify(
+//         empReg
+//       ),
+//     }).then((response) => response.json());
 
-    console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
+//     console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
 
-    if (result.status === 201) {
-      dispatch({ type: POST_REG, payload: result });
-    }
-  };
-};
+//     if (result.status === 201) {
+//       dispatch({ type: POST_REG, payload: result });
+//     }
+//   };
+// };
 
 
 
