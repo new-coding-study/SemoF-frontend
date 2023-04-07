@@ -36,28 +36,6 @@
   font-size: 24px;
 }
 
-.searchBox {
-  border: 1px solid gray;
-  border-radius: 4px;
-  display: flex;
-  height: 24px;
-  margin-bottom: 40px;
-  margin-top: 4px;
-}
-
-.searchBox img {
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  margin: 2px 2px;
-}
-
-.searchBox input {
-  border: none;
-  height: 20px;
-  margin: 1px 0;
-}
-
 .searchTitle {
   display: flex;
 }
@@ -68,4 +46,24 @@
 
 .searchTitle div {
   margin: auto 0;
+}
+
+.resultWrapper {
+  /* border: 1px solid black; */
+  display: flex;
+  margin-top: 12px;
+}
+
+.pastTodo div {
+  margin-bottom: 8px;
+}
+
+.futureTodo {
+  border-left: 1px dashed gray;
+  padding-left: 30px;
+  margin-left: 30px;
+}
+
+.futureTodo div {
+  margin-bottom: 8px;
 }

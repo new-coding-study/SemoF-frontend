@@ -8,7 +8,6 @@ import {
   callTodoDetailAPI,
   // callUpdateStarAPI,
   callTodoUpdateAPI,
-  callDeleteTodoAPI,
 } from "../../apis/TodoAPICalls";
 
 function TodoUpdateModal({
@@ -29,6 +28,7 @@ function TodoUpdateModal({
     todoTime: todoDetail.todoTime,
     todoContent: todoDetail.todoContent,
     todoStar: todoDetail.todoStar,
+    todoFinish: todoDetail.todoFinish,
   });
 
   console.log(updateTodo);
@@ -37,13 +37,25 @@ function TodoUpdateModal({
     dispatch(callTodoDetailAPI(todoNo));
   }, [todoNo]);
 
-  // 상세보기 창에서 중요표시 기능,, 페이지가 리렌더링되면서 에러발생
-  // const onClickChangeStarHandler = (e) => {
-  //   const todoNo = parseInt(e.target.id);
+  // 수정창에서 중요표시 변경하는 핸들러
+  const onClickChangeStarHandler = (e) => {
+    const changeStar = updateTodo.todoStar === 0 ? 1 : 0;
 
-  //   dispatch(callUpdateStarAPI(todoNo));
-  //   setCheckStarAndFinish(true);
-  // };
+    setUpdateTodo({
+      ...updateTodo,
+      todoStar: changeStar,
+    });
+  };
+
+  // 수정창에서 체크표시 변경하는 핸들러
+  const onClickFinishHandler = (e) => {
+    const todoFinish = e.target.checked ? 1 : 0;
+
+    setUpdateTodo({
+      ...updateTodo,
+      todoFinish: todoFinish,
+    });
+  };
 
   const onClickCloseModalHandler = () => {
     setTodoDetailModal(false);
@@ -56,28 +68,11 @@ function TodoUpdateModal({
   };
 
   const onChangeUpdateTodoHandler = (e) => {
-    // console.log("e.target.name", e.target.name);
-    // console.log("e.target.value", e.target.value);
     setUpdateTodo({
       ...updateTodo,
       [e.target.name]: e.target.value,
     });
   };
-
-  // const onClickUpdateTodo = () => {
-  //   console.log("수정사항 변경 버튼 클릭 발생");
-
-  //   const formData = new FormData();
-  //   formData.append("todoNo", todoDetail.todoNo);
-  //   formData.append("todoName", updateTodo.todoName);
-  //   formData.append("todoDate", updateTodo.todoDate);
-  //   formData.append("todoTime", updateTodo.todoTime);
-  //   formData.append("todoContent", updateTodo.todoContent);
-  //   formData.append("todoStar", updateTodo.todoStar);
-  //   formData.append("cateNo", todoDetail.cateNo);
-
-  //   dispatch(callTodoUpdateAPI({ form: formData }));
-  // };
 
   const onClickUpdateTodo = () => {
     Swal.fire({
@@ -97,12 +92,13 @@ function TodoUpdateModal({
         formData.append("todoContent", updateTodo.todoContent);
         formData.append("todoStar", updateTodo.todoStar);
         formData.append("cateNo", updateTodo.cateNo);
+        formData.append("todoFinish", updateTodo.todoFinish);
 
         dispatch(callTodoUpdateAPI({ form: formData }));
 
         Swal.fire(
           "수정사항이 저장되었습니다.",
-          "게시판으로 돌아갑니다",
+          "할 일 리스트로 돌아갑니다",
           "success"
         ).then(
           navigate(`/semof/todo`, { replace: true }),
@@ -120,20 +116,32 @@ function TodoUpdateModal({
         <div className={TodoUpdateModalCSS.todoDetailModalModalDiv}>
           <div className={TodoUpdateModalCSS.todoHeader}>
             <div>
-              <h1> {todoDetail.todoName} </h1>
-              {todoDetail.todoStar === 0 ? (
+              <input
+                type="checkbox"
+                style={{ accentColor: todoDetail?.cateColor }}
+                id={todoDetail?.todoNo}
+                onClick={onClickFinishHandler}
+                defaultChecked={updateTodo?.todoFinish === 1}
+                value={updateTodo?.todoFinish}
+                name="todoFinish"
+                // readOnly={true}
+              />
+              <h1> {todoDetail?.todoName} </h1>
+              {updateTodo?.todoStar === 0 ? (
                 <img
-                  id={todoDetail.todoNo}
+                  id={todoDetail?.todoNo}
                   src={"/images/star_gray.png"}
                   alt="이미지확인!"
-                  // onClick={onClickChangeStarHandler}
+                  onClick={onClickChangeStarHandler}
+                  value={todoDetail?.todoStar}
                 ></img>
               ) : (
                 <img
-                  id={todoDetail.todoNo}
+                  id={todoDetail?.todoNo}
                   src={"/images/star_fill.png"}
                   alt="이미지확인!"
-                  // onClick={onClickChangeStarHandler}
+                  onClick={onClickChangeStarHandler}
+                  value={todoDetail?.todoStar}
                 ></img>
               )}
             </div>
@@ -145,7 +153,7 @@ function TodoUpdateModal({
             <input
               name="todoName"
               placeholder="할 일 제목"
-              value={updateTodo.todoName}
+              value={updateTodo?.todoName}
               // readOnly={true}
               onChange={onChangeUpdateTodoHandler}
             />

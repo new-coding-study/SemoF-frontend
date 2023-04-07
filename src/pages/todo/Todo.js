@@ -23,6 +23,22 @@ function Todo() {
   const intendedList = useSelector((state) => state.todoReducer.intendedList);
   const categoryList = useSelector((state) => state.todoReducer.categoryList);
 
+  const [chooseCate, setChooseCate] = useState("");
+
+  const chooseCateTodayTodoResult = todayList?.filter(
+    (chooseCateTodayTodoResult) =>
+      chooseCate === chooseCateTodayTodoResult.cateNo
+  );
+
+  const chooseCateIntendedTodoResult = intendedList?.filter(
+    (chooseCateIntendedTodoResult) =>
+      chooseCate === chooseCateIntendedTodoResult.cateNo
+  );
+
+  // console.log("오늘의 할 일", chooseCateTodayTodoResult);
+  // console.log("예정된의 할 일", chooseCateIntendedTodoResult);
+  // console.log("Todo에서의 상태값 확인 cateNo", chooseCate);
+
   // 달성률에 나타낼 때 필요한 값들을 변수에 미리 저장
   const todayAllTodo = todayList?.length;
   const todayFinishTodoList = todayList?.filter(
@@ -70,7 +86,7 @@ function Todo() {
 
     setSearch(inputSearch);
 
-    console.log(inputSearch);
+    // console.log(inputSearch);
   };
 
   // 검색어 입력 후 값을 보내는 핸들러
@@ -164,7 +180,12 @@ function Todo() {
           </div>
           {Array.isArray(categoryList) &&
             categoryList.map((category) => (
-              <Category key={category.cateNo} category={category} />
+              <Category
+                key={category.cateNo}
+                category={category}
+                setChooseCate={setChooseCate}
+                chooseCate={chooseCate}
+              />
             ))}
         </div>
         <div className={TodoCSS.content}>
@@ -245,26 +266,60 @@ function Todo() {
           <div className={TodoCSS.todoList}>
             <div className={TodoCSS.today}>
               <h2> 오늘의 할 일 </h2>
-              {Array.isArray(todayList) &&
+              {chooseCate !== null &&
+              chooseCate !== undefined &&
+              chooseCate.length !== 0
+                ? chooseCateTodayTodoResult?.map((today) => (
+                    <Today
+                      key={today.todoNo}
+                      todo={today}
+                      setCheckStarAndFinish={setCheckStarAndFinish}
+                    />
+                  ))
+                : todayList?.map((today) => (
+                    <Today
+                      key={today.todoNo}
+                      todo={today}
+                      setCheckStarAndFinish={setCheckStarAndFinish}
+                    />
+                  ))}
+              {/* {Array.isArray(todayList) &&
                 todayList.map((today) => (
                   <Today
                     key={today.todoNo}
                     todo={today}
                     setCheckStarAndFinish={setCheckStarAndFinish}
                   />
-                ))}
+                ))} */}
             </div>
 
             <div className={TodoCSS.intended}>
               <h2> 예정된 할 일 </h2>
-              {Array.isArray(intendedList) &&
+              {chooseCate !== null &&
+              chooseCate !== undefined &&
+              chooseCate.length !== 0
+                ? chooseCateIntendedTodoResult?.map((intended) => (
+                    <Intended
+                      key={intended.todoNo}
+                      todo={intended}
+                      setCheckStarAndFinish={setCheckStarAndFinish}
+                    />
+                  ))
+                : intendedList?.map((intended) => (
+                    <Intended
+                      key={intended.todoNo}
+                      todo={intended}
+                      setCheckStarAndFinish={setCheckStarAndFinish}
+                    />
+                  ))}
+              {/* {Array.isArray(intendedList) &&
                 intendedList.map((intended) => (
                   <Intended
                     key={intended.todoNo}
                     todo={intended}
                     setCheckStarAndFinish={setCheckStarAndFinish}
                   />
-                ))}
+                ))} */}
             </div>
           </div>
         </div>

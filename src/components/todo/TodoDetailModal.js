@@ -49,7 +49,7 @@ function TodoDetailModal({
         dispatch(callDeleteTodoAPI(todoNo));
         Swal.fire(
           "할 일이 삭제되었습니다.",
-          "리스트로 돌아갑니다",
+          "할 일 리스트로 돌아갑니다",
           "success"
         ).then(
           navigate(`/semof/todo`, { replace: true }),
@@ -66,6 +66,14 @@ function TodoDetailModal({
         <div className={TodoDetailModalCSS.todoDetailModalModalDiv}>
           <div className={TodoDetailModalCSS.todoHeader}>
             <div>
+              <input
+                type="checkbox"
+                style={{ accentColor: todoDetail?.cateColor }}
+                id={todoDetail?.todoNo}
+                // onChange={onChangeFinishHandler}
+                checked={todoDetail?.todoFinish === 1}
+                readOnly={true}
+              />
               <h1> {todoDetail?.todoName} </h1>
               {todoDetail?.todoStar === 0 ? (
                 <img

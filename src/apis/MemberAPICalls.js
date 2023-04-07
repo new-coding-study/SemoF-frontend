@@ -1,4 +1,10 @@
-import { GET_MEMBER, POST_LOGIN, POST_REGISTER,  POST_REG, POST_ID } from "../modules/MemberModule";
+import {
+  GET_MEMBER,
+  POST_LOGIN,
+  POST_REGISTER,
+  POST_REG,
+  POST_ID,
+} from "../modules/MemberModule";
 export const callGetMemberAPI = ({ memberId }) => {
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/api/v1/members/${memberId}`;
 
@@ -57,7 +63,6 @@ export const callLogoutAPI = () => {
 export const callRegisterAPI = ({ form }) => {
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/signup`;
 
-
   return async (dispatch, getState) => {
     const result = await fetch(requestURL, {
       method: "POST",
@@ -67,7 +72,7 @@ export const callRegisterAPI = ({ form }) => {
       },
       body: JSON.stringify({
         loginId: form.loginId,
-        loginPwd: form.loginPwd
+        loginPwd: form.loginPwd,
         // ,
         // memberName: form.memberName,
         // memberEmail: form.memberEmail,
@@ -82,7 +87,7 @@ export const callRegisterAPI = ({ form }) => {
   };
 };
 
-export const callcheckIdAPI = ( loginId ) => {
+export const callcheckIdAPI = (loginId) => {
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/compare-id`;
 
   return async (dispatch, getState) => {
@@ -109,7 +114,57 @@ export const callcheckIdAPI = ( loginId ) => {
   };
 };
 
-export const callCheckRegAPI = ( empReg ) => {
+// export const callCheckRegAPI = ( empReg ) => {
+//   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/find-reg`;
+
+//   return async (dispatch, getState) => {
+//     const result = await fetch(requestURL, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "*/*",
+//       },
+//       body: JSON.stringify(
+//         empReg
+//       ),
+//     }).then((response) => response.json());
+
+//     console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
+
+//     if (result.status === 201) {
+//       dispatch({ type: POST_REG, payload: result });
+//     }
+//   };
+// };
+
+// export const callcheckIdAPI = (loginId) => {
+//   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/compare-id`;
+
+//   return async (dispatch, getState) => {
+//     const result = await fetch(requestURL, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "*/*",
+//       },
+//       body: JSON.stringify(
+//         loginId
+//         // loginPwd: form.loginPwd
+//         // ,
+//         // memberName: form.memberName,
+//         // memberEmail: form.memberEmail,
+//       ),
+//     }).then((response) => response.json());
+
+//     console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
+
+//     if (result.status === 201) {
+//       dispatch({ type: POST_ID, payload: result });
+//     }
+//   };
+// };
+
+export const callCheckRegAPI = (empReg) => {
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/find-reg`;
 
   return async (dispatch, getState) => {
@@ -119,9 +174,7 @@ export const callCheckRegAPI = ( empReg ) => {
         "Content-Type": "application/json",
         Accept: "*/*",
       },
-      body: JSON.stringify(
-        empReg
-      ),
+      body: JSON.stringify(empReg),
     }).then((response) => response.json());
 
     console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
@@ -131,63 +184,11 @@ export const callCheckRegAPI = ( empReg ) => {
     }
   };
 };
-
-export const callcheckIdAPI = ( loginId ) => {
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/compare-id`;
-
-  return async (dispatch, getState) => {
-    const result = await fetch(requestURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify(
-        loginId
-        // loginPwd: form.loginPwd
-        // ,
-        // memberName: form.memberName,
-        // memberEmail: form.memberEmail,
-      ),
-    }).then((response) => response.json());
-
-    console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
-
-    if (result.status === 201) {
-      dispatch({ type: POST_ID, payload: result });
-    }
-  };
-};
-
-export const callCheckRegAPI = ( empReg ) => {
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/find-reg`;
-
-  return async (dispatch, getState) => {
-    const result = await fetch(requestURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify(
-        empReg
-      ),
-    }).then((response) => response.json());
-
-    console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
-
-    if (result.status === 201) {
-      dispatch({ type: POST_REG, payload: result });
-    }
-  };
-};
-
-
 
 // 성식 회원코드
 
 // import Swal from 'sweetalert2';
-// import { 
+// import {
 //     GET_MEMBER
 //   , POST_LOGIN
 //   , POST_REGISTER
@@ -204,7 +205,7 @@ export const callCheckRegAPI = ( empReg ) => {
 //             headers: {
 //                 "Content-Type": "application/json",
 //                 "Accept": "*/*",
-//                 // "Authorization": "Bearer " + window.localStorage.getItem("accessToken") 
+//                 // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
 //             }
 //         })
 //         .then(response => response.json());
@@ -212,7 +213,7 @@ export const callCheckRegAPI = ( empReg ) => {
 //         console.log('[MemberAPICalls] callGetMemberAPI RESULT : ', result);
 
 //         dispatch({ type: GET_MEMBER,  payload: result });
-        
+
 //     };
 // }
 
@@ -225,7 +226,7 @@ export const callCheckRegAPI = ( empReg ) => {
 //             headers: {
 //                 "Content-Type": "application/json",
 //                 "Accept": "*/*",
-//                 "Access-Control-Allow-Origin": "*"      
+//                 "Access-Control-Allow-Origin": "*"
 //             },
 //             body: JSON.stringify({
 //                 memberId: form.memberId,
@@ -235,7 +236,7 @@ export const callCheckRegAPI = ( empReg ) => {
 //         .then(response => response.json());
 
 //         console.log('[MemberAPICalls] callLoginAPI RESULT : ', result);
-        
+
 //         if(result.state === 400 || result.state === undefined || result.state === null){
 //             Swal.fire({
 //                 position: 'center',
@@ -262,9 +263,9 @@ export const callCheckRegAPI = ( empReg ) => {
 
 // // 로그아웃
 // export const callLogoutAPI = () => {
-//     return async (dispatch, getState) => {            
+//     return async (dispatch, getState) => {
 
-//         dispatch({ type: POST_LOGIN,  payload: '' });        
+//         dispatch({ type: POST_LOGIN,  payload: '' });
 //         console.log('[MemberAPICalls] callLogoutAPI RESULT : SUCCESS');
 //         Swal.fire({
 //             position: 'center',
@@ -293,7 +294,7 @@ export const callCheckRegAPI = ( empReg ) => {
 //         .then(response => response.json());
 
 //         console.log('[MemberAPICalls] callMemberRemoveAPI RESULT : ', result);
-        
+
 //         if(result.status === 201){
 //             dispatch({ type: DELETE_REMOVE,  payload: result });
 //             Swal.fire({
@@ -319,7 +320,7 @@ export const callCheckRegAPI = ( empReg ) => {
 //                 timer: 1500,
 //                 showConfirmButton: false
 //             })
-//         }         
+//         }
 //     };
 // }
 
@@ -339,13 +340,13 @@ export const callCheckRegAPI = ( empReg ) => {
 //                 memberId: form.memberId,
 //                 memberPassword: form.memberPassword,
 //                 memberName: form.memberName,
-//                 memberEmail: form.memberEmail                
+//                 memberEmail: form.memberEmail
 //             })
 //         })
 //         .then(response => response.json());
 
-//         console.log('[MemberAPICalls] callRegisterAPI RESULT : ', result);        
-        
+//         console.log('[MemberAPICalls] callRegisterAPI RESULT : ', result);
+
 //         if(result.state === 401 || result.state === undefined || result.state === null){
 //             Swal.fire({
 //                 position: 'center',
@@ -363,6 +364,6 @@ export const callCheckRegAPI = ( empReg ) => {
 //                 title: '회원가입 성공 !',
 //                 timer: 1500
 //             })
-//         }        
+//         }
 //     };
 // }
