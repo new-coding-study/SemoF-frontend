@@ -8,7 +8,7 @@ import Header from "./Header";
 import SearchBox from "./SearchBox";
 import { callSendEmailAPI, callMoveTrashAPI } from "../../apis/EmailAPICalls";
 
-function SendEmailDetail() {
+function DeletedMailDetail() {
   const { mailNo } = useParams();
   console.log("[EmailDetail] send mailNo: " + mailNo);
 
@@ -136,4 +136,4 @@ function SendEmailDetail() {
   );
 }
 
-export default SendEmailDetail;
+export default DeletedMailDetail;

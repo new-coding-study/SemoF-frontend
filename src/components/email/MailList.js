@@ -1,31 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import MailListCSS from "./MailList.module.css";
 import MailItem from "./MailItem";
 import Header from "./Header";
 import { useSelector } from "react-redux";
 import SendEmailDetail from "./SendEmailDetail";
 import ReceiveEmailDetail from "./ReceiveEmailDetail";
+import DeletedMailDetail from "./DeletedMailDetail";
 
 function MailList({
   category,
-  emails,
   setSelectedMailNo,
   currentPage,
   setCurrentPage,
   selectedMailNo,
+  status,
 }) {
   const emailState = useSelector((state) => state.emailReducer);
 
-  const mailList =
-    category === "receive"
-      ? emailState.receivedEmails?.data ?? []
-      : emailState.sentEmails?.data ?? [];
+  let mailList = [];
+
+  if (status === "Y") {
+    // Show deleted mails
+    const allMails = [
+      ...(emailState.receivedEmails?.data ?? []),
+      ...(emailState.sentEmails?.data ?? []),
+    ];
+    mailList = allMails.filter((email) => email.status === "Y");
+  } else {
+    mailList =
+      category === "receive"
+        ? emailState.receivedEmails?.data ?? []
+        : emailState.sentEmails?.data ?? [];
+  }
 
   console.log("[MailList] emailState : " + JSON.stringify(emailState));
 
   const pageInfo = emailState.pageInfo;
-
-  // console.log("[MailList] pageInfo : " + JSON.stringify(pageInfo));
 
   const pageNumber = [];
 
@@ -43,7 +53,9 @@ function MailList({
       />
       <div className={MailListCSS.mailList}>
         {selectedMailNo ? (
-          category === "receive" ? (
+          status === "Y" ? (
+            <DeletedMailDetail mailNo={selectedMailNo} />
+          ) : category === "receive" ? (
             <ReceiveEmailDetail receiveNo={selectedMailNo} />
           ) : (
             <SendEmailDetail mailNo={selectedMailNo} />
@@ -60,7 +72,6 @@ function MailList({
                   category={category}
                   isSelected={mailId === selectedMailNo}
                   mailNo={mailId}
-                  // setSelectedMailNo={setSelectedMailNo}
                   onSelectMailNo={setSelectedMailNo}
                 />
               );

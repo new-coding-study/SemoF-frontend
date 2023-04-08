@@ -30,6 +30,7 @@ import Email from "./pages/email/Email";
 import SendMail from "./pages/email/SendMail";
 import SendEmailDetail from "./components/email/SendEmailDetail";
 import ReceiveEmailDetail from "./components/email/ReceiveEmailDetail";
+import DeleteMail from "./pages/email/DeleteMail";
 
 import ModifyApproval from "./pages/approval/ModifyApproval";
 
@@ -55,7 +56,7 @@ function App() {
           <Route path="modify-approval" element={<ModifyApproval />} />
           <Route path="board" element={<Board />} />
           <Route path="inbox/:approvNo" element={<ApprovDetail />} />
-          <Route path="edit-line/:lineNo" element={<ModifyLine/>} />
+          <Route path="edit-line/:lineNo" element={<ModifyLine />} />
 
           <Route path="posting-detail/:boardNo" element={<PostingDetail />} />
 
@@ -73,6 +74,8 @@ function App() {
             path="email/receive/:receiveNo"
             element={<ReceiveEmailDetail />}
           />
+          <Route path="email/deleted" element={<DeleteMail />} />
+
           <Route path="attendance" element={<Attendance />} />
         </Route>
 

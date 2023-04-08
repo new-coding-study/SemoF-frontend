@@ -97,7 +97,7 @@ function SideNavbar() {
             <span className={SideNavbarCSS.navCount}>3</span>
           </li>
         </NavLink>
-        <NavLink to="/semof/email/trash">
+        <NavLink to="/semof/email/deleted">
           <li className={SideNavbarCSS.navItem}>
             <i className="fas fa-trash"></i>
             <span className={SideNavbarCSS.navText}>
