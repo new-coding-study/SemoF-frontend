@@ -12,7 +12,7 @@ import ApprovalIn from "./pages/approval/ApprovalIn";
 import Board from "./pages/board/Board";
 
 import PostingDetail from "./components/boards/PostingDetail";
-
+import ApprovDetail from "./pages/approval/ApprovDetail";
 import ApprovalOut from "./pages/approval/ApprovalOut";
 import RegistApproval from "./pages/approval/RegistApproval";
 import ApprovLineList from "./pages/approval/ApprovLineList";
@@ -54,8 +54,8 @@ function App() {
           <Route path="add-line" element={<RegistLine />} />
           <Route path="modify-approval" element={<ModifyApproval />} />
           <Route path="board" element={<Board />} />
-
-          <Route path="edit-line/:lineNo" element={<ModifyLine />} />
+          <Route path="inbox/:approvNo" element={<ApprovDetail />} />
+          <Route path="edit-line/:lineNo" element={<ModifyLine/>} />
 
           <Route path="posting-detail/:boardNo" element={<PostingDetail />} />
 
