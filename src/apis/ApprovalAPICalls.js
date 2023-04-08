@@ -1,5 +1,6 @@
 import {
     GET_APPROVALS
+    , GET_APPROVALSOUT
     , GET_APPROVAL
     , POST_APPROVAL
     , PUT_APPROVAL
@@ -14,6 +15,7 @@ import {
     , GET_JOBS
     , POST_ORDERS
     , GET_DEPT
+    , GET_STATUS
 }from "../modules/ApprovalModule"
 
 import axios from 'axios';
@@ -21,10 +23,10 @@ export const callApprovalListAPI = ({currentPage}) => {
     let requestURL;
 
     if(currentPage !== undefined || currentPage !==null){
-        requestURL = `http://localhost:8090/approvals/approv-list?offset=${currentPage}`;
+        requestURL = `http://localhost:8090/approvals/approv-in?offset=${currentPage}`;
 
     }else{
-        requestURL = `http://localhost:8090/approvals/approv-list`;
+        requestURL = `http://localhost:8090/approvals/approv-in`;
     }
 
     console.log(`[ApprovalAPICalls] requestURL: ${requestURL}`);
@@ -45,16 +47,47 @@ export const callApprovalListAPI = ({currentPage}) => {
         }
     };
 }
-export const callApprovalDetailAPI = ({approvNo}) => {
-    const requestURL = `http://localhost:8090/approvals/${approvNo}`;
+export const callApprovOutListAPI = ({currentPage}) => {
+    let requestURL;
+
+    if(currentPage !== undefined || currentPage !==null){
+        requestURL = `http://localhost:8090/approvals/approv-out?offset=${currentPage}`;
+
+    }else{
+        requestURL = `http://localhost:8090/approvals/approv-out`;
+    }
+
+    console.log(`[ApprovalAPICalls] requestURL: ${requestURL}`);
 
     return async (dispatch, getState) => {
         const result = await fetch(requestURL, {
             method: 'GET',
             headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+                // , "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json());
+        if(result.status === 200){
+            console.log(`[ApprovalAPICalls] result = ${result}`);
+            dispatch({type:GET_APPROVALSOUT, payload : result.data});
+        }
+    };
+}
+export const callApprovalDetailAPI = (approvNo) => {
+    console.log("api로 잘왔는지", approvNo);
+    console.log(typeof(approvNo));
+    const requestURL = `http://localhost:8090/approvals/approval/${approvNo}`;
+    console.log(requestURL);
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
                 "Content-Type":"application/json",
-                "Accept":"*/*",
-                "Authorization": "Bearer"+window.localStorage.getItem("accessToken")
+                "Accept":"*/*"
+                ,"Access-Control-Allow-Origin": "*"
+                // "Authorization": "Bearer"+window.localStorage.getItem("accessToken")
             }
         })
         .then(response => response.json());
@@ -280,10 +313,10 @@ export const callLineRegistAPI = ({form}) => {
     };    
 }
 
-export const callLineModifyAPI = ({form}) => {
+export const callLineModifyAPI = ({lineNo, form}) => {
     console.log('[ApprovalAPICalls] callLineModifyAPI Call');
-
-    const requestURL = `http://localhost:8090/approvals/line`;
+   
+    const requestURL = `http://localhost:8090/approvals/line/${lineNo}`;
 
     return async (dispatch, getState) => {
 
@@ -291,10 +324,11 @@ export const callLineModifyAPI = ({form}) => {
             method: "PUT",
             headers: {
                 "Accept": "*/*"
-                // ,
+                ,"Content-Type": "application/json"
                 // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                
             },
-            body: form
+            body: JSON.stringify(form)
         })
         .then(response => response.json());
 
