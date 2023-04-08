@@ -218,21 +218,6 @@ function Modify(props) {
                 ref={imageInput}
               />
             </label>
-            {/* {imageUrl && (
-              <>
-                <img
-                  key={imageUrl}
-                  className={RegisterCSS.photoPreview}
-                  src={imageUrl}
-                  alt="preview"
-                />
-              </>
-            )}
-            {employeePhoto ? (
-              <img src={employeePhoto} alt="Employee" />
-            ) : (
-              <p>No photo available</p>
-            )} */}
             {imageUrl ? (
               <img
                 key={imageUrl}
@@ -241,7 +226,7 @@ function Modify(props) {
                 alt="preview"
               />
             ) : (
-              <p>No photo available</p>
+              <p>사진이 존재하지 않습니다.</p>
             )}
           </div>
         </div>

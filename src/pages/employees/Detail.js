@@ -121,7 +121,7 @@ function Detail(props) {
                 alt="preview"
               />
             ) : (
-              <p>No photo available</p>
+              <p>사진이 존재하지 않습니다.</p>
             )}
           </div>
         </div>
