@@ -24,6 +24,7 @@ function MailList({
   console.log("[MailList] emailState : " + JSON.stringify(emailState));
 
   const pageInfo = emailState.pageInfo;
+  
 
   // console.log("[MailList] pageInfo : " + JSON.stringify(pageInfo));
 

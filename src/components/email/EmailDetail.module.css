@@ -16,6 +16,7 @@
 .emailDetailHeaderInfo {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-size: 14px;
     font-weight: 400;
     color: #5f6368;
@@ -35,4 +36,12 @@
     font-weight: 400;
     color: #202124;
     line-height: 1.5;
+}
+
+.emailDetailHeaderInfo button {
+    outline: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    margin-left: auto;
 }

@@ -8,6 +8,7 @@ import ReceiveEmailDetail from "./ReceiveEmailDetail";
 
 function MailList({
   category,
+  status,
   emails,
   setSelectedMailNo,
   currentPage,
@@ -16,12 +17,37 @@ function MailList({
 }) {
   const emailState = useSelector((state) => state.emailReducer);
 
-  const mailList =
-    category === "receive"
-      ? emailState.receivedEmails?.data ?? []
-      : emailState.sentEmails?.data ?? [];
+  let receivedMails = emailState.receivedEmails?.data ?? [];
 
-  console.log("[MailList] emailState : " + JSON.stringify(emailState));
+  console.log("[MailList] receivedMails : " + JSON.stringify(receivedMails));
+
+  let sentMails = emailState.sentEmails?.data ?? [];
+
+  console.log("[MailList] sentMails : " + JSON.stringify(sentMails));
+
+  let deletedMails = emailState.deleteEmails?.data ?? [];
+
+  console.log("[MailList] deletedMails : " + JSON.stringify(deletedMails));
+
+  let mailList;
+
+  if (status === "Y") {
+    if (category === "receive") {
+      mailList = deletedMails.filter((email) => email.category === "receive");
+    } else if (category === "send") {
+      mailList = deletedMails.filter((email) => email.category === "send");
+    } else {
+      mailList = deletedMails;
+    }
+  } else {
+    if (category === "receive") {
+      mailList = receivedMails;
+    } else if (category === "send") {
+      mailList = sentMails;
+    }
+  }
+
+  // console.log("[MailList] emailState : " + JSON.stringify(emailState));
 
   const pageInfo = emailState.pageInfo;
 
@@ -52,12 +78,19 @@ function MailList({
           <ul>
             {mailList.map((email) => {
               const mailId =
-                category === "receive" ? email.receiveNo : email.mailNo;
+                category === "receive" ||
+                (category === "all" && email.receiveNo)
+                  ? email.receiveNo
+                  : email.mailNo;
+
+              const itemCategory =
+                category === "all" && email.receiveNo ? "receive" : category;
+
               return (
                 <MailItem
                   key={mailId}
                   email={email}
-                  category={category}
+                  category={itemCategory}
                   isSelected={mailId === selectedMailNo}
                   mailNo={mailId}
                   // setSelectedMailNo={setSelectedMailNo}

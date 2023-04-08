@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
-import MailListCSS from "./MailList.module.css";
-import MailItem from "./MailItem";
-import Header from "./Header";
+import React from "react";
 import { useSelector } from "react-redux";
-import SendEmailDetail from "./SendEmailDetail";
+import MailItem from "./MailItem";
 import ReceiveEmailDetail from "./ReceiveEmailDetail";
+import SendEmailDetail from "./SendEmailDetail";
+import DeletedMailList from "./DeletedMailList"; // Import the new component
+import Header from "./Header";
+import MailListCSS from "./MailList.module.css";
 
 function MailList({
-  category,
-  emails,
   setSelectedMailNo,
   currentPage,
   setCurrentPage,
@@ -16,16 +15,12 @@ function MailList({
 }) {
   const emailState = useSelector((state) => state.emailReducer);
 
-  const mailList =
-    category === "receive"
-      ? emailState.receivedEmails?.data ?? []
-      : emailState.sentEmails?.data ?? [];
+  const allMails = [...(emailState.receivedEmails?.data ?? []), ...(emailState.sentEmails?.data ?? [])];
+  const mailList = allMails.filter((email) => email.status === "Y");
 
   console.log("[MailList] emailState : " + JSON.stringify(emailState));
 
   const pageInfo = emailState.pageInfo;
-
-  // console.log("[MailList] pageInfo : " + JSON.stringify(pageInfo));
 
   const pageNumber = [];
 
@@ -35,7 +30,7 @@ function MailList({
     }
   }
 
-  return (
+   return (
     <>
       <Header
         currentPage={currentPage}
@@ -43,24 +38,17 @@ function MailList({
       />
       <div className={MailListCSS.mailList}>
         {selectedMailNo ? (
-          category === "receive" ? (
-            <ReceiveEmailDetail receiveNo={selectedMailNo} />
-          ) : (
-            <SendEmailDetail mailNo={selectedMailNo} />
-          )
+          <DeletedMailDetail mailNo={selectedMailNo} /> // Render the new component for deleted mail details
         ) : (
           <ul>
             {mailList.map((email) => {
-              const mailId =
-                category === "receive" ? email.receiveNo : email.mailNo;
+              const mailId = email.mailNo;
               return (
                 <MailItem
                   key={mailId}
                   email={email}
-                  category={category}
                   isSelected={mailId === selectedMailNo}
                   mailNo={mailId}
-                  // setSelectedMailNo={setSelectedMailNo}
                   onSelectMailNo={setSelectedMailNo}
                 />
               );
