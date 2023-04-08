@@ -281,7 +281,7 @@
 /* 모달 */
 /* Modal overlay */
 .modalOverlay {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -343,5 +343,5 @@
 .modalContainer ul li span:hover {
     background-color: #e52e2e;
     color: white;
-    cursor: pointer;
+    fill: white;
 }
