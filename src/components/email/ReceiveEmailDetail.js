@@ -6,6 +6,7 @@ import EmailCSS from "../../pages/email/Email.module.css";
 import SideNavbar from "./SideNavbar";
 import Header from "./Header";
 import SearchBox from "./SearchBox";
+import Swal from "sweetalert2";
 import {
   callReceiveEmailAPI,
   callMoveTrashAPI,
@@ -43,6 +44,12 @@ function ReceiveEmailDetail() {
         category: "receive",
       })
     ).then(() => setDeleteModalOpen(false));
+
+    Swal.fire({
+      icon: "success",
+      text: "이메일이 삭제되었습니다.",
+    });
+
     navigate(-1);
     dispatch(callReceiveEmailAPI({ receiveNo }));
   };

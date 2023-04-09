@@ -1,11 +1,11 @@
 import {
   GET_SEND_EMAIL,
   GET_SEND_EMAILS,
-  GET_RECEIVE_EMAIL,
   GET_RECEIVE_EMAILS,
   RECEIVE_EMAIL_DETAIL,
   POST_SEND_EMAIL,
   PUT_MOVE_EMAIL,
+  SEARCH_EMAILS,
 } from "../modules/EmailModule.js";
 
 export const callSendListAPI = ({ currentPage, category }) => {
@@ -151,9 +151,8 @@ export const callPostEmailAPI = ({ form, empNo }) => {
 
 export const callMoveTrashAPI = ({ mailNo, category }) => {
   console.log("[EmailAPICalls] callMoveTrashAPI Call");
-
-  console.log("[EmailAPICalls] mailNo : " + mailNo);
-  console.log("[EmailAPICalls] category : " + category);
+  // console.log("[EmailAPICalls] mailNo : " + mailNo);
+  // console.log("[EmailAPICalls] category : " + category);
 
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/email/${mailNo}/${category}`;
 
@@ -209,5 +208,26 @@ export const callGetDelteListAPI = ({ currentPage, category }) => {
         response.status
       );
     }
+  };
+};
+
+export const callSearchEmailsAPI = ({ searchKeyword, currentPage }) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/email/search?searchKeyword=${searchKeyword}&page=${currentPage}`;
+
+  console.log("[EmailAPICalls ] requestURL : ", requestURL);
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+
+    console.log("[EmailAPICalls] callSearchEmailsAPI RESULT : ", result);
+
+    dispatch({ type: SEARCH_EMAILS, payload: result.data });
   };
 };

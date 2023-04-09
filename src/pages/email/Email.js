@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import EmailCSS from "./Email.module.css";
 import SearchBox from "../../components/email/SearchBox";
@@ -7,6 +7,12 @@ import SideNavbar from "../../components/email/SideNavbar";
 import ReceiveMail from "./ReceiveMail";
 
 function Email() {
+  const [searchKeyword, setSearchKeyword] = useState("");
+
+  const handleSearchKeyword = (keyword) => {
+    setSearchKeyword(keyword);
+  };
+
   return (
     <>
       <div className={EmailCSS.contentWrapper}>
@@ -15,8 +21,8 @@ function Email() {
             <SideNavbar />
           </div>
           <div className={EmailCSS.content}>
-            <SearchBox />
-            <ReceiveMail />
+            <SearchBox onSearchKeyword={handleSearchKeyword} />
+            <ReceiveMail searchKeyword={searchKeyword} />
           </div>
         </div>
       </div>
