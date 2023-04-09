@@ -1,9 +1,10 @@
 import React from "react";
 import HeaderCSS from "./Header.module.css";
-import ActionMenu from "./ActionMenu";
+// import ActionMenu from "./ActionMenu";
 
 function Header(props) {
-  const { currentPage, itemsPerPage, totalItems, onPageChange } = props;
+  const { currentPage, itemsPerPage, totalItems, onPageChange, endPage } =
+    props;
 
   // 전체 페이지 수 계산
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -24,10 +25,11 @@ function Header(props) {
 
   return (
     <div className={HeaderCSS.header}>
-      <ActionMenu />
+      {/* <ActionMenu /> */}
       <div className={HeaderCSS.buttons}>
         <span className={HeaderCSS.info}>
-          {itemsPerPage} {currentPage} of {totalPages}
+          {totalItems} 개 중 {itemsPerPage} - {totalPages}
+          {/* {itemsPerPage}개 {currentPage} of {totalPages} */}
         </span>
         <button onClick={handlePrevPage} disabled={currentPage === 1}>
           <svg
@@ -44,7 +46,10 @@ function Header(props) {
             />
           </svg>
         </button>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === endPage || totalItems === 0}
+        >
           <svg
             width="8"
             height="12"

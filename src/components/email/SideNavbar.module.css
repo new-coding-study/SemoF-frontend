@@ -73,6 +73,8 @@
 
 .navItem:hover {
     background-color: rgba(229, 46, 46, 0.1);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .navItem i {
