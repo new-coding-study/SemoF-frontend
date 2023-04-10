@@ -7,6 +7,7 @@ import {
     , DELETE_APPROVAL
     , GET_LINES
     , GET_LINE
+    , GET_LINE_LIST
     , POST_LINE
     , PUT_LINE
     , DELETE_LINE
@@ -16,6 +17,8 @@ import {
     , POST_ORDERS
     , GET_DEPT
     , GET_STATUS
+    , GET_OPINION
+    , POST_OPINION
 }from "../modules/ApprovalModule"
 
 import axios from 'axios';
@@ -252,7 +255,7 @@ export const callLineListAPI = ({currentPage}) => {
             console.log(`[ApprovalAPICalls] result = ${result}`);
             // const { data: { dtoList, ...restData } } = result;
             // const data = { ...restData, approvOrderDTOList: dtoList };
-            dispatch({type:GET_LINES, payload : result.data});
+            dispatch({type:GET_LINE_LIST, payload : result.data});
         }
     };
 }
@@ -495,4 +498,58 @@ export const callLineDetailAPI = ({lineNo}) => {
             dispatch({type:GET_LINE, payload : result.data});
         }
     };
+}
+export const callOpinionsAPI = (approvNo) => {
+    let requestURL;
+
+    // if(currentPage !== undefined || currentPage !==null){
+        // requestURL = `http://localhost:8090/approvals/line-list?offset=${currentPage}`;
+
+    // }else{
+        requestURL = `http://localhost:8090/approvals/opinions`;
+    // }
+
+    console.log(`[ApprovalAPICalls] requestURL: ${requestURL}`);
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+                // ,
+                // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+            }
+        })
+        .then(response => response.json());
+        if(result.status === 200){
+            console.log(`[ApprovalAPICalls] result = ${result}`);
+            dispatch({type:GET_OPINION, payload : result.data});
+        }
+    };
+}
+export const callRegistOpiniontAPI = ({form}) => {
+    console.log('[ApprovalAPICalls] callRegistOpiniontAPI Call');
+
+    const requestURL = `http://localhost:8090/approvals/opinion`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method: "POST",
+            headers: {
+                "Accept": "*/*"
+                ,
+                // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(form)
+        })
+        .then(response => response.json());
+
+        console.log('[ApprovalAPICalls] callRegistOpiniontAPI RESULT : ', result);
+
+        dispatch({ type: POST_OPINION,  payload: result });
+        
+    };    
 }

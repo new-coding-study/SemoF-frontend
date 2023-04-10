@@ -4,19 +4,23 @@ const initialState = {
     approvals : [],
     approvalsOut : [],
     approval : [],
+    lineList : [],
     lines : [],
     line : [],
     form : [],
     branch : [],
     empInfo: [],
     dept:[],
-    status: []
+    status: [],
+    lineInfo: [],
+    opinion : []
 };
 
 export const GET_APPROVALS = 'approval/GET_APPROVALS';
 export const GET_APPROVALSOUT = 'approval/GET_APPROVALSOUT';
 export const GET_APPROVAL = 'approval/GET_APPROVAL';
 export const GET_LINES = 'approval/GET_LINES';
+export const GET_LINE_LIST = 'approval/GET_LINE_LIST';
 export const GET_LINE = 'approval/GET_LINE';
 export const GET_FORM = 'approval/GET_FORM';
 export const GET_BRANCHES = 'approval/GET_BRANCHES';
@@ -30,6 +34,8 @@ export const POST_LINE = 'approval/POST_LINE';
 export const PUT_LINE = 'approval/PUT_LINE';
 export const DELETE_LINE = 'approval/DELETE_LINE';
 export const POST_ORDERS = 'approval/POST_ORDERS';
+export const GET_OPINION = 'approval/GET_OPINION';
+export const POST_OPINION = 'approval/POST_OPINION';
 
 const actions = createActions({
     [GET_APPROVALS]: () => {},
@@ -37,6 +43,7 @@ const actions = createActions({
     [GET_APPROVAL]: () => {},
     [GET_LINES]: () => {},
     [GET_LINE]: () => {},
+    [GET_LINE_LIST] : () => {},
     [GET_FORM]: () => {},
     [GET_BRANCHES]: () => {},
     [GET_JOBS]: () => {},
@@ -48,7 +55,9 @@ const actions = createActions({
     [POST_LINE]: () => {},
     [PUT_LINE]: () => {},
     [DELETE_LINE]: () => {},
-    [POST_ORDERS]: () => {}
+    [POST_ORDERS]: () => {},
+    [GET_OPINION]: () => {},
+    [POST_OPINION]: () => {}
 });
 
 const approvalReducer = handleActions({
@@ -64,8 +73,11 @@ const approvalReducer = handleActions({
     [GET_LINES]: (state, {payload})=>{
         return {...state, lines : payload};
     },
+    [GET_LINE_LIST]: (state, {payload})=>{
+        return {...state, lineList : payload};
+    },
     [GET_LINE]: (state, {payload})=>{
-        return {...state, line : payload};
+        return {...state, lineInfo : payload};
     },
     [GET_FORM]: (state, {payload})=>{
         return {...state, form : payload};
@@ -102,6 +114,12 @@ const approvalReducer = handleActions({
     },
     [DELETE_LINE]: (state, {payload})=>{
         return {...state, line : payload};
+    },
+    [GET_OPINION]: (state, {payload})=>{
+        return {...state, opinion : payload};
+    },
+    [POST_OPINION]: (state, {payload})=>{
+        return {...state, opinion : payload};
     }
 }, initialState);
 export default approvalReducer;
