@@ -158,6 +158,23 @@
     text-align: left;
 }
 
+.approvalpagingbtn{
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+   
+}
+.approvalpagingbtn li button{
+    background-color : rgba(237, 237, 240, 1); 
+    font-size: 20px;
+    border: none; 
+    color: yellowGreen;
+}
+
+.approvalpagingbtn li button:hover{
+    color:red;
+}
+
 /* .listDisply table{
     width: 80%;
     border-collapse: collapse;
@@ -260,6 +277,7 @@ li>button{
 li>button:hover{
     color:red;
 }
+
 
 
 
