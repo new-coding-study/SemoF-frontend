@@ -28,6 +28,7 @@ function RegistLine(){
     // 지점코드저장 이거를 ,, formData로 어디에 넘겨줌 근데 db 수정해야할듯
     const [selectBranch, setSelectBranch] = useState('');
     const [selectDept, setSelectDept] = useState('');
+    const [selectBName, setSelectBName] = useState('');
 
     // 순서 입력 할 select를 띄울
     const [isShow, setIsShow] = useState(false);
@@ -54,12 +55,9 @@ function RegistLine(){
       console.log(e.target.value[0]);
       
       setSelectBranch(e.target.value);
-      // setLine({
-      //   ...line,
-      //   [e.target.name] : e.target.value
-      // });
-      // console.log('이거확인',line);
-
+      const selectedOption = e.target.options[e.target.selectedIndex];
+      setSelectBName= selectedOption.getAttribute('data-name');
+      console.log('branchName', selectBName);
     }
     const selectDeptHandler=(e)=>{
       setSelectDept(e.target.value);
@@ -72,9 +70,7 @@ function RegistLine(){
     setSelects(newSelects);
     setNextId(nextId + 1);
   };
-  // const addOrder = (newOrder) => {
-    // setOrders([...orders, newOrder]);
-  // }
+ 
   const handleSelectChange = (event, id) => {
     const newSelects = [...selects];
     const index = newSelects.findIndex((select) => select.id === id);
@@ -88,55 +84,23 @@ function RegistLine(){
   useEffect(() => {
     setLine(prevState => ({
       ...prevState,
-      lineName: selectBranch + " " + selectDept,
+      lineName: selectBName + " " + selectDept,
       branchCode: selectBranch,
       approvOrderDTOList: selects.map(select => ({ empNo: parseInt(select.value) }))
     }));
-  }, [selectBranch, selectDept, selects]);
+  }, [selectBName, selectBranch, selectDept, selects]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-// DB를 바꿔야하나? branchName과 Code중 하나만들고오는 상황?
-//     setLine(prevState => ({
-//       ...prevState,
-//       lineName: selectBranch+" "+selectDept,
-//       branchCode: selectBranch
-//     }));
-//     console.log(selectBranch)
-//     console.log(selectBranch+" "+selectDept);
-//     console.log('중간과정이 찍히는지', line);
-//     const orderList = selects.map(select => {
-//       return { empNo: parseInt(select.value) }
-//     });
-//     console.log('맞나요',orderList);
-//     const updatedLine = {
-//       ...line,
-//       approvOrderDTOList: orderList
-//     };
-// console.log('orderList', orderList);
-
-
-    // console.log('여기에 라인에 대한 정보가',line);
-    // // setLine(updatedLine);
-    const firstFormData  = new FormData();
-    firstFormData .append("lineName", line.lineName);
-    // setLine.lineName(selectBranch+" "+selectDept);
-    console.log("젭알", line.lineName);
-    console.log(JSON.stringify(firstFormData));
-    firstFormData .append("branchCode", line.branchCode);
-    firstFormData.append("approvOrderDTOList", line.approvOrderDTOList);
+    JSON.stringify(line.approvOrderDTOList);
+    
+    console.log("젭알", line);
     dispatch(callLineRegistAPI({	
-      // form: firstFormData
+      
       form: line
   }));   
-    // const secondFormData = new FormData();
-    // secondFormData .append("empNo", selects);
-    // addOrder(secondFormData);
-    // console.log('여기있다여기다',selects[1]);
-    // dispatch(callOrderRegistAPI({
-    //   data: orders
-    // }))
     
+    nav(`/semof/lines`);
   };
     return(
         <>
@@ -147,18 +111,19 @@ function RegistLine(){
             </div>
             <div>
             <span>결재라인 : </span>
-              <select name="branch" 
-              onChange={selectBranchHandler}
-                >
-              <option value="none" disabled default>지점선택</option>
-              {branch.map(b => (
-                <option key={b.branchCode} value={b.branchCode} name="branchCode">{b.branchName}</option>
-              ))}
-              </select>
-              <select name="dept" 
+            <select name="branch" onChange={selectBranchHandler} defaultValue="default">
+            <option value="default" disabled>지점선택</option>
+            {branch.map((b, idx) => (
+              <option key={idx} value={b.branchCode} data-name={b.branchName}>
+              {b.branchName}
+            </option>
+            ))}
+            </select>
+            <select name="dept" 
               onChange={selectDeptHandler}
+              defaultValue="default"
               >
-              <option value="none" disabled>부서선택</option>
+              <option value="default" disabled>부서선택</option>
               {dept.map(b => (
                 <option key={b.deptCode} value={b.deptName} name="deptCode">{b.deptName}</option>
               ))}

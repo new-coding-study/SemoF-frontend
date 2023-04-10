@@ -11,10 +11,11 @@ import {
   PUT_TODO,
   DELETE_TODO,
   PUT_STAR,
+  PUT_FINISH,
 } from "../modules/TodoModule.js";
 
 export const callTodayTodoListAPI = (empNo) => {
-  console.log("GET_TODAYTODOLIST call");
+  // console.log("GET_TODAYTODOLIST call");
 
   const requestURL = `http://localhost:8090/todos/todolist/today/${empNo}`;
 
@@ -35,7 +36,7 @@ export const callTodayTodoListAPI = (empNo) => {
 };
 
 export const callIntendedTodoListAPI = (empNo) => {
-  console.log("GET_INTENDEDTODOLIST call");
+  // console.log("GET_INTENDEDTODOLIST call");
 
   const requestURL = `http://localhost:8090/todos/todolist/intended/${empNo}`;
 
@@ -56,7 +57,7 @@ export const callIntendedTodoListAPI = (empNo) => {
 };
 
 export const callTodoDetailAPI = (todoNo) => {
-  console.log("GET_TODO call");
+  // console.log("GET_TODO call");
 
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/todos/todo/${todoNo}`;
 
@@ -77,7 +78,7 @@ export const callTodoDetailAPI = (todoNo) => {
 };
 
 export const callSearchTodoAPI = (searchWord, empNo) => {
-  console.log("GET_SEARCHTODO call");
+  // console.log("GET_SEARCHTODO call");
 
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/todos/todo/search?s=${searchWord}&e=${empNo}`;
 
@@ -99,7 +100,7 @@ export const callSearchTodoAPI = (searchWord, empNo) => {
 };
 
 export const callCategoryListAPI = (empNo) => {
-  console.log("GET_CATEGORYLIST call");
+  // console.log("GET_CATEGORYLIST call");
 
   const requestURL = `http://localhost:8090/todos/category/${empNo}`;
 
@@ -119,11 +120,9 @@ export const callCategoryListAPI = (empNo) => {
   };
 };
 
-export const callProductRegistAPI = ({ form }) => {
-  console.log("POST_TODO call");
-  console.log("form", form);
-
-  // console.log(form.get("musicalRuntime"));
+export const callTodoRegistAPI = ({ form }) => {
+  // console.log("POST_TODO call");
+  // console.log("form", form);
 
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/todos/todo`;
 
@@ -143,8 +142,50 @@ export const callProductRegistAPI = ({ form }) => {
   };
 };
 
-export const callUpdateStarAPI = (todoNo) => {
-  console.log("PUT_STAR call");
+export const callTodoUpdateAPI = ({ form }) => {
+  console.log("PUT_TODO call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/todos/todo`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "PUT",
+      headers: {
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: form,
+    }).then((response) => response.json());
+
+    console.log("PUT_TODO result : ", result);
+
+    dispatch({ type: PUT_TODO, payload: result });
+  };
+};
+
+export const callDeleteTodoAPI = (todoNo) => {
+  // console.log("DELETE_TODO call");
+
+  const requestURL = `http://localhost:8090/todos/todo/${todoNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+    if (result.status === 200) {
+      console.log("DELETE_TODO result : ", result);
+      dispatch({ type: DELETE_TODO, payload: result.data });
+    }
+  };
+};
+
+export const callUpdateStarAPI = (todoNo, changeStar) => {
+  // console.log("PUT_STAR call");
 
   const requestURL = `http://localhost:8090/todos/star/${todoNo}`;
 
@@ -156,10 +197,33 @@ export const callUpdateStarAPI = (todoNo) => {
         Accept: "*/*",
         // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
       },
+      body: changeStar,
     }).then((response) => response.json());
     if (result.status === 200) {
       console.log("PUT_STAR result : ", result);
       dispatch({ type: PUT_STAR, payload: result.data });
+    }
+  };
+};
+
+export const callUpdateFinishAPI = (todoNo, changeFinish) => {
+  // console.log("PUT_FINISH call");
+
+  const requestURL = `http://localhost:8090/todos/finish/${todoNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: changeFinish,
+    }).then((response) => response.json());
+    if (result.status === 200) {
+      console.log("PUT_FINISH result : ", result);
+      dispatch({ type: PUT_FINISH, payload: result.data });
     }
   };
 };

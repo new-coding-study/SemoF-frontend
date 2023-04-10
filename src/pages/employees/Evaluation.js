@@ -10,6 +10,8 @@ import {
   callEmpEvaluationAPI,
   callGetEmpContAPI,
   callGetEmpContsAPI,
+  callEmpContUpdateAPI,
+  callDeleteEmpContAPI,
 } from "../../apis/EmployeeAPICalls";
 
 function Evaluation() {
@@ -49,6 +51,7 @@ function Evaluation() {
 
   const [form, setForm] = useState({
     empNo: selectedEmployee?.empNo ?? "",
+    evalContNo: selectedEmployee?.evalContNo ?? "",
     categoryNo: "2",
     grade: "",
   });
@@ -57,7 +60,13 @@ function Evaluation() {
 
   const searchResult = employees;
 
-  const [DropDown, setDropDown] = useState(false);
+  const [DropDown, setDropDown] = useState(false); //드롭다운의 상태를 관리하는 state
+  const [selectedEmpNo, setSelectedEmpNo] = useState(""); // 드롭다운을 표시하려는 사원의 empNo를 저장
+  const [changeMod, setChangeMod] = useState(false); // 수정모드의 상태를 관리하는 state
+
+  console.log(
+    "[Evaluation] selectedEmployee : " + JSON.stringify(selectedEmployee)
+  );
 
   useEffect(() => {
     dispatch(
@@ -85,6 +94,25 @@ function Evaluation() {
     //eslint-disable-next-line
   }, [selectedEmployee]);
 
+  useEffect(() => {
+    dispatch(
+      callGetEmpContsAPI({
+        empNo: selectedEmployee?.empNo,
+      })
+    );
+    //eslint-disable-next-line
+  }, [selectedEmployee]);
+
+  useEffect(() => {
+    setDisplayedEmployees(employeeList);
+  }, [employeeList]);
+
+  useEffect(() => {
+    dispatch(callGetEmpContsAPI({})).then(() => {
+      setDisplayedEmployees(employeeList);
+    });
+    //eslint-disable-next-line
+  }, []);
   const openModalHandler = () => {
     setShowModal(true); // 모달창으로 처리
     setSelectedEmployee(null);
@@ -154,25 +182,56 @@ function Evaluation() {
     });
   };
 
-  // console.log(
-  //   "[Evaluation] selectedEmployee: " + JSON.stringify(selectedEmployee)
-  // );
-
+  // 평가 저장
   const onEvaluationSubmitHandler = () => {
-    dispatch(
-      callEmpEvaluationAPI({
-        form: {
+    if (changeMod) {
+      // 등급 수정
+      dispatch(
+        callEmpContUpdateAPI({
           empNo: selectedEmployee.empNo,
+          form: {
+            evalContNo: selectedEmployee.evalContNo,
+            categoryNo: 2,
+            grade: form.grade,
+          },
+        })
+      ).then(() => {
+        // 수정 후에 contributionList를 다시 가져옴
+        dispatch(callGetEmpContsAPI({})).then(() => {
+          setShowModal(false);
+          setSelectedEmployee(null);
+          setShowEvaluationForm(false);
+          setForm({
+            empNo: "",
+            categoryNo: "2",
+            grade: "",
+          });
+          setChangeMod(false); // 수정 모드 해제
+        });
+      });
+    } else {
+      // 등급 등록
+      dispatch(
+        callEmpEvaluationAPI({
+          form: {
+            empNo: selectedEmployee.empNo,
+            evalContNo: form.evalContNo,
+            categoryNo: 2,
+            grade: form.grade,
+          },
+        })
+      ).then(() => {
+        setShowModal(false);
+        setSelectedEmployee(null);
+        setShowEvaluationForm(false);
+        setForm({
+          empNo: "",
           categoryNo: "2",
-          grade: form.grade,
-        },
-      })
-    );
-    setForm({
-      ...form,
-      empNo: selectedEmployee.empNo,
-    });
-    window.location.reload(); //화면 초기화
+          grade: "",
+        });
+        dispatch(callGetEmpContsAPI({})); // 등급 등록 API 호출 후에 contributionList를 다시 가져옴
+      });
+    }
   };
 
   const onEvaluationMoveHandler = (e) => {
@@ -181,8 +240,36 @@ function Evaluation() {
     setShowEvaluationForm(false);
   };
 
-  const dropDownMenu = () => {
-    setDropDown(!DropDown);
+  //드롭다운 메뉴
+  const dropDownMenu = (empNo) => {
+    setSelectedEmpNo(parseInt(empNo));
+    setDropDown((prevState) => !prevState);
+  };
+
+  //수정 버튼
+  const onModifyHandler = (empNo) => {
+    // 해당 사원의 등급 정보를 가져옴
+    dispatch(callGetEmpContAPI({ empNo })).then(() => {
+      // 등급 수정을 위한 모달 띄우기
+      setShowModal(true);
+      setShowEvaluationForm(true);
+      setSelectedEmployee(contributionList.find((emp) => emp.empNo === empNo));
+      setChangeMod(true);
+    });
+  };
+
+  console.log(
+    "[Evaluation] contributionList : " + JSON.stringify(contributionList)
+  );
+
+  const onDeleteHandler = (empNo) => {
+    dispatch(callDeleteEmpContAPI({ empNo })).then(() => {
+      dispatch(callGetEmpContsAPI({})).then(() => {
+        // contributionList 업데이트
+        setDisplayedEmployees([]);
+        dispatch(callGetEmployeesAPI({ currentPage: 1 })); // 첫 페이지로 초기화
+      });
+    });
   };
 
   return (
@@ -192,11 +279,6 @@ function Evaluation() {
       </div>
       <div className={EvaluationCSS.buttonBox}>
         <button onClick={openModalHandler} className={EvaluationCSS.evalButton}>
-          {/* <img
-            src={"/images/evaluation.svg"}
-            alt="이미지확인!"
-            className={EvaluationCSS.logo}
-          /> */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="48"
@@ -234,7 +316,8 @@ function Evaluation() {
                     </span>
                     <div className={EvaluationCSS.vertical} />
                     <span>실적</span>
-                    <button onClick={dropDownMenu}>
+
+                    <button onClick={() => dropDownMenu(contribution.empNo)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         height="20"
@@ -244,11 +327,19 @@ function Evaluation() {
                         <path d="M479.858 896Q460 896 446 881.858q-14-14.141-14-34Q432 828 446.142 814q14.141-14 34-14Q500 800 514 814.142q14 14.141 14 34Q528 868 513.858 882q-14.141 14-34 14Zm0-272Q460 624 446 609.858q-14-14.141-14-34Q432 556 446.142 542q14.141-14 34-14Q500 528 514 542.142q14 14.141 14 34Q528 596 513.858 610q-14.141 14-34 14Zm0-272Q460 352 446 337.858q-14-14.141-14-34Q432 284 446.142 270q14.141-14 34-14Q500 256 514 270.142q14 14.141 14 34Q528 324 513.858 338q-14.141 14-34 14Z" />
                       </svg>
                     </button>
-                    {DropDown && (
+                    {DropDown && selectedEmpNo === contribution.empNo && (
                       <div className={EvaluationCSS.dropdownMenu}>
                         <ul>
-                          <li>수정</li>
-                          <li>삭제</li>
+                          <li
+                            onClick={() => onModifyHandler(contribution.empNo)}
+                          >
+                            수정
+                          </li>
+                          <li
+                            onClick={() => onDeleteHandler(contribution.empNo)}
+                          >
+                            삭제
+                          </li>
                         </ul>
                       </div>
                     )}

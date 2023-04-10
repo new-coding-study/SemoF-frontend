@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import EmployeeCSS from "./Employees.module.css";
 import Calendar from "../../components/employees/Calendar";
+import Birthday from "../../components/employees/Birthday";
+import Attedance from "../../components/employees/Attendance";
+import Vacation from "../../components/employees/Vacation";
 
 function Employees() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
@@ -16,7 +19,7 @@ function Employees() {
         <div className={EmployeeCSS.menu}>
           <ul>
             <li>
-              <Link to="/semof/employees/register">
+              <Link to="/semof/employees/management">
                 <span>사원관리</span>
               </Link>
             </li>
@@ -31,9 +34,9 @@ function Employees() {
               </Link>
             </li>
             <li>
-              <a href="#">
+              {/* <a href="#">
                 <span>조직도</span>
-              </a>
+              </a> */}
             </li>
           </ul>
         </div>
@@ -53,7 +56,7 @@ function Employees() {
                 <p>휴가자</p>
               </div>
               <div className={EmployeeCSS.textBox}>
-                <span>5</span>
+                <Vacation />
                 <span className={EmployeeCSS.count}>명</span>
               </div>
             </div>
@@ -67,7 +70,7 @@ function Employees() {
                 <p>{today} 출근</p>
               </div>
               <div className={EmployeeCSS.textBox}>
-                <span>21</span>
+                <Attedance />
                 <span className={EmployeeCSS.count}>명</span>
               </div>
             </div>
@@ -81,7 +84,7 @@ function Employees() {
                 <p>{month}월 생일자</p>
               </div>
               <div className={EmployeeCSS.textBox}>
-                <span>1</span>
+                <Birthday />
                 <span className={EmployeeCSS.count}>명</span>
               </div>
             </div>

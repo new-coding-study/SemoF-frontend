@@ -1,0 +1,11 @@
+.title{
+    height: 60px;
+    border-radius: 8px;
+    background-color: #E52E2E;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 40px;
+    line-height: 57px;
+    border: none;
+}

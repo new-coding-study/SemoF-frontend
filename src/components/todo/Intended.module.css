@@ -10,8 +10,6 @@
   width: 6px;
   height: 60px;
   border-radius: 2px;
-  /* border: 1px solid blue; */
-  /* background-color: blue; */
 }
 
 .contentWrapper {
@@ -30,10 +28,15 @@
   margin: 8px;
 }
 
+.todo input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+}
+
 .todo label {
-  width: 200px;
+  width: 360px;
   height: 20px;
   margin: 8px 4px;
+  cursor: pointer;
 }
 
 .todo img {
