@@ -10,9 +10,9 @@ export const callAllRepliesAPI = ({currentPage, boardNo}) =>{
     let requestURL;
 
     if(currentPage !== undefined || currentPage !==null){
-        requestURL=`http://localhost:8090/boards/board-posting-lists/${boardNo}/replies`
+        requestURL=`http://localhost:8090/replies/all-reply-lists/${boardNo}?offset=${currentPage}`
     } else {
-        requestURL = `http://localhost:8090/boards/board-posting-lists/${boardNo}`
+        requestURL = `http://localhost:8090/replies/all-reply-lists/${boardNo}`
     }
 
     return async(dispatch, getState) =>{
@@ -32,20 +32,26 @@ export const callAllRepliesAPI = ({currentPage, boardNo}) =>{
     }
 }
 
-export const callRegistReply = ({form, boardNo, empNo}) => {
-    const requestURL = `http://localhost:8090/boards/board-posting-lists/${boardNo}/replies`
-
+export const callRegistReply = ({boardNo, aform, empNo}) => {
+    const requestURL = `http://localhost:8090/replies/all-reply-lists`
+console.log(aform);
     return async (dispatch, getState) =>{
         const result = await fetch(requestURL,{
             method:"POST",
             headers:{
+                "Content-Type" : "application/json",
                 "Accept":"*/*",
-                    "Authorization":"Bearer" + window.localStorage.getItem("accessToken")
+                "Authorization":"Bearer" + window.localStorage.getItem("accessToken")
             },
-            body:form
+            body:JSON.stringify({
+                boardNo : boardNo,
+                empNo : empNo,
+                replyContent : aform
+            })
         })
         .then(response => response.json())
 
+        console.log(result)
         dispatch({type:POST_REPLY, payload:result});
     }
 }
@@ -69,7 +75,7 @@ export const callUpdateReply = ({form, boardNo, empNo, replyCode}) =>{
 }
 
 export const deleteReplyAdmin = ({boardNo, replyCode}) =>{
-    const requestURL = `http://localhost:8090/boards/board-posting-lists/${boardNo}/replies-delete-admin/${replyCode}`
+    const requestURL = `http://localhost:8090/replies/replies-delete-admin/${boardNo}/${replyCode}`
 
     return async (dispatch,getState) =>{
         const result = await fetch(requestURL,{
@@ -83,8 +89,8 @@ export const deleteReplyAdmin = ({boardNo, replyCode}) =>{
         dispatch({type:DELETE_REPLYFORADMIN, payload:result})
     };
 }
-export const deleteReplyEMP = ({boardNo, replyCode, empNo}) =>{
-    const requestURL = `http://localhost:8090/boards/board-posting-lists/${boardNo}/replies-delete-emp/${replyCode}`
+export const deleteReplyEmp = ({replyCode, empNo}) =>{
+    const requestURL = `http://localhost:8090/replies/replies-delete-emp/${replyCode}/${empNo}`
 
     return async (dispatch,getState) =>{
         const result = await fetch(requestURL,{

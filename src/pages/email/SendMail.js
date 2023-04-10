@@ -6,7 +6,7 @@ import EmailCSS from "./Email.module.css";
 import SearchBox from "../../components/email/SearchBox";
 import SideNavbar from "../../components/email/SideNavbar";
 
-function SendMail() {
+function SendMail({ searchKeyword }) {
   // const { mailNo } = useParams();
   const [selectedMailNo, setSelectedMailNo] = useState(null);
 
@@ -23,6 +23,7 @@ function SendMail() {
             // selectedMailNo={mailNo}
             selectedMailNo={selectedMailNo}
             setSelectedMailNo={setSelectedMailNo}
+            searchKeyword={searchKeyword}
           />
         </div>
       </div>

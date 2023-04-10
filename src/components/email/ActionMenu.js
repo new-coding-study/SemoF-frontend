@@ -5,12 +5,12 @@ function ActionMenu(props) {
   return (
     <>
       <div className={ActionMenuCSS.actionMenu}>
-        <input
+        {/* <input
           type="checkbox"
           // checked={isChecked}
           // onChange={handleChange}
           className={ActionMenuCSS.checkBox}
-        />
+        /> */}
         <button className={ActionMenuCSS.spinner}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

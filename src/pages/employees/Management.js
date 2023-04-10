@@ -104,6 +104,7 @@ function Management() {
       );
     }
   };
+
   const onKeyPressHandler = (e) => {
     if (e.key === "Enter") {
       onSearchButtonClick();
@@ -117,13 +118,15 @@ function Management() {
       empNo: empNo,
     }));
 
-    console.log("[Management] empNo at TableTr : " + empNo);
+    // console.log("[Management] empNo at TableTr : " + empNo);
   };
 
-  console.log("[Management] form : " + JSON.stringify(form));
+  // console.log("[Management] last form : " + JSON.stringify(form));
+
+  // console.log("[Management] selectedEmpNo : " + JSON.stringify(selectedEmpNo));
 
   const onClickHandler = (empNo) => {
-    dispatch(callRetireEmpAPI({ empNo })).then(() => {
+    dispatch(callRetireEmpAPI(form.empNo)).then(() => {
       // 퇴사 처리 후, 해당 사원 정보를 다시 불러와서 삭제
       Swal.fire({
         icon: "success",
@@ -137,10 +140,27 @@ function Management() {
   };
 
   const onModifyClickHandler = () => {
-    console.log("[Management] form : " + JSON.stringify(form));
-    // const empNo = form.empNo;
-    // console.log("[Management] onModifyClickHandler empNo : " + empNo);
+    // console.log("[Management] form : " + JSON.stringify(form));
     navigate("/semof/employees/modify", { state: { empNo: form.empNo } });
+    setShowModal(false);
+  };
+
+  // 모달 닫는 이벤트
+  const onModalClose = (e) => {
+    if (e.target.className === ManagementCSS.modalOverlay) {
+      setShowModal(false);
+    }
+  };
+
+  //등록 페이지 이동
+  const onMovePage = () => {
+    navigate("/semof/employees/register");
+    setShowModal(false);
+  };
+
+  //상세보기 페이지 이동
+  const onMoveHandler = () => {
+    navigate("/semof/employees/detail", { state: { empNo: form.empNo } });
     setShowModal(false);
   };
 
@@ -174,7 +194,11 @@ function Management() {
       <div className={ManagementCSS.header}>
         <div className={ManagementCSS.title}> 사원관리 </div>
       </div>
+
       <div className={ManagementCSS.searchWrapper}>
+        <button className={ManagementCSS.joinButton} onClick={onMovePage}>
+          사원등록
+        </button>
         <div>
           <select
             className={ManagementCSS.select}
@@ -195,7 +219,6 @@ function Management() {
           onChange={onSearchChangeHandler}
           onKeyDown={onKeyPressHandler}
         />
-
         <button
           className={ManagementCSS.searchButton}
           onClick={onSearchButtonClick}
@@ -220,24 +243,7 @@ function Management() {
               <th>직급</th>
             </tr>
           </thead>
-          <tbody>
-            {/* {Array.isArray(employeeList) &&
-              employeeList.map((employee) => (
-                <tr
-                  key={employee.noticeNo}
-                  className={ManagementCSS.tableBody}
-                  onClick={() => onClickTableTr(employee.empNo)}
-                >
-                  <td>{employee.empName}</td>
-                  <td className={ManagementCSS.tableTitle}>
-                    {employee.branchName}
-                  </td>
-                  <td> {employee.deptName} </td>
-                  <td> {employee.jobName} </td>
-                </tr>
-              ))} */}
-            {renderEmployees()}
-          </tbody>
+          <tbody>{renderEmployees()}</tbody>
         </table>
         <div
           className={ManagementCSS.pageBox}
@@ -276,24 +282,21 @@ function Management() {
           )}
         </div>
         {showModal && (
-          <div className={ManagementCSS.modalContainer}>
-            <ul>
-              <li>
-                {/* <Link
-                  to={{
-                    pathname: "/semof/employees/modify",
-                    state: { empNo: form.empNo },
-                  }}
-                  onClick={onModifyClickHandler}
-                > */}
-                {/* <Link to="/semof/employees/modify"> */}
-                <span onClick={onModifyClickHandler}>정보수정</span>
-                {/* </Link> */}
-              </li>
-              <li>
-                <span onClick={onClickHandler}>퇴사</span>
-              </li>
-            </ul>
+          <div className={ManagementCSS.modalOverlay} onClick={onModalClose}>
+            <div className={ManagementCSS.modalContainer}>
+              <ul>
+                <li>
+                  <span onClick={onMoveHandler}>상세보기</span>
+                </li>
+                <li>
+                  <span onClick={onModifyClickHandler}>정보수정</span>
+                </li>
+                <li>
+                  {/* {console.log(JSON.stringify(form.empNo))} */}
+                  <span onClick={onClickHandler}>퇴사처리</span>
+                </li>
+              </ul>
+            </div>
           </div>
         )}
       </div>

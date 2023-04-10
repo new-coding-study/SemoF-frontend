@@ -12,7 +12,10 @@ function Notice (){
 
 const navigate = useNavigate();
 const dispatch = useDispatch();
-const notices = useSelector(state => state.boardReducer.notices);   
+const notices = useSelector(state => state.boardReducer.notices);  
+const noticeUpdate = useSelector(state => state.boardReducer.noticeUpdate);   
+const noticeRegist = useSelector(state => state.boardReducer.noticeRegist);   
+
 const noticeList = notices.data;
 console.log(noticeList);
 const [currentPage, setCurrentPage] = useState(1);
@@ -36,6 +39,26 @@ useEffect (() =>{
     }));
 }, [currentPage]
 )
+
+useEffect(()=>{
+    if(noticeUpdate.status === 200){
+        dispatch(callBoardNoticeListAPI({
+            currentPage : currentPage
+        }));
+    }else if(noticeUpdate.status === 400){
+        alert("수정실패")
+    }
+}, [noticeUpdate])
+
+useEffect(()=>{
+    if(noticeRegist.status === 201){
+        dispatch(callBoardNoticeListAPI({
+            currentPage : currentPage
+        }));
+    }else if(noticeRegist.status === 400){
+        alert("등록실패")
+    }
+}, [noticeRegist])
 
 const onClickNotice = (boardNo) => {
     setSelectNo(boardNo);

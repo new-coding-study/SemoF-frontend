@@ -10,8 +10,7 @@ const initialState = {
     getReplies:[],
     postReply:[],
     putReply:[],
-    deleteReplyAdmin:[],
-    deleteReplyEmp:[]
+    deleteReply:[]
 }
 
 const actions = createActions({
@@ -26,7 +25,7 @@ const replyReducer = handleActions({
     [GET_REPLY]:(state, {payload}) => {return {...state, getReplies:payload};},
     [POST_REPLY]:(state, {payload}) => {return {...state, postReply:payload};},
     [PUT_REPLY]:(state, {payload}) => {return {...state, putReply:payload};},
-    [DELETE_REPLYFORADMIN]:(state, {payload}) => {return {...state, deleteReplyAdmin:payload};},
-    [DELETE_REPLYFOREMP]:(state, {payload}) => {return {...state, deleteReplyEmp:payload};},
+    [DELETE_REPLYFORADMIN]:(state, {payload}) => {return {...state, deleteReply:payload};},
+    [DELETE_REPLYFOREMP]:(state, {payload}) => {return {...state, deleteReply:payload};},
 
 }, initialState); export default replyReducer;

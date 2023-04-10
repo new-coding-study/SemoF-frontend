@@ -28,6 +28,7 @@ function RegistLine(){
     // 지점코드저장 이거를 ,, formData로 어디에 넘겨줌 근데 db 수정해야할듯
     const [selectBranch, setSelectBranch] = useState('');
     const [selectDept, setSelectDept] = useState('');
+    const [selectBName, setSelectBName] = useState('');
 
     // 순서 입력 할 select를 띄울
     const [isShow, setIsShow] = useState(false);
@@ -54,6 +55,9 @@ function RegistLine(){
       console.log(e.target.value[0]);
       
       setSelectBranch(e.target.value);
+      const selectedOption = e.target.options[e.target.selectedIndex];
+      setSelectBName= selectedOption.getAttribute('data-name');
+      console.log('branchName', selectBName);
     }
     const selectDeptHandler=(e)=>{
       setSelectDept(e.target.value);
@@ -80,11 +84,11 @@ function RegistLine(){
   useEffect(() => {
     setLine(prevState => ({
       ...prevState,
-      lineName: selectBranch + " " + selectDept,
+      lineName: selectBName + " " + selectDept,
       branchCode: selectBranch,
       approvOrderDTOList: selects.map(select => ({ empNo: parseInt(select.value) }))
     }));
-  }, [selectBranch, selectDept, selects]);
+  }, [selectBName, selectBranch, selectDept, selects]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -96,7 +100,7 @@ function RegistLine(){
       form: line
   }));   
     
-    
+    nav(`/semof/lines`);
   };
     return(
         <>
@@ -110,7 +114,9 @@ function RegistLine(){
             <select name="branch" onChange={selectBranchHandler} defaultValue="default">
             <option value="default" disabled>지점선택</option>
             {branch.map((b, idx) => (
-              <option key={idx} value={b.branchCode} name="branchCode">{b.branchName}</option>
+              <option key={idx} value={b.branchCode} data-name={b.branchName}>
+              {b.branchName}
+            </option>
             ))}
             </select>
             <select name="dept" 

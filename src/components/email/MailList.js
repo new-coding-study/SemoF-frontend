@@ -1,31 +1,67 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MailListCSS from "./MailList.module.css";
 import MailItem from "./MailItem";
 import Header from "./Header";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import SendEmailDetail from "./SendEmailDetail";
 import ReceiveEmailDetail from "./ReceiveEmailDetail";
+import DeletedMailDetail from "./DeletedMailDetail";
+import { callSearchEmailsAPI } from "../../apis/EmailAPICalls";
 
 function MailList({
   category,
-  emails,
   setSelectedMailNo,
   currentPage,
   setCurrentPage,
   selectedMailNo,
+  status,
+  searchKeyword,
 }) {
   const emailState = useSelector((state) => state.emailReducer);
+  const dispatch = useDispatch();
 
-  const mailList =
-    category === "receive"
-      ? emailState.receivedEmails?.data ?? []
-      : emailState.sentEmails?.data ?? [];
+  const [mails, setMails] = useState([]);
+  let mailList = [];
 
-  console.log("[MailList] emailState : " + JSON.stringify(emailState));
+  useEffect(() => {
+    // status와 category에 따라 mailList를 설정
+    if (status === "Y") {
+      // Show deleted mails
+      const allMails = [
+        ...(emailState.receivedEmails?.data ?? []),
+        ...(emailState.sentEmails?.data ?? []),
+      ];
+      setMails(allMails.filter((email) => email.status === "Y"));
+    } else {
+      const filteredMails =
+        category === "receive"
+          ? emailState.receivedEmails?.data ?? []
+          : emailState.sentEmails?.data ?? [];
+
+      // 검색어에 따라 메일 목록을 필터링
+      if (searchKeyword) {
+        setMails(
+          filteredMails.filter((email) =>
+            email.subject.toLowerCase().includes(searchKeyword.toLowerCase())
+          )
+        );
+      } else {
+        setMails(filteredMails);
+      }
+    }
+  }, [emailState, searchKeyword, status, category]); // emailState, searchKeyword, status, category가 변경될 때마다 실행
+
+  mailList = mails; // 상태 변경에 따라 렌더링되는 mails를 사용
+
+  // console.log("[MailList] emailState : " + JSON.stringify(emailState));
 
   const pageInfo = emailState.pageInfo;
 
-  // console.log("[MailList] pageInfo : " + JSON.stringify(pageInfo));
+  const totalCount = pageInfo?.totalCount ?? 0;
+  const pageSize = pageInfo?.pageSize ?? 1;
+  const endPage = pageInfo?.endPage;
+  const itemsPerPage = pageSize;
+  const totalItems = totalCount;
 
   const pageNumber = [];
 
@@ -35,37 +71,48 @@ function MailList({
     }
   }
 
+  const renderMails = () => {
+    if (mailList && mailList.length > 0) {
+      return mailList.map((email) => {
+        const mailId = category === "receive" ? email.receiveNo : email.mailNo;
+        return (
+          <MailItem
+            key={mailId}
+            email={email}
+            category={category}
+            isSelected={mailId === selectedMailNo}
+            mailNo={mailId}
+            onSelectMailNo={setSelectedMailNo}
+            searchKeyword={searchKeyword}
+          />
+        );
+      });
+    } else {
+      return <li>데이터가 없습니다.</li>;
+    }
+  };
+
   return (
     <>
       <Header
         currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        endPage={endPage}
+        totalItems={totalItems}
         onPageChange={(newPage) => setCurrentPage(newPage)}
+        searchKeyword={searchKeyword}
       />
       <div className={MailListCSS.mailList}>
         {selectedMailNo ? (
-          category === "receive" ? (
+          status === "Y" ? (
+            <DeletedMailDetail mailNo={selectedMailNo} />
+          ) : category === "receive" ? (
             <ReceiveEmailDetail receiveNo={selectedMailNo} />
           ) : (
             <SendEmailDetail mailNo={selectedMailNo} />
           )
         ) : (
-          <ul>
-            {mailList.map((email) => {
-              const mailId =
-                category === "receive" ? email.receiveNo : email.mailNo;
-              return (
-                <MailItem
-                  key={mailId}
-                  email={email}
-                  category={category}
-                  isSelected={mailId === selectedMailNo}
-                  mailNo={mailId}
-                  // setSelectedMailNo={setSelectedMailNo}
-                  onSelectMailNo={setSelectedMailNo}
-                />
-              );
-            })}
-          </ul>
+          <ul>{renderMails()}</ul>
         )}
       </div>
     </>

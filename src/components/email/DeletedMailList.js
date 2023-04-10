@@ -1,32 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { callTakeListAPI } from "../../apis/EmailAPICalls";
+import { callGetDelteListAPI } from "../../apis/EmailAPICalls";
 import MailList from "./MailList";
 
-function ReceiveMailList({ selectedMailNo, setSelectedMailNo }) {
+function DeletedMailList({ onSelectMail }) {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log("[ReceiveMailList] selectedMailNo : " + selectedMailNo);
-
   useEffect(() => {
+    console.log("[DeleteMailList] useEffect called");
     dispatch(
-      callTakeListAPI({
+      callGetDelteListAPI({
         currentPage: currentPage,
-        category: "receive",
       })
     );
   }, [currentPage, dispatch]);
 
   return (
     <MailList
-      category="receive"
-      selectedMailNo={selectedMailNo}
+      category=""
+      status="Y"
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
-      onSelectMailNo={setSelectedMailNo}
+      onSelectMail={onSelectMail}
     />
   );
 }
 
-export default ReceiveMailList;
+export default DeletedMailList;

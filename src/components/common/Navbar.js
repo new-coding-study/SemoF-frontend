@@ -1,7 +1,19 @@
 import NavbarCSS from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
+import {decodeJwt} from '../../utils/tokenUtils';
+
+
 
 function Navbar() {
+  const isLogin = window.localStorage.getItem('accessToken');
+    let decoded = null;
+
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        decoded = temp.auth[0];
+       
+    }
+
   return (
     <>
       <div className={NavbarCSS.navWrapper}>
@@ -39,7 +51,8 @@ function Navbar() {
             </li>
           </NavLink>
 
-          <NavLink to="/semof/report">
+          {decoded === "ROLE_ADMIN"?
+          <NavLink to="/semof/report-admin">
             <li>
               <img
                 src={"/images/report.png"}
@@ -48,7 +61,18 @@ function Navbar() {
               ></img>
               <div> 보고서 </div>
             </li>
+          </NavLink> : 
+          <NavLink to="/semof/report-emp">
+            <li>
+              <img
+                src={"/images/report.png"}
+                alt="보고서이미지"
+                className={NavbarCSS.logo}
+              />
+              <div>보고서</div>
+            </li>
           </NavLink>
+          }
 
           <NavLink to="/semof/approval">
             <li>

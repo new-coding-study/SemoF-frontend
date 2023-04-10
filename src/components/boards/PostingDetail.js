@@ -45,9 +45,7 @@ function PostingDetail(){
               }))
               Swal.fire('공지사항이 삭제되었습니다.','게시판으로 돌아갑니다','success')
               .then(
-                  navigate(`/semof/board`, {replace: true}),
-                //   window.location.reload()
-               
+                  navigate(`/semof/board`, {replace: true})              
               )
           }
         })

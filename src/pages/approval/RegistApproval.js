@@ -232,8 +232,10 @@ function RegistApproval() {
                    
                    <select 
                    name="line" 
-                   onChange={ selectLine }>
-                <option value="none" disabled>결재라인선택</option>
+                   onChange={ selectLine }
+                   defaultValue="default"
+                   >
+                <option value="default" disabled>결재라인선택</option>
                 {lineInfo?.map(l => (
                 <option key={l.lineNo} value={l.lineNo} name="line">{l.lineName}</option>
                 ))}

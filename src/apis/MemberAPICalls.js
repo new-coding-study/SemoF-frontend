@@ -114,30 +114,28 @@ export const callcheckIdAPI = (loginId) => {
   };
 };
 
-// export const callCheckRegAPI = ( empReg ) => {
-//   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/find-reg`;
+export const callCheckRegAPI = (empReg) => {
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/find-reg`;
 
-//   return async (dispatch, getState) => {
-//     const result = await fetch(requestURL, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         Accept: "*/*",
-//       },
-//       body: JSON.stringify(
-//         empReg
-//       ),
-//     }).then((response) => response.json());
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+      },
+      body: JSON.stringify(empReg),
+    }).then((response) => response.json());
 
-//     console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
+    console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
 
-//     if (result.status === 201) {
-//       dispatch({ type: POST_REG, payload: result });
-//     }
-//   };
-// };
+    if (result.status === 201) {
+      dispatch({ type: POST_REG, payload: result });
+    }
+  };
+};
 
-// export const callcheckIdAPI = (loginId) => {
+// export const callcheckIdAPI = ( loginId ) => {
 //   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/compare-id`;
 
 //   return async (dispatch, getState) => {
@@ -164,26 +162,28 @@ export const callcheckIdAPI = (loginId) => {
 //   };
 // };
 
-export const callCheckRegAPI = (empReg) => {
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/find-reg`;
+// export const callCheckRegAPI = ( empReg ) => {
+//   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/auth/find-reg`;
 
-  return async (dispatch, getState) => {
-    const result = await fetch(requestURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      body: JSON.stringify(empReg),
-    }).then((response) => response.json());
+//   return async (dispatch, getState) => {
+//     const result = await fetch(requestURL, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "*/*",
+//       },
+//       body: JSON.stringify(
+//         empReg
+//       ),
+//     }).then((response) => response.json());
 
-    console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
+//     console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
 
-    if (result.status === 201) {
-      dispatch({ type: POST_REG, payload: result });
-    }
-  };
-};
+//     if (result.status === 201) {
+//       dispatch({ type: POST_REG, payload: result });
+//     }
+//   };
+// };
 
 // 성식 회원코드
 

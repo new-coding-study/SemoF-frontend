@@ -4,6 +4,7 @@ import { useNavigate, useLocation, useParams } from "react-router-dom";
 import {
   callUpdateEmpAPI,
   callGetEmployeeDetail,
+  callGetEmpPhoto,
 } from "../../apis/EmployeeAPICalls";
 import RegisterCSS from "./Register.module.css";
 
@@ -15,13 +16,13 @@ function Modify(props) {
 
   console.log("[Modify] empNo : " + empNo);
 
-  // 상세 정보 조회 API 호출
-  useEffect(() => {
-    dispatch(callGetEmployeeDetail(empNo));
-  }, [dispatch, empNo]);
-
   // Store에서 상세 정보 조회 결과를 가져옴
-  const { employeeDetail } = useSelector((state) => state.empReducer);
+  const employeeDetail = useSelector((state) => state.empReducer);
+  const empPhoto = useSelector((state) => state.empReducer.empPhoto);
+
+  // console.log("[Modify] employeeDetail : " + JSON.stringify(employeeDetail));
+
+  // console.log("[Modify] empPhoto : " + JSON.stringify(empPhoto));
 
   const [today, setToday] = useState(
     new Date().toLocaleDateString("ko-KR", {
@@ -35,19 +36,9 @@ function Modify(props) {
   const [employeePhoto, setEmployeePhoto] = useState(null);
   const [imageUrl, setImageUrl] = useState();
   const imageInput = useRef();
-  const [form, setForm] = useState({});
-  //   const [form, setForm] = useState({
-  //     empName: "",
-  //     empReg: "",
-  //     email: "",
-  //     phone: "",
-  //     address: "",
-  //     salary: "",
-  //     gender: "",
-  //     jobCode: "",
-  //     deptCode: "",
-  //     branchCode: "",
-  //   });
+  const [form, setForm] = useState({
+    phone: employeeDetail?.phone || "",
+  });
 
   useEffect(() => {
     if (empNo) {
@@ -55,33 +46,64 @@ function Modify(props) {
     }
   }, [dispatch, empNo]);
 
-  // 조회한 상세 정보를 Form에 적용
-  //   useEffect(() => {
-  //     if (employeeDetail) {
-  //       setForm({
-  //         empName: employeeDetail.empName,
-  //         empReg: employeeDetail.empReg,
-  //         email: employeeDetail.email,
-  //         phone: employeeDetail.phone,
-  //         address: employeeDetail.address,
-  //         salary: employeeDetail.salary,
-  //         gender: employeeDetail.gender,
-  //         jobCode: employeeDetail.jobCode,
-  //         deptCode: employeeDetail.deptCode,
-  //         branchCode: employeeDetail.branchCode,
-  //       });
+  //재직날짜
+  const enrollDate = employeeDetail?.enrollDate || "";
+  const dateOnly = enrollDate.split(" ")[0];
+
+  //재직 주민등록번호 포맷
+  const regFormat = () => {
+    if (employeeDetail?.empReg) {
+      const maskedRegNo = employeeDetail.empReg.slice(0, 6) + "-*******";
+      return maskedRegNo;
+    }
+  };
+
+  //재직여부
+  const isWorking = () => {
+    if (employeeDetail?.workStatus === "Y") {
+      return <span>재직</span>;
+    } else {
+      return <span>퇴직</span>;
+    }
+  };
+
+  // useEffect(() => {
+  //   console.log("Updated Image URL:", imageUrl);
+  // }, [imageUrl]);
+
+  // useEffect(() => {
+  //   if (empPhoto) {
+  //     setImageUrl(empPhoto);
+  //     console.log("Employee Photo Data:", empPhoto);
+  //   }
+  // }, [empPhoto]);
 
   // 상세 정보에 등록된 이미지가 있으면 미리보기 설정
-  //       if (employeeDetail.employeePhoto) {
-  //         setImageUrl(employeeDetail.employeePhoto);
-  //       }
-  //     }
-  //   }, [employeeDetail]);
+  // useEffect(() => {
+  //   if (employeeDetail.employeePhoto) {
+  //     dispatch(callGetEmpPhoto(empNo));
+  //     setImageUrl(employeeDetail.employeePhoto);
+  //     console.log("Image URL after setting state:", imageUrl);
+  //   }
+  // }, [dispatch, empNo, employeeDetail]);
 
+  // 마운트 시에, detail과 empPhoto 세팅
   useEffect(() => {
-    nameRef.current.focus();
+    console.log("[Modify] empNo :", empNo);
+    dispatch(callGetEmployeeDetail(empNo));
+    dispatch(callGetEmpPhoto(empNo));
+  }, [empNo, dispatch]);
 
-    // 이미지 업로드시 미리보기 세팅
+  // 사진이 바뀌면 경로 설정
+  useEffect(() => {
+    if (empPhoto) {
+      setImageUrl(empPhoto);
+      console.log("Employee Photo Data:", empPhoto);
+    }
+  }, [empPhoto]);
+
+  // 새 파일을 선택 했을 때 세팅
+  useEffect(() => {
     if (employeePhoto) {
       const fileReader = new FileReader();
       fileReader.onload = (e) => {
@@ -100,31 +122,38 @@ function Modify(props) {
     setEmployeePhoto(employeePhoto);
   };
 
-  //이미지 업로드 이벤트
-  const onClickImageUpload = () => {
-    imageInput.current.click();
-  };
-
   const onChangeHandler = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
+    const { name, value } = e.target;
 
-  //탭 이동을 위한 Ref
-  const nameRef = useRef(null);
-  const regRef = useRef(null);
-  const phoneRef = useRef(null);
-  const addressRef = useRef(null);
-  const salaryRef = useRef(null);
-  const emailRef = useRef(null);
+    if (name === "phone") {
+      // Remove all non-digit characters from the input value
+      const formattedValue = value.replace(/\D/g, "");
 
-  //키다운 이벤트, tab키 누를시 input 이동
-  const handleKeyDown = (e, ref) => {
-    if (e.key === "Tab") {
-      e.preventDefault();
-      ref.current.focus();
+      // If the formattedValue is an empty string or has less than 10 digits, don't format it
+      if (formattedValue === "" || formattedValue.length < 11) {
+        setForm({
+          ...form,
+          phone: value,
+        });
+      } else {
+        // Format the phone number as "010-1111-1111"
+        const formattedPhoneNumber =
+          formattedValue.substring(0, 3) +
+          "-" +
+          formattedValue.substring(3, 7) +
+          "-" +
+          formattedValue.substring(7);
+
+        setForm({
+          ...form,
+          phone: formattedPhoneNumber,
+        });
+      }
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      });
     }
   };
 
@@ -135,16 +164,16 @@ function Modify(props) {
     const formData = new FormData();
 
     // form 객체의 각 프로퍼티를 FormData에 추가
-    formData.append("empName", form.empName);
     formData.append("email", form.email);
-    formData.append("empReg", form.empReg);
+    console.log("[Register] formData email : " + formData.get("email"));
     formData.append("phone", form.phone);
+    console.log("[Register] formData phone : " + formData.get("phone"));
     formData.append("address", form.address);
+    console.log("[Register] formData address : " + formData.get("address"));
     formData.append("salary", form.salary);
-    formData.append("gender", form.gender);
-    formData.append("jobCode", form.jobCode);
-    formData.append("deptCode", form.deptCode);
-    formData.append("branchCode", form.branchCode);
+    console.log("[Register] formData salary : " + formData.get("salary"));
+    formData.append("empNo", empNo);
+    console.log("[Register] formData empNo : " + formData.get("empNo"));
 
     if (employeePhoto) {
       formData.append("employeePhoto", employeePhoto);
@@ -156,6 +185,7 @@ function Modify(props) {
       })
     );
     window.location.reload(); //화면 초기화
+    navigate(-1);
   };
 
   // 돌아가기 클릭시 메인 페이지로 이동
@@ -188,21 +218,15 @@ function Modify(props) {
                 ref={imageInput}
               />
             </label>
-            {imageUrl && (
-              <>
-                <img
-                  className={RegisterCSS.photoPreview}
-                  src={imageUrl}
-                  alt="preview"
-                />
-
-                {/* <button
-                  className={RegisterCSS.fileButton}
-                  onClick={onClickImageUpload}
-                >
-                  사진등록
-                </button> */}
-              </>
+            {imageUrl ? (
+              <img
+                key={imageUrl}
+                className={RegisterCSS.photoPreview}
+                src={imageUrl}
+                alt="preview"
+              />
+            ) : (
+              <p>사진이 존재하지 않습니다.</p>
             )}
           </div>
         </div>
@@ -211,71 +235,21 @@ function Modify(props) {
             <tbody className={RegisterCSS.tableBody}>
               <tr>
                 <td className={RegisterCSS.tableCell}>성명</td>
-                <td>
-                  <input
-                    className={RegisterCSS.input}
-                    type="text"
-                    name="empName"
-                    value={form.empName}
-                    ref={nameRef}
-                    onKeyDown={(e) => handleKeyDown(e, regRef)}
-                    onChange={onChangeHandler}
-                  />
-                </td>
+                <td>{employeeDetail?.empName || ""}</td>
                 <td className={RegisterCSS.tableCell}>주민등록번호</td>
-                <td>
-                  <input
-                    type="text"
-                    className={RegisterCSS.input}
-                    name="empReg"
-                    value={form.empReg}
-                    ref={regRef}
-                    maxLength={14}
-                    onKeyDown={(e) => handleKeyDown(e, phoneRef)}
-                  />
-                </td>
+                <td>{regFormat()}</td>
               </tr>
               <tr>
                 <td className={RegisterCSS.tableCell}>입사년월일</td>
-                <td className={RegisterCSS.indent}> {today}</td>
+                <td className={RegisterCSS.indent}>{dateOnly}</td>
                 <td className={RegisterCSS.tableCell}>재직여부</td>
-                <td>
-                  <select name="workStatus" className={RegisterCSS.select}>
-                    <option value="">재직</option>
-                    <option value="N">퇴사</option>
-                  </select>
-                </td>
+                <td>{isWorking()}</td>
               </tr>
               <tr>
                 <td className={RegisterCSS.tableCell}>성별</td>
-                <td>
-                  <select
-                    name="gender"
-                    onChange={onChangeHandler}
-                    className={RegisterCSS.select}
-                  >
-                    <option value="">성별 선택</option>
-                    <option value="M">남성</option>
-                    <option value="F">여성</option>
-                  </select>
-                </td>
+                <td>{employeeDetail?.gender || ""}</td>
                 <td className={RegisterCSS.tableCell}>부서</td>
-                <td>
-                  <select
-                    name="deptCode"
-                    className={RegisterCSS.select}
-                    onChange={onChangeHandler}
-                  >
-                    <option value="">부서선택</option>
-                    <option value="NO">없음</option>
-                    <option value="PL">기획</option>
-                    <option value="HR">인사관리</option>
-                    <option value="AC">회계</option>
-                    <option value="SL">영업</option>
-                    <option value="MT">마케팅</option>
-                    <option value="BS">경영지원</option>
-                  </select>
-                </td>
+                <td>{employeeDetail?.deptName || ""}</td>
               </tr>
               <tr>
                 <td className={RegisterCSS.tableCell}>휴대폰번호</td>
@@ -285,29 +259,13 @@ function Modify(props) {
                     className={RegisterCSS.input}
                     name="phone"
                     value={form.phone}
-                    placeholder="  ' - ' 없이 입력하세요"
-                    ref={phoneRef}
+                    placeholder={employeeDetail?.phone || ""}
                     maxLength={11}
                     onChange={onChangeHandler}
-                    onKeyDown={(e) => handleKeyDown(e, addressRef)}
                   />
                 </td>
                 <td className={RegisterCSS.tableCell}>지점</td>
-                <td>
-                  <select
-                    name="branchCode"
-                    onChange={onChangeHandler}
-                    className={RegisterCSS.select}
-                  >
-                    <option value="">지점선택</option>
-                    <option value="1">SEMOF 본사</option>
-                    <option value="2">SEMOF 구로점</option>
-                    <option value="3">SEMOF 도봉점</option>
-                    <option value="4">SEMOF 여의도점</option>
-                    <option value="5">SEMOF 동대문점</option>
-                    <option value="6">SEMOF 상암점</option>
-                  </select>
-                </td>
+                <td>{employeeDetail?.branchName || ""}</td>
               </tr>
               <tr>
                 <td className={RegisterCSS.tableCell}>주소</td>
@@ -316,28 +274,14 @@ function Modify(props) {
                     type="text"
                     className={RegisterCSS.input}
                     name="address"
-                    ref={addressRef}
+                    // ref={addressRef}
                     onChange={onChangeHandler}
-                    onKeyDown={(e) => handleKeyDown(e, salaryRef)}
+                    placeholder={employeeDetail?.address || ""}
+                    // onKeyDown={(e) => handleKeyDown(e, salaryRef)}
                   />
                 </td>
                 <td className={RegisterCSS.tableCell}>직급</td>
-                <td>
-                  <select
-                    name="jobCode"
-                    onChange={onChangeHandler}
-                    className={RegisterCSS.select}
-                  >
-                    <option value="">직급선택</option>
-                    <option value="1">임원</option>
-                    <option value="2">부장</option>
-                    <option value="3">지점장</option>
-                    <option value="4">차장</option>
-                    <option value="5">과장</option>
-                    <option value="6">대리</option>
-                    <option value="7">사원</option>
-                  </select>
-                </td>
+                <td>{employeeDetail?.jobName || ""}</td>
               </tr>
               <tr>
                 <td className={RegisterCSS.tableCell}>연봉</td>
@@ -346,9 +290,10 @@ function Modify(props) {
                     type="text"
                     className={RegisterCSS.input}
                     name="salary"
-                    ref={salaryRef}
+                    placeholder={employeeDetail?.salary || ""}
+                    // ref={salaryRef}
                     onChange={onChangeHandler}
-                    onKeyDown={(e) => handleKeyDown(e, emailRef)}
+                    // onKeyDown={(e) => handleKeyDown(e, emailRef)}
                   />
                 </td>
                 <td className={RegisterCSS.tableCell}>이메일</td>
@@ -357,8 +302,8 @@ function Modify(props) {
                     type="email"
                     className={RegisterCSS.input}
                     name="email"
-                    placeholder="semof@gmail.com"
-                    ref={emailRef}
+                    placeholder={employeeDetail?.email || ""}
+                    // ref={emailRef}
                     onChange={onChangeHandler}
                   />
                 </td>
@@ -368,7 +313,7 @@ function Modify(props) {
         </div>
       </div>
       <div className={RegisterCSS.buttonWrapper}>
-        <button onClick={onClickRegisterHandler}>등록하기</button>
+        <button onClick={onClickRegisterHandler}>저장하기</button>
         <button onClick={onClickBackHandler}>이전으로</button>
       </div>
     </>

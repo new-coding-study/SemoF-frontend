@@ -5,7 +5,7 @@
 
 .spinner {
     margin-top: 1.5%;
-    position: relative;
+    /* position: relative; */
     width: 20px;
     height: 20px;
     background-color: white;
@@ -15,7 +15,7 @@
 }
 
 .spinner svg {
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     left: 0;
     width: 100%;

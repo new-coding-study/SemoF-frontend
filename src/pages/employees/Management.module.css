@@ -80,6 +80,23 @@
     text-align: center;
 }
 
+.joinButton {
+    background-color: #e52e2e;
+    border: 1px solid #e52e2e;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 0.5%;
+}
+
+.joinButton:hover {
+    background-color: white;
+    color: #e52e2e;
+    border: 1px solid #e52e2e;
+}
+
 .searchWrapper {
     width: 90%;
     margin: 20px auto;
@@ -146,7 +163,7 @@
 
 .transferTable {
     width: 90%;
-    margin: 2% auto;
+    margin: 2% 15%;
     color: rgba(0, 0, 0, 0.87);
     border-collapse: collapse;
     border-spacing: 0;
@@ -259,4 +276,72 @@
     background-color: #e52e2e;
     color: white;
     border: 2px solid #e52e2e;
+}
+
+/* 모달 */
+/* Modal overlay */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal container */
+.modalContainer {
+    position: relative;
+    width: fit-content;
+    max-height: 80%;
+    overflow-y: auto;
+    margin: 0;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+}
+
+/* Modal close button */
+.modalContainer .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #e52e2e;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding: 0;
+}
+
+/* Modal content */
+.modalContainer ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.modalContainer ul li {
+    margin-bottom: 15px;
+}
+
+.modalContainer ul li span {
+    display: block;
+    padding: 12px;
+    font-size: 16px;
+    color: #222;
+    border-radius: 6px;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.modalContainer ul li span:hover {
+    background-color: #e52e2e;
+    color: white;
+    cursor: pointer;
 }
