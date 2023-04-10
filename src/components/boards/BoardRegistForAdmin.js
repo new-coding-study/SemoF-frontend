@@ -12,7 +12,7 @@ function BoardRegistForAdmin({setIsRegistModalForAdmin}){
 
     const [boardInfo, setBoardInfo] = useState({
         boardTitle:'',
-        // empNo:'',
+        empNo:'1',
         boardCateCode:0,
         boardContent:''
     });
@@ -32,6 +32,7 @@ function BoardRegistForAdmin({setIsRegistModalForAdmin}){
         formData.append("boardTitle", boardInfo.boardTitle);
         formData.append("boardCateCode", boardInfo.boardCateCode);
         formData.append("boardContent", boardInfo.boardContent);
+        formData.append("empNo", boardInfo.empNo);
 
 
 
@@ -51,8 +52,6 @@ function BoardRegistForAdmin({setIsRegistModalForAdmin}){
                 }))
                 Swal.fire('새로운 게시물이 등록되었습니다.', '게시판으로 돌아갑니다.', 'success')
                 .then(
-                    window.location.reload(),
-                    navigate(`/semof/board`, {replace: true}),
                     setIsRegistModalForAdmin(false)
                 )
             }

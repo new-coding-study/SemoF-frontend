@@ -5,7 +5,7 @@ import todoReducer from "./TodoModule";
 import boardReducer from "./BoardModule";
 import replyReducer from "./ReplyModule";
 import empReducer from "./EmployeeModule";
-
+import worksReportReducer from "./WorksModule";
 
 const rootReducer = combineReducers({
   memberReducer,
@@ -13,7 +13,8 @@ const rootReducer = combineReducers({
   todoReducer,
   approvalReducer,
   replyReducer,
-  empReducer
+  empReducer,
+  worksReportReducer
 });
 
 export default rootReducer;

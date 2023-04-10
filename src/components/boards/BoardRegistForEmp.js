@@ -1,18 +1,20 @@
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ResgistForAdmin from "./RegistForAdmin.module.css";
 import { useEffect, useState } from "react";
-import {callRegistPostingAPI} from "../../apis/BoardAPICalls";
+import {callRegistPostingAPI, callBoardPostingListAPI} from "../../apis/BoardAPICalls";
+
 import Swal from "sweetalert2";
 
 function BoardRegistForEmp({setIsRegistModalForEmp}){
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const postingRegist = useSelector(state => state.boardReducer.postingRegist) 
 
     const [postingInfo, setPostingInfo] = useState({
         boardTitle:'',
-        // empNo:'',
+        empNo:'1',
         boardCateCode:0,
         boardContent:''
     });
@@ -32,6 +34,7 @@ function BoardRegistForEmp({setIsRegistModalForEmp}){
         formData.append("boardTitle", postingInfo.boardTitle);
         formData.append("boardCateCode", postingInfo.boardCateCode);
         formData.append("boardContent", postingInfo.boardContent);
+        formData.append("empNo", postingInfo.empNo);
 
 
 
@@ -61,6 +64,14 @@ function BoardRegistForEmp({setIsRegistModalForEmp}){
         
     }
 
+    useEffect(()=>{
+        if(postingRegist.status === 200){
+        dispatch(callBoardPostingListAPI({
+        }));
+    } else if (postingRegist.status === 400){
+        alert("등록실패")
+    }
+    },[postingRegist])
   
   
 

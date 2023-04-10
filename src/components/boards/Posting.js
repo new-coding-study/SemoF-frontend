@@ -14,7 +14,7 @@ function Posting (){
 const navigate = useNavigate();
 const dispatch = useDispatch();
 const postings = useSelector(state => state.boardReducer.postingList);
-const notices = useSelector(state => state.boardReducer.noticeTopList);    
+const notices = useSelector(state => state.boardReducer.noticeTopList);   
 const postingList = postings.data;
 const noticeList = notices.data;
 console.log(postingList);
@@ -25,6 +25,8 @@ const [isRegistModalForEmp, setIsRegistModalForEmp] = useState(false);
 const [isUpdateNotice, setIsUpdateNotice] = useState(false);
 const [currentPage, setCurrentPage] = useState(1);
 const pageInfo = postings.pageInfo;
+const postingRegist = useSelector(state => state.boardReducer.postingRegist) 
+const noticeRegist = useSelector(state => state.boardReducer.noticeRegist);   
 
 const onClickNotice = (boardNo) => {
     setSelectNo(boardNo);
@@ -56,6 +58,28 @@ useEffect (() =>{
     }));
 }, [currentPage]
 )
+
+useEffect(()=>{
+    if(postingRegist.status === 201){
+    dispatch(callBoardPostingListAPI({
+        currentPage : currentPage
+    }));
+} else if (postingRegist.status === 400){
+    alert("등록실패")
+}
+},[postingRegist])
+
+useEffect(()=>{
+    if(noticeRegist.status === 201){
+    dispatch(callBoardPostingListAPI({
+        currentPage : currentPage
+    }));
+} else if (noticeRegist.status === 400){
+    alert("등록실패")
+}
+},[noticeRegist])
+
+
 
 
 const onClickPosting = (boardNo) => {

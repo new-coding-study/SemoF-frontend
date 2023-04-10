@@ -145,7 +145,7 @@ export const callBoardNoticeListAPI=({currentPage})=>{
 
     export const callRegistAPIForAdmin = ({boardInfo}) => {
         console.log('공시사항 API 시작');
-
+        // console.log(boardInfo.empNo)
         const requestURL = `http://localhost:8090/boards/board-all-lists`;
         
         return async (dispatch, getState) => {

@@ -9,8 +9,11 @@ import Todo from "./pages/todo/Todo";
 
 import Approval from "./pages/approval/Approval";
 import ApprovalIn from "./pages/approval/ApprovalIn";
-import Board from "./pages/board/Board";
 
+import ReportAdmin from "./pages/report/ReportAdmin";
+import WorksReportAdmin from "./pages/report/WorksReportAdmin"
+import WorksAll from "./components/worksReport/WorksAll";
+import Board from "./pages/board/Board";
 import PostingDetail from "./components/boards/PostingDetail";
 
 import ApprovalOut from "./pages/approval/ApprovalOut";
@@ -42,11 +45,11 @@ function App() {
           <Route path="add-line" element={<RegistLine />} />
 
           <Route path="board" element={<Board />} />
-
-
           <Route path="posting-detail/:boardNo" element={<PostingDetail/>}/>
 
-
+          <Route path="report-admin" element={<ReportAdmin/>}/>
+          <Route path="works-report-admin" element={<WorksReportAdmin/>}/>
+          <Route path="test-worksAll" element = {<WorksAll/>}/>
           <Route path="employees" element={<Employees />} />
           <Route path="employees/register" element={<EmpRegister />} />
           <Route path="employees/transfer" element={<Transfer />} />
