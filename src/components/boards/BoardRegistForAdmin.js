@@ -39,19 +39,6 @@ function BoardRegistForAdmin({ setIsRegistModalForAdmin }) {
     console.log(boardInfo.boardCateCode + "121ladsf==========");
     console.log(boardInfo.boardContent + "121ladsf==========");
 
-        const formData = new FormData();
-
-        formData.append("boardTitle", boardInfo.boardTitle);
-        formData.append("boardCateCode", boardInfo.boardCateCode);
-        formData.append("boardContent", boardInfo.boardContent);
-        formData.append("empNo", boardInfo.empNo);
-
-
-
-        console.log(boardInfo.boardTitle + "121ladsf==========")
-        console.log(boardInfo.boardCateCode + "121ladsf==========")
-        console.log(boardInfo.boardContent + "121ladsf==========")
-
         Swal.fire({
             title:'새로운 게시물을 등록 하시겠습니까?',
             showCancelButton: true,

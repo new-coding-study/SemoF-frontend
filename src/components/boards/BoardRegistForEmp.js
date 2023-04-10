@@ -10,8 +10,6 @@ import {callRegistPostingAPI, callBoardPostingListAPI} from "../../apis/BoardAPI
 import Swal from "sweetalert2";
 
 function BoardRegistForEmp({ setIsRegistModalForEmp }) {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -22,7 +20,7 @@ function BoardRegistForEmp({ setIsRegistModalForEmp }) {
         empNo:'1',
         boardCateCode:0,
         boardContent:''
-
+    })
 
   const onChangeHandler = (e) => {
     setPostingInfo({
@@ -42,18 +40,6 @@ function BoardRegistForEmp({ setIsRegistModalForEmp }) {
     console.log(postingInfo.boardCateCode + "121ladsf==========");
     console.log(postingInfo.boardContent + "121ladsf==========");
 
-        const formData = new FormData();
-
-        formData.append("boardTitle", postingInfo.boardTitle);
-        formData.append("boardCateCode", postingInfo.boardCateCode);
-        formData.append("boardContent", postingInfo.boardContent);
-        formData.append("empNo", postingInfo.empNo);
-
-
-
-        console.log(postingInfo.boardTitle + "121ladsf==========")
-        console.log(postingInfo.boardCateCode + "121ladsf==========")
-        console.log(postingInfo.boardContent + "121ladsf==========")
 
         Swal.fire({
             title:'새로운 게시물을 등록 하시겠습니까?',

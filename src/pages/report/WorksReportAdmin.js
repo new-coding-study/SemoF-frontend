@@ -12,21 +12,21 @@ function WorksReportAdmin(){
     const [isYStatus, setIsYStatus] = useState(false);
 
     const handleAllList = () =>{
-        setIsWorksAll(true),
-        setIsNStatus(false),
+        setIsWorksAll(true);
+        setIsNStatus(false);
         setIsYStatus(false)
     }
 
     const handleNList = () =>{
-        setIsWorksAll(false),
-        setIsNStatus(true),
+        setIsWorksAll(false)
+        setIsNStatus(true)
         setIsYStatus(false)
 
     }
 
     const handleYList = () =>{
-        setIsWorksAll(false),
-        setIsNStatus(false),
+        setIsWorksAll(false)
+        setIsNStatus(false)
         setIsYStatus(true)
     }
 

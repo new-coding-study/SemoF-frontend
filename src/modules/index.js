@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   approvalReducer,
   replyReducer,
   empReducer,
-  worksReportReducer
+  worksReportReducer,
 
   emailReducer,
   AttendanceReducer,
