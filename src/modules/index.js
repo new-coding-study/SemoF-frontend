@@ -5,6 +5,7 @@ import todoReducer from "./TodoModule";
 import boardReducer from "./BoardModule";
 import replyReducer from "./ReplyModule";
 import empReducer from "./EmployeeModule";
+import worksReportReducer from "./WorksModule";
 import emailReducer from "./EmailModule";
 import AttendanceReducer from "./AttendanceModule";
 import registerEmpReducer from "./EmployeeModule";
@@ -16,6 +17,8 @@ const rootReducer = combineReducers({
   approvalReducer,
   replyReducer,
   empReducer,
+  worksReportReducer
+
   emailReducer,
   AttendanceReducer,
   registerEmpReducer,

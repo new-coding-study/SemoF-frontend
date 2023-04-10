@@ -19,6 +19,7 @@ function BoardRegistForAdmin({ setIsRegistModalForAdmin }) {
     boardContent: "",
   });
 
+
   const onChangeHandler = (e) => {
     setBoardInfo({
       ...boardInfo,
@@ -38,30 +39,41 @@ function BoardRegistForAdmin({ setIsRegistModalForAdmin }) {
     console.log(boardInfo.boardCateCode + "121ladsf==========");
     console.log(boardInfo.boardContent + "121ladsf==========");
 
-    Swal.fire({
-      title: "새로운 게시물을 등록 하시겠습니까?",
-      showCancelButton: true,
-      cancelButtonText: "취소",
-      confirmButtonText: "확인",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(
-          callRegistAPIForAdmin({
-            boardInfo: formData,
-          })
-        );
-        Swal.fire(
-          "새로운 게시물이 등록되었습니다.",
-          "게시판으로 돌아갑니다.",
-          "success"
-        ).then(
-          window.location.reload(),
-          navigate(`/semof/board`, { replace: true }),
-          setIsRegistModalForAdmin(false)
-        );
-      }
-    });
-  };
+        const formData = new FormData();
+
+        formData.append("boardTitle", boardInfo.boardTitle);
+        formData.append("boardCateCode", boardInfo.boardCateCode);
+        formData.append("boardContent", boardInfo.boardContent);
+        formData.append("empNo", boardInfo.empNo);
+
+
+
+        console.log(boardInfo.boardTitle + "121ladsf==========")
+        console.log(boardInfo.boardCateCode + "121ladsf==========")
+        console.log(boardInfo.boardContent + "121ladsf==========")
+
+        Swal.fire({
+            title:'새로운 게시물을 등록 하시겠습니까?',
+            showCancelButton: true,
+            cancelButtonText: '취소',
+            confirmButtonText: '확인'
+        }).then((result) =>{
+            if(result.isConfirmed){
+                dispatch(callRegistAPIForAdmin({
+                    boardInfo:formData
+                }))
+                Swal.fire('새로운 게시물이 등록되었습니다.', '게시판으로 돌아갑니다.', 'success')
+                .then(
+                    setIsRegistModalForAdmin(false)
+                )
+            }
+
+        } );    
+        
+    }
+
+  
+ 
 
   return (
     <>

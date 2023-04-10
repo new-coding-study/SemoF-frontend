@@ -1,20 +1,28 @@
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ResgistForAdmin from "./RegistForAdmin.module.css";
 import { useEffect, useState } from "react";
-import { callRegistPostingAPI } from "../../apis/BoardAPICalls";
+
+import {callRegistPostingAPI, callBoardPostingListAPI} from "../../apis/BoardAPICalls";
+
+
+
 import Swal from "sweetalert2";
 
 function BoardRegistForEmp({ setIsRegistModalForEmp }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [postingInfo, setPostingInfo] = useState({
-    boardTitle: "",
-    empNo: "",
-    boardCateCode: 0,
-    boardContent: "",
-  });
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const postingRegist = useSelector(state => state.boardReducer.postingRegist) 
+
+    const [postingInfo, setPostingInfo] = useState({
+        boardTitle:'',
+        empNo:'1',
+        boardCateCode:0,
+        boardContent:''
+
 
   const onChangeHandler = (e) => {
     setPostingInfo({
@@ -34,31 +42,51 @@ function BoardRegistForEmp({ setIsRegistModalForEmp }) {
     console.log(postingInfo.boardCateCode + "121ladsf==========");
     console.log(postingInfo.boardContent + "121ladsf==========");
 
-    Swal.fire({
-      title: "새로운 게시물을 등록 하시겠습니까?",
-      showCancelButton: true,
-      cancelButtonText: "취소",
-      confirmButtonText: "확인",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(
-          callRegistPostingAPI({
-            postingInfo: formData,
-          })
-        );
-        Swal.fire(
-          "새로운 게시물이 등록되었습니다.",
-          "게시판으로 돌아갑니다.",
-          "success"
-        ).then(
-          // window.location.reload(),
-          navigate(`/semof/board`, { replace: true }),
-          setIsRegistModalForEmp(false)
-        );
-      }
-    });
-  };
+        const formData = new FormData();
 
+        formData.append("boardTitle", postingInfo.boardTitle);
+        formData.append("boardCateCode", postingInfo.boardCateCode);
+        formData.append("boardContent", postingInfo.boardContent);
+        formData.append("empNo", postingInfo.empNo);
+
+
+
+        console.log(postingInfo.boardTitle + "121ladsf==========")
+        console.log(postingInfo.boardCateCode + "121ladsf==========")
+        console.log(postingInfo.boardContent + "121ladsf==========")
+
+        Swal.fire({
+            title:'새로운 게시물을 등록 하시겠습니까?',
+            showCancelButton: true,
+            cancelButtonText: '취소',
+            confirmButtonText: '확인'
+        }).then((result) =>{
+            if(result.isConfirmed){
+                dispatch(callRegistPostingAPI({
+                    postingInfo:formData
+                }))
+                Swal.fire('새로운 게시물이 등록되었습니다.', '게시판으로 돌아갑니다.', 'success')
+                .then(
+                    // window.location.reload(),
+                    navigate(`/semof/board`, {replace: true}),
+                    setIsRegistModalForEmp(false)
+                )
+            }
+
+        } );    
+        
+    }
+
+    useEffect(()=>{
+        if(postingRegist.status === 200){
+        dispatch(callBoardPostingListAPI({
+        }));
+    } else if (postingRegist.status === 400){
+        alert("등록실패")
+    }
+    },[postingRegist])
+  
+  
   return (
     <>
       <div className={ResgistForAdmin.modal}>
