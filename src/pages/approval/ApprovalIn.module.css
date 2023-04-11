@@ -9,3 +9,20 @@
     line-height: 57px;
     border: none;
 }
+.registbtn{
+    float: right;
+    border: none;
+    background: #E52E2E;
+    border-radius: 8px;
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    float: right;
+}
+.registbtn:hover{
+    background-color: gray;
+    text-shadow: 1px 1px 1px white;
+}

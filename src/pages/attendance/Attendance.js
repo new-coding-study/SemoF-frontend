@@ -9,16 +9,29 @@ import Swal from 'sweetalert2';
 import {
     callAttendanceDetailAPI,
     callAttendanceUpdateAPI,
+    callAttendanceListAPI
 } from '../../apis/AttendanceAPICalls';
 
 function Attendance() {
     const dispatch = useDispatch();
-    const status  = useSelector(state => state.AttendanceReducer); 
+    const status  = useSelector(state => state.AttendanceReducer.attendanceStatus);
+    const statusList  = useSelector(state => state.AttendanceReducer.attendanceList);   // # 리듀서를 복사해서 같은 곳을 참조하지만 다른 값을 가지게 설정
 
-    const [empNo, setEmpNo] = useState(40);      // # 로그인 기능 구현 전까지 값 확인용 상태관리
+    const [empNo, setEmpNo] = useState(1);      // # 로그인 기능 구현 전까지 값 확인용 상태관리
     const [check, setCheck] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
     const [nowTime, setNowTime] = useState("00:00:00");
+    
+    const [currentPage, setCurrentPage] = useState(1);
+    const attendanceList = statusList.data;
+    const pageInfo = statusList.pageInfo;
+
+    const pageNumber = [];
+    if(pageInfo){
+        for(let i = 1; i <= pageInfo.pageEnd ; i++){
+            pageNumber.push(i);
+        }
+    } 
 
     // 현재 날짜용 (년월일요일 등 근무시간 위에)
     const todayDate = new Date();   //현재 날짜
@@ -85,8 +98,8 @@ function Attendance() {
             let newIntervalTime = formatDate(todayDate);    // 함수 사용해 반복마다 날짜 구해서 시분초 대입
             let newDate = `${newIntervalTime.year}-${newIntervalTime.month}-${newIntervalTime.date}`;
             let oldDate = String(status.startTime ?? "00:00:00").substring(0, 10);
-            console.log('oldDate : ' + oldDate)
-            console.log('newDate : ' + newDate)
+            // console.log('oldDate : ' + oldDate)
+            // console.log('newDate : ' + newDate)
 
             if (oldDate === newDate && status.statusName === "출근") {
                 const id = setInterval(() => {
@@ -98,6 +111,20 @@ function Attendance() {
             setCheck(false);
         } // eslint-disable-next-line
         ,[check]
+    );
+    
+    useEffect(
+        () => {
+            // setStart((currentPage - 1) * 5);            
+            async function list () {
+            await dispatch(callAttendanceListAPI({
+                empNo: empNo,
+                currentPage: currentPage
+            }));
+            }
+            list();
+         } // eslint-disable-next-line
+        ,[currentPage]
     );
 
     // 출근 버튼
@@ -162,7 +189,7 @@ function Attendance() {
         <div>
             <div className={AttendanceCSS.contour}> 근태 </div>
 
-            <div style={{height:'800px', minWidth:'1680px'}}>
+            <div style={{minWidth:'1680px'}}>
                 <div className={ AttendanceCSS.horizontalDiv }>
                     <div className={ AttendanceCSS.attendance }>
                         <div>
@@ -182,7 +209,7 @@ function Attendance() {
                     </div>
                     <div className={ AttendanceCSS.approvals }>
                         <div className={ AttendanceCSS.approvalsContent }>
-                            <NavLink to="/sticker/types/2" style={{textDecoration:'none'}}>
+                            <NavLink to="/attendance/types/2" style={{textDecoration:'none'}}>
                                 <div>
                                     <BsClipboard2Minus/>
                                 </div>
@@ -190,7 +217,7 @@ function Attendance() {
                             </NavLink>
                         </div>
                         <div className={ AttendanceCSS.approvalsContent }>
-                            <NavLink to="/sticker/types/2" style={{textDecoration:'none'}}>
+                            <NavLink to="/attendance/types/2" style={{textDecoration:'none'}}>
                                 <div>
                                     <BsClipboard2Plus/>
                                 </div>
@@ -198,7 +225,7 @@ function Attendance() {
                             </NavLink>
                         </div>
                         <div className={ AttendanceCSS.approvalsContent }>
-                            <NavLink to="/sticker/types/2" style={{textDecoration:'none'}}>
+                            <NavLink to="/attendance/types/2" style={{textDecoration:'none'}}>
                                 <div>
                                     <BsFileEarmarkText/>
                                 </div>
@@ -206,7 +233,7 @@ function Attendance() {
                             </NavLink>
                         </div>
                         <div className={ AttendanceCSS.approvalsContent }>
-                            <NavLink to="/sticker/types/2" style={{textDecoration:'none'}}>
+                            <NavLink to="/attendance/types/2" style={{textDecoration:'none'}}>
                                 <div>
                                     <BsCarFront/>
                                 </div>
@@ -214,7 +241,7 @@ function Attendance() {
                             </NavLink>
                         </div>
                         <div className={ AttendanceCSS.approvalsContent }>
-                            <NavLink to="/sticker/types/2" style={{textDecoration:'none'}}>
+                            <NavLink to="/attendance/types/2" style={{textDecoration:'none'}}>
                                 <div>
                                     <BsAirplane/>
                                 </div>
@@ -225,7 +252,7 @@ function Attendance() {
                 </div>
                 <div className={ AttendanceCSS.middleContent }>
                     <div className={ AttendanceCSS.vacation }>
-                        <span className={ AttendanceCSS.totalVacation }>- 연차 사용 현황</span>
+                        <span className={ AttendanceCSS.totalVacation }>  연차 사용 현황</span>
                         <span>기본 연차 : {status.allDays}개</span>
                         <div className={ AttendanceCSS.vacationDiv }>
                             <div>
@@ -246,7 +273,66 @@ function Attendance() {
                             </div>
                             </div>
                     </div>
-                    <div className={ AttendanceCSS.totalAttendance } style={{border:'1px solid black'}}>
+                </div>
+                <div>
+                    {/* <AttendanceList/> */}
+                    <div className={ AttendanceCSS.bodyDiv }>
+                        <table className={ AttendanceCSS.attendanceTable }>
+                            <colgroup>
+                            <col width="10%" />
+                            <col width="10%" />
+                            <col width="10%" />
+                            <col width="10%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                <th>근무일</th>
+                                <th>출근 시간</th>
+                                <th>퇴근 시간</th>
+                                <th>상태</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            { Array.isArray(attendanceList) && attendanceList.map((p) => (
+                                <tr key={p.atdNo}>
+                                <td>{ p.atdDate===null ? "" : p.atdDate.substring(0, 10) }</td>
+                                <td>{ p.startTime===null ? "" : p.startTime.substring(10) }</td>
+                                <td>{ p.endTime===null ? "" : p.endTime.substring(10) }</td>
+                                <td>{ p.finalStatus>=90000 ? "정상출근" : p.finalStatus>=45000 ? "비정상출근" : "결근"}</td>
+                                </tr>
+                            ))}
+                            </tbody>                    
+                        </table>
+                    </div>
+                    <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
+                        { Array.isArray(attendanceList) &&
+                        <button 
+                            onClick={() => setCurrentPage(currentPage - 1)} 
+                            disabled={currentPage === 1}
+                            className={ AttendanceCSS.pagingBtn }
+                        >
+                            &lt;
+                        </button>
+                        }
+                        {pageNumber.map((num) => (
+                        <li key={num} onClick={() => setCurrentPage(num)}>
+                            <button
+                                style={ currentPage === num ? {backgroundColor : 'orange' } : null}
+                                className={ AttendanceCSS.pagingBtn }
+                            >
+                                {num}
+                            </button>
+                        </li>
+                        ))}
+                        { Array.isArray(attendanceList) &&
+                        <button 
+                            className={ AttendanceCSS.pagingBtn }
+                            onClick={() => setCurrentPage(currentPage + 1)} 
+                            disabled={currentPage === pageInfo.endPage || pageInfo.totalCount === 0}
+                        >
+                            &gt;
+                        </button>
+                        }
                     </div>
                 </div>
             </div>

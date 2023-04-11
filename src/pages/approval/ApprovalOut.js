@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import {
     callApprovOutListAPI
 } from '../../apis/ApprovalAPICalls'
+import ApprovalCSS from "./ApprovalIn.module.css";
 
 
 function ApprovalOut() {
 
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
     const dispatch = useDispatch();
-    const approvalList = useSelector(state => state.approvalReducer.approvals); 
+    const approvalList = useSelector(state => state.approvalReducer.approvalsOut); 
     const approvals = approvalList.data;
     console.log(approvalList);
     console.log(approvals);
@@ -47,9 +48,7 @@ console.log("이거 트루입니까", Array.isArray(approvals));
     return (
         <>
         {/* if문을 돌릴지 아니면,,, 그냥 페이지를 다 분리할지 */}
-        <div 
-        // className={ApprovalCSS.title}
-        >
+        <div className={ApprovalCSS.title}>
             결재 수신함
         </div>
         <div 
@@ -63,10 +62,14 @@ console.log("이거 트루입니까", Array.isArray(approvals));
                (<div 
                 
                 >
+                                        <h4>{approve.category}</h4>
+
+                    <h3 
+                    // onClick={()=>{nav(`/semof/inbox/${parseInt(approve.approvNo)}`)
+                        // }}
+                        >{approve.approvTitle}</h3>
                     <h4>{approve.empName}</h4>
-                    <h3 onClick={()=>{nav(`/semof/inbox/${parseInt(approve.approvNo)}`)
-                        }}>{approve.approvTitle}</h3>
-                    <h4>{approve.category}</h4>
+
                     <h4>{approve.approvDate}</h4> 
                     
                 </div>  ))

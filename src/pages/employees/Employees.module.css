@@ -88,7 +88,7 @@
 }
 
 .reportCard {
-    flex-grow: 0.8
+    flex-grow: 0.8;
 }
 
 .atdCard {
@@ -146,6 +146,7 @@
 .reportCard .status .vacation p,
 .reportCard .status .birthday p {
     text-align: center;
+    font-size: 15px;
 }
 
 
@@ -188,6 +189,7 @@
 }
 
 .calender {
+
     display: flex;
     justify-content: center;
     border-radius: 8px;

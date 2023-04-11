@@ -6,6 +6,7 @@ import {
     callApprovalListAPI
 } from '../../apis/ApprovalAPICalls'
 import ApprovalCSS from "./ApprovalIn.module.css";
+import boardcss from "../../pages/board/Board.module.css";
 
 function ApprovalIn() {
 
@@ -51,27 +52,48 @@ console.log("이거 트루입니까", Array.isArray(approvals));
         <div className={ApprovalCSS.title}>
             결재 상신함
         </div>
-        <div 
-        // className={ MainCSS.productDiv } lineList.map((line) => (
-                // <Line key={ line.lineNo } line={ line } />
-                // ))
-        >
-            { 
-               Array.isArray(approvals) && 
-               approvals?.map((approve) => 
-               (<div 
-                
-                >
-                    <span>{approve.status}</span>
-                    <span onClick={()=>{nav(`/semof/inbox/${parseInt(approve.approvNo)}`)
-                        }}>{approve.approvTitle}</span>
-                    <span>{approve.category}</span>
-                    <span>{approve.approvDate}</span> 
-                    
-                </div>  ))
-            }
+        <br/>
+        <br/>
+        <div className={boardcss.NoticelistDisply}>
+        <div style={{'float':'right', paddingRight:'10%', paddingBottom:'1%'}}>
+            <button  className={boardcss.btnstyle2} onClick={() => {
+                nav(`/semof/regist-approval`)
+            }}>
+                결재상신
+            </button>
         </div>
-        <div style={{ listStyleType: "none", display: "flex", justifyContent: "center" }}>
+        <table className={boardcss.noticeTable}>
+            <colgroup>
+                <col width="10%"/>
+                <col width="50%"/>
+                <col width="20%"/>
+                <col width="20%"/>
+            </colgroup>
+            <thead>
+                <tr 
+                className={boardcss.tableheader}>
+                    <th style={{borderRight:'1px solid lightGray'}}>상태</th>
+                    <th style={{borderRight:'1px solid lightGray'}}>제목</th>
+                    <th style={{borderRight:'1px solid lightGray'}}>유형</th>
+                    <th>날 짜</th>
+                </tr>
+            </thead>
+            <tbody>
+                { Array.isArray(approvals) && 
+               approvals?.map((approve) => (
+                    <tr
+                    onClick = {()=>{nav(`/semof/inbox/${parseInt(approve.approvNo)}`)}}>
+                        <td>{approve.status}</td>
+                        <td>{approve.approvTitle}</td>
+                        <td>{approve.category}</td>
+                        <td>{approve.approvDate}</td>
+                    </tr> 
+               ))}
+
+            </tbody>
+        </table>
+        <br/>
+        <div  className={boardcss.approvalpagingbtn}>
             { 
             Array.isArray(approvals) &&
             <button 
@@ -80,20 +102,20 @@ console.log("이거 트루입니까", Array.isArray(approvals));
                 // className={ ProductManagementCSS.pagingBtn }
             >
                 &lt;
-            </button>
-            }
+            </button> 
+            }&nbsp;
             {pageNumber.map((num) => (
             <li key={num} onClick={() => setCurrentPage(num)}>
                 <button
-                    style={ currentPage === num ? {backgroundColor : 'orange' } : null}
+                    style={ currentPage === num ? {backgroundColor : 'rgba(237, 237, 240, 1)' } : null}
                     // className={ ProductManagementCSS.pagingBtn }
                 >
                     {num}
                 </button>
             </li>
-            ))}
+            ))}&nbsp;
             { 
-            Array.isArray(approvalList) &&
+            Array.isArray(approvals) &&
             <button 
                 // className={ ProductManagementCSS.pagingBtn }
                 onClick={() => setCurrentPage(currentPage + 1)} 
@@ -103,14 +125,6 @@ console.log("이거 트루입니까", Array.isArray(approvals));
             </button>
             }
         </div>
-        <div>
-            <button type="button" onClick={() => {
-                nav(`/semof/regist-approval`)
-            }}>
-                결재상신
-            </button>
-          
-
         </div>
         </>
     );

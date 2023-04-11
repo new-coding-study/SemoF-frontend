@@ -241,3 +241,9 @@ function ModifyApproval() {
     
 }
 export default ModifyApproval;
+
+// name='productDescription'
+// onChange={ onChangeHandler }
+// readOnly={ modifyMode ? false : true }
+// value={ (!modifyMode ? productDetail.productDescription : form.productDescription) || '' }
+// style={ !modifyMode ? { backgroundColor: 'gray'} : null}

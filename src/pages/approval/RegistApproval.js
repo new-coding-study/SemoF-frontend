@@ -9,7 +9,7 @@ function RegistApproval() {
     const dispatch = useDispatch();
     const formInfo = useSelector(state => state.approvalReducer.form);
     const lineInfo = useSelector(state => state.approvalReducer.lines);
-    // const form = formInfo.data;
+    // const lines = line.data;
     const [files, setFiles] = useState([]);
     const [title, setTitle] = useState('');
     const [line, setLine] = useState(0);
@@ -236,7 +236,8 @@ function RegistApproval() {
                    defaultValue="default"
                    >
                 <option value="default" disabled>결재라인선택</option>
-                {lineInfo?.map(l => (
+                {Array.isArray(lineInfo) &&
+                lineInfo?.map(l => (
                 <option key={l.lineNo} value={l.lineNo} name="line">{l.lineName}</option>
                 ))}
                 </select>                
