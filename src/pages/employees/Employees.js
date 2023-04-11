@@ -111,9 +111,9 @@ function Employees() {
             title="키바나 성별 그래프"
             src="http://localhost:5601/app/dashboards#/view/a48fc4d0-d77e-11ed-aab3-dde941b073bf?_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))"
             width="100%"
-            height="600px"
+            height="100%"
             frameBorder="0"
-            // allowFullScreen
+            allowFullScreen
           />
         </div>
         <div className={EmployeeCSS.calender}>

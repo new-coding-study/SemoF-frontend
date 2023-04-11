@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 
 function Employee({
-  product: { empNo, empName, branchName, deptName, jobName },
+  employee: { empNo, empName, branchName, deptName, jobName },
 }) {
   const navigate = useNavigate();
 
