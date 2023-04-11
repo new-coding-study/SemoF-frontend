@@ -22,7 +22,7 @@ import {
 export const callScheduleListAPI = (empNo) => {
   // console.log("GET_SCHEDULELIST call");
 
-  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/schedules/schedulelist/${empNo}`;
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/schedules/schedule-list/${empNo}`;
 
   return async (dispatch, getState) => {
     const result = await fetch(requestURL, {
@@ -127,7 +127,7 @@ export const callDeleteScheduleAPI = (scdNo) => {
 };
 
 // 검색 메소드 호출
-export const callSearchTodoAPI = (searchSchedule, empNo) => {
+export const callSearchSchedulePI = (searchSchedule, empNo) => {
   // console.log("GET_SEARCHSCHEDULE call");
 
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/schedules/schedule/search?s=${searchSchedule}&e=${empNo}`;
@@ -145,6 +145,134 @@ export const callSearchTodoAPI = (searchSchedule, empNo) => {
     if (result.status === 200) {
       console.log("GET_SEARCHSCHEDULE result : ", result);
       dispatch({ type: GET_SEARCHSCHEDULE, payload: result.data });
+    }
+  };
+};
+
+export const callCalendarListAPI = (empNo) => {
+  // console.log("GET_CALENDARLIST call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/schedules/calendar-list/${empNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+    if (result.status === 200) {
+      console.log("GET_CALENDARLIST result : ", result);
+      dispatch({ type: GET_CALENDARLIST, payload: result.data });
+    }
+  };
+};
+
+export const callCalendarDetailAPI = (calNo) => {
+  // console.log("GET_CALENDAR call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/schedules/calendar/${calNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+    if (result.status === 200) {
+      console.log("GET_CALENDAR result : ", result);
+      dispatch({ type: GET_CALENDAR, payload: result.data });
+    }
+  };
+};
+
+export const callRegistCalendarAPI = ({ form }) => {
+  // console.log("POST_CALENDAR call");
+  console.log("form", form);
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/schedules/calendar`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "POST",
+      headers: {
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: form,
+    }).then((response) => response.json());
+
+    console.log("POST_CALENDAR result : ", result);
+
+    dispatch({ type: POST_CALENDAR, payload: result });
+  };
+};
+
+export const callUpdateCalendarAPI = ({ form }) => {
+  // console.log("PUT_CALENDAR call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/schedules/calendar`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "PUT",
+      headers: {
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: form,
+    }).then((response) => response.json());
+
+    console.log("PUT_CALENDAR result : ", result);
+
+    dispatch({ type: PUT_CALENDAR, payload: result });
+  };
+};
+
+export const callDeleteCalendarAPI = (calNo) => {
+  // console.log("DELETE_CALENDAR call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/schedules/calendar/${calNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+    if (result.status === 200) {
+      // console.log("DELETE_CALENDAR result : ", result);
+
+      dispatch({ type: DELETE_CALENDAR, payload: result.data });
+    }
+  };
+};
+
+export const callCalendarMemListAPI = (calNo) => {
+  // console.log("GET_CALENDARMEMLIST call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/schedules/calendar/member/${calNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+    if (result.status === 200) {
+      console.log("GET_CALENDARMEMLIST result : ", result);
+      dispatch({ type: GET_CALENDARMEMLIST, payload: result.data });
     }
   };
 };

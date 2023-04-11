@@ -43,9 +43,12 @@ function TodoUpdateModal({
     cateName: todoDetail.cateName,
   });
 
-  useEffect(() => {
-    dispatch(callTodoDetailAPI(todoNo));
-  }, [todoNo]);
+  useEffect(
+    () => {
+      dispatch(callTodoDetailAPI(todoNo));
+    }, // eslint-disable-next-line
+    [todoNo]
+  );
 
   // 수정창에서 중요표시 변경하는 핸들러
   const onClickChangeStarHandler = () => {

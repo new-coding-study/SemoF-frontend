@@ -1,11 +1,115 @@
 import ScheduleCSS from "./Schedule.module.css";
+import CalendaListCSS from "../../components/schedule/CalendarList.module.css";
+import CalendarList from "../../components/schedule/CalendarList";
+import Calendar from "../../components/schedule/Calendar";
+import ScheduleSearch from "../../components/schedule/ScheduleSearch";
+import CalendarOption from "../../components/schedule/CalendarOption";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  callCalendarListAPI,
+  callRegistCalendarAPI,
+  callCalendarDetailAPI,
+  callCalendarMemListAPI,
+} from "../../apis/ScheduleAPICalls";
 
 function Schedule() {
+  const dispatch = useDispatch();
+
+  const calendarList = useSelector(
+    (state) => state.scheduleReducer.calendarList
+  );
+
+  const calendarDetail = useSelector(
+    (state) => state.scheduleReducer.calendarDetail
+  );
+
+  const [inputCalStyle, setInputCalStyle] = useState({ display: "none" });
+  const [addCalendar, setAddCalendar] = useState(false);
+
+  const [newCalendar, setNewCalendar] = useState({
+    calName: "",
+    calColor: "#adf542",
+  });
+
+  const [selectCalendarNo, setSelectCalendarNo] = useState("");
+
+  const [defaultMode, setDefaultMode] = useState(true);
+  const [searchMode, setSearchMode] = useState(false);
+
+  const moveToCalendarEdit = (calNo) => {
+    setDefaultMode(false);
+    setSearchMode(false);
+    setSelectCalendarNo(calNo);
+    dispatch(callCalendarDetailAPI(calNo));
+  };
+
+  // 새로운 캘린더 추가를 위한 값 입력
+  const onChangeAddCalendarHandler = (e) => {
+    setNewCalendar({
+      ...newCalendar,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // 새로운 캘린더 추가 API 호출 및 상태값 초기화
+  const onEnterkeyForAddCalendarHandler = (e) => {
+    if (e.key === "Enter") {
+      const formData = new FormData();
+
+      formData.append("calName", newCalendar.calName);
+      formData.append("calColor", newCalendar.calColor);
+      // 나중에 localStorage 에서 empNo 받아와서 보내주기!
+      formData.append("madeEmpNo", 41);
+
+      // 입력받은 값으로 dispatch 호출
+      dispatch(
+        callRegistCalendarAPI({
+          form: formData,
+        })
+      );
+
+      // 변경된 값을 초기화
+      setNewCalendar({
+        ...newCalendar,
+        calName: "",
+        calColor: "#adf542",
+      });
+
+      setInputCalStyle({
+        display: "none",
+      });
+
+      setAddCalendar(true);
+    }
+  };
+
+  useEffect(
+    () => {
+      // 나중에 localStorage 에서 empNo 받아와서 보내주기!
+      console.log("Schedule.js 호출");
+      dispatch(callCalendarListAPI(41));
+      // dispatch(callCalendarDetailAPI(selectCalendarNo));
+      // dispatch(callCalendarMemListAPI(selectCalendarNo));
+    }, // eslint-disable-next-line
+    [addCalendar, defaultMode, searchMode, selectCalendarNo]
+  );
+
+  useEffect(
+    () => {
+      // console.log("useEffect 내부. 곧 addCalendar 상태 바뀜");
+      console.log("Schedule.js 호출 -2 ");
+      setAddCalendar(false);
+    }, // eslint-disable-next-line
+    [addCalendar, defaultMode, searchMode, selectCalendarNo]
+  );
+
   return (
     <>
       <div className={ScheduleCSS.contour}> 일정 </div>
 
-      <div className={ScheduleCSS.todoWrapper}>
+      <div className={ScheduleCSS.scheduleWrapper}>
         <div className={ScheduleCSS.calendarWrapper}>
           <div className={ScheduleCSS.addScheduleBox}>
             <button
@@ -14,52 +118,91 @@ function Schedule() {
               일정 추가
             </button>
           </div>
-          {/* {Array.isArray(categoryList) &&
-            categoryList.map((category) => (
-              <Category
-                key={category.cateNo}
-                category={category}
-                setChooseCate={setChooseCate}
-                chooseCate={chooseCate}
-                setAddAndDeleteCategory={setAddAndDeleteCategory}
-              />
-            ))} */}
-          <div className={ScheduleCSS.inputCateWrapper}>
+          {Array.isArray(calendarList) &&
+            calendarList?.map((calendar) => (
+              // <CalendarList
+              //   key={calendar.calNo}
+              //   calendar={calendar}
+              //   setDefaultMode={setDefaultMode}
+              //   setSearchMode={setSearchMode}
+              //   setSelectCalendarNo={setSelectCalendarNo}
+              // />
+              <div
+                className={CalendaListCSS.calendarWrapper}
+                key={calendar.calNo}
+              >
+                <div className={CalendaListCSS.calendarInfowrapper}>
+                  <div
+                    className={CalendaListCSS.calColorBox}
+                    style={{ backgroundColor: calendar.calColor }}
+                  ></div>
+                  <div className={CalendaListCSS.calName}>
+                    {calendar.calName}
+                  </div>
+
+                  <div className={CalendaListCSS.moveCalendarEditBtn}>
+                    <img
+                      src={"/images/edit.png"}
+                      alt="이미지확인!"
+                      className={CalendaListCSS.editIcon}
+                      // onClick={onClickMoveToSettingPageHandler}
+                      onClick={() => moveToCalendarEdit(calendar.calNo)}
+                    ></img>
+                  </div>
+                </div>
+              </div>
+            ))}
+          <div className={ScheduleCSS.inputCalWrapper} style={inputCalStyle}>
             <input
               type="color"
-              name="cateColor"
-              // value={newCategory?.cateColor || ""}
-              // onChange={onChangeAddCategoryHandler}
-              className={ScheduleCSS.inputCateColor}
+              name="calColor"
+              value={newCalendar?.calColor || ""}
+              onChange={onChangeAddCalendarHandler}
+              className={ScheduleCSS.inputCalColor}
             ></input>
             <input
               type="text"
+              name="calName"
               placeholder="캘린더 이름 입력"
-              name="cateName"
-              // value={newCategory?.cateName || ""}
-              // onKeyUp={onEnterkeyForAddCategoryHandler}
-              // onChange={onChangeAddCategoryHandler}
-              className={ScheduleCSS.inputCateName}
+              value={newCalendar?.calName || ""}
+              onChange={onChangeAddCalendarHandler}
+              onKeyUp={onEnterkeyForAddCalendarHandler}
+              className={ScheduleCSS.inputCalName}
             ></input>
             <span
-            // onClick={() => {
-            //   setInputCateStyle({ display: "none" });
-            // }}
+              onClick={() => {
+                setInputCalStyle({ display: "none" });
+              }}
             >
               x
             </span>
           </div>
           <div
-            className={ScheduleCSS.addCateBtnWrapper}
-            // onClick={() => {
-            //   setInputCateStyle({ display: "block" });
-            // }}
+            className={ScheduleCSS.addCalendarBtnWrapper}
+            onClick={() => {
+              setInputCalStyle({ display: "block" });
+            }}
           >
             <div> + </div>
             <div> 캘린더 추가</div>
           </div>
         </div>
-        <div className={ScheduleCSS.content}></div>
+        <div className={ScheduleCSS.content}>
+          {defaultMode ? (
+            <Calendar />
+          ) : searchMode ? (
+            <ScheduleSearch />
+          ) : (
+            <CalendarOption
+              selectCalendarNo={selectCalendarNo}
+              setDefaultMode={setDefaultMode}
+              defaultMode={defaultMode}
+              setSearchMode={setSearchMode}
+              searchMode={searchMode}
+              calendarDetail={calendarDetail}
+            />
+          )}
+        </div>
       </div>
     </>
   );

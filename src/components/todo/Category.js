@@ -1,7 +1,7 @@
 import CategoryCSS from "./Category.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 import {
@@ -16,7 +16,7 @@ function Category({
   setAddAndDeleteCategory,
 }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [cateModifyMode, setCateModifyMode] = useState(false);
 

@@ -82,7 +82,7 @@ const scheduleReducer = handleActions(
 
     [GET_CALENDARLIST]: (state, { payload }) => {
       // console.log("GET_CATEGORYLIST Reducer 내부 payload : ", payload);
-      return { ...state, categoryList: payload };
+      return { ...state, calendarList: payload };
     },
     [GET_CALENDAR]: (state, { payload }) => {
       return { ...state, calendarDetail: payload };

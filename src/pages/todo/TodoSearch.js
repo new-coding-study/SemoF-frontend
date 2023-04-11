@@ -1,7 +1,7 @@
 import TodoSearchCSS from "./TodoSearch.module.css";
 import Category from "../../components/todo/Category";
 import Intended from "../../components/todo/Intended";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useSearchParams, useNavigate } from "react-router-dom";
 

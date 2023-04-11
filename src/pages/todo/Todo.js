@@ -353,7 +353,13 @@ function Todo() {
             </div>
             <div className={TodoCSS.graph}>
               <div className={TodoCSS.graphOutLine}>
-                <div style={{ width: `${achievementRate}%` }}> </div>
+                <div
+                  style={
+                    isNaN(achievementRate)
+                      ? { width: 0 }
+                      : { width: `${achievementRate}%` }
+                  }
+                ></div>
               </div>
               <span> {isNaN(achievementRate) ? 0 : achievementRate}%</span>
             </div>
