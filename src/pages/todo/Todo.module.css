@@ -215,12 +215,18 @@
   align-items: center;
 }
 
-.graph div {
+.graphOutLine {
   border: 1px solid black;
   border-radius: 12px;
   height: 24px;
   width: 500px;
   margin: 4px 8px 4px 0;
+}
+
+.graphOutLine div {
+  background-color: #e52e2e;
+  height: 24px;
+  border-radius: 12px;
 }
 
 .graph span {

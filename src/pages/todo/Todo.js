@@ -352,7 +352,9 @@ function Todo() {
               <span> / {todayAllTodo} </span>
             </div>
             <div className={TodoCSS.graph}>
-              <div> </div>
+              <div className={TodoCSS.graphOutLine}>
+                <div style={{ width: `${achievementRate}%` }}> </div>
+              </div>
               <span> {isNaN(achievementRate) ? 0 : achievementRate}%</span>
             </div>
           </div>

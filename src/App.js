@@ -7,12 +7,13 @@ import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
 import Todo from "./pages/todo/Todo";
 import TodoSearch from "./pages/todo/TodoSearch";
+import Schedule from "./pages/schedule/Schedule";
 
 import Approval from "./pages/approval/Approval";
 import ApprovalIn from "./pages/approval/ApprovalIn";
 
 import ReportAdmin from "./pages/report/ReportAdmin";
-import WorksReportAdmin from "./pages/report/WorksReportAdmin"
+import WorksReportAdmin from "./pages/report/WorksReportAdmin";
 import WorksAll from "./components/worksReport/WorksAll";
 import Board from "./pages/board/Board";
 import PostingDetail from "./components/boards/PostingDetail";
@@ -51,6 +52,8 @@ function App() {
           <Route index element={<Main />} />
           <Route path="todo" element={<Todo />} />
           <Route path="todo/search" element={<TodoSearch />} />
+          <Route path="schedule" element={<Schedule />} />
+          {/* <Route path="schedule/search" element={<ScheduleSearch />} /> */}
 
           <Route path="approval" element={<Approval />} />
           <Route path="inbox" element={<ApprovalIn />} />
@@ -60,14 +63,13 @@ function App() {
           <Route path="add-line" element={<RegistLine />} />
           <Route path="modify-approval" element={<ModifyApproval />} />
           <Route path="board" element={<Board />} />
-          <Route path="posting-detail/:boardNo" element={<PostingDetail/>}/>
+          <Route path="posting-detail/:boardNo" element={<PostingDetail />} />
 
-          <Route path="report-admin" element={<ReportAdmin/>}/>
-          <Route path="works-report-admin" element={<WorksReportAdmin/>}/>
-          <Route path="test-worksAll" element = {<WorksAll/>}/>
+          <Route path="report-admin" element={<ReportAdmin />} />
+          <Route path="works-report-admin" element={<WorksReportAdmin />} />
+          <Route path="test-worksAll" element={<WorksAll />} />
           <Route path="inbox/:approvNo" element={<ApprovDetail />} />
           <Route path="edit-line/:lineNo" element={<ModifyLine />} />
-
 
           <Route path="employees" element={<Employees />} />
           <Route path="employees/management" element={<Management />} />

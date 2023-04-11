@@ -1,0 +1,22 @@
+.contour {
+  height: 60px;
+  background-color: #e52e2e;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  padding-left: 40px;
+  line-height: 60px;
+  border-radius: 8px;
+}
+
+.todoWrapper {
+  /* border: 1px solid black; */
+  height: 80%;
+  margin: 60px 40px;
+  display: flex;
+  overflow: auto;
+}
+
+.calendarWrapper {
+  margin-right: 60px;
+}
