@@ -5,6 +5,7 @@ import Calendar from "../../components/employees/Calendar";
 import Birthday from "../../components/employees/Birthday";
 import Attedance from "../../components/employees/Attendance";
 import Vacation from "../../components/employees/Vacation";
+import Clock from "../../components/employees/Clock";
 
 function Employees() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
@@ -92,7 +93,8 @@ function Employees() {
         </div>
 
         <div className={EmployeeCSS.atdCard}>
-          <div className={EmployeeCSS.atdHeader}>
+          <Clock />
+          {/* <div className={EmployeeCSS.atdHeader}>
             <h2>근로 관리</h2>
             <p>{today}</p>
           </div>
@@ -101,7 +103,7 @@ function Employees() {
               <p>연장 근무</p>
               <span>10건</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
