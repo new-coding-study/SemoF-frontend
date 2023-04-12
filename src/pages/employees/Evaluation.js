@@ -403,7 +403,7 @@ function Evaluation() {
                           <option value="">선택</option>
                           <option value="empName">이름</option>
                           <option value="deptName">부서</option>
-                          <option value="branchName">지점</option>
+                          {/* <option value="branchName">지점</option> */}
                         </select>
                       </div>
                       <input
