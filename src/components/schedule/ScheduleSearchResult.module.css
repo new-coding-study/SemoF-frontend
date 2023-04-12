@@ -5,27 +5,38 @@
   border-bottom: 1px solid #d0d0d0;
 }
 
-.scdResultOneWrapper div {
+.scdResultOneWrapper > div {
   margin: 0 8px;
   color: gray;
   /* border: 1px solid red; */
-  height: 24px;
+  /* height: 24px; */
   line-height: 26px;
 }
 
 .scdDate {
-  width: 160px;
+  width: 132px;
+  text-align: center;
 }
 
 .scdDay {
-  width: 32px;
+  width: 28px;
+  text-align: center;
 }
 
 .calColorWrapper {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
   /* border: 1px solid green; */
+  /* border-radius: 100%; */
+}
+
+.calColor {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
   border-radius: 100%;
+  margin-bottom: 12px;
 }
 
 .scdTime {
