@@ -1,8 +1,9 @@
-import Contribution from "../../components/employees/Contribution";
+// import Contribution from "../../components/employees/Contribution";
 import EvaluationCSS from "./Evaluation.module.css";
 
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import ContributionChart from "../../components/employees/ContributionChart";
 
 import {
   callGetEmployeesAPI,
@@ -12,6 +13,7 @@ import {
   callGetEmpContsAPI,
   callEmpContUpdateAPI,
   callDeleteEmpContAPI,
+  callGetEmpChartAPI,
 } from "../../apis/EmployeeAPICalls";
 
 function Evaluation() {
@@ -24,7 +26,7 @@ function Evaluation() {
   const employeeList = employees.data;
   // const pageInfo = employees.pageInfo;
   const contributionList = useSelector(
-    (state) => state.empReducer.contributionList
+    (state) => state.empReducer?.contributionList
   );
 
   console.log(
@@ -76,6 +78,13 @@ function Evaluation() {
     );
     //eslint-disable-next-line
   }, [currentPage]);
+
+  useEffect(
+    () => {
+      dispatch(callGetEmpChartAPI());
+    }, // eslint-disable-next-line
+    []
+  );
 
   useEffect(() => {
     dispatch(callGetEmpContsAPI({}));
@@ -272,6 +281,17 @@ function Evaluation() {
     });
   };
 
+  const empChart = (empNo) => {
+    // console.log("[empChart] empChart empNo : " + empNo);
+    return (
+      <div className="EmpChart">
+        {selectedEmployee && (
+          <ContributionChart data={contributionList} empNo={empNo} />
+        )}
+      </div>
+    );
+  };
+
   return (
     <>
       <div className={EvaluationCSS.header}>
@@ -414,25 +434,25 @@ function Evaluation() {
                             </tr>
                           </thead>
                           <tbody>
-                            {searchResult.length > 0 ? (
-                              searchResult.map((employee) => (
-                                <tr
-                                  key={employee.empNo}
-                                  onClick={() => {
-                                    setSelectedEmployee(employee);
-                                    setShowEvaluationForm(true);
-                                  }}
-                                >
-                                  <td>{employee.empName}</td>
-                                  <td>{employee.branchName}</td>
-                                  <td>{employee.deptName}</td>
-                                </tr>
-                              ))
-                            ) : (
-                              <tr>
-                                <td colSpan={3}>검색 결과가 없습니다.</td>
-                              </tr>
-                            )}
+                            {searchResult && searchResult.length > 0
+                              ? searchResult.map((employee) => (
+                                  <tr
+                                    key={employee.empNo}
+                                    onClick={() => {
+                                      setSelectedEmployee(employee);
+                                      setShowEvaluationForm(true);
+                                    }}
+                                  >
+                                    <td>{employee.empName}</td>
+                                    <td>{employee.branchName}</td>
+                                    <td>{employee.deptName}</td>
+                                  </tr>
+                                ))
+                              : searchResult.length === 0 && (
+                                  <tr>
+                                    <td colSpan={3}>검색 결과가 없습니다.</td>
+                                  </tr>
+                                )}
                           </tbody>
                         </table>
                       ) : null}
@@ -472,8 +492,10 @@ function Evaluation() {
                     <div className={EvaluationCSS.newModalFormGroup}>
                       {/* 도넛 그래프 */}
                       <div className={EvaluationCSS.chartWrapper}>
-                        <h3>실적 비율</h3>
-                        <div className={EvaluationCSS.chart}></div>
+                        {/* <h3>실적 비율</h3> */}
+                        <div className={EvaluationCSS.chart}>
+                          {empChart(selectedEmployee.empNo)}
+                        </div>
                       </div>
 
                       {/* 등급표 이미지 */}

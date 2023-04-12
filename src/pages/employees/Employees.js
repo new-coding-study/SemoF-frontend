@@ -5,6 +5,7 @@ import Calendar from "../../components/employees/Calendar";
 import Birthday from "../../components/employees/Birthday";
 import Attedance from "../../components/employees/Attendance";
 import Vacation from "../../components/employees/Vacation";
+import Clock from "../../components/employees/Clock";
 
 function Employees() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
@@ -92,7 +93,8 @@ function Employees() {
         </div>
 
         <div className={EmployeeCSS.atdCard}>
-          <div className={EmployeeCSS.atdHeader}>
+          <Clock />
+          {/* <div className={EmployeeCSS.atdHeader}>
             <h2>근로 관리</h2>
             <p>{today}</p>
           </div>
@@ -101,7 +103,7 @@ function Employees() {
               <p>연장 근무</p>
               <span>10건</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -109,17 +111,24 @@ function Employees() {
         <div className={EmployeeCSS.card}>
           <iframe
             title="키바나 성별 그래프"
-            src="http://localhost:5601/app/dashboards#/view/a48fc4d0-d77e-11ed-aab3-dde941b073bf?_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))"
+            src="http://localhost:5601/goto/492296a0-d845-11ed-b2e5-91d1641f1713"
+            height="100%"
             width="100%"
-            height="600px"
-            frameBorder="0"
-            // allowFullScreen
+            allowFullScreen
+          />
+        </div>
+        <div className={EmployeeCSS.card2}>
+          <iframe
+            title="키바나 직급 분포 그래프"
+            src="http://localhost:5601/goto/27de5a60-d845-11ed-b2e5-91d1641f1713"
+            height="100%"
+            width="100%"
+            allowFullScreen
           />
         </div>
         <div className={EmployeeCSS.calender}>
           <Calendar />
         </div>
-        <div className={EmployeeCSS.card2}></div>
       </div>
     </>
   );
