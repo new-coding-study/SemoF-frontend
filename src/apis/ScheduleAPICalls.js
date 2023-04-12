@@ -77,7 +77,7 @@ export const callRegistScheduleAPI = ({ form }) => {
       body: form,
     }).then((response) => response.json());
 
-    console.log("POST_SCHEDULE result : ", result);
+    // console.log("POST_SCHEDULE result : ", result);
 
     dispatch({ type: POST_SCHEDULE, payload: result });
   };
@@ -98,7 +98,7 @@ export const callUpdateScheduleAPI = ({ form }) => {
       body: form,
     }).then((response) => response.json());
 
-    console.log("PUT_SCHEDULE result : ", result);
+    // console.log("PUT_SCHEDULE result : ", result);
 
     dispatch({ type: PUT_SCHEDULE, payload: result });
   };
@@ -143,7 +143,7 @@ export const callSearchSchedulePI = (searchSchedule, empNo) => {
       },
     }).then((response) => response.json());
     if (result.status === 200) {
-      console.log("GET_SEARCHSCHEDULE result : ", result);
+      // console.log("GET_SEARCHSCHEDULE result : ", result);
       dispatch({ type: GET_SEARCHSCHEDULE, payload: result.data });
     }
   };
@@ -164,7 +164,7 @@ export const callCalendarListAPI = (empNo) => {
       },
     }).then((response) => response.json());
     if (result.status === 200) {
-      console.log("GET_CALENDARLIST result : ", result);
+      // console.log("GET_CALENDARLIST result : ", result);
       dispatch({ type: GET_CALENDARLIST, payload: result.data });
     }
   };
@@ -207,7 +207,7 @@ export const callRegistCalendarAPI = ({ form }) => {
       body: form,
     }).then((response) => response.json());
 
-    console.log("POST_CALENDAR result : ", result);
+    // console.log("POST_CALENDAR result : ", result);
 
     dispatch({ type: POST_CALENDAR, payload: result });
   };
@@ -228,7 +228,7 @@ export const callUpdateCalendarAPI = ({ form }) => {
       body: form,
     }).then((response) => response.json());
 
-    console.log("PUT_CALENDAR result : ", result);
+    // console.log("PUT_CALENDAR result : ", result);
 
     dispatch({ type: PUT_CALENDAR, payload: result });
   };
@@ -271,7 +271,7 @@ export const callCalendarMemListAPI = (calNo) => {
       },
     }).then((response) => response.json());
     if (result.status === 200) {
-      console.log("GET_CALENDARMEMLIST result : ", result);
+      // console.log("GET_CALENDARMEMLIST result : ", result);
       dispatch({ type: GET_CALENDARMEMLIST, payload: result.data });
     }
   };

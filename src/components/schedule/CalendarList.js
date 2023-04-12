@@ -10,12 +10,12 @@ function CalendarList({
   setSearchMode,
   setSelectCalendarNo,
 }) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const onClickMoveToSettingPageHandler = () => {
     setSelectCalendarNo(calendar.calNo);
     setDefaultMode(false);
-    setSearchMode(false);
+    // setSearchMode(false);
   };
 
   return (

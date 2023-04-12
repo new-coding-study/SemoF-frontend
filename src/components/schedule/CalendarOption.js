@@ -1,4 +1,5 @@
 import CalendarOptionCSS from "./CalendarOption.module.css";
+import CalendarMemList from "./CalendarMemList";
 // import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -6,34 +7,29 @@ import Swal from "sweetalert2";
 
 import {
   callCalendarDetailAPI,
-  callCalendarMemListAPI,
+  // callCalendarMemListAPI,
   callUpdateCalendarAPI,
   callDeleteCalendarAPI,
 } from "../../apis/ScheduleAPICalls";
 
 function CalendarOption({
+  setSelectCalendarNo,
   selectCalendarNo,
   setDefaultMode,
-  defaultMode,
-  setSearchMode,
-  searchMode,
-  calendarDetail,
 }) {
-  console.log("selectCalendarNo 확인 : ", selectCalendarNo);
+  // console.log("selectCalendarNo 확인 : ", selectCalendarNo);
+  // console.log("sendCalendarNo 확인 : ", sendCalendarNo);
   const dispatch = useDispatch();
 
-  //   const calendarDetail = useSelector(
-  //     (state) => state.scheduleReducer.calendarDetail
-  //   );
-
-  console.log(
-    "CalendarOption.js 에서 props로 받은 calendarDetail 확인 : ",
-    calendarDetail
+  const calendarDetail = useSelector(
+    (state) => state.scheduleReducer.calendarDetail
   );
 
-  const calendarMemList = useSelector(
-    (state) => state.scheduleReducer.calendarMemList
-  );
+  // const calendarMemList = useSelector(
+  //   (state) => state.scheduleReducer.calendarMemList
+  // );
+
+  // console.log("calendarMemList : ", calendarMemList);
 
   // 수정 및 삭제 권한 확인 (로그인한 유저와 캘린더 생성자가 동일해야만 수정 및 삭제가 가능함. 그 외에 멤버는 불가능)
   const localStorageEmpNo = 41; // 나중에 연결해서 가져와야함
@@ -43,28 +39,18 @@ function CalendarOption({
   // 돌아가기 버튼 => 달력으로 돌아감
   const onClickbackToCalendarHandler = () => {
     setDefaultMode(true);
+    setSelectCalendarNo("");
   };
 
   // 캘린더 수정에 대한 상태값
   const [updateCalendar, setUpdateCalendar] = useState({
-    // calName: calendarDetail?.calName,
-    // calColor: calendarDetail?.calColor,
-    // calContent: calendarDetail?.calContent,
-    calName: "",
-    calColor: "",
-    calContent: "",
+    calName: calendarDetail?.calName,
+    calColor: calendarDetail?.calColor,
+    calContent: calendarDetail?.calContent,
   });
-
-  //   console.log("calName 초기값 확인", calendarDetail?.calName);
-  //   console.log("calColor 초기값 확인", calendarDetail?.calColor);
-  //   console.log("calContent 초기값 확인", calendarDetail?.calContent);
-
-  console.log("updateCalendar", updateCalendar);
 
   // 캘린더 수정 관리 핸들러
   const onChangeUpdateCalendarHandler = (e) => {
-    // console.log("e.target.name 확인 : ", e.target.name);
-    // console.log("e.target.value 확인 : ", e.target.value);
     setUpdateCalendar({
       ...updateCalendar,
       [e.target.name]: e.target.value,
@@ -129,7 +115,7 @@ function CalendarOption({
         ).then(
           //    navigate(`/semof/todo`, { replace: true }),
           //    setTodoDetailModal(false),
-          setDefaultMode(false)
+          setDefaultMode(true)
           //   window.location.reload()
         );
       }
@@ -139,11 +125,21 @@ function CalendarOption({
   useEffect(
     () => {
       console.log("CalendarOption.js 호출");
-      console.log("useEffect 내부에서 updateCalendar 확인", updateCalendar);
       dispatch(callCalendarDetailAPI(selectCalendarNo));
-      dispatch(callCalendarMemListAPI(selectCalendarNo));
     }, // eslint-disable-next-line
-    [selectCalendarNo, defaultMode, searchMode]
+    [selectCalendarNo]
+  );
+
+  useEffect(
+    () => {
+      console.log("useEffect 내부 - 2 ");
+      setUpdateCalendar({
+        calName: calendarDetail?.calName,
+        calColor: calendarDetail?.calColor,
+        calContent: calendarDetail?.calContent,
+      });
+    }, // eslint-disable-next-line
+    [calendarDetail]
   );
 
   return (
@@ -164,7 +160,8 @@ function CalendarOption({
               type="text"
               name="calName"
               placeholder="캘린더 이름"
-              defaultValue={calendarDetail?.calName || ""}
+              // defaultValue={updateCalendar?.calName || ""}
+              value={updateCalendar?.calName || ""}
               onChange={onChangeUpdateCalendarHandler}
               disabled={permission ? false : true}
             />
@@ -174,16 +171,18 @@ function CalendarOption({
             <input
               type="color"
               name="calColor"
-              defaultValue={calendarDetail?.calColor}
+              // defaultValue={updateCalendar?.calColor}
+              value={updateCalendar?.calColor}
               onChange={onChangeUpdateCalendarHandler}
-              disabled={permission ? false : true}
+              // disabled={permission ? false : true}
             />
           </div>
           <div className={CalendarOptionCSS.calContentWrapper}>
             <div className={CalendarOptionCSS.calContent}> 설명 </div>
             <textarea
               name="calContent"
-              defaultValue={calendarDetail?.calContent || ""}
+              // defaultValue={updateCalendar?.calContent || ""}
+              value={updateCalendar?.calContent || ""}
               onChange={onChangeUpdateCalendarHandler}
               disabled={permission ? false : true}
             />
@@ -193,7 +192,8 @@ function CalendarOption({
             <div> {calendarDetail?.madeEmpName} </div>
           </div>
           <div className={CalendarOptionCSS.calMemberWrapper}>
-            <div className={CalendarOptionCSS.calMem}> 소속 멤버 </div>
+            <CalendarMemList selectCalendarNo={selectCalendarNo} />
+            {/* <div className={CalendarOptionCSS.calMem}> 소속 멤버 </div>
             {Array.isArray(calendarMemList) &&
               calendarMemList.map((calendarMember) => (
                 <div
@@ -218,7 +218,7 @@ function CalendarOption({
                     이메일 출력
                   </div>
                 </div>
-              ))}
+              ))} */}
           </div>
           <div className={CalendarOptionCSS.addMemberBtn}> + 멤버 추가</div>
           <div> * 멤버정보 불러오는 API 필요함 </div>

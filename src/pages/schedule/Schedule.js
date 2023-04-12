@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   callCalendarListAPI,
   callRegistCalendarAPI,
-  callCalendarDetailAPI,
-  callCalendarMemListAPI,
+  // callCalendarDetailAPI,
+  // callCalendarMemListAPI,
 } from "../../apis/ScheduleAPICalls";
 
 function Schedule() {
@@ -19,10 +19,6 @@ function Schedule() {
 
   const calendarList = useSelector(
     (state) => state.scheduleReducer.calendarList
-  );
-
-  const calendarDetail = useSelector(
-    (state) => state.scheduleReducer.calendarDetail
   );
 
   const [inputCalStyle, setInputCalStyle] = useState({ display: "none" });
@@ -34,16 +30,10 @@ function Schedule() {
   });
 
   const [selectCalendarNo, setSelectCalendarNo] = useState("");
+  // const [sendCalendarNo, setSendCalendarNo] = useState("");
 
   const [defaultMode, setDefaultMode] = useState(true);
   const [searchMode, setSearchMode] = useState(false);
-
-  const moveToCalendarEdit = (calNo) => {
-    setDefaultMode(false);
-    setSearchMode(false);
-    setSelectCalendarNo(calNo);
-    dispatch(callCalendarDetailAPI(calNo));
-  };
 
   // 새로운 캘린더 추가를 위한 값 입력
   const onChangeAddCalendarHandler = (e) => {
@@ -90,19 +80,16 @@ function Schedule() {
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
       console.log("Schedule.js 호출");
       dispatch(callCalendarListAPI(41));
-      // dispatch(callCalendarDetailAPI(selectCalendarNo));
-      // dispatch(callCalendarMemListAPI(selectCalendarNo));
     }, // eslint-disable-next-line
     [addCalendar, defaultMode, searchMode, selectCalendarNo]
   );
 
   useEffect(
     () => {
-      // console.log("useEffect 내부. 곧 addCalendar 상태 바뀜");
       console.log("Schedule.js 호출 -2 ");
       setAddCalendar(false);
     }, // eslint-disable-next-line
-    [addCalendar, defaultMode, searchMode, selectCalendarNo]
+    [addCalendar]
   );
 
   return (
@@ -120,37 +107,37 @@ function Schedule() {
           </div>
           {Array.isArray(calendarList) &&
             calendarList?.map((calendar) => (
-              // <CalendarList
-              //   key={calendar.calNo}
-              //   calendar={calendar}
-              //   setDefaultMode={setDefaultMode}
-              //   setSearchMode={setSearchMode}
-              //   setSelectCalendarNo={setSelectCalendarNo}
-              // />
-              <div
-                className={CalendaListCSS.calendarWrapper}
+              <CalendarList
                 key={calendar.calNo}
-              >
-                <div className={CalendaListCSS.calendarInfowrapper}>
-                  <div
-                    className={CalendaListCSS.calColorBox}
-                    style={{ backgroundColor: calendar.calColor }}
-                  ></div>
-                  <div className={CalendaListCSS.calName}>
-                    {calendar.calName}
-                  </div>
+                calendar={calendar}
+                setDefaultMode={setDefaultMode}
+                setSearchMode={setSearchMode}
+                setSelectCalendarNo={setSelectCalendarNo}
+              />
+              // <div
+              //   className={CalendaListCSS.calendarWrapper}
+              //   key={calendar.calNo}
+              // >
+              //   <div className={CalendaListCSS.calendarInfowrapper}>
+              //     <div
+              //       className={CalendaListCSS.calColorBox}
+              //       style={{ backgroundColor: calendar.calColor }}
+              //     ></div>
+              //     <div className={CalendaListCSS.calName}>
+              //       {calendar.calName}
+              //     </div>
 
-                  <div className={CalendaListCSS.moveCalendarEditBtn}>
-                    <img
-                      src={"/images/edit.png"}
-                      alt="이미지확인!"
-                      className={CalendaListCSS.editIcon}
-                      // onClick={onClickMoveToSettingPageHandler}
-                      onClick={() => moveToCalendarEdit(calendar.calNo)}
-                    ></img>
-                  </div>
-                </div>
-              </div>
+              //     <div className={CalendaListCSS.moveCalendarEditBtn}>
+              //       <img
+              //         src={"/images/edit.png"}
+              //         alt="이미지확인!"
+              //         className={CalendaListCSS.editIcon}
+              //         // onClick={onClickMoveToSettingPageHandler}
+              //         onClick={() => moveToCalendarEdit(calendar.calNo)}
+              //       ></img>
+              //     </div>
+              //   </div>
+              // </div>
             ))}
           <div className={ScheduleCSS.inputCalWrapper} style={inputCalStyle}>
             <input
@@ -194,12 +181,17 @@ function Schedule() {
             <ScheduleSearch />
           ) : (
             <CalendarOption
+              setSelectCalendarNo={setSelectCalendarNo}
               selectCalendarNo={selectCalendarNo}
               setDefaultMode={setDefaultMode}
-              defaultMode={defaultMode}
+              // defaultMode={defaultMode}
               setSearchMode={setSearchMode}
-              searchMode={searchMode}
-              calendarDetail={calendarDetail}
+              // searchMode={searchMode}
+              // setTestState={setTestState}
+              // testState={testState}
+              // setSendCalendarNo={setSendCalendarNo}
+              // sendCalendarNo={sendCalendarNo}
+              // calendarDetail={calendarDetail}
             />
           )}
         </div>
