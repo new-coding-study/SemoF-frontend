@@ -47,9 +47,12 @@ function CalendarOption({
 
   // 캘린더 수정에 대한 상태값
   const [updateCalendar, setUpdateCalendar] = useState({
-    calName: calendarDetail?.calName,
-    calColor: calendarDetail?.calColor,
-    calContent: calendarDetail?.calContent,
+    // calName: calendarDetail?.calName,
+    // calColor: calendarDetail?.calColor,
+    // calContent: calendarDetail?.calContent,
+    calName: "",
+    calColor: "",
+    calContent: "",
   });
 
   //   console.log("calName 초기값 확인", calendarDetail?.calName);
