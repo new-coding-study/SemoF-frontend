@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import RegisterCSS from "./Register.module.css";
+import RegisterCSS from "./EmpRegister.module.css";
 import { callRegisterAPI } from "../../apis/EmployeeAPICalls";
 
 function Register() {
