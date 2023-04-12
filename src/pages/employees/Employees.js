@@ -9,7 +9,7 @@ import Clock from "../../components/employees/Clock";
 
 function Employees() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
-  const [value, onChange] = useState(new Date());
+  // const [value, onChange] = useState(new Date());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
 
   return (
@@ -110,17 +110,26 @@ function Employees() {
       <div className={EmployeeCSS.content}>
         <div className={EmployeeCSS.card}>
           <iframe
-            title="키바나 성별 그래프"
-            src="http://localhost:5601/goto/492296a0-d845-11ed-b2e5-91d1641f1713"
+            title="키바나 총원 그래프"
+            src="http://localhost:5601/app/dashboards#/view/245a1ec0-d8cb-11ed-be77-e179953acd57?embed=true&_g=(filters%3A!())&hide-filter-bar=true"
             height="100%"
             width="100%"
             allowFullScreen
           />
         </div>
-        <div className={EmployeeCSS.card2}>
+        <div className={EmployeeCSS.card}>
+          <iframe
+            title="키바나 성별 분포 그래프"
+            src="http://localhost:5601/goto/dd479730-d8ff-11ed-bf42-df82288866c5"
+            height="100%"
+            width="100%"
+            allowFullScreen
+          ></iframe>
+        </div>
+        <div className={EmployeeCSS.card}>
           <iframe
             title="키바나 직급 분포 그래프"
-            src="http://localhost:5601/goto/27de5a60-d845-11ed-b2e5-91d1641f1713"
+            src="http://localhost:5601/goto/35df90a0-d8ce-11ed-be77-e179953acd57"
             height="100%"
             width="100%"
             allowFullScreen
