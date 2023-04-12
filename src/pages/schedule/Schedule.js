@@ -1,7 +1,6 @@
 import ScheduleCSS from "./Schedule.module.css";
-import CalendaListCSS from "../../components/schedule/CalendarList.module.css";
 import CalendarList from "../../components/schedule/CalendarList";
-import Calendar from "../../components/schedule/Calendar";
+import DefaultCalendar from "../../components/schedule/DefaultCalendar";
 import ScheduleSearch from "../../components/schedule/ScheduleSearch";
 import CalendarOption from "../../components/schedule/CalendarOption";
 import { useEffect, useState } from "react";
@@ -21,6 +20,7 @@ function Schedule() {
     (state) => state.scheduleReducer.calendarList
   );
 
+  // 캘린더 리스트에서 새로운 캘린더 추가하는데 필요한 상태값
   const [inputCalStyle, setInputCalStyle] = useState({ display: "none" });
   const [addCalendar, setAddCalendar] = useState(false);
 
@@ -75,10 +75,14 @@ function Schedule() {
     }
   };
 
+  // DefaultMode 에서 입력받은 검색어를 SearchMode로 보내주기 위한 상태값과 코드
+  const [searchSchedule, setSearchSchedule] = useState({
+    searchWord: "",
+  });
+
   useEffect(
     () => {
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-      console.log("Schedule.js 호출");
       dispatch(callCalendarListAPI(41));
     }, // eslint-disable-next-line
     [addCalendar, defaultMode, searchMode, selectCalendarNo]
@@ -86,7 +90,6 @@ function Schedule() {
 
   useEffect(
     () => {
-      console.log("Schedule.js 호출 -2 ");
       setAddCalendar(false);
     }, // eslint-disable-next-line
     [addCalendar]
@@ -176,22 +179,24 @@ function Schedule() {
         </div>
         <div className={ScheduleCSS.content}>
           {defaultMode ? (
-            <Calendar />
+            <DefaultCalendar
+              setSearchSchedule={setSearchSchedule}
+              searchSchedule={searchSchedule}
+              setDefaultMode={setDefaultMode}
+              setSearchMode={setSearchMode}
+            />
           ) : searchMode ? (
-            <ScheduleSearch />
+            <ScheduleSearch
+              searchSchedule={searchSchedule}
+              setDefaultMode={setDefaultMode}
+              setSearchMode={setSearchMode}
+            />
           ) : (
             <CalendarOption
               setSelectCalendarNo={setSelectCalendarNo}
               selectCalendarNo={selectCalendarNo}
               setDefaultMode={setDefaultMode}
-              // defaultMode={defaultMode}
               setSearchMode={setSearchMode}
-              // searchMode={searchMode}
-              // setTestState={setTestState}
-              // testState={testState}
-              // setSendCalendarNo={setSendCalendarNo}
-              // sendCalendarNo={sendCalendarNo}
-              // calendarDetail={calendarDetail}
             />
           )}
         </div>

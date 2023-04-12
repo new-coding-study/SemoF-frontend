@@ -1,0 +1,38 @@
+.scdResultOneWrapper {
+  display: flex;
+  margin-bottom: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.scdResultOneWrapper div {
+  margin: 0 8px;
+  color: gray;
+  /* border: 1px solid red; */
+  height: 24px;
+  line-height: 26px;
+}
+
+.scdDate {
+  width: 160px;
+}
+
+.scdDay {
+  width: 32px;
+}
+
+.calColorWrapper {
+  width: 24px;
+  height: 24px;
+  /* border: 1px solid green; */
+  border-radius: 100%;
+}
+
+.scdTime {
+  width: 200px;
+}
+
+.scdName {
+  width: 400px;
+  font-size: 18px;
+}

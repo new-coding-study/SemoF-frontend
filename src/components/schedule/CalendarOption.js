@@ -124,7 +124,6 @@ function CalendarOption({
 
   useEffect(
     () => {
-      console.log("CalendarOption.js 호출");
       dispatch(callCalendarDetailAPI(selectCalendarNo));
     }, // eslint-disable-next-line
     [selectCalendarNo]
@@ -132,7 +131,6 @@ function CalendarOption({
 
   useEffect(
     () => {
-      console.log("useEffect 내부 - 2 ");
       setUpdateCalendar({
         calName: calendarDetail?.calName,
         calColor: calendarDetail?.calColor,

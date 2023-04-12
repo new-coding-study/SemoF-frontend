@@ -129,6 +129,7 @@ export const callDeleteScheduleAPI = (scdNo) => {
 // 검색 메소드 호출
 export const callSearchSchedulePI = (searchSchedule, empNo) => {
   // console.log("GET_SEARCHSCHEDULE call");
+  console.log("API에서의 검색어 확인 : ", searchSchedule);
 
   const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/schedules/schedule/search?s=${searchSchedule}&e=${empNo}`;
 

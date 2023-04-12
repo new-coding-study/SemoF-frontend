@@ -25,7 +25,7 @@ function TodoSearch() {
     (state) => state.todoReducer.todoSearchList
   );
 
-  // 오늘 날짜를 구해서 yyyy-MM-dd 형식으로 변환해새ㅓ dateString 에 담아줌
+  // 오늘 날짜를 구해서 yyyy-MM-dd 형식으로 변환해서 dateString 에 담아줌
   const today = new Date();
 
   const year = today.getFullYear();
