@@ -1,4 +1,4 @@
-import registWorks from "./RegistWorks.module.css";
+import registWorks from "./RegistSale.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -86,13 +86,12 @@ function RegistSales ({setIsSalesRegist}){
                     <br/>
                     <form>
                    <div className={registWorks.displayBox}>
-                    <br/>
                     <table className={registWorks.table}>
                         <tbody>
-                        <tr>
+                        <tr className={registWorks.tr1st}>
                             <td className={modalcss.workstd1}>Period &nbsp;:</td>
                             <td className={registWorks.tablechild2}><input className={registWorks.date1} name="startDate" value={form.startDate} onChange={onChangeHandler} type="date"/></td>
-                            <td style={{width:'5px', float:'right',marginRight:'-15px'}}>&nbsp;~</td>
+                            <td style={{width:'5px', float:'right',marginRight:'-20px'}}>&nbsp;~</td>
                             <td><input name="endDate" className={registWorks.date2} value={form.endDate} onChange={onChangeHandler} type="date"/></td>
                         </tr>
                         </tbody>
@@ -103,32 +102,26 @@ function RegistSales ({setIsSalesRegist}){
                             <td className={modalcss.workstd1}>Title &nbsp;:</td>
                             <td><input className={registWorks.title} name="salesReportTitle" value={form.salesReportTitle} onChange={onChangeHandler} type="text"/></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Content &nbsp;:</td>
                             <td><textarea className={registWorks.content} name="salesReportContent" value={form.salesReportContent} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Customer Comment  &nbsp;:</td>
                             <td><textarea className={registWorks.issimp} name="customerComment" value={form.customerComment} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Competition Analysis  &nbsp;:</td>
                             <td><textarea className={registWorks.next} name="competitionAnalysis" value={form.competitionAnalysis} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Issues & Improvement  &nbsp;:</td>
                             <td><textarea className={registWorks.etc} name="issuesImprovement" value={form.issuesImprovement} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Next Plan  &nbsp;:</td>
                             <td><textarea className={registWorks.etc} name="nextPlan" value={form.nextPlan} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Conclusion  &nbsp;:</td>
                             <td><textarea className={registWorks.con} name="conclusion" value={form.conclusion} onChange={onChangeHandler}></textarea></td>                        

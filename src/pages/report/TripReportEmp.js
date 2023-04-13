@@ -47,7 +47,6 @@ function TripReportEmp(){
         <div>
         <div className={tripCss.title}>출장보고서</div>
         <br/>
-        <br/>
         <div className={tripCss.btnArea}>
         <button onClick={handleAllList}>
             전체 

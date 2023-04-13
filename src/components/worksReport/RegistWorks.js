@@ -90,7 +90,7 @@ function RegistWorks ({setIsWorksRegist}){
                         <tr>
                             <td className={modalcss.workstd1}>Period &nbsp;:</td>
                             <td className={registWorks.tablechild2}><input className={registWorks.date1} name="startDate" value={form.startDate} onChange={onChangeHandler} type="date"/></td>
-                            <td style={{width:'5px', float:'right',marginRight:'-15px'}}>&nbsp;~</td>
+                            <td style={{width:'5px', float:'right',marginRight:'-30px'}}>&nbsp;~</td>
                             <td><input name="endDate" className={registWorks.date2} value={form.endDate} onChange={onChangeHandler} type="date"/></td>
                         </tr>
                         </tbody>
@@ -101,27 +101,27 @@ function RegistWorks ({setIsWorksRegist}){
                             <td className={modalcss.workstd1}>Title &nbsp;:</td>
                             <td><input className={registWorks.title} name="worksReportTitle" value={form.worksReportTitle} onChange={onChangeHandler} type="text"/></td>
                         </tr>
-                        <br/>
+                        
                         <tr>
                             <td className={modalcss.workstd1}>Content &nbsp;:</td>
                             <td><textarea className={registWorks.content} name="worksReportContent" value={form.worksReportContent} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
+                        
                         <tr>
                             <td className={modalcss.workstd1}>Issues & Improvement  &nbsp;:</td>
                             <td><textarea className={registWorks.issimp} name="issuesImprovement" value={form.issuesImprovement} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
+                        
                         <tr>
                             <td className={modalcss.workstd1}>Next Plan  &nbsp;:</td>
                             <td><textarea className={registWorks.next} name="nextPlan" value={form.nextPlan} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
+                        
                         <tr>
                             <td className={modalcss.workstd1}>etc  &nbsp;:</td>
                             <td><textarea className={registWorks.etc} name="etc" value={form.etc} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
+                        
                         <tr>
                             <td className={modalcss.workstd1}>Conclusion  &nbsp;:</td>
                             <td><textarea className={registWorks.con} name="conclusion" value={form.conclusion} onChange={onChangeHandler}></textarea></td>                        

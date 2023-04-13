@@ -85,7 +85,7 @@ function UpdateModal ({setIsWorksDetail, worksReportCode, setIsWorksUpdate}){
             <div className={updateModalcss.modal}>
                 <div className={updateModalcss.modalContainer}>
                     <div className={updateModalcss.title}>업무보고서 수정</div>
-                    <br/><br/>
+                    <br/>
                    {worksDetail &&
                    <form>
                    <div className={updateModalcss.displayBox}>
@@ -108,7 +108,7 @@ function UpdateModal ({setIsWorksDetail, worksReportCode, setIsWorksUpdate}){
                         </tr>
                         <br/>
                         <tr>
-                            <td>Issues & Improvement  &nbsp;:</td>
+                            <td style={{width:'44%'}}>Issues & Improvement  &nbsp;:</td>
                             <td className={modalcss.worktable1stc}>{worksDetail.issuesImprovement}</td>
                         </tr>
                         <br/>

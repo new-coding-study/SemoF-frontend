@@ -70,11 +70,14 @@
     width: 100px;
 }
 .table2{
-    padding-left: 3%;
+    padding-left: 10%;
     width: 100%;
     border-radius: 10px;
     border-collapse: none;
-    padding-bottom: 2%;
+    padding-top: 2%;
+}
+.table2 td{
+    text-align: left;    
 }
 .title{
     width: 300px;

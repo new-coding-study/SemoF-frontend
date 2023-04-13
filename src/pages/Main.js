@@ -1,5 +1,5 @@
 import MainCSS from "./Main.module.css";
-
+import BoardNoticeTop3 from "../components/boards/BoardNoticeTop3";
 function Main() {
   return (
     <>
@@ -18,7 +18,7 @@ function Main() {
           <div className={MainCSS.weather}> 날씨 </div>
           <div className={MainCSS.birth}> 생일자 </div>
           <div className={MainCSS.todo}> 할 일 </div>
-          <div className={MainCSS.notice}> 공지사항 </div>
+          <div className={MainCSS.notice}> <BoardNoticeTop3/> </div>
         </div>
       </div>
     </>

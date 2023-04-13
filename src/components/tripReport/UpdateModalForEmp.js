@@ -112,22 +112,18 @@ function UpdateModalForEmp ({setIsTripDetail, tripReportCode, setIsUpdateEmp}){
                             <td className={modalcss.workstd1}>Location &nbsp;:</td>
                             <td><input className={registTrip.title} name="destination" value={form.destination} onChange={onChangeHandler} type="text"/></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Title &nbsp;:</td>
                             <td><textarea className={registTrip.content} name="tripReportTitle" value={form.tripReportTitle} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Content  &nbsp;:</td>
                             <td><textarea className={registTrip.issimp} name="tripReportContent" value={form.tripReportContent} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Issues & Improvement  &nbsp;:</td>
                             <td><textarea className={registTrip.next} name="issuesImprovement" value={form.issuesImprovement} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Conclusion  &nbsp;:</td>
                             <td><textarea className={registTrip.con} name="conclusion" value={form.conclusion} onChange={onChangeHandler}></textarea></td>                        

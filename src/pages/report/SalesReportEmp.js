@@ -47,7 +47,6 @@ function SalesReportEmp(){
         <div>
         <div className={workscss.title}>영업보고서</div>
         <br/>
-        <br/>
         <div className={workscss.btnArea}>
         <button onClick={handleAllList}>
             전체 

@@ -32,7 +32,7 @@ export const callLoginAPI = ({ form }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "*/*",
+        Accept: "*/*",
         "Access-Control-Allow-Origin": "*",
       },
       body: JSON.stringify({
@@ -90,21 +90,17 @@ export const callcheckIdAPI = (loginId) => {
     const result = await fetch(requestURL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Accept: "*/*",
       },
-      body: JSON.stringify(
-        loginId
-        // loginPwd: form.loginPwd
-        // ,
-        // memberName: form.memberName,
-        // memberEmail: form.memberEmail,
-      ),
+      body: loginId,
     }).then((response) => response.json());
 
     console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
 
     if (result.status === 201) {
+      dispatch({ type: POST_ID, payload: result });
+    } else {
       dispatch({ type: POST_ID, payload: result });
     }
   };
@@ -126,6 +122,8 @@ export const callCheckRegAPI = (empReg) => {
     console.log("[MemberAPICalls] callRegisterAPI RESULT : ", result);
 
     if (result.status === 201) {
+      dispatch({ type: POST_REG, payload: result });
+    } else if (result.status === 500) {
       dispatch({ type: POST_REG, payload: result });
     }
   };

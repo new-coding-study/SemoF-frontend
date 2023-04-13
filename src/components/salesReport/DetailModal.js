@@ -70,37 +70,65 @@ function ReportDetail({setIsUpdateEmp, setIsSalesDetail, salesReportCode, setIsS
                     <td>Period &nbsp;:</td>
                     <td className={modalcss.worktable1stc}>{salesDetail.startDate} ~ {salesDetail.endDate}</td>
                 </tr>
+                <tr/>
+                <tr/>
+                <tr/>
+                <tr/>
                 <tr>
                     <td>Content &nbsp;:</td>
                     <td className={modalcss.worktable1stc}>{salesDetail.salesReportContent}</td>
                 </tr>
+                <tr/>
+                <tr/>
+                <tr/>
+                <tr/>
                 <tr>
                     <td>Customer Comment  &nbsp;:</td>
                     <td className={modalcss.worktable1stc}>{salesDetail.customerComment}</td>
                 </tr>
+                <tr/>
+                <tr/>
+                <tr/>
+                <tr/>
                 <tr>
                     <td>Competition Analysis  &nbsp;:</td>
                     <td className={modalcss.worktable1stc}>{salesDetail.competitionAnalysis}</td>
                 </tr>
+                <tr/>
+                <tr/>
+                <tr/>
+                <tr/>
                 <tr>
-                    <td>Issues & Improvement  &nbsp;:</td>
+                    <td style={{width:"44%"}}>Issues & Improvement  &nbsp;:</td>
                     <td className={modalcss.worktable1stc}>{salesDetail.issuesImprovement}</td>
                 </tr>
+                <tr/>
+                <tr/>
+                <tr/>
+                <tr/>
                 <tr>
                     <td>Next Plan  &nbsp;:</td>
                     <td className={modalcss.worktable1stc}>{salesDetail.nextPlan}</td>
                 </tr>
+                <tr/>
+                <tr/>
+                <tr/>
+                <tr/>
                 <tr>
                     <td>Conclusion  &nbsp;:</td>
                     <td className={modalcss.worktable1stc}>{salesDetail.conclusion}</td>
                 </tr>
+                <tr/>
+                <tr/>
+                <tr/>
+                <tr/>
+                <tr/>
                 <tr>
                     <td>Comment  &nbsp;:</td>
                     <td className={modalcss.worktable1stc}>{salesDetail.reportComment}</td>
                 </tr>
             </table>
             </div>
-            <br/>
             <br/>
             <div className={modalcss.modalbtn}>
                 {decoded === "ROLE_USER"? <button onClick={() => setIsUpdateEmp(true)}>수정</button>:
