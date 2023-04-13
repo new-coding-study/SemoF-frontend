@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
   AttendanceReducer,
   registerEmpReducer,
   salesReportReducer,
-  meetingReportReducer
+  meetingReportReducer,
 
   scheduleReducer,
 });
