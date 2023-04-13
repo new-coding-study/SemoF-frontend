@@ -13,7 +13,7 @@
 .modalContainer{
     position: absolute;
     width: 650px;
-    height: 850px;
+    height: 820px;
     padding: 10px;
     text-align: left;
     background-color: rgb(255, 255, 255);
@@ -39,7 +39,7 @@
     padding: 10px;
 }
 .displayBox{
-    height:650px;
+    height:620px;
     background-color: white;
     border-radius: 10px;
     border: 2px solid plum;

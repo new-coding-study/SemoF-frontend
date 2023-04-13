@@ -44,8 +44,7 @@ function MeetingReportAdmin(){
     return(
         <>
         <div>
-        <div className={meetingCss.title}>출장보고서</div>
-        <br/>
+        <div className={meetingCss.title}>회의보고서</div>
         <br/>
         <div className={meetingCss.btnArea}>
         <button onClick={handleAllList}>

@@ -6,7 +6,7 @@ import updateModalcss from "./UpdateModalForEmp.module.css";
 import {decodeJwt} from '../../utils/tokenUtils';
 import modalcss from "./DetailModal.module.css";
 import Swal from "sweetalert2";
-import registWorks from "./RegistWorks.module.css";
+import registWorks from "./RegistSale.module.css";
 
 
 function UpdateModal ({setIsSalesDetail, salesReportCode, setIsUpdateEmp}){
@@ -102,32 +102,26 @@ function UpdateModal ({setIsSalesDetail, salesReportCode, setIsUpdateEmp}){
                             <td className={modalcss.workstd1}>Title &nbsp;:</td>
                             <td><input className={registWorks.title} name="salesReportTitle" value={form.salesReportTitle} onChange={onChangeHandler} type="text"/></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Content &nbsp;:</td>
                             <td><textarea className={registWorks.content} name="salesReportContent" value={form.salesReportContent} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Customer Comment  &nbsp;:</td>
                             <td><textarea className={registWorks.issimp} name="customerComment" value={form.customerComment} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Competition Analysis  &nbsp;:</td>
                             <td><textarea className={registWorks.next} name="competitionAnalysis" value={form.competitionAnalysis} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Issues & Improvement  &nbsp;:</td>
                             <td><textarea className={registWorks.etc} name="issuesImprovement" value={form.issuesImprovement} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Next Plan  &nbsp;:</td>
                             <td><textarea className={registWorks.etc} name="nextPlan" value={form.nextPlan} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Conclusion  &nbsp;:</td>
                             <td><textarea className={registWorks.con} name="conclusion" value={form.conclusion} onChange={onChangeHandler}></textarea></td>                        

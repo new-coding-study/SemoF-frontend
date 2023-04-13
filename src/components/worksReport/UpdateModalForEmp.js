@@ -95,34 +95,28 @@ function UpdateModal ({setIsWorksDetail, worksReportCode, setIsUpdateEmp}){
                    {worksDetail &&
                    <form>
                    <div className={updateModalcss.displayBox}>
-                    <br/>
                    <table className={registWorks.table2}>
                         <tbody>
                         <tr>
                             <td className={modalcss.workstd1}>Title &nbsp;:</td>
                             <td><input className={registWorks.title} name="worksReportTitle" value={form.worksReportTitle} onChange={onChangeHandler} type="text"/></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Content &nbsp;:</td>
                             <td><textarea className={registWorks.content} name="worksReportContent" value={form.worksReportContent} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
-                            <td className={modalcss.workstd1}>Issues & Improvement  &nbsp;:</td>
+                            <td className={modalcss.workstd1}>Issues & Improvement:</td>
                             <td><textarea className={registWorks.issimp} name="issuesImprovement" value={form.issuesImprovement} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Next Plan  &nbsp;:</td>
                             <td><textarea className={registWorks.next} name="nextPlan" value={form.nextPlan} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>etc  &nbsp;:</td>
                             <td><textarea className={registWorks.etc} name="etc" value={form.etc} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Conclusion  &nbsp;:</td>
                             <td><textarea className={registWorks.con} name="conclusion" value={form.conclusion} onChange={onChangeHandler}></textarea></td>                        
