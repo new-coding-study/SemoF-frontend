@@ -136,7 +136,7 @@ function ScheduleUpdateModal({
             </div>
 
             <div className={ScheduleUpdateModalCSS.scdDateWrapper}>
-              <div className={ScheduleUpdateModalCSS.scdDateLabel}>일시</div>
+              {/* <div className={ScheduleUpdateModalCSS.scdDateLabel}>일시</div> */}
               <div className={ScheduleUpdateModalCSS.scdDate}>
                 <div className={ScheduleUpdateModalCSS.scdStart}>
                   시작일

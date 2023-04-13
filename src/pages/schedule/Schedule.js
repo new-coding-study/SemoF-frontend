@@ -2,6 +2,7 @@ import ScheduleCSS from "./Schedule.module.css";
 import CalendarList from "../../components/schedule/CalendarList";
 import DefaultCalendar from "../../components/schedule/DefaultCalendar";
 import ScheduleSearch from "../../components/schedule/ScheduleSearch";
+import RegistSchedule from "../../components/schedule/RegistSchedule";
 import CalendarOption from "../../components/schedule/CalendarOption";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -33,6 +34,12 @@ function Schedule() {
 
   const [defaultMode, setDefaultMode] = useState(true);
   const [searchMode, setSearchMode] = useState(false);
+  const [registMode, setRegistMode] = useState(false);
+
+  const onClickMoveTeRegistScdHandler = () => {
+    setDefaultMode(false);
+    setRegistMode(true);
+  };
 
   // 새로운 캘린더 추가를 위한 값 입력
   const onChangeAddCalendarHandler = (e) => {
@@ -84,7 +91,7 @@ function Schedule() {
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
       dispatch(callCalendarListAPI(41));
     }, // eslint-disable-next-line
-    [addCalendar, defaultMode, searchMode, selectCalendarNo]
+    [addCalendar, defaultMode, searchMode, registMode, selectCalendarNo]
   );
 
   useEffect(
@@ -101,11 +108,7 @@ function Schedule() {
       <div className={ScheduleCSS.scheduleWrapper}>
         <div className={ScheduleCSS.calendarWrapper}>
           <div className={ScheduleCSS.addScheduleBox}>
-            <button
-            // onClick={onClickInsertTodoHandler}
-            >
-              일정 추가
-            </button>
+            <button onClick={onClickMoveTeRegistScdHandler}>일정 추가</button>
           </div>
           {Array.isArray(calendarList) &&
             calendarList?.map((calendar) => (
@@ -114,6 +117,7 @@ function Schedule() {
                 calendar={calendar}
                 setDefaultMode={setDefaultMode}
                 setSearchMode={setSearchMode}
+                setRegistMode={setRegistMode}
                 setSelectCalendarNo={setSelectCalendarNo}
               />
               // <div
@@ -183,12 +187,20 @@ function Schedule() {
               searchSchedule={searchSchedule}
               setDefaultMode={setDefaultMode}
               setSearchMode={setSearchMode}
+              setRegistMode={setRegistMode}
             />
           ) : searchMode ? (
             <ScheduleSearch
               searchSchedule={searchSchedule}
               setDefaultMode={setDefaultMode}
               setSearchMode={setSearchMode}
+              setRegistMode={setRegistMode}
+            />
+          ) : registMode ? (
+            <RegistSchedule
+              setDefaultMode={setDefaultMode}
+              setSearchMode={setSearchMode}
+              setRegistMode={setRegistMode}
             />
           ) : (
             <CalendarOption
@@ -196,6 +208,7 @@ function Schedule() {
               selectCalendarNo={selectCalendarNo}
               setDefaultMode={setDefaultMode}
               setSearchMode={setSearchMode}
+              setRegistMode={setRegistMode}
             />
           )}
         </div>

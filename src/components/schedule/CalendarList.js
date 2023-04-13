@@ -8,6 +8,7 @@ function CalendarList({
   calendar,
   setDefaultMode,
   setSearchMode,
+  setRegistMode,
   setSelectCalendarNo,
 }) {
   // const dispatch = useDispatch();
@@ -15,7 +16,8 @@ function CalendarList({
   const onClickMoveToSettingPageHandler = () => {
     setSelectCalendarNo(calendar.calNo);
     setDefaultMode(false);
-    // setSearchMode(false);
+    setRegistMode(false);
+    setSearchMode(false);
   };
 
   return (
