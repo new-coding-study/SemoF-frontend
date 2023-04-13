@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   callCalendarListAPI,
   callRegistCalendarAPI,
-  // callCalendarDetailAPI,
-  // callCalendarMemListAPI,
 } from "../../apis/ScheduleAPICalls";
 
 function Schedule() {
@@ -35,6 +33,8 @@ function Schedule() {
   const [defaultMode, setDefaultMode] = useState(true);
   const [searchMode, setSearchMode] = useState(false);
   const [registMode, setRegistMode] = useState(false);
+
+  const [defaultDate, setDefaultDate] = useState(new Date());
 
   const onClickMoveTeRegistScdHandler = () => {
     setDefaultMode(false);
@@ -188,6 +188,7 @@ function Schedule() {
               setDefaultMode={setDefaultMode}
               setSearchMode={setSearchMode}
               setRegistMode={setRegistMode}
+              setDefaultDate={setDefaultDate}
             />
           ) : searchMode ? (
             <ScheduleSearch
@@ -201,6 +202,7 @@ function Schedule() {
               setDefaultMode={setDefaultMode}
               setSearchMode={setSearchMode}
               setRegistMode={setRegistMode}
+              defaultDate={defaultDate}
             />
           ) : (
             <CalendarOption

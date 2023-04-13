@@ -4,16 +4,21 @@ import { useState } from "react";
 import moment from "moment";
 
 import { callRegistScheduleAPI } from "../../apis/ScheduleAPICalls";
-function RegistSchedule({ setDefaultMode, setSearchMode, setRegistMode }) {
+function RegistSchedule({
+  setDefaultMode,
+  setSearchMode,
+  setRegistMode,
+  defaultDate,
+}) {
   const dispatch = useDispatch();
 
   const [checkAllDay, setCheckAllDay] = useState(true);
 
   const [newSchedule, setNewSchedule] = useState({
     scdName: "",
-    scdStartDay: moment(new Date()).format("YYYY-MM-DD"),
+    scdStartDay: moment(defaultDate).format("YYYY-MM-DD"),
     scdStartTime: "",
-    scdEndDay: moment(new Date()).format("YYYY-MM-DD"),
+    scdEndDay: moment(defaultDate).format("YYYY-MM-DD"),
     scdEndTime: "",
     scdAllDay: "",
     scdContent: "",

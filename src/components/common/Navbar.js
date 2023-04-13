@@ -11,7 +11,7 @@ function Navbar() {
     decoded = temp.auth[0];
   }
 
-  console.log(decoded);
+  // console.log(decoded);
 
   return (
     <>
