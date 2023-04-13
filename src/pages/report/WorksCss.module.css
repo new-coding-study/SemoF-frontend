@@ -9,3 +9,32 @@
     line-height: 57px;
     border: none;
 }
+.btnArea{
+    align-items: center;
+    text-align: center;
+}
+.listArea{
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    width: 100%;
+}
+.btnArea button{
+    width: 160px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 2px solid plum;
+    color: gray;
+    background: whitesmoke;
+}
+.btnArea button:hover{
+    background-color: plum;
+    color: #e1eef6;
+    transform: scale(1.1);
+}
+.btnArea button:focus{
+    background-color: plum;
+    color: #e1eef6;
+    transform: scale(1.1);
+}

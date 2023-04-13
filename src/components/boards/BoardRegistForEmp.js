@@ -2,14 +2,20 @@ import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ResgistForAdmin from "./RegistForAdmin.module.css";
 import { useEffect, useState } from "react";
-
 import {callRegistPostingAPI, callBoardPostingListAPI} from "../../apis/BoardAPICalls";
-
-
-
+import {decodeJwt} from '../../utils/tokenUtils';
 import Swal from "sweetalert2";
 
 function BoardRegistForEmp({ setIsRegistModalForEmp }) {
+
+  const isLogin = window.localStorage.getItem('accessToken');
+    let decoded = null;
+
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        decoded = temp.empNo;
+       
+    }
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -17,7 +23,7 @@ function BoardRegistForEmp({ setIsRegistModalForEmp }) {
 
     const [postingInfo, setPostingInfo] = useState({
         boardTitle:'',
-        empNo:'1',
+        empNo:decoded,
         boardCateCode:0,
         boardContent:''
     })
@@ -35,10 +41,11 @@ function BoardRegistForEmp({ setIsRegistModalForEmp }) {
     formData.append("boardTitle", postingInfo.boardTitle);
     formData.append("boardCateCode", postingInfo.boardCateCode);
     formData.append("boardContent", postingInfo.boardContent);
-
+    formData.append("empNo", postingInfo.empNo);
     console.log(postingInfo.boardTitle + "121ladsf==========");
     console.log(postingInfo.boardCateCode + "121ladsf==========");
     console.log(postingInfo.boardContent + "121ladsf==========");
+    console.log(postingInfo.empNo + "121ladsf==========");
 
 
         Swal.fire({

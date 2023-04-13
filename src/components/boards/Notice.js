@@ -7,6 +7,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import NoticeDetailModal from "./NoticeDetail";
 import NoticeUpdate from "./NoticeUpdate";
 import BoardRegistForAdmin from "./BoardRegistForAdmin";
+import {decodeJwt} from '../../utils/tokenUtils';
 
 function Notice (){
 
@@ -31,6 +32,15 @@ if(pageInfo){
     for(let i = 1; i <= pageInfo.endPage; i++){
         pageNumber.push(i);
     }
+}
+
+const isLogin = window.localStorage.getItem('accessToken');
+let decoded = null;
+
+if(isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+   
 }
 
 useEffect (() =>{
@@ -118,10 +128,12 @@ const onClickNotice = (boardNo) => {
                  className={boardcss.btnstyle1}>
                     메인으로
                 </button>
+                {decoded === "ROLE_ADMIN"?
                 <button 
                 onClick = {() => setIsRegistModalForAdmin(true)} className={boardcss.btnstyle2}>
-                    등 록(foradmin)
-                </button>
+                    등 록
+                </button> : null
+                }
                 </div>
             </div>
             <br/>

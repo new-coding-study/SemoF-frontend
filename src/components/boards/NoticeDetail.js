@@ -5,6 +5,7 @@ import noticedetailcss from "./NoticeDetail.module.css";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import {decodeJwt} from '../../utils/tokenUtils';
 
 
 function NoticeDetailModal({boardNo, setNoticeModal, setIsUpdateNotice}){
@@ -17,6 +18,15 @@ function NoticeDetailModal({boardNo, setNoticeModal, setIsUpdateNotice}){
             boardNo : boardNo
         }));
     }, []);
+
+    const isLogin = window.localStorage.getItem('accessToken');
+    let decoded = null;
+
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        decoded = temp.auth[0];
+       
+    }
 
 
     const deleteNotice = (boardNo) =>{
@@ -66,8 +76,11 @@ function NoticeDetailModal({boardNo, setNoticeModal, setIsUpdateNotice}){
                 </div>
                 <br/>
                 <div className={noticedetailcss.modalbtn}>
-                <button onClick = {() => setIsUpdateNotice(true)} >수 정</button> &nbsp;&nbsp;&nbsp;
-                <button onClick = {()=> deleteNotice(noticeDetail.boardNo)} >삭 제</button> &nbsp;&nbsp;&nbsp;
+                {decoded === "ROLE_ADMIN"?
+                <button onClick = {() => setIsUpdateNotice(true)} >수 정</button> 
+                :null}&nbsp;&nbsp;&nbsp;
+                {decoded === "ROLE_ADMIN"?
+                <button onClick = {()=> deleteNotice(noticeDetail.boardNo)} >삭 제</button>:null} &nbsp;&nbsp;&nbsp;
                 <button onClick = {()=> setNoticeModal(false)} >닫 기</button>
                 </div>
             </div>

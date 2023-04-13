@@ -97,6 +97,7 @@ hr{
     color: white;
     font-weight: bold;
     font-size: 15px;
+    margin: auto;
 }
 .modalbtn button:hover{
     background-color:gray;

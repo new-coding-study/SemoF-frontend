@@ -10,9 +10,8 @@ import Todo from "./pages/todo/Todo";
 import Approval from "./pages/approval/Approval";
 import ApprovalIn from "./pages/approval/ApprovalIn";
 
-import ReportAdmin from "./pages/report/ReportAdmin";
-import WorksReportAdmin from "./pages/report/WorksReportAdmin";
-import WorksAll from "./components/worksReport/WorksAll";
+import Report from "./pages/report/Report";
+import WorksReportAdmin from "./pages/report/WorksReportAdmin"
 import Board from "./pages/board/Board";
 import PostingDetail from "./components/boards/PostingDetail";
 import ApprovDetail from "./pages/approval/ApprovDetail";
@@ -21,7 +20,12 @@ import RegistApproval from "./pages/approval/RegistApproval";
 import ApprovLineList from "./pages/approval/ApprovLineList";
 import RegistLine from "./pages/approval/RegistLine";
 import ModifyLine from "./pages/approval/ModifyLine";
-
+import SalesReportAdmin from "./pages/report/SalesReportAdmin";
+import SalesReportEmp from "./pages/report/SalesReportEmp";
+import TripReportEmp from "./pages/report/TripReportEmp";
+import TripReportAdmin from "./pages/report/TripReportAdmin";
+import MeetingReportAdmin from "./pages/report/MeetingReportAdmin";
+import MeetingReportEmp from "./pages/report/MeetingReportEmp";
 import Employees from "./pages/employees/Employees";
 import Management from "./pages/employees/Management";
 import EmpRegister from "./pages/employees/EmpRegister";
@@ -34,7 +38,7 @@ import SendMail from "./pages/email/SendMail";
 import SendEmailDetail from "./components/email/SendEmailDetail";
 import ReceiveEmailDetail from "./components/email/ReceiveEmailDetail";
 import DeleteMail from "./pages/email/DeleteMail";
-
+import WorksReportEmp from "./pages/report/WorksReportEmp";
 import ModifyApproval from "./pages/approval/ModifyApproval";
 
 import Attendance from "./pages/attendance/Attendance";
@@ -60,9 +64,16 @@ function App() {
           <Route path="board" element={<Board />} />
           <Route path="posting-detail/:boardNo" element={<PostingDetail />} />
 
-          <Route path="report-admin" element={<ReportAdmin />} />
-          <Route path="works-report-admin" element={<WorksReportAdmin />} />
-          <Route path="test-worksAll" element={<WorksAll />} />
+          <Route path="report" element={<Report/>}/>
+          <Route path="works-report-admin" element={<WorksReportAdmin/>}/>
+          <Route path="works-report-emp" element={<WorksReportEmp/>}/>
+          <Route path="sales-report-admin" element={<SalesReportAdmin/>}/>
+          <Route path="sales-report-emp" element={<SalesReportEmp/>}/>
+          <Route path="trip-report-admin" element={<TripReportAdmin/>}/>
+          <Route path="trip-report-emp" element={<TripReportEmp/>}/>
+          <Route path= "meeting-report-admin" element={<MeetingReportAdmin/>}/>
+          <Route path= "meeting-report-emp" element={<MeetingReportEmp/>}/>
+
           <Route path="inbox/:approvNo" element={<ApprovDetail />} />
           <Route path="edit-line/:lineNo" element={<ModifyLine />} />
 
