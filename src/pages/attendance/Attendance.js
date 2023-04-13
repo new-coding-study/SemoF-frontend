@@ -18,6 +18,8 @@ function Attendance() {
     const statusList  = useSelector(state => state.AttendanceReducer.attendanceList);
     const putStatus  = useSelector(state => state.AttendanceReducer.updateAttendance); // # 리듀서를 복사해서 같은 곳을 참조하지만 다른 값을 가지게 설정
     // console.log('statusList : ' + statusList);
+    
+    // const token = decodeJwt(window.localStorage.getItem("accessToken"));
 
     const [empNo, setEmpNo] = useState(1);      // # 로그인 기능 구현 전까지 값 확인용 상태관리
     const [check, setCheck] = useState(false);
@@ -201,8 +203,6 @@ function Attendance() {
             clearInterval(intervalId);                  
         };
     }, [intervalId]);
-
-    // const token = decodeJwt(window.localStorage.getItem("accessToken"));
 
     return (
         <div>
