@@ -5,37 +5,20 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { callSearchSchedulePI } from "../../apis/ScheduleAPICalls";
-function ScheduleSearch(searchSchedule, setDefaultMode, setSearchMode) {
+function ScheduleSearch({ searchSchedule, setDefaultMode, setSearchMode }) {
   const dispatch = useDispatch();
 
   // 구조분해 할당으로 검색어를 꺼냄
-  const searchWord = searchSchedule.searchSchedule.searchWord;
+  const searchWord = searchSchedule.searchWord;
 
   const scheduleSearchList = useSelector(
     (state) => state.scheduleReducer.scheduleSearchList
   );
 
-  // const day = scheduleSearchList?.map((searchResult) => {
-  //   console.log(searchResult.scdStartDay);
-  // })
-
-  console.log(scheduleSearchList);
-
-  // function getDateStr(dateStr) {
-  //   var yyyyMMdd = String(dateStr);
-  //   var sYear = yyyyMMdd.substring(0, 4);
-  //   var sMonth = yyyyMMdd.substring(4, 6);
-  //   var sDate = yyyyMMdd.substring(6, 8);
-
-  //   var date = new Date(Number(sYear), Number(sMonth) - 1, Number(sDate));
-
-  //   var week = ["일", "월", "화", "수", "목", "금", "토"];
-  //   return week[date.getDay()] + "요일";
-  // }
-
-  // var result = getDateStr("20210215");
-
-  // console.log(result);
+  const onClickbackToCalendarHandler = () => {
+    setDefaultMode(true);
+    setSearchMode(false);
+  };
 
   useEffect(
     () => {
@@ -50,7 +33,7 @@ function ScheduleSearch(searchSchedule, setDefaultMode, setSearchMode) {
       <div className={ScheduleSearchCSS.searchScheduleWrapper}>
         <div
           className={ScheduleSearchCSS.backToCalendar}
-          // onClick={onClickbackToCalendarHandler}
+          onClick={onClickbackToCalendarHandler}
         >
           <div>←</div>
           <div> 돌아가기</div>

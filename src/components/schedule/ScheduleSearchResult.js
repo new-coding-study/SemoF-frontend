@@ -1,63 +1,65 @@
 import ScheduleSearchResultCSS from "./ScheduleSearchResult.module.css";
+import ScheduleDetailModal from "./ScheduleDetailModal";
+import ScheduleUpdateModal from "./ScheduleUpdateModal";
 import moment from "moment";
-// import { moment }
+import { useState } from "react";
 
 function ScheduleSearchResult({ scheduleSearch }) {
-  console.log(scheduleSearch);
+  const [scheduleDetailModal, setScheduleDetailModal] = useState(false);
+  const [scheduleUpdateModal, setScheduleUpdateModal] = useState(false);
+  const [selectScdNo, setSelectScdNo] = useState("");
 
-  // calColor: "#7CB342";
-  // calName: "영업팀";
-  // calNo: 41;
-  // calendar: null;
-  // madeEmpName: null;
-  // madeEmpNo: null;
-  // scdAllDay: 0;
-  // scdContent: "영업팀 전체 회의";
-  // scdEndDay: "";
-  // scdEndTime: "";
-  // scdName: "영업팀 전체 회의";
-  // scdNo: 5;
-  // scdPlace: "서울특별시 금천구 가산동 429-1";
-  // scdStartDay: "2023-04-13";
-  // scdStartTime: "14:00:00";
-  // scdWriter: 41;
-  // scdWriterName: null;
-
-  // const test = new Date();
-  // console.log(test.moment.fo);
-
+  // 날짜 포맷 설정
   const scdDate = moment(scheduleSearch?.scdStartDay).format(
     "YYYY년 MM월 DD일"
   );
 
+  // 요일 정보 구하기
   const week = ["일", "월", "화", "수", "목", "금", "토"]; // 요일 배열
-
   const scdDay = week[moment(scheduleSearch?.scdStartDay).day()];
 
-  //   const scdStartTime = moment(new Date(scheduleSearch?.scdStartTime)).format(
-  //     "hh시 mm분"
-  //   );
-  //   const testTiem = new Date(String(scheduleSearch?.scdStartTime));
-  //   console.log("testTime ", testTiem);
-  //   console.log(
-  //     moment(scheduleSearch?.scdStartTime).format("YYYY:MM:dd HH:mm:ss")
-  //   );
+  // 시간 출력 포맷 설정
+  function changeTime(scdTime) {
+    // "시"에 대한 정보만 가져옴
+    const scdHour = scdTime.substr(0, 2);
+    // "분"에 대한 정보만 가져옴
+    const scdMinute = scdTime.substr(3, 2);
+    // 24시로 되어있는 시간 정보를 12시간으로 표현
+    const newScdTime =
+      scdHour < 12 ? `오전 ${scdHour}시` : `오후 ${scdHour - 12}시`;
+    // 분에 대한 정보가 00 이면 안보여주도록 설정
+    const newScdMinute = scdMinute === "00" ? "" : `${scdMinute}분`;
 
-  //   console.log(scdStartTime);
+    return `${newScdTime} ${newScdMinute}`;
+  }
 
-  const scdTime = scheduleSearch?.scdStartTime.substr(0, 2);
-  console.log("scdTime", scdTime);
+  // 오늘날짜와 비교
+  function checkPast(scdDay) {
+    const scdDate = moment(new Date()).format("YYYY-MM-DD");
+    return scdDate <= scdDay;
+  }
 
-  const condition = scdTime < 12 ? "오전" : "오후";
-
-  const newScdTime = scdTime < 12 ? scdTime : scdTime - 12;
-
-  console.log("condition", condition);
-  console.log("newScdTime", newScdTime);
-  // const timeFormat = scheduleSearch?.scdStartTime.padStart(2, "0")
+  const onClickScheduleDetailHandler = (scdNo) => {
+    setSelectScdNo(scdNo);
+    setScheduleDetailModal(true);
+  };
 
   return (
     <>
+      {scheduleDetailModal ? (
+        <ScheduleDetailModal
+          selectScdNo={selectScdNo}
+          setScheduleDetailModal={setScheduleDetailModal}
+          setScheduleUpdateModal={setScheduleUpdateModal}
+        />
+      ) : null}
+      {scheduleUpdateModal ? (
+        <ScheduleUpdateModal
+          selectScdNo={selectScdNo}
+          setScheduleDetailModal={setScheduleDetailModal}
+          setScheduleUpdateModal={setScheduleUpdateModal}
+        />
+      ) : null}
       <div className={ScheduleSearchResultCSS.scdResultOneWrapper}>
         <div className={ScheduleSearchResultCSS.scdDate}>
           {/* {scheduleSearch?.scdStartDay} */}
@@ -74,10 +76,23 @@ function ScheduleSearchResult({ scheduleSearch }) {
           ></div>
         </div>
         <div className={ScheduleSearchResultCSS.scdTime}>
-          <span> {scheduleSearch?.scdStartTime} </span>
-          <span> endTime </span>
+          {/* <span> {scheduleSearch?.scdStartTime} </span> */}
+          {scheduleSearch?.scdStartTime === "" ? (
+            <span> 종일 </span>
+          ) : (
+            <span> {changeTime(scheduleSearch?.scdStartTime)} </span>
+          )}
+          {scheduleSearch?.scdEndTime === "" ? null : (
+            <span> ~ {changeTime(scheduleSearch?.scdEndTime)}</span>
+          )}
         </div>
-        <div className={ScheduleSearchResultCSS.scdName}>
+        <div
+          className={ScheduleSearchResultCSS.scdName}
+          style={
+            checkPast(scheduleSearch?.scdStartDay) ? { color: "#3c4040" } : null
+          }
+          onClick={() => onClickScheduleDetailHandler(scheduleSearch.scdNo)}
+        >
           {scheduleSearch?.scdName}
         </div>
       </div>

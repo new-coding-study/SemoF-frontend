@@ -30,7 +30,6 @@ function Schedule() {
   });
 
   const [selectCalendarNo, setSelectCalendarNo] = useState("");
-  // const [sendCalendarNo, setSendCalendarNo] = useState("");
 
   const [defaultMode, setDefaultMode] = useState(true);
   const [searchMode, setSearchMode] = useState(false);
