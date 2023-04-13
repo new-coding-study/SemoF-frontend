@@ -1,0 +1,40 @@
+.title{
+    height: 60px;
+    border-radius: 8px;
+    background-color: #E52E2E;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 40px;
+    line-height: 57px;
+    border: none;
+}
+.btnArea{
+    align-items: center;
+    text-align: center;
+}
+.listArea{
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    width: 100%;
+}
+.btnArea button{
+    width: 160px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 2px solid lightseagreen;
+    color: gray;
+    background: whitesmoke;
+}
+.btnArea button:hover{
+    background-color: whitesmoke;
+    color: gray;
+    transform: scale(1.1);
+}
+.btnArea button:focus{
+    background-color: whitesmoke;
+    color: gray;
+    transform: scale(1.1);
+}

@@ -5,6 +5,7 @@ import {callRegistReply
             ,callAllRepliesAPI} from "../../apis/ReplyAPICalls";
 import { useParams } from "react-router-dom";
 import replycss from "./Replycss.module.css";
+import {decodeJwt} from '../../utils/tokenUtils';
 
 function Reply(){
     const dispatch = useDispatch();
@@ -20,6 +21,14 @@ function Reply(){
         for(let i =pageInfo.startPage; i <= pageInfo.endPage; i++){
             pageNumber.push(i);
         }
+    }
+
+    const isLogin = window.localStorage.getItem('accessToken');
+    let decoded = null;
+
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        decoded = temp.empNo
     }
 
     const initialFormState = {
@@ -71,7 +80,8 @@ function Reply(){
 
 
     const[form, setForm] = useState({
-        replyContent:''
+        replyContent:'',
+        empNo:decoded
     });
     // const [newForm, setNewForm] = useState([]);
     const onChangeHandler = (e) => {
@@ -87,14 +97,14 @@ function Reply(){
         
         formData.append("boardNo", params.boardNo);
         formData.append("replyContent", form.replyContent);
-        formData.append("empNo",1);
+        formData.append("empNo",form.empNo);
 
         console.log('댓글내용',form.replyContent, formData.replyContent);
 
         dispatch(callRegistReply({
             boardNo:params.boardNo,            
             aform : form.replyContent,
-            empNo:2
+            empNo:decoded
         }));
 
         setForm(resetForm());

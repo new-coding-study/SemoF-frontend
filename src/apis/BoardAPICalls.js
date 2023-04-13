@@ -231,8 +231,8 @@ export const callBoardNoticeListAPI=({currentPage})=>{
     }
 
     
-    export const callUpdatePostingAPIForEmp = ({form, boardNo, empNo}) => {
-        const requestURL = `http://localhost:8090/boards/board-posting-lists/${boardNo}/${empNo}`;
+    export const callUpdatePostingAPIForEmp = ({form, boardNo}) => {
+        const requestURL = `http://localhost:8090/boards/board-posting-lists/${boardNo}`;
 
         return async (dispatch, getState) => {
             const result = await fetch(requestURL, {
