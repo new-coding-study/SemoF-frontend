@@ -10,3 +10,5 @@
 [chart.js] npm install chart.js@3.7.0 --legacy-peer-dep
 
 [react-chartjs-2] npm install react-chartjs-2@3.0.4 --legacy-peer-deps
+
+[legacy-peer-deps] npm i --legacy-peer-deps
