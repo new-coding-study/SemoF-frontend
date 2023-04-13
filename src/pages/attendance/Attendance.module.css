@@ -62,6 +62,10 @@
     margin-top: 10px;
 }
 
+
+
+
+
 .btnAtd button {
     background-color: white;
     border: none;
@@ -106,6 +110,11 @@
 .approvalsContent svg {
     margin-top: 28px;
     color: #E52E2E;
+    transition: 0.125s all ease-in;
+}
+
+.approvalsContent svg:hover {
+    transform: rotate(25deg);
 }
 
 .approvalsContent span {

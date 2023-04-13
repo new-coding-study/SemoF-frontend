@@ -60,7 +60,7 @@ function Attendance() {
     
     //근무기록 상 현재 근무시간 계산
     function attenMinus(endTime, startTime){
-        endTime = endTime===null ? Date.now : endTime;
+        endTime = endTime===null ? new Date() : endTime;
         startTime = startTime===null ? "" : startTime;
         
         const oldStatus = {endTime, startTime};
@@ -87,7 +87,7 @@ function Attendance() {
     function calculateTime(status) {
         const startTime = Date.parse(status.startTime || "00:00:00");
         const endTime = Date.parse(status.endTime || "00:00:00");
-        const diffTime = status.statusName === "출근" ? Date.now() - startTime : endTime - startTime;
+        const diffTime = status.statusName === "출근" ? new Date() - startTime : endTime - startTime;
         // console.log('startTime : ' + startTime);
         // console.log('endTime : ' + endTime);
         // console.log('diffTime : ' + diffTime);
