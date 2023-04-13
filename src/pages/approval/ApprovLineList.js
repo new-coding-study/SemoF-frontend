@@ -5,6 +5,8 @@ import Line from "../../components/approvals/Line";
 import {
     callLineListAPI
 } from "../../apis/ApprovalAPICalls";
+import ApprovalCSS from "./ApprovalIn.module.css";
+import boardcss from "../../pages/board/Board.module.css";
 
 
 function ApprovalLineList() {
@@ -12,7 +14,7 @@ function ApprovalLineList() {
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const lines = useSelector(state => state.approvalReducer.lines); 
+    const lines = useSelector(state => state.approvalReducer.lineList); 
     const lineList = lines.data;
     const pageInfo = lines.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
@@ -49,10 +51,12 @@ function ApprovalLineList() {
     )    
     return (
         <>
-        <div 
-        // className={ MainCSS.productDiv }
-        
-        >결재라인</div>
+        <div className={ApprovalCSS.title}>결재라인</div>
+        <br/>
+        <div>
+            <button className={ApprovalCSS.registbtn} onClick={()=>{navigate(`/semof/add-line`)}}>결재라인추가</button>
+        </div>
+        <br/>
         <div>
         {/* line?.length > 0 */}
             { 
@@ -65,14 +69,16 @@ function ApprovalLineList() {
                ))
             }
         </div>
-        <div>
+     
+        <br/>
+        <div className={boardcss.approvalpagingbtn}>
         <button 
                     onClick={() => setCurrentPage(currentPage - 1)} 
                     disabled={currentPage === 1}
                     // className={ MainCSS.pagingBtn }
                 >
                     &lt;
-                </button>
+                </button>&nbsp;
                 
                 {pageNumber.map((num) => (
                 <li key={num} onClick={() => setCurrentPage(num)}>
@@ -83,7 +89,7 @@ function ApprovalLineList() {
                         {num}
                     </button>
                 </li>
-                ))}
+                ))} &nbsp;
                 
                 <button 
                     // className={ MainCSS.pagingBtn }
@@ -93,9 +99,7 @@ function ApprovalLineList() {
                     &gt;
                 </button>
                 </div>
-        <div>
-            <button onClick={()=>{navigate(`/semof/add-line`)}}>결재라인추가</button>
-        </div>
+       
         </>
     );
 }

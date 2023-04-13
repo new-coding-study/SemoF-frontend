@@ -8,6 +8,7 @@ const initialState = {
   employeeDetail: {},
   empPhoto: {},
   empBirth: {},
+  empChart: {},
 };
 
 /* 액션 */
@@ -25,6 +26,7 @@ export const GET_EMPLOYEES_CONTRIBUTIONS =
   "employee/GET_EMPLOYEES_CONTRIBUTIONS"; //전체
 export const GET_EMPLOYEES_ATTENDANCE = "employee/GET_EMPLOYEES_ATTENDANCE";
 export const GET_EMPLOYEES_VACATION = "employee/GET_EMPLOYEES_VACATION";
+export const GET_EMPLOYEES_CHART = "employee/GET_EMPLOYEES_CHART";
 export const SEARCH_EMPLOYEES = "employee/SEARCH_EMPLOYEES ";
 export const PUT_EMPLOYEES_BRANCHES = "employee/PUT_EMPLOYEES_BRANCHES";
 export const PUT_EMPLOYEES_DEPARTMENTS = "employee/PUT_EMPLOYEES_DEPARTMENTS";
@@ -48,6 +50,7 @@ const actions = createActions({
   [GET_EMPLOYEES_CONTRIBUTIONS]: () => {},
   [GET_EMPLOYEES_ATTENDANCE]: () => {},
   [GET_EMPLOYEES_VACATION]: () => {},
+  [GET_EMPLOYEES_CHART]: () => {},
   [SEARCH_EMPLOYEES]: () => {},
   [PUT_EMPLOYEES_BRANCHES]: () => {},
   [PUT_EMPLOYEES_DEPARTMENTS]: () => {},
@@ -118,6 +121,13 @@ const empReducer = handleActions(
       return {
         ...state,
         empVacation: payload,
+      };
+    },
+    [GET_EMPLOYEES_CHART]: (state, { payload }) => {
+      // console.log("Payload received in reducer:", payload);
+      return {
+        ...state,
+        empChart: payload,
       };
     },
     [SEARCH_EMPLOYEES]: (state, { payload }) => {

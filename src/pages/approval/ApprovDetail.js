@@ -1,6 +1,7 @@
 import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { callApprovalDetailAPI, callLineDetailAPI } from '../../apis/ApprovalAPICalls';
+import { callApprovalDetailAPI, callLineDetailAPI, callGetFormTitleAPI, callOpinionsAPI } from '../../apis/ApprovalAPICalls';
+import Opinion from '../../components/approvals/Opinion';
 import { useEffect } from 'react';
 
 function ApprovDetail(){
@@ -9,20 +10,26 @@ function ApprovDetail(){
     const dispatch = useDispatch();
     const params = useParams();
     const approvInfo = useSelector(state => state.approvalReducer.approval);
-    // const lineInfo = useSelector(state => state.approvalReducer.line);
+    const lineInfo = useSelector(state => state.approvalReducer.line);
+    const formInfo = useSelector(state => state.approvalReducer.form);
     console.log(approvInfo);
-    // console.log(lineInfo);
+    console.log(lineInfo);
     console.log(Array.isArray(approvInfo));
     // console.log(Array.isEmpty(approvInfo));
     console.log(params.approvNo);
+    console.log('이거뭐게', approvInfo.lineNo);
     useEffect(
         () => {
             dispatch(callApprovalDetailAPI(
                 parseInt(params.approvNo)
             )  )
-            // dispatch(callLineDetailAPI(
-                //  approvInfo.lineNo
-            // )); 
+            dispatch(callGetFormTitleAPI()
+                
+             )
+            dispatch(callLineDetailAPI(
+                 approvInfo.lineNo
+            )); 
+            
         } // eslint-disable-next-line
         ,[]
     );
@@ -42,11 +49,24 @@ function ApprovDetail(){
             <div 
             // className={application}
             >
+                {/* {formInfo
+                .filter((t) => t.formCode == approvInfo.approvContentDTOList[0].formCode)
+                ?.map((t, index) => (
+    <div 
+    // className={RegistCSS.formArea} 
+    key={t.formCode}>
+      <span style={{fontSize:'20px', float:'left', marginLeft:'10%'}}>{t.formTitle} : </span>
+      <div style={{width:'70%', float:'right', padding:'5px'}}>
+        
+      </div>
+    </div>
+))} */}
                 {
+
                 approvInfo.length>0 &&
-                approvInfo?.approvContentDTOList.map(dto => (
+                (approvInfo?.approvContentDTOList).map(dto => (
                 <div key={dto.contentNo}>
-                <span>{dto.formTitle}</span>:
+                {/* <span>{dto.formTitle}</span>: */}
                 <span>{dto.content}</span>
                 </div>
                 ))
@@ -55,15 +75,15 @@ function ApprovDetail(){
             </div>
             
             {/* 진행상황 : 결재라인 */}
-            {/*
-                lineInfo?.approvOrderDTOList.map(dto => (
+           {
+                (lineInfo?.approvOrderDTOList).map(dto => (
                 <div key={dto.orderNo}>
                 <span>{dto.jobName}</span>:
                 <span>{dto.empNo}</span>
                 </div>
 
                 ))
-                */}
+                }
             <div>
             {/*
                 lineInfo?.approvOrderDTOList.map(dto => (
@@ -75,6 +95,20 @@ function ApprovDetail(){
                 ))
             */}
 {/* 상태를 어떻게 받지 ??/??????큰일났다~~~~~ */}
+            </div>
+            <div>
+                의견
+            </div>
+            <div>
+            { 
+            Array.isArray(approvInfo) && 
+            // lineLength>0
+            // line?.length > 0 
+                // &&
+                approvInfo.map((approv) => (
+                <Opinion key={ approv.approvNo } opinion={ approv } />
+               ))
+            }
             </div>
             <div 
             // className={opinion}
