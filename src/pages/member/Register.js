@@ -18,12 +18,29 @@ function Register() {
   const register = useSelector((state) => state.memberReducer.regist);
 
   const [form, setForm] = useState({
-    loginId: "",
-    loginPwd: "",
-    memberName: "",
+    registId: "",
+    registPwd: "",
+    checkPwd: "",
     empReg: "",
-    // empReg: ''
   });
+
+  const { empReg } = form;
+
+  const [checkId, setCheckId] = useState(false);
+  // const [originReg, setOriginReg] = useState();
+  const [maskingReg, setMaskingReg] = useState();
+
+  // console.log(originReg);
+  // console.log(maskingReg);
+
+  // console.log(
+  //   form.empReg
+  //     .replace(/[^0-9]/g, "")
+  //     .replace(/^(\d{0,6})(\d{0,7})$/g, "$1-$2")
+  //     .replace(/-{1,2}$/g, "")
+  // );
+  // console.log(maskingReg);
+
   useEffect(
     () => {
       if (member.status === 201) {
@@ -34,20 +51,64 @@ function Register() {
     [member]
   );
 
+  // 회원가입 정보 입력 핸들러
   const onChangeHandler = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+    if (e.target.name === "registId") {
+      setCheckId(false);
+      // 중복체크해서 가입 가능한 아이디면 true 로 바껴야 하는데, dispatch에 then을 걸어야하나?!
+    }
   };
 
+  // const onChangeEmpRegHandler = (e) => {
+
+  //   // setMaskingReg()
+  // };
+
+  // 주민등록번호 마스킹하는 코드 => 마스킹하려면 우선 하이픈이 있는 상태여야함
+  // var rrnMatchValue = MaskingData.match(
+  //   /(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))-[1-4]{1}[0-9]{6}\b/gi
+  // );
+  // if (checkValueNull(rrnMatchValue) == true) {
+  //   MaskingData = MaskingData;
+  // } else {
+  //   len = rrnMatchValue.toString().split("-").length;
+  //   MaskingData = MaskingData.toString().replace(
+  //     rrnMatchValue,
+  //     rrnMatchValue
+  //       .toString()
+  //       .replace(/(-?)([1-4]{1})([0-9]{6})\b/gi, "$1$2******")
+  //   );
+  // }
+
+  useEffect(() => {
+    setForm({
+      empReg: empReg
+        .replace(/[^0-9]/g, "")
+        .replace(/^(\d{0,6})(\d{0,7})$/g, "$1-$2")
+        .replace(/-{1,2}$/g, ""),
+    });
+  }, [empReg]);
+
+  useEffect(() => {
+    if (empReg.length > 6) {
+      setMaskingReg(
+        empReg.replace(/-/g, "").replace(/(\d{6})(\d{1})(\d{6})/, "$1-$2******")
+      );
+    }
+  }, [empReg]);
+
+  // 돌아가기 클릭시 로그인 페이지로 이동
   const onClickBackHandler = () => {
-    // 돌아가기 클릭시 메인 페이지로 이동
-    navigate("/semof", { replace: true });
+    navigate("/", { replace: true });
   };
 
+  // 회원가입 버튼 클릭 시 비밀번호가 일치하는지 확인하고 디스패치를 보냄
   const onClickRegisterHandler = () => {
-    if (form.loginPwd === form.memberName) {
+    if (form.registPwd === form.checkPwd) {
       dispatch(
         callRegisterAPI({
           form: form,
@@ -57,39 +118,48 @@ function Register() {
       alert("비밀번호가 다릅니다.");
     }
   };
-  const onClickCheckHandler = () => {
+
+  // 주민번호를 보내서 DB에 존재하는 사원인지 확인
+  const onClickCheckRegHandler = () => {
     dispatch(callCheckRegAPI(form.empReg));
   };
 
-  const onClickCompareHandler = () => {
-    dispatch(callcheckIdAPI(form.loginId));
+  // 입력한 ID를 보내서 사용 가능한 아이디인지 확인
+  const onClickCheckIdHandler = () => {
+    dispatch(callcheckIdAPI(form.registId));
   };
 
-  useEffect(() => {
-    console.log(register.status);
-    if (register.status === 201) {
-      navigate("/", { replace: true });
-    } else {
-      navigate("/register", { replace: true });
-    }
-  }, [register]);
+  // 회원가입에 대한 상태가 바뀌면 렌더링. 정상 가입되면 로그인창으로, 안되면 다시 회원가입창으로 이동
+  useEffect(
+    () => {
+      console.log(register.status);
+      if (register.status === 201) {
+        navigate("/", { replace: true });
+      } else {
+        navigate("/register", { replace: true });
+      }
+    }, // eslint-disable-next-line
+    [register]
+  );
 
   return (
     <div className={RegisterCSS.backgroundDiv}>
       <div className={RegisterCSS.registerDiv}>
         <h1>회원가입</h1>
-        <input
-          type="text"
-          name="loginId"
-          placeholder="아이디"
-          autoComplete="off"
-          required
-          onChange={onChangeHandler}
-        />
-        <button onClick={onClickCompareHandler}>아이디 확인</button>
+        <div className={RegisterCSS.inputIdWrapper}>
+          <input
+            type="text"
+            name="registId"
+            placeholder="아이디"
+            autoComplete="off"
+            required
+            onChange={onChangeHandler}
+          />
+          <button onClick={onClickCheckIdHandler}>아이디 확인</button>
+        </div>
         <input
           type="password"
-          name="loginPwd"
+          name="registPwd"
           placeholder="패스워드"
           autoComplete="off"
           required
@@ -97,21 +167,27 @@ function Register() {
         />
         <input
           type="password"
-          name="memberName"
+          name="checkPwd"
           placeholder="비밀번호 확인"
           autoComplete="off"
           required
           onChange={onChangeHandler}
         />
-        <input
-          type="text"
-          name="empReg"
-          placeholder="주민번호"
-          autoComplete="off"
-          required
-          onChange={onChangeHandler}
-        />
-        <button onClick={onClickCheckHandler}>주민번호 확인</button>
+        <div className={RegisterCSS.inputRegWrapper}>
+          <input
+            type="text"
+            name="empReg"
+            maxLength="13"
+            placeholder="주민번호"
+            autoComplete="off"
+            required
+            onChange={onChangeHandler}
+            // onChange={onChangeEmpRegHandler}
+            // value={maskingReg?.length === 0 ? empReg : maskingReg}
+          />
+          <button onClick={onClickCheckRegHandler}>주민번호 확인</button>
+        </div>
+
         <button onClick={onClickRegisterHandler}>회원가입</button>
         <button
           style={{
