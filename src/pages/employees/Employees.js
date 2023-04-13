@@ -111,7 +111,7 @@ function Employees() {
         <div className={EmployeeCSS.card}>
           <iframe
             title="키바나 총원 그래프"
-            src="http://localhost:5601/app/dashboards#/view/245a1ec0-d8cb-11ed-be77-e179953acd57?embed=true&_g=(filters%3A!())&hide-filter-bar=true"
+            src="http://localhost:5601/goto/9d1ef250-d99c-11ed-858c-3510876f154a"
             height="100%"
             width="100%"
             allowFullScreen
@@ -120,16 +120,16 @@ function Employees() {
         <div className={EmployeeCSS.card}>
           <iframe
             title="키바나 성별 분포 그래프"
-            src="http://localhost:5601/goto/dd479730-d8ff-11ed-bf42-df82288866c5"
+            src="http://localhost:5601/goto/6db70570-d99c-11ed-858c-3510876f154a"
             height="100%"
             width="100%"
             allowFullScreen
-          ></iframe>
+          />
         </div>
         <div className={EmployeeCSS.card}>
           <iframe
             title="키바나 직급 분포 그래프"
-            src="http://localhost:5601/goto/35df90a0-d8ce-11ed-be77-e179953acd57"
+            src="http://localhost:5601/goto/063beeb0-d99c-11ed-858c-3510876f154a"
             height="100%"
             width="100%"
             allowFullScreen
