@@ -13,7 +13,7 @@
 .modalContainer{
     position: absolute;
     width: 650px;
-    height: 850px;
+    height: 800px;
     padding: 10px;
     text-align: left;
     background-color: rgb(255, 255, 255);
@@ -34,7 +34,7 @@
 }
 
 .displayBox{
-    height:650px;
+    height:620px;
     background-color: white;
     border-radius: 10px;
     border: 2px solid orange;
@@ -83,7 +83,7 @@
     margin-bottom: -3%;
 }
 .worktable1 td:first-child{
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
 }
 .worktable1 th {
@@ -93,6 +93,7 @@
 .worktable1 td {
     border-bottom: 1px solid red;
     padding: 10px;
+    font-size: 17px;
   }
   
 .worktable2{
@@ -102,10 +103,14 @@
     border-radius: 10px;
     border-collapse: none;
 }
+
 .worktable2 td:first-child{
     font-size: 20px;
     font-weight: bold;
     width: 30%;
+}
+.worktable2 td{
+    text-align: left;
 }
 
 .worktable1stc{

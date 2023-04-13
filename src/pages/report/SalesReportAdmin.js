@@ -47,7 +47,6 @@ function SalesReportAdmin(){
         <div>
         <div className={salescss.title}>영업보고서</div>
         <br/>
-        <br/>
         <div className={salescss.btnArea}>
         <button onClick={handleAllList}>
             전체 

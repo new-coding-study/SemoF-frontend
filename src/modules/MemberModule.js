@@ -3,7 +3,9 @@ import { createActions, handleActions } from "redux-actions";
 /* 초기값 */
 const initialState = {
   regist:[],
-  login:[]
+  login:[],
+  checkReg:[],
+  checkId:[]
 }
 
 
@@ -36,10 +38,10 @@ const memberReducer = handleActions(
       return{...state, regist: payload};
     },
     [POST_ID]: (state, { payload }) => {
-      return payload;
+      return{...state, checkId:payload} ;
     },
     [POST_REG]: (state, { payload }) => {
-      return payload;
+      return{...state, checkReg:payload}; 
     },
   },
   initialState

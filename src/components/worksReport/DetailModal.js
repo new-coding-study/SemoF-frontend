@@ -46,7 +46,6 @@ function ReportDetail({setIsUpdateEmp, setIsWorksDetail, worksReportCode, setIsW
                 })).then(
                     Swal.fire("삭제완료", "게시판으로 돌아갑니다.", "success"),
                     setIsWorksDetail(false)
-
                 )
             }
         })
@@ -79,7 +78,7 @@ function ReportDetail({setIsUpdateEmp, setIsWorksDetail, worksReportCode, setIsW
                 </tr>
                 <br/>
                 <tr>
-                    <td>Issues & Improvement  &nbsp;:</td>
+                    <td style={{width:'44%'}}>Issues & Improvement  &nbsp;:</td>
                     <td className={modalcss.worktable1stc}>{worksDetail.issuesImprovement}</td>
                 </tr>
                 <br/>
@@ -105,10 +104,9 @@ function ReportDetail({setIsUpdateEmp, setIsWorksDetail, worksReportCode, setIsW
             </table>
             </div>
             <br/>
-            <br/>
             <div className={modalcss.modalbtn}>
                 {decoded === "ROLE_USER"? <button onClick={() => setIsUpdateEmp(true)}>수정</button>:
-                <button onClick={activeUpdateModal}>의견 작성</button>}&nbsp;&nbsp;&nbsp;
+                <button onClick={activeUpdateModal}>수정</button>}&nbsp;&nbsp;&nbsp;
                 <button onClick={()=>activeDelete(worksReportCode)}>삭제</button>&nbsp;&nbsp;&nbsp;
                 <button onClick={() => setIsWorksDetail(false)}>닫기</button>
             </div>

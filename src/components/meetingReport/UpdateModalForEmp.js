@@ -96,32 +96,28 @@ function UpdateModalForEmp ({setIsMeetingDetail, meetingReportCode, setIsUpdateE
                         <tbody>
                         <tr>
                             <td className={modalcss.workstd1}>Meeting Date &nbsp;:</td>&nbsp;&nbsp;&nbsp;
-                            <td><input name="meetingDate" className={registMeeting.date2} value={form.meetingDate} onChange={onChangeHandler} type="date"/></td>
+                            <td style={{paddingRight:'3%'}}><input name="meetingDate" className={registMeeting.date2} value={form.meetingDate} onChange={onChangeHandler} type="date"/></td>
                         </tr>
                         </tbody>
                     </table>
-                   <table className={registMeeting.table2}>
+                   <table className={updateModalcss.table2}>
                         <tbody>
                         <tr>
                             <td className={modalcss.workstd1}>Location &nbsp;:</td>
                             <td><input className={registMeeting.title} name="location" value={form.location} onChange={onChangeHandler} type="text"/></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Title &nbsp;:</td>
                             <td><textarea className={registMeeting.content} name="meetingReportTitle" value={form.meetingReportTitle} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Content  &nbsp;:</td>
                             <td><textarea className={registMeeting.issimp} name="meetingReportContent" value={form.meetingReportContent} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Next Meeting  &nbsp;:</td>
                             <td><textarea className={registMeeting.next} name="nextMeetingPlan" value={form.nextMeetingPlan} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Conclusion  &nbsp;:</td>
                             <td><textarea className={registMeeting.con} name="conclusion" value={form.conclusion} onChange={onChangeHandler}></textarea></td>                        

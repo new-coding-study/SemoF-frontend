@@ -84,38 +84,31 @@ function RegistMeeting ({setIsMeetingRegist}){
                     <form>
                    <div className={registMeeting.displayBox}>
                     <table className={registMeeting.table2}>
-                        <br/>
                         <tbody>
                         <tr>
                             <td className={modalcss.workstd1}>Meeting Date  &nbsp;:</td>
                             <td><input name="meetingDate" className={registMeeting.date2} value={form.meetingDate} onChange={onChangeHandler} type="date"/></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Location &nbsp;:</td>
                             <td><input className={registMeeting.title} name="location" value={form.location} onChange={onChangeHandler} type="text"/></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Participants  &nbsp;:</td>
                             <td><textarea className={registMeeting.etc} name="participants" value={form.participants} onChange={onChangeHandler}></textarea></td>                        
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Title &nbsp;:</td>
                             <td><input className={registMeeting.title} name="meetingReportTitle" value={form.meetingReportTitle} onChange={onChangeHandler} type="text"/></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Content &nbsp;:</td>
                             <td><textarea className={registMeeting.content} name="meetingReportContent" value={form.meetingReportContent} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Next Meeting &nbsp;:</td>
                             <td><textarea className={registMeeting.content} name="nextMeetingPlan" value={form.nextMeetingPlan} onChange={onChangeHandler}></textarea></td>
                         </tr>
-                        <br/>
                         <tr>
                             <td className={modalcss.workstd1}>Conclusion  &nbsp;:</td>
                             <td><textarea className={registMeeting.con} name="conclusion" value={form.conclusion} onChange={onChangeHandler}></textarea></td>                        

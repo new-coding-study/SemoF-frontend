@@ -43,13 +43,17 @@
     background-color: white;
     border-radius: 10px;
     border: 2px solid lightseagreen;
-    padding-top: 5%;  
+    padding-top: 2%;  
 }
 .table{
-    padding-left: 5%;
-    width: 100%;
-    padding-left: 3%;
-    padding-right: 6%;
-    padding-bottom: 3%;
     border-collapse: none;
+    padding-left: 6.5%;
+}
+
+.table2{
+    padding-left: 9%
+}
+
+.table2 td{
+    text-align: left;
 }

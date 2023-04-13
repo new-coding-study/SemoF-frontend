@@ -39,9 +39,9 @@
     padding: 10px;
 }
 .displayBox{
-    height:690px;
+    height:710px;
     background-color: white;
     border-radius: 10px;
     border: 2px solid orange;
-    padding-top: 5%;  
+    padding-top: 1%;  
 }
