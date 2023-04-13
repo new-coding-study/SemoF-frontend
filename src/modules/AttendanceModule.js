@@ -5,6 +5,7 @@ import { createActions, handleActions } from 'redux-actions';
 const initialState = {
     attendanceStatus: [],
     attendanceList: [],
+    updateAttendance: []
 };
 
 // 초기값에 값 넣어서 애초에 언디파인드 이런거 안 뜨게끔
@@ -38,7 +39,7 @@ const attendanceReducer = handleActions(
         },
         [PUT_STATUS]: (state, { payload }) => {
 
-            return payload;
+            return { ...state, updateAttendance: payload};
         }       
     },
     initialState

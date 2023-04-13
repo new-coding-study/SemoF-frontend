@@ -28,7 +28,14 @@ const Clock = () => {
 
   return (
     <div className={ClockCSS.clock}>
-      <h3 className={ClockCSS.title}>현재 시간</h3>
+      <h3 className={ClockCSS.title}>
+        <img
+          src={"/images/clock.png"}
+          alt="이미지확인!"
+          className={ClockCSS.logo}
+        />
+        현재 시간
+      </h3>
       <div className={ClockCSS.time}>
         {currentTime}
         <span className={ClockCSS.separator}>:</span>

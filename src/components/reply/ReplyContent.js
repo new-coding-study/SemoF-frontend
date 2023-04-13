@@ -3,19 +3,31 @@ import contentcss from "./ContentCss.module.css";
 import { useEffect, useState } from "react";
 import { deleteReplyAdmin, deleteReplyEmp } from "../../apis/ReplyAPICalls";
 import { useParams } from "react-router";
+import {decodeJwt} from '../../utils/tokenUtils';
 
 
-function ReplyContent({replyContent: {replyContent, empName, replyWriteDate, replyCode}}){
+function ReplyContent({replyContent: {replyContent, empName, replyWriteDate, replyCode, empNo}}){
 
     const params =useParams();
     const dispatch = useDispatch();
     // const useState = useState();
     // const useEffect = useEffect();
+    const isLogin = window.localStorage.getItem('accessToken');
+    let decoded = null;
+    let decodedAuth = null;
 
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        decoded = temp.empNo;
+        console.log('토큰의 empNo', decoded)
+        decodedAuth = temp.auth[0];
+    }
+
+    console.log('댓글의 empNo', empNo);
     const deleteReplyForEmp = () => {
         dispatch(deleteReplyEmp({
             replyCode:replyCode,
-            empNo:2
+            empNo:decoded
         })).then(
             console.log("deleteForEmp버튼 작동")
         )
@@ -34,9 +46,12 @@ function ReplyContent({replyContent: {replyContent, empName, replyWriteDate, rep
         <>
         <div style={{width:'100%'}}>
         <div className={contentcss.contour}>
+        {decodedAuth === "ROLE_ADMIN"?
         <button onClick= {deleteReplyForAdmin} className={contentcss.deleBtn}>x</button>
-        {/* <button onClick= {deleteReplyForEmp} className={contentcss.deleBtn}>x</button> */}
-        {/* 로그인시 empNo를 토큰에서 가져와서 삼항연산자로 버튼 처리하기 */}
+        :null}
+        {decoded === empNo? 
+        <button onClick= {deleteReplyForEmp} className={contentcss.deleBtn}>x</button>
+        :null}
         <p className={contentcss.content}>{replyContent}</p>
         <label className={contentcss.writer}>{empName}</label>&nbsp;
         <label className={contentcss.date}>{replyWriteDate}</label>

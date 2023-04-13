@@ -15,7 +15,9 @@ import {
 function Attendance() {
     const dispatch = useDispatch();
     const status  = useSelector(state => state.AttendanceReducer.attendanceStatus);
-    const statusList  = useSelector(state => state.AttendanceReducer.attendanceList);   // # 리듀서를 복사해서 같은 곳을 참조하지만 다른 값을 가지게 설정
+    const statusList  = useSelector(state => state.AttendanceReducer.attendanceList);
+    const putStatus  = useSelector(state => state.AttendanceReducer.updateAttendance); // # 리듀서를 복사해서 같은 곳을 참조하지만 다른 값을 가지게 설정
+    // console.log('statusList : ' + statusList);
 
     const [empNo, setEmpNo] = useState(1);      // # 로그인 기능 구현 전까지 값 확인용 상태관리
     const [check, setCheck] = useState(false);
@@ -24,15 +26,20 @@ function Attendance() {
     
     const [currentPage, setCurrentPage] = useState(1);
     const attendanceList = statusList.data;
+    // console.log('attendanceList : ' + attendanceList)
     const pageInfo = statusList.pageInfo;
+    // console.log('pageInfo : ' + pageInfo)
 
+    //페이징
     const pageNumber = [];
     if(pageInfo){
-        for(let i = 1; i <= pageInfo.pageEnd ; i++){
+        for(let i = 1; i <= pageInfo.endPage ; i++){
             pageNumber.push(i);
         }
     } 
-
+    
+                                                                        // moment 버전
+    
     // 현재 날짜용 (년월일요일 등 근무시간 위에)
     const todayDate = new Date();   //현재 날짜
 
@@ -51,6 +58,18 @@ function Attendance() {
         seconds: String(todayDate.getSeconds()).padStart(2, "0"), //초
     };    
     
+    //근무기록 상 현재 근무시간 계산
+    function attenMinus(endTime, startTime){
+        endTime = endTime===null ? Date.now : endTime;
+        startTime = startTime===null ? "" : startTime;
+        
+        const oldStatus = {endTime, startTime};
+        // console.log('oldStatus' + oldStatus)
+        // console.log('calculateTime' + calculateTime(oldStatus));
+        
+        return calculateTime(oldStatus);
+    }
+    
     // 날짜 문자열 처리 함수
     const formatDate = (date) => {
         return {
@@ -68,7 +87,7 @@ function Attendance() {
     function calculateTime(status) {
         const startTime = Date.parse(status.startTime || "00:00:00");
         const endTime = Date.parse(status.endTime || "00:00:00");
-        const diffTime = status.statusName === "출근" ? new Date() - startTime : endTime - startTime;
+        const diffTime = status.statusName === "출근" ? Date.now() - startTime : endTime - startTime;
         // console.log('startTime : ' + startTime);
         // console.log('endTime : ' + endTime);
         // console.log('diffTime : ' + diffTime);
@@ -113,18 +132,17 @@ function Attendance() {
         ,[check]
     );
     
+    //근무 기록
     useEffect(
         () => {
-            // setStart((currentPage - 1) * 5);            
-            async function list () {
-            await dispatch(callAttendanceListAPI({
+            // setStart((currentPage - 1) * 5);
+            dispatch(callAttendanceListAPI({
                 empNo: empNo,
                 currentPage: currentPage
             }));
             }
-            list();
-         } // eslint-disable-next-line
-        ,[currentPage]
+          // eslint-disable-next-line
+        ,[currentPage, putStatus]
     );
 
     // 출근 버튼
@@ -177,9 +195,10 @@ function Attendance() {
         })
     };
 
+    // 인터벌 클린업 (강제 종료)
     useEffect(() => {
         return () => {
-            clearInterval(intervalId);                  // 인터벌 클린업 (강제 종료)
+            clearInterval(intervalId);                  
         };
     }, [intervalId]);
 
@@ -283,21 +302,24 @@ function Attendance() {
                             <col width="10%" />
                             <col width="10%" />
                             <col width="10%" />
+                            <col width="10%" />
                             </colgroup>
                             <thead>
                                 <tr>
                                 <th>근무일</th>
                                 <th>출근 시간</th>
                                 <th>퇴근 시간</th>
+                                <th>근무 시간</th>
                                 <th>상태</th>
                                 </tr>
                             </thead>
                             <tbody>
                             { Array.isArray(attendanceList) && attendanceList.map((p) => (
                                 <tr key={p.atdNo}>
-                                <td>{ p.atdDate===null ? "" : p.atdDate.substring(0, 10) }</td>
+                                <td>{ p.atdDate===null ? "" : p.atdDate.substring(0, 10) } ({week[String(new Date(p.atdDate).getDay()).toUpperCase()]})</td>
                                 <td>{ p.startTime===null ? "" : p.startTime.substring(10) }</td>
                                 <td>{ p.endTime===null ? "" : p.endTime.substring(10) }</td>
+                                <td>{ attenMinus(p.endTime, p.startTime) }</td>
                                 <td>{ p.finalStatus>=90000 ? "정상출근" : p.finalStatus>=45000 ? "비정상출근" : "결근"}</td>
                                 </tr>
                             ))}
@@ -317,7 +339,7 @@ function Attendance() {
                         {pageNumber.map((num) => (
                         <li key={num} onClick={() => setCurrentPage(num)}>
                             <button
-                                style={ currentPage === num ? {backgroundColor : 'orange' } : null}
+                                style={ currentPage === num ? {backgroundColor : '#E52E2E', color:'white' } : null}
                                 className={ AttendanceCSS.pagingBtn }
                             >
                                 {num}

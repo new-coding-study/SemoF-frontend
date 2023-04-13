@@ -7,16 +7,25 @@ import {
   callRegistAPIForAdmin,
 } from "../../apis/BoardAPICalls";
 import Swal from "sweetalert2";
+import {decodeJwt} from '../../utils/tokenUtils';
 
 function BoardRegistForAdmin({ setIsRegistModalForAdmin }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLogin = window.localStorage.getItem('accessToken');
+    let decoded = null;
+
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        decoded = temp.empNo;
+       
+    }
 
   const [boardInfo, setBoardInfo] = useState({
     boardTitle: "",
-    empNo: 1,
-    boardCateCode: 0,
     boardContent: "",
+    boardCateCode: 0,
+    empNo: decoded
   });
 
 
@@ -31,8 +40,8 @@ function BoardRegistForAdmin({ setIsRegistModalForAdmin }) {
     const formData = new FormData();
 
     formData.append("boardTitle", boardInfo.boardTitle);
-    formData.append("boardCateCode", boardInfo.boardCateCode);
     formData.append("boardContent", boardInfo.boardContent);
+    formData.append("boardCateCode", boardInfo.boardCateCode);
     formData.append("empNo", boardInfo.empNo);
 
     console.log(boardInfo.boardTitle + "121ladsf==========");

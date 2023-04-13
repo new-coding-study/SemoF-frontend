@@ -9,6 +9,9 @@ import worksReportReducer from "./WorksModule";
 import emailReducer from "./EmailModule";
 import AttendanceReducer from "./AttendanceModule";
 import registerEmpReducer from "./EmployeeModule";
+import tripReportReducer from "./TripModule";
+import salesReportReducer from "./SalesModule";
+import meetingReportReducer from "./MeetingModule";
 import scheduleReducer from "./ScheduleModule";
 
 const rootReducer = combineReducers({
@@ -19,10 +22,12 @@ const rootReducer = combineReducers({
   replyReducer,
   empReducer,
   worksReportReducer,
-
+  tripReportReducer,
   emailReducer,
   AttendanceReducer,
   registerEmpReducer,
+  salesReportReducer,
+  meetingReportReducer
 
   scheduleReducer,
 });

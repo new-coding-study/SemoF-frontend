@@ -8,8 +8,19 @@ import NoticeUpdate from "./NoticeUpdate";
 import NoticeDetailModal from "./NoticeDetail";
 import BoardRegistForAdmin from "./BoardRegistForAdmin";
 import BoardRegistForEmp from "./BoardRegistForEmp";
+import {decodeJwt} from '../../utils/tokenUtils';
 
 function Posting (){
+
+const isLogin = window.localStorage.getItem('accessToken');
+let decoded = null;
+
+if(isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+    
+}
+
 
 const navigate = useNavigate();
 const dispatch = useDispatch();
@@ -155,12 +166,14 @@ const onClickPosting = (boardNo) => {
                  className={boardcss.btnstyle1}>
                     메인으로
                 </button>
+                {decoded === "ROLE_ADMIN"?
+                <button onClick = {() => setIsRegistModalForAdmin(true)}className={boardcss.btnstyle2}>
+                등 록
+                </button>:
                 <button onClick={()=> setIsRegistModalForEmp(true)} className={boardcss.btnstyle2}>
                     등 록
                 </button>
-                <button onClick = {() => setIsRegistModalForAdmin(true)}className={boardcss.btnstyle2}>
-                    등 록(foradmin)
-                </button>
+                }
                 </div>
             </div>
             <br/>

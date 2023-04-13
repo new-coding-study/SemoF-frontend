@@ -1,5 +1,5 @@
 .body{
-    overflow: auto !important;
+    overflow: hidden !important;
 }
 
 
@@ -135,7 +135,7 @@
 .totalVacation {
     font-size: 26px;
     font-weight: bold;
-    margin: 0 10px 0 10px;
+    margin: 0 10px 0 20px;
 }
 
 .vacationDiv {
@@ -158,7 +158,7 @@
 
 /* 첫 div 여백 */
 .vacationDiv div:first-child {
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 /* 글자간 여백 */
@@ -193,10 +193,16 @@
 
 /* 근태 기록 확인 */
 .bodyDiv {
-    margin: 10px 70px 0px 70px;
+    margin: 15px 70px 0px 66px;
     border: 2px solid red;
     border-radius: 15px;
     padding-top: 15px;
+    padding-bottom: 15px;
+    width: 1550px;
+}
+
+.attendanceTable {
+    width: 1550px;
 }
 
 .attendanceTable th, td {
@@ -213,8 +219,8 @@
     height: 50px;
     font-weight: bold;
     border-collapse: collapse;
-    cursor: auto;
     border-bottom: 2px solid #E52E2E;
+    
 }
 
 /* 페이징 버튼 */
