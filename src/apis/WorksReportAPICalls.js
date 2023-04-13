@@ -98,11 +98,11 @@ export const callWorksYListAdminAPI = ({currentPage}) =>{
     }
 };
 
-export const callWorksAllListEmpAPI = ({currentPage}) =>{
+export const callWorksAllListEmpAPI = ({currentPage, empNo}) =>{
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `http://localhost:8090/reports/works-lists-emp?offset=${currentPage}`;
+        requestURL = `http://localhost:8090/reports/works-lists-emp/${empNo}/?offset=${currentPage}`;
     } else{
         requestURL = `http://localhost:8090/reports/works-lists-emp`;
     }
@@ -126,11 +126,11 @@ export const callWorksAllListEmpAPI = ({currentPage}) =>{
     }
 };
 
-export const callWorksNListEmpAPI = ({currentPage}) =>{
+export const callWorksNListEmpAPI = ({currentPage, empNo}) =>{
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `http://localhost:8090/reports/works-n-lists-emp?offset=${currentPage}`;
+        requestURL = `http://localhost:8090/reports/works-n-lists-emp/${empNo}?offset=${currentPage}`;
     } else{
         requestURL = `http://localhost:8090/reports/works-n-lists-emp`;
     }
@@ -154,11 +154,11 @@ export const callWorksNListEmpAPI = ({currentPage}) =>{
     }
 };
 
-export const callWorksYListEmpAPI = ({currentPage}) =>{
+export const callWorksYListEmpAPI = ({currentPage, empNo}) =>{
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `http://localhost:8090/reports/works-y-lists-emp?offset=${currentPage}`;
+        requestURL = `http://localhost:8090/reports/works-y-lists-emp/${empNo}?offset=${currentPage}`;
     } else{
         requestURL = `http://localhost:8090/reports/works-y-lists-emp`;
     }
@@ -184,7 +184,7 @@ export const callWorksYListEmpAPI = ({currentPage}) =>{
 
 export const callWorksDetailForAdmin = ({worksReportCode}) =>{
     
-    const requestURL = `http://localhost:8090/reports/works-lists-admin/${worksReportCode}`;
+    const requestURL = `http://localhost:8090/reports/works-detail-admin/${worksReportCode}`;
 
     console.log('보고서 상세조회')
 
@@ -208,7 +208,7 @@ export const callWorksDetailForAdmin = ({worksReportCode}) =>{
 
 export const callWorksDetailForEmp = ({worksReportCode}) =>{
     
-    const requestURL = `http://localhost:8090/reports/works-lists-emp/${worksReportCode}`;
+    const requestURL = `http://localhost:8090/reports/works-detail-emp/${worksReportCode}`;
 
     console.log('보고서 상세조회')
 
@@ -242,13 +242,24 @@ export const callRegistWorks = ({form}) =>{
                 "Access-Control-Allow-Origin": "*"      
             },
             body: JSON.stringify({
-//    이건 나중에 입력
+                startDate:form.startDate,
+                endDate:form.endDate,
+                empNo:form.empNo,
+                worksReportTitle:form.worksReportTitle,
+                worksReportContent:form.worksReportContent,
+                issuesImprovement:form.issuesImprovement,
+                nextPlan:form.nextPlan,
+                etc:form.etc,
+                conclusion:form.conclusion
             })
         })
         .then (response => response.json());
-        
+        console.log("[WorksReportAPICalls] callRegistWorks RESULT : ", result);
+        if(result.status === 201){
+            console.log(result)
         dispatch({ type: POST_WORKS_FOREMP,  payload: result });
-        
+        }
+  
     }
 };
 
@@ -263,13 +274,15 @@ export const callUpdateWorksForAdmin = ({form, worksReportCode}) =>{
                 "Accept": "*/*",      
             },
             body: JSON.stringify({
-                // 이건 나중에 입력
+                reportComment:form.reportComment,
+                empNo:form.empNo
             })
         })
         .then (response => response.json());
-        
+        if(result.status === 200||result.status === 201){
+            console.log(result)
         dispatch({ type: PUT_WORKS_FORADMIN,  payload: result });
-        
+        }
     }
 };
 
@@ -284,13 +297,19 @@ export const callUpdateWorksForEmp = ({form, worksReportCode}) =>{
                 "Accept": "*/*",      
             },
             body: JSON.stringify({
-                // 이건 나중에 입력
+                worksReportTitle:form.worksReportTitle,
+                worksReportContent:form.worksReportContent,
+                issuesImprovement: form.issuesImprovement,
+                nextPlan: form.nextPlan,
+                etc: form.etc,
+                conclusion: form.conclusion
             })
         })
         .then (response => response.json());
-        
+        if(result.status === 200||result.status === 201){
+            console.log(result)
         dispatch({ type: PUT_WORKS_FOREMP,  payload: result });
-        
+        }
     }
 };
 
@@ -311,7 +330,9 @@ export const callDeleteWorksForAdmin = ({worksReportCode}) => {
 }
 
 export const callDeleteWorksForEmp = ({worksReportCode}) => {
+    console.log(worksReportCode)
     const requestURL = `http://localhost:8090/reports/works-lists-emp/${worksReportCode}`;
+    console.log(requestURL);
 
     return async(dispatch, getState) => {
         const result = await fetch(requestURL,{
@@ -322,7 +343,9 @@ export const callDeleteWorksForEmp = ({worksReportCode}) => {
             }
         })
         .then(response => response.json());
+        if(result.status === 200||result.status === 201){
         dispatch({type:DELETE_WORKS_FOREMP, payload: result})
+        }
     }
 }
 

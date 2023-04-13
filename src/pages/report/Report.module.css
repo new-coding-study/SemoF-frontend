@@ -11,16 +11,97 @@
 }
 .wholeContent{
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 100vh;
+    grid-template-columns: 0.6fr 0.3fr;
+    height: 20vh;
 }
 .elkArea{
     border: 1px solid black;
     border-radius: 10px;
-    
+    margin-right: 5%;
+    margin-left: 15%;
 }
 .reportsbtnArea{
-    border: 1px solid black;
     border-radius: 10px;
-
+    text-align: center;
+    padding-top:5%;
+}
+.worksbtn{
+    width: 40%;
+    height: 50px;
+    margin-bottom: 5%;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 18px;
+    background: #E52E2E;
+    color: white;
+}
+.worksbtn:hover{
+    transform: scale(1.1);
+    background: plum;
+    color: gray;
+    font-weight: bold;
+}
+.salesbtn{
+    width: 40%;
+    height: 50px;
+    margin-bottom: 5%;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 18px;
+    background: #E52E2E;
+    color: white;
+}
+.salesbtn:hover{
+    transform: scale(1.1);
+    background: orange;
+    color: gray;
+    font-weight: bold;
+}
+.meetingbtn{
+    width: 40%;
+    height: 50px;
+    margin-bottom: 5%;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 18px;
+    background: #E52E2E;
+    color: white;
+}
+.meetingbtn:hover{
+    transform: scale(1.1);
+    background: lightseagreen;
+    color: gray;
+    font-weight: bold;
+}
+.tripbtn{
+    width: 40%;
+    height: 50px;
+    margin-bottom: 5%;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 18px;
+    background: #E52E2E;
+    color: white;
+}
+.tripbtn:hover{
+    transform: scale(1.1);
+    background: lightblue;
+    color: gray;
+    font-weight: bold;
+}
+.main{
+    width: 40%;
+    height: 50px;
+    margin-bottom: 5%;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 18px;
+    background: #E52E2E;
+    color: white;
+}
+.main:hover{
+    transform: scale(1.1);
+    background: whitesmoke;
+    color: gray;
+    font-weight: bold;
 }

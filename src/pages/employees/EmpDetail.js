@@ -5,7 +5,7 @@ import {
   callGetEmployeeDetail,
   callGetEmpPhoto,
 } from "../../apis/EmployeeAPICalls";
-import RegisterCSS from "./Register.module.css";
+import RegisterCSS from "./EmpRegister.module.css";
 
 function Detail(props) {
   const dispatch = useDispatch();

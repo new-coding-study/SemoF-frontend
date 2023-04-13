@@ -362,6 +362,11 @@
     border: 1px solid #e52e2e;
 }
 
+.chartWrapper {
+    overflow: visible;
+}
+
+
 .newChartWrapper {
     display: flex;
     flex-direction: column;

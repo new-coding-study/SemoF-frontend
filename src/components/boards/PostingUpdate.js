@@ -6,6 +6,7 @@ import {callBoardPostingDetail,
         callUpdatePostingAPIForEmp
         } from "../../apis/BoardAPICalls";
 import Swal from "sweetalert2";
+import {decodeJwt} from '../../utils/tokenUtils';
 
 function PostingUpdate({boardNo, setIsUpdateModal}){
     const dispatch = useDispatch();
@@ -13,6 +14,16 @@ function PostingUpdate({boardNo, setIsUpdateModal}){
     const postingDetail = useSelector(state => state.boardReducer.postingDetail);
     const [form, setForm] = useState({});
     console.log(postingDetail);
+
+    const isLogin = window.localStorage.getItem('accessToken');
+    let decoded = null;
+
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        decoded = temp.empNo
+    }
+
+    console.log(decoded)
 
     useEffect(()=>{
         dispatch(callBoardPostingDetail({
@@ -24,9 +35,17 @@ function PostingUpdate({boardNo, setIsUpdateModal}){
         setForm({
             boardTitle:postingDetail.boardTitle,
             boardContent:postingDetail.boardContent,
-            boardCateCode:postingDetail.boardCateCode
+            boardCateCode:postingDetail.boardCateCode,
+            empNo:decoded
         });
     },[postingDetail]);
+
+    // const [form, setForm] = useState({
+    //     boardTitle:'',
+    //     boardContent:'',
+    //     boardCateCode:'',
+    //     empNo:decoded
+    // })
 
     const onChangeHandler = (e) => {
         setForm({
@@ -41,7 +60,7 @@ function PostingUpdate({boardNo, setIsUpdateModal}){
         formData.append("boardTitle", form.boardTitle);
         formData.append("boardContent", form.boardContent);
         formData.append("boardCateCode", form.boardCateCode);
-
+        formData.append("empNo", form.empNo);
 
         console.log(form.boardTitle+'=================11213'); 
         console.log(form.boardContent+'=================1231233'); 

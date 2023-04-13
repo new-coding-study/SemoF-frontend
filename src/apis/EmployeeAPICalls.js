@@ -10,6 +10,8 @@ import {
   GET_EMPLOYEES_CONTRIBUTION,
   GET_EMPLOYEES_CONTRIBUTIONS,
   GET_EMPLOYEES_ATTENDANCE,
+  GET_EMPLOYEES_VACATION,
+  GET_EMPLOYEES_CHART,
   SEARCH_EMPLOYEES,
   PUT_EMPLOYEES_BRANCHES,
   PUT_EMPLOYEES_DEPARTMENTS,
@@ -17,7 +19,6 @@ import {
   PUT_EMPLOYEES_INFO,
   DELETE_EMPLOYEES_CONTRIBUTION,
   DELETE_EMPLOYEES,
-  GET_EMPLOYEES_VACATION,
 } from "../modules/EmployeeModule";
 
 export const callRegisterAPI = ({ form }) => {
@@ -476,6 +477,29 @@ export const callGetEmpVacationAPI = () => {
     if (result.status === 200) {
       console.log("[EmployeeAPICalls] callGetEmpVacationAPI SUCCESS");
       dispatch({ type: GET_EMPLOYEES_VACATION, payload: result.data });
+    }
+  };
+};
+
+export const callGetEmpChartAPI = (empNo) => {
+  console.log("[EmployeeAPICalls] callGetEmpChartAPI Call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/contributions/${empNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+
+    console.log("[EmployeeAPICalls] callGetEmpChartAPI RESULT : ", result);
+    if (result.status === 200) {
+      console.log("[EmployeeAPICalls] callGetEmpChartAPI SUCCESS");
+      dispatch({ type: GET_EMPLOYEES_CHART, payload: result.data });
     }
   };
 };

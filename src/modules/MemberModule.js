@@ -2,7 +2,10 @@ import { createActions, handleActions } from "redux-actions";
 
 /* 초기값 */
 const initialState = {
-  regist:[]
+  regist:[],
+  login:[],
+  checkReg:[],
+  checkId:[]
 }
 
 
@@ -29,16 +32,16 @@ const memberReducer = handleActions(
       return payload;
     },
     [POST_LOGIN]: (state, { payload }) => {
-      return payload;
+      {return {...state, login: payload};} 
     },
     [POST_REGISTER]: (state, { payload }) => {
       return{...state, regist: payload};
     },
     [POST_ID]: (state, { payload }) => {
-      return payload;
+      return{...state, checkId:payload} ;
     },
     [POST_REG]: (state, { payload }) => {
-      return payload;
+      return{...state, checkReg:payload}; 
     },
   },
   initialState

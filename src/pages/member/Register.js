@@ -2,7 +2,7 @@ import RegisterCSS from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-
+import Swal from 'sweetalert2';
 import {
     callRegisterAPI, callCheckRegAPI, callcheckIdAPI
 } from '../../apis/MemberAPICalls'
@@ -15,7 +15,9 @@ function Register() {
     const dispatch = useDispatch();
     const member = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
     const register = useSelector(state => state.memberReducer.regist)
-    
+    const checkId = useSelector(state => state.memberReducer.checkId)
+    console.log('아이디 검증에 대한 정보', checkId)
+    const checkReg = useSelector(state => state.memberReducer.checkReg)
     const [form, setForm] = useState({
         loginId: '',
         loginPwd: ''
@@ -24,13 +26,6 @@ function Register() {
         empReg: '',
         // empReg: ''
     });
-    useEffect(() => {
-        if(member.status === 201){
-            console.log("[Login] Register SUCCESS {}", member);
-            navigate("/login", { replace: true })
-        }
-    }, // eslint-disable-next-line
-    [member]);
 
     const onChangeHandler = (e) => {
         setForm({
@@ -41,10 +36,11 @@ function Register() {
 
     const onClickBackHandler = () => {
         // 돌아가기 클릭시 메인 페이지로 이동
-        navigate("/semof", { replace: true })
+        navigate("/", { replace: true })
     }
     
     const onClickRegisterHandler = () => {
+        
         if(form.loginPwd === form.memberName){
             dispatch(callRegisterAPI({
                 form: form
@@ -59,6 +55,7 @@ function Register() {
     }
 
     const onClickCompareHandler = () => {
+        console.log('아이디', form.loginId)
         dispatch(callcheckIdAPI(form.loginId));
 
     }
