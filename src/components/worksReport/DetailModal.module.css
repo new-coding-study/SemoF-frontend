@@ -84,6 +84,7 @@
 .worktable1 td:first-child{
     font-size: 25px;
     font-weight: bold;
+    text-align: left;
 }
 .worktable1 th {
     border-bottom: 1px solid red;

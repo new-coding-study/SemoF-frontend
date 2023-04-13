@@ -75,7 +75,6 @@
     width: px;
 }
 .worktable1{
-    padding-left: 5%;
     width: 100%;
     padding: 3%;
     border-radius: 10px;
@@ -85,6 +84,7 @@
 .worktable1 td:first-child{
     font-size: 25px;
     font-weight: bold;
+    text-align: left;
 }
 .worktable1 th {
     border-bottom: 1px solid red;
