@@ -193,9 +193,13 @@ function ModifyApproval() {
             <div className={RegistCSS.categorytitle}>
                 <label style={{marginRight:'17%'}}>카테고리 : </label>
                 <select onChange={selectHandler} defaultValue="default">
-                    {{approvInfo?.approvContentDTOList.length > 0 && (
+                    {
+                    // {approvInfo?.approvContentDTOList.length > 0 && 
+                    (
    <option value="default" >{approvInfo?.approvContentDTOList[1]?.formCode}</option>
-)}}
+)
+}
+
                    
                 
                     <option value="A" name="formCode">지출결의서</option>
