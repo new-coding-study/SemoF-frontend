@@ -50,7 +50,6 @@ import ModifyApproval from "./pages/approval/ModifyApproval";
 
 import Attendance from "./pages/attendance/Attendance";
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -91,7 +90,6 @@ function App() {
           <Route path="complete/out" element={<FinApprovOut />} />
 
           <Route path="edit-line/:lineNo" element={<ModifyLine />} />
-
 
           <Route path="employees" element={<Employees />} />
           <Route path="employees/management" element={<Management />} />
