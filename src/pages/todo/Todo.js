@@ -6,6 +6,7 @@ import CategorySelectBox from "../../components/todo/CategorySelectBox";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 import {
   callTodayTodoListAPI,
@@ -18,6 +19,14 @@ import {
 function Todo() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decodedUser = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decodedUser = temp.empNo;
+  }
 
   // useSelector : store에서 사용하고 있는 state를 전달받아서 다시 전달해주는 역할
   const todayList = useSelector((state) => state.todoReducer.todayList);
@@ -123,7 +132,7 @@ function Todo() {
       formData.append("cateName", newCategory.cateName);
       formData.append("cateColor", newCategory.cateColor);
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-      formData.append("empNo", 41);
+      formData.append("empNo", decodedUser);
 
       dispatch(
         callCategoryRegistAPI({
@@ -195,9 +204,9 @@ function Todo() {
   useEffect(
     () => {
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-      dispatch(callTodayTodoListAPI(41));
-      dispatch(callIntendedTodoListAPI(41));
-      dispatch(callCategoryListAPI(41));
+      dispatch(callTodayTodoListAPI(decodedUser));
+      dispatch(callIntendedTodoListAPI(decodedUser));
+      dispatch(callCategoryListAPI(decodedUser));
     }, // eslint-disable-next-line
     [checkStarAndFinish, addTodo, addAndDeleteCategory]
   );

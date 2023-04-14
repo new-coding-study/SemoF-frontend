@@ -4,6 +4,7 @@ import Intended from "../../components/todo/Intended";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 import {
   callCategoryListAPI,
@@ -13,6 +14,15 @@ import {
 function TodoSearch() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decodedUser = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decodedUser = temp.empNo;
+  }
+
   const [searchParams] = useSearchParams();
 
   // 쿼리스트링에서 s의 밸류값을 가지고와서 search에 담아줌
@@ -48,8 +58,8 @@ function TodoSearch() {
   useEffect(
     () => {
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-      dispatch(callCategoryListAPI(41));
-      dispatch(callSearchTodoAPI(search, 41));
+      dispatch(callCategoryListAPI(decodedUser));
+      dispatch(callSearchTodoAPI(search, decodedUser));
       // console.log(categoryList);
     }, // eslint-disable-next-line
     []

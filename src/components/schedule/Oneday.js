@@ -4,6 +4,7 @@ import ScheduleUpdateModal from "./ScheduleUpdateModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import moment from "moment";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 import { callScheduleListAPI } from "../../apis/ScheduleAPICalls";
 import { useEffect } from "react";
@@ -16,6 +17,14 @@ function Oneday({
   setDefaultDate,
 }) {
   const dispatch = useDispatch();
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decodedUser = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decodedUser = temp.empNo;
+  }
 
   const [scheduleDetailModal, setScheduleDetailModal] = useState(false);
   const [scheduleUpdateModal, setScheduleUpdateModal] = useState(false);
@@ -38,10 +47,6 @@ function Oneday({
 
   // 날짜 더블클릭 시 일정 추가 창으로 넘어가게 하는 핸들러
   const ondoubleClickRegistScdHandler = () => {
-    // console.log("더블클릭 이벤트 발생");
-    // console.log(e.target.children[0].children[0].textContent);
-    // const clickDate = e.target.children[0]?.children[0]?.textContent;
-    // console.log(newDate);
     setDefaultMode(false);
     setSearchMode(false);
     setRegistMode(true);
@@ -50,8 +55,8 @@ function Oneday({
 
   useEffect(
     () => {
-      // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-      dispatch(callScheduleListAPI(41));
+      // 나중에 localStorage 에서 empNo 받아와서 보내주기! 수정완료
+      dispatch(callScheduleListAPI(decodedUser));
     }, // eslint-disable-next-line
     []
   );

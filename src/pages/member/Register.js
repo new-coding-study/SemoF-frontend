@@ -18,8 +18,8 @@ function Register() {
   const register = useSelector((state) => state.memberReducer.regist);
 
   const [form, setForm] = useState({
-    registId: "",
-    registPwd: "",
+    loginId: "",
+    loginPwd: "",
     checkPwd: "",
     empReg: "",
   });
@@ -57,7 +57,7 @@ function Register() {
       ...form,
       [e.target.name]: e.target.value,
     });
-    if (e.target.name === "registId") {
+    if (e.target.name === "loginId") {
       setCheckId(false);
       // 중복체크해서 가입 가능한 아이디면 true 로 바껴야 하는데, dispatch에 then을 걸어야하나?!
     }
@@ -83,23 +83,39 @@ function Register() {
   //       .replace(/(-?)([1-4]{1})([0-9]{6})\b/gi, "$1$2******")
   //   );
   // }
+  // useEffect(() => {
+  //   if (empReg.length > 0 && empReg.length < 7) {
+  //     setForm({
+  //       empReg: empReg,
+  //     });
+  //   } else if (empReg.length > 6 && empReg.length < 14) {
+  //     setForm({
+  //       empReg: empReg
+  //         .replace(/[^0-9]/g, "")
+  //         .replace(/^(\d{0,6})(\d{0,7})$/g, "$1-$2")
+  //         .replace(/-{1,2}$/g, ""),
+  //     });
+  //   }
+  // }, [empReg]);
 
-  useEffect(() => {
-    setForm({
-      empReg: empReg
-        .replace(/[^0-9]/g, "")
-        .replace(/^(\d{0,6})(\d{0,7})$/g, "$1-$2")
-        .replace(/-{1,2}$/g, ""),
-    });
-  }, [empReg]);
+  // useEffect(() => {
+  //   setForm({
+  //     empReg: empReg
+  //       .replace(/[^0-9]/g, "")
+  //       .replace(/^(\d{0,6})(\d{0,7})$/g, "$1-$2")
+  //       .replace(/-{1,2}$/g, ""),
+  //   });
+  // }, [empReg]);
 
-  useEffect(() => {
-    if (empReg.length > 6) {
-      setMaskingReg(
-        empReg.replace(/-/g, "").replace(/(\d{6})(\d{1})(\d{6})/, "$1-$2******")
-      );
-    }
-  }, [empReg]);
+  // useEffect(() => {
+  //   if (empReg.length > 6) {
+  //     setMaskingReg(
+  //       empReg.replace(/-/g, "").replace(/(\d{6})(\d{1})(\d{6})/, "$1-$2******")
+  //     );
+  //   }
+  // }, [empReg]);
+
+  // console.log(empReg);
 
   // 돌아가기 클릭시 로그인 페이지로 이동
   const onClickBackHandler = () => {
@@ -108,7 +124,7 @@ function Register() {
 
   // 회원가입 버튼 클릭 시 비밀번호가 일치하는지 확인하고 디스패치를 보냄
   const onClickRegisterHandler = () => {
-    if (form.registPwd === form.checkPwd) {
+    if (form.loginPwd === form.checkPwd) {
       dispatch(
         callRegisterAPI({
           form: form,
@@ -126,7 +142,7 @@ function Register() {
 
   // 입력한 ID를 보내서 사용 가능한 아이디인지 확인
   const onClickCheckIdHandler = () => {
-    dispatch(callcheckIdAPI(form.registId));
+    dispatch(callcheckIdAPI(form.loginId));
   };
 
   // 회원가입에 대한 상태가 바뀌면 렌더링. 정상 가입되면 로그인창으로, 안되면 다시 회원가입창으로 이동
@@ -149,7 +165,7 @@ function Register() {
         <div className={RegisterCSS.inputIdWrapper}>
           <input
             type="text"
-            name="registId"
+            name="loginId"
             placeholder="아이디"
             autoComplete="off"
             required
@@ -159,7 +175,7 @@ function Register() {
         </div>
         <input
           type="password"
-          name="registPwd"
+          name="loginPwd"
           placeholder="패스워드"
           autoComplete="off"
           required
@@ -177,13 +193,13 @@ function Register() {
           <input
             type="text"
             name="empReg"
-            maxLength="13"
+            maxLength="14"
             placeholder="주민번호"
             autoComplete="off"
             required
             onChange={onChangeHandler}
             // onChange={onChangeEmpRegHandler}
-            // value={maskingReg?.length === 0 ? empReg : maskingReg}
+            value={maskingReg?.length === 0 ? empReg : maskingReg}
           />
           <button onClick={onClickCheckRegHandler}>주민번호 확인</button>
         </div>

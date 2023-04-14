@@ -2,6 +2,7 @@ import RegistScheduleCSS from "./RegistSchedule.module.css";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import moment from "moment";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 import { callRegistScheduleAPI } from "../../apis/ScheduleAPICalls";
 function RegistSchedule({
@@ -11,6 +12,14 @@ function RegistSchedule({
   defaultDate,
 }) {
   const dispatch = useDispatch();
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decodedUser = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decodedUser = temp.empNo;
+  }
 
   const [checkAllDay, setCheckAllDay] = useState(true);
 
@@ -61,10 +70,9 @@ function RegistSchedule({
 
     // 캘린더 값 선택해서 들어갈 수 있도록 수정해야함
     formData.append("calNo", 1);
-    //   1, 41, 42, 43, 44, 46, 49, 50;
 
-    // token 에서 유저No 받아서 넣어주기
-    formData.append("scdWriter", 41);
+    // token 에서 유저No 받아서 넣어주기 수정완료
+    formData.append("scdWriter", decodedUser);
 
     dispatch(callRegistScheduleAPI({ form: formData }));
 

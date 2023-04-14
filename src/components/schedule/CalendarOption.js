@@ -4,6 +4,7 @@ import CalendarMemList from "./CalendarMemList";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 import {
   callCalendarDetailAPI,
@@ -17,9 +18,15 @@ function CalendarOption({
   selectCalendarNo,
   setDefaultMode,
 }) {
-  // console.log("selectCalendarNo 확인 : ", selectCalendarNo);
-  // console.log("sendCalendarNo 확인 : ", sendCalendarNo);
   const dispatch = useDispatch();
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decodedUser = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decodedUser = temp.empNo;
+  }
 
   const calendarDetail = useSelector(
     (state) => state.scheduleReducer.calendarDetail
@@ -32,8 +39,8 @@ function CalendarOption({
   // console.log("calendarMemList : ", calendarMemList);
 
   // 수정 및 삭제 권한 확인 (로그인한 유저와 캘린더 생성자가 동일해야만 수정 및 삭제가 가능함. 그 외에 멤버는 불가능)
-  const localStorageEmpNo = 41; // 나중에 연결해서 가져와야함
-  const permission = localStorageEmpNo === calendarDetail?.madeEmpNo;
+  // const localStorageEmpNo = 41; // 나중에 연결해서 가져와야함
+  const permission = decodedUser === calendarDetail?.madeEmpNo;
   //   console.log(permission ? "권한있음" : "권한없음");
 
   // 돌아가기 버튼 => 달력으로 돌아감

@@ -6,6 +6,7 @@ import RegistSchedule from "../../components/schedule/RegistSchedule";
 import CalendarOption from "../../components/schedule/CalendarOption";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 import {
   callCalendarListAPI,
@@ -14,6 +15,14 @@ import {
 
 function Schedule() {
   const dispatch = useDispatch();
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decodedUser = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decodedUser = temp.empNo;
+  }
 
   const calendarList = useSelector(
     (state) => state.scheduleReducer.calendarList
@@ -58,7 +67,7 @@ function Schedule() {
       formData.append("calName", newCalendar.calName);
       formData.append("calColor", newCalendar.calColor);
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-      formData.append("madeEmpNo", 41);
+      formData.append("madeEmpNo", decodedUser);
 
       // 입력받은 값으로 dispatch 호출
       dispatch(
@@ -90,7 +99,7 @@ function Schedule() {
   useEffect(
     () => {
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-      dispatch(callCalendarListAPI(41));
+      dispatch(callCalendarListAPI(decodedUser));
     }, // eslint-disable-next-line
     [addCalendar, defaultMode, searchMode, registMode, selectCalendarNo]
   );

@@ -3,10 +3,19 @@ import ScheduleSearchResult from "./ScheduleSearchResult";
 import { useEffect } from "react";
 // import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 import { callSearchSchedulePI } from "../../apis/ScheduleAPICalls";
 function ScheduleSearch({ searchSchedule, setDefaultMode, setSearchMode }) {
   const dispatch = useDispatch();
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decodedUser = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decodedUser = temp.empNo;
+  }
 
   // 구조분해 할당으로 검색어를 꺼냄
   const searchWord = searchSchedule.searchWord;
@@ -23,7 +32,7 @@ function ScheduleSearch({ searchSchedule, setDefaultMode, setSearchMode }) {
   useEffect(
     () => {
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-      dispatch(callSearchSchedulePI(searchWord, 41));
+      dispatch(callSearchSchedulePI(searchWord, decodedUser));
     }, // eslint-disable-next-line
     []
   );
