@@ -137,7 +137,7 @@ function Oneday({
                 style={{ backgroundColor: schedule?.calColor }}
                 onClick={onClickScheduleDetailHandler}
               >
-                <div>
+                <div className={OnedayCSS.scdAllDayName}>
                   {schedule?.scdName}
                   <span style={{ display: "none" }}> {schedule?.scdNo} </span>
                 </div>

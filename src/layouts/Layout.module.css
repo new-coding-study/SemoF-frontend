@@ -14,9 +14,10 @@
   /* border: 1px solid orange; */
   width: 1720px;
   margin: 0 60px;
+  padding-left: 40px;
 }
 .main {
-  width: 100%;
+  width: 1600px;
   height: 90%;
   align-items: center;
   justify-content: center;

@@ -45,10 +45,6 @@ function Todo() {
       chooseCate === chooseCateIntendedTodoResult.cateNo
   );
 
-  // console.log("오늘의 할 일", chooseCateTodayTodoResult);
-  // console.log("예정된의 할 일", chooseCateIntendedTodoResult);
-  // console.log("Todo에서의 상태값 확인 cateNo", chooseCate);
-
   // 달성률에 나타낼 때 필요한 값들을 변수에 미리 저장
   const todayAllTodo = todayList?.length;
   const todayFinishTodoList = todayList?.filter(
