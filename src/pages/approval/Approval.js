@@ -50,7 +50,7 @@ function Approval(){
             </button>
             </div>
             <div>
-            <button className={ApprovalCSS.complete} onClick={()=>{navigate(`/semof/complete`)}}>
+            <button className={ApprovalCSS.complete} onClick={()=>{navigate(`/semof/complete/in`)}}>
             <img
                 src={"/images/결재완료.png"}
                 alt="이미지확인!"

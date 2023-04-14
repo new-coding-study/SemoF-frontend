@@ -1,23 +1,44 @@
 import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { callApprovalDetailAPI, callLineDetailAPI, callGetFormTitleAPI, callOpinionsAPI } from '../../apis/ApprovalAPICalls';
+import { callApprovalDetailAPI, callDeleteApprovAPI, callFilesAPI, callGetFormTitleAPI, callHandleStatusAPI } from '../../apis/ApprovalAPICalls';
 import Opinion from '../../components/approvals/Opinion';
 import { useEffect } from 'react';
+import LineDetail from '../../components/approvals/LineDetail';
+import {decodeJwt} from '../../utils/tokenUtils';
+import approvCss from './ApprovDetail.module.css';
+import ApprovFile from '../../components/approvals/ApprovFile';
+
 
 function ApprovDetail(){
-
+// 하나의 div approvDetail
+// 하나의 div 진행상황 라인하고 상태
+// 하나의 div 의견 댓글처럼
+// 버튼
+const isLogin = window.localStorage.getItem('accessToken');
+console.log('로그인? ',isLogin);
+let decoded = null;
+let tokenEmpNo = null;
+if(isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+    tokenEmpNo = temp.empNo;
+    console.log('??', temp.empNo)
+}
+console.log(tokenEmpNo);
+console.log('decoded', decoded);
     const nav = useNavigate();
     const dispatch = useDispatch();
     const params = useParams();
     const approvInfo = useSelector(state => state.approvalReducer.approval);
-    const lineInfo = useSelector(state => state.approvalReducer.line);
+
     const formInfo = useSelector(state => state.approvalReducer.form);
     console.log(approvInfo);
-    console.log(lineInfo);
+
     console.log(Array.isArray(approvInfo));
-    // console.log(Array.isEmpty(approvInfo));
+   
     console.log(params.approvNo);
     console.log('이거뭐게', approvInfo.lineNo);
+
     useEffect(
         () => {
             dispatch(callApprovalDetailAPI(
@@ -26,106 +47,106 @@ function ApprovDetail(){
             dispatch(callGetFormTitleAPI()
                 
              )
-            dispatch(callLineDetailAPI(
-                 approvInfo.lineNo
-            )); 
+            dispatch(callFilesAPI(params.approvNo))
             
         } // eslint-disable-next-line
         ,[]
     );
-
-    return(
+    
+    const form = formInfo?.filter((t) => t.formCode === approvInfo?.approvContentDTOList?.formCode); 
+    
+    return (
         <>
-            <div 
-            // className={title}
-            >
-                {approvInfo?.approvTitle}
-            </div>
-            <div >
-                {approvInfo?.approvStatus}
-                {approvInfo?.approvDate}
-            </div>
-            {/*결재 작성된 내용 */}
-            <div 
-            // className={application}
-            >
-                {/* {formInfo
-                .filter((t) => t.formCode == approvInfo.approvContentDTOList[0].formCode)
-                ?.map((t, index) => (
-    <div 
-    // className={RegistCSS.formArea} 
-    key={t.formCode}>
-      <span style={{fontSize:'20px', float:'left', marginLeft:'10%'}}>{t.formTitle} : </span>
-      <div style={{width:'70%', float:'right', padding:'5px'}}>
-        
-      </div>
-    </div>
-))} */}
-                {
-
-                approvInfo.length>0 &&
-                (approvInfo?.approvContentDTOList).map(dto => (
-                <div key={dto.contentNo}>
-                {/* <span>{dto.formTitle}</span>: */}
-                <span>{dto.content}</span>
-                </div>
-                ))
+        <div className={approvCss.title}>
+          내 결재 목록 상세조회
+        </div>
+        <br/>
+        <div className={approvCss.contour}>
+          <table className={approvCss.table1}>
+            <tr className={approvCss.tr1st}>
+              <th className={approvCss.approvTitle}> {approvInfo?.approvTitle}</th>
+              <th className={approvCss.writerInfo}>{approvInfo?.status}&nbsp;&nbsp;작성자 : {approvInfo?.empName}&nbsp;&nbsp;날짜 : {approvInfo?.approvDate}</th>
+            </tr>
+            <tr>
+                <td className={approvCss.formTitle}>
+                {form?.map((t, index) => (
+                    <div key={t.formCode}>
+                    <span>
+                      {t.formTitle} : 
+                    </span>
+                    </div>
+                ))} 
+                </td>
+                <td className={approvCss.content}>
+                  {
+                //   approvInfo.length>0 && 
+                  (approvInfo?.approvContentDTOList)?.map(dto => (
+                    <div key={dto.contentNo}>
+                      <span>{dto.content}</span>
+                    </div>
+                  ))
                 }
-               
-            </div>
-            
-            {/* 진행상황 : 결재라인 */}
-           {
-                (lineInfo?.approvOrderDTOList).map(dto => (
-                <div key={dto.orderNo}>
-                <span>{dto.jobName}</span>:
-                <span>{dto.empNo}</span>
-                </div>
-
-                ))
-                }
-            <div>
-            {/*
-                lineInfo?.approvOrderDTOList.map(dto => (
-                <div key={dto.orderNo}>
-                <span>{dto.jobName}</span>:
-                <span>{dto.empNo}</span>
-                </div>
-
-                ))
-            */}
-{/* 상태를 어떻게 받지 ??/??????큰일났다~~~~~ */}
-            </div>
-            <div>
-                의견
-            </div>
-            <div>
-            { 
-            Array.isArray(approvInfo) && 
-            // lineLength>0
-            // line?.length > 0 
-                // &&
-                approvInfo.map((approv) => (
-                <Opinion key={ approv.approvNo } opinion={ approv } />
-               ))
+              </td>
+            </tr>
+            <tr>
+            {
+              <ApprovFile approvInfo={approvInfo}/>
             }
-            </div>
-            <div 
-            // className={opinion}
-            ></div>
-            <button 
-            // className={btnTurn}
-             onClick={()=>{nav(-1)}}>돌아가기</button>
-            <button 
-            // className={btnModify} 
-            onClick={()=>{nav(`semof/modify-approval`)}}>내용수정</button>
-            <button 
-            // className={btnRe}
-             onClick={()=>{nav(-1)}}>결재 재상신</button>
-            <button 
-            // className={btnDelete}
-             onClick={()=>{nav(-1)}}>결재 삭제</button>
+
+            </tr>
+        </table>
+          <table className={approvCss.title2}>
+            <tr>
+              <td><h2>진행상황</h2></td>
+            </tr>
+            <tr>
+            <td><LineDetail approvInfo={approvInfo} /></td>
+            </tr>
+          </table>
+          <br/><br/><br/><br/><br/>
+            <table className={approvCss.title3}>
+              <tr  className={approvCss.title3tr1st}>
+                <td><h3>반려사유</h3></td>
+                <td></td>
+              </tr>
+              <br/>
+              <tr>
+              <th>의견 : </th>
+              <td>      
+                 { 
+                  <Opinion approvInfo={approvInfo} />
+                 }
+             </td>
+            </tr>
+            <br/>
+            </table>
+        </div>
+        <br />
+        <div className={approvCss.btnarea}>
+         
+          {/* 수정, 재상신 서로 disable 걸던지 해야할 듯 */}
+          {/* <button onClick={()=>{nav(-1)}}>결재 재상신</button> */}
+          
+          <button onClick={()=>{
+            dispatch(callDeleteApprovAPI(params.approvNo))
+            nav(`/semof/inbox`, {replace: true})
+            }}>결재 삭제</button>
+          &nbsp;&nbsp;
+          {decoded == 'ROLE_ADMIN' &&
+          <div>
+          <button onClick={()=>{
+            dispatch(callHandleStatusAPI(approvInfo.lineNo, params.approvNo, tokenEmpNo, encodeURIComponent('승인')))
+          }}>결재 승인</button>
+          &nbsp;&nbsp;
+          
+          <button onClick={() =>{dispatch(callHandleStatusAPI(approvInfo.lineNo, parseInt(params.approvNo), tokenEmpNo, encodeURIComponent('반려')))}}>결재 반려</button>
+          </div>
+        }
+          <br></br><br></br>
+          <button onClick={()=>{nav(-1)}}>돌아가기</button>
+          &nbsp;&nbsp;
+          <button onClick={()=>{nav(`/semof/modify-approval`)}}>내용수정</button>
+        </div>
         </>
-    )
-}
-export default ApprovDetail;
+      );
+} export default ApprovDetail;

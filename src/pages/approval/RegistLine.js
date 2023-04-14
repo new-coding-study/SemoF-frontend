@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { callGetBranchesAPI, callGetDeptAPI, callGetJobNEmpNameAPI, callLineRegistAPI, callOrderRegistAPI } from '../../apis/ApprovalAPICalls';
+import RegistLinecss from './RegistLine.module.css';
 
 function RegistLine(){
 
@@ -29,6 +30,9 @@ function RegistLine(){
     const [selectBranch, setSelectBranch] = useState('');
     const [selectDept, setSelectDept] = useState('');
     const [selectBName, setSelectBName] = useState('');
+
+    const [submitbtn, setSubmitbtn] = useState(false);
+
 
     // 순서 입력 할 select를 띄울
     const [isShow, setIsShow] = useState(false);
@@ -58,11 +62,14 @@ function RegistLine(){
       const selectedOption = e.target.options[e.target.selectedIndex];
       setSelectBName= selectedOption.getAttribute('data-name');
       console.log('branchName', selectBName);
+      
+
     }
     const selectDeptHandler=(e)=>{
       setSelectDept(e.target.value);
       console.log(e.target.value);
       setIsShow(true);
+      setSubmitbtn(true);
     }
     
     const handleAddSelect = () => {
@@ -99,19 +106,19 @@ function RegistLine(){
       
       form: line
   }));   
+  nav(`/semof/lines` , { replace: true});
+  // window.location.reload();
     
-    nav(`/semof/lines`);
   };
     return(
         <>
-            <div 
-            // className={ApprovalCSS.title}
-            >
-            결재 라인 추가
-            </div>
+        
+            <div className={RegistLinecss.title}>결재 라인 추가</div>
+            <br/><br/>
             <div>
-            <span>결재라인 : </span>
-            <select name="branch" onChange={selectBranchHandler} defaultValue="default">
+            <div className={RegistLinecss.outline}>
+            <span className={RegistLinecss.subtitle}>결재라인 : </span>
+            <select className={RegistLinecss.branch} name="branch" onChange={selectBranchHandler} defaultValue="default">
             <option value="default" disabled>지점선택</option>
             {branch.map((b, idx) => (
               <option key={idx} value={b.branchCode} data-name={b.branchName}>
@@ -119,7 +126,9 @@ function RegistLine(){
             </option>
             ))}
             </select>
+            &nbsp;
             <select name="dept" 
+            className={RegistLinecss.dept}
               onChange={selectDeptHandler}
               defaultValue="default"
               >
@@ -129,41 +138,47 @@ function RegistLine(){
               ))}
               </select>
             </div>
-      
+                <br/>
             
-            {isShow && (
-              <div>
-          <div>
-          {selects.map((select) => (
-            <div key={select.id}>
-              <label htmlFor={`select-${select.id}`}>{select.id}번:</label>
-            <select
-              id={`select-${select.id}`}
-              value={select.value}
-              onChange={(event) => handleSelectChange(event, select.id)}
-              >
-              <option value="">직급, 사원 선택</option>
-              {empInfo.map((b) => (
-                <option key={b.empNo} value={b.empNo} name="empNo">
-                  {b.jobName}, {b.empName}
-                </option>
-              ))}
-            </select>
-          </div>
-        ))}
-      </div>
-      <div>
-        <button type="button" onClick={handleAddSelect}>
-         +
-       </button>
-      <button type="submit" onClick={handleSubmit}>등록하기</button>
-      </div>
-      </div>
-      )}
+          {isShow && (
+                <div>
+            <div>
+            {selects.map((select) => (
+              <div key={select.id}>
+                <label className={RegistLinecss.subtitle2} htmlFor={`select-${select.id}`}>{select.id}번 결재자: </label>
+              <select
+                className={RegistLinecss.selectgrade}
+                id={`select-${select.id}`}
+                value={select.value}
+                onChange={(event) => handleSelectChange(event, select.id)}
+                >
+                <option value="">직급, 사원 선택</option>
+                {empInfo.map((b) => (
+                  <option key={b.empNo} value={b.empNo} name="empNo">
+                    {b.jobName}, {b.empName}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ))}
+        </div>
 
-            
-            
-        <button type="button" onClick={()=>{nav(-1)}}>취소하기</button>
+        <br/>
+        <div>
+          <button className={RegistLinecss.plusbtn} type="button" onClick={handleAddSelect}>
+            + 사원추가
+          </button>
+        </div>
+        </div>
+        )}
+
+                  
+      </div>   
+      <br/><br/>
+      <div className={RegistLinecss.cancelbtnarea}>   
+      {submitbtn? <button className={RegistLinecss.submitbtn} type="submit" onClick={handleSubmit}>등록하기</button>:null} &nbsp;&nbsp;      
+        <button className={RegistLinecss.cancelbtn} type="button" onClick={()=>{nav(-1)}}>취소하기</button>
+      </div>
         </>
     )
 }

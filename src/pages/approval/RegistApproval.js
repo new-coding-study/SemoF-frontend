@@ -4,6 +4,9 @@ import { useEffect, useState, useRef } from 'react';
 import { callGetFormTitleAPI, callApprovRegistAPI, callLineListAPI } from "../../apis/ApprovalAPICalls"
 import { useNavigate, useParams } from 'react-router-dom';
 import { callLinesAPI } from '../../apis/ApprovalAPICalls';
+import { decodeJwt } from '../../utils/tokenUtils';
+
+
 function RegistApproval() {
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -21,22 +24,23 @@ function RegistApproval() {
     const [filePath, setFilePath] = useState();
     const fileInput = useRef();
     const formData = new FormData(); // FormData 객체 생성
-    // const [approval, setApproval] = useState({
-    //     // 문제는 이게 하나하나의 필드가 아닌,,, 테이블이라는 점?////
-    //     approvTitle:''
-    //     , lineNo: 0
-    //     // ,이게 리스트로 들어가려면??
-    //     , approvContentDTOList : [
-            
-    //     ]
-    //     // , fileList : []
-    //     // 이게 content값들로 인식이 될까?
-    // })
+    const isLogin = window.localStorage.getItem('accessToken');
+    console.log('로그인? ',isLogin);
+    let decoded = null;
+    let tokenEmpNo = null;
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        decoded = temp.auth[0];
+        tokenEmpNo = temp.empNo;
+        console.log('??', temp.empNo)
+    }
+console.log(tokenEmpNo);
+    console.log('decoded', decoded);
     const [approval, setApproval] = useState({
         // 문제는 이게 하나하나의 필드가 아닌,,, 테이블이라는 점?////
         approvTitle:''
         , lineNo: 0
-        // ,이게 리스트로 들어가려면??
+        , empNo: ''
         , approvContentDTOList : [
             
         ]
@@ -112,6 +116,7 @@ function RegistApproval() {
           ...prevState,
           approvTitle: title,
           lineNo : line,
+          empNo : tokenEmpNo,
           approvContentDTOList: contents.map(({ content, formCode }) => ({ content, formCode })),
             //  fileList: files
         }));
@@ -156,7 +161,7 @@ function RegistApproval() {
             // , fileList : files
           
         }));      
-        // console.log(formData.getAll)
+        nav(`/semof/inbox`, {replace : true})
     }
         
         
@@ -240,7 +245,13 @@ function RegistApproval() {
                 lineInfo?.map(l => (
                 <option key={l.lineNo} value={l.lineNo} name="line">{l.lineName}</option>
                 ))}
-                </select>                
+                </select>   
+                {
+                  
+                }
+                {
+              // <ApprovFile approvInfo={approvInfo}/>
+            }             
                 <input
                             type="file"
                             name='file' 

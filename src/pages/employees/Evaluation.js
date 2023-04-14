@@ -3,6 +3,7 @@ import EvaluationCSS from "./Evaluation.module.css";
 
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { decodeJwt } from "../../utils/tokenUtils";
 import ContributionChart from "../../components/employees/ContributionChart";
 
 import {
@@ -292,24 +293,45 @@ function Evaluation() {
     );
   };
 
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decoded = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+  }
+  console.log("decoded ", decoded);
+
+  // 유저 권한 확인 함수
+  const CheckRole = () => {
+    if (decoded === "ROLE_ADMIN") {
+      return true;
+    }
+  };
+
   return (
     <>
       <div className={EvaluationCSS.header}>
         <div className={EvaluationCSS.title}> 인사평가 </div>
       </div>
       <div className={EvaluationCSS.buttonBox}>
-        <button onClick={openModalHandler} className={EvaluationCSS.evalButton}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="48"
-            viewBox="0 96 960 960"
-            fill="white"
-            width="48"
+        {CheckRole() === true && (
+          <button
+            onClick={openModalHandler}
+            className={EvaluationCSS.evalButton}
           >
-            <path d="M220 976q-24 0-42-18t-18-42V236q0-24 18-42t42-18h340l240 240v156h-60V456H520V236H220v680h300v60H220Zm0-60V236v680Zm536-223 28 28-164 164v51h51l164-164 28 28-176 176H580V869l176-176Zm107 107L756 693l61-61q9-9 21-9t21 9l65 65q9 9 9 21t-9 21l-61 61Z" />
-          </svg>
-          <span>인사평가 추가</span>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="48"
+              viewBox="0 96 960 960"
+              fill="white"
+              width="48"
+            >
+              <path d="M220 976q-24 0-42-18t-18-42V236q0-24 18-42t42-18h340l240 240v156h-60V456H520V236H220v680h300v60H220Zm0-60V236v680Zm536-223 28 28-164 164v51h51l164-164 28 28-176 176H580V869l176-176Zm107 107L756 693l61-61q9-9 21-9t21 9l65 65q9 9 9 21t-9 21l-61 61Z" />
+            </svg>
+            <span>인사평가 추가</span>
+          </button>
+        )}
       </div>
 
       <div className={EvaluationCSS.cardBody}>

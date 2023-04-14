@@ -62,6 +62,10 @@
     margin-top: 10px;
 }
 
+.btnAtd:hover button {
+    background-color: #FFD6D6;
+}
+
 .btnAtd button {
     background-color: white;
     border: none;
@@ -92,6 +96,10 @@
     text-align: center;
 }
 
+.approvalsContent:hover div{
+    background-color: #E52E2E;
+}
+
 .approvalsContent div {
     width: 100px;
     height: 100px;
@@ -106,6 +114,12 @@
 .approvalsContent svg {
     margin-top: 28px;
     color: #E52E2E;
+    transition: 0.125s all ease-in;
+}
+
+.approvalsContent:hover svg {
+    transform: rotate(25deg);
+    color: white;
 }
 
 .approvalsContent span {
@@ -230,10 +244,11 @@
     width: 30px;
     height: 40px;
     border-radius: 5px;
-    background-color: rgb(240, 240, 240);
-    border: 3px solid #E52E2E;;
+    background-color: rgb(219, 219, 219);
+    border: 2px solid white;;
     font-weight: bold;
     font-size: 1em;
+    margin-bottom: 20px;
 }
 
 .pagingBtn:hover{

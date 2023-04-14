@@ -2,14 +2,13 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-    callApprovOutListAPI
+    callApprovalListAPI
 } from '../../apis/ApprovalAPICalls'
 import ApprovalCSS from "./ApprovalIn.module.css";
 import boardcss from "../../pages/board/Board.module.css";
 import { decodeJwt } from '../../utils/tokenUtils';
 
-
-function ApprovalOut() {
+function FinApprovalIn() {
     const isLogin = window.localStorage.getItem('accessToken');
     console.log('로그인? ',isLogin);
     let decoded = null;
@@ -22,9 +21,10 @@ function ApprovalOut() {
     }
 console.log(tokenEmpNo);
     console.log('decoded', decoded);
-    // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
+    // 음 아무래도 완료된 결재 탭을 주는 걸 따로 쓰면 지금은 나눠져 있잖아 ? 그 status 받아오는거 있으니까 
     const dispatch = useDispatch();
-    const approvalList = useSelector(state => state.approvalReducer.approvalsOut); 
+    
+    const approvalList = useSelector(state => state.approvalReducer.approvals); 
     const approvals = approvalList.data;
     console.log(approvalList);
     console.log(approvals);
@@ -50,9 +50,10 @@ console.log(tokenEmpNo);
 
     useEffect(
         () => {
-            dispatch(callApprovOutListAPI({
-                currentPage : currentPage,
-                empNo : tokenEmpNo
+            
+            dispatch(callApprovalListAPI({
+                empNo : tokenEmpNo,
+                currentPage : currentPage
             }));            
         } // eslint-disable-next-line
         ,[currentPage]
@@ -60,14 +61,21 @@ console.log(tokenEmpNo);
 console.log("이거 트루입니까", Array.isArray(approvals));
     return (
         <>
-        {/* if문을 돌릴지 아니면,,, 그냥 페이지를 다 분리할지 */}
+    
+
         <div className={ApprovalCSS.title}>
-            결재 수신함
+            완료된 결재
         </div>
         <br/>
         <br/>
-        
         <div className={boardcss.NoticelistDisply}>
+        <div style={{'float':'right', paddingRight:'10%', paddingBottom:'1%'}}>
+            {/* <button  className={boardcss.btnstyle2} onClick={() => {
+                nav(`/semof/regist-approval`)
+            }}>
+                결재상신
+            </button> */}
+        </div>
         <table className={boardcss.noticeTable}>
             <colgroup>
                 <col width="10%"/>
@@ -78,32 +86,28 @@ console.log("이거 트루입니까", Array.isArray(approvals));
             <thead>
                 <tr 
                 className={boardcss.tableheader}>
-                    <th style={{borderRight:'1px solid lightGray'}}>유형</th>
+                    <th style={{borderRight:'1px solid lightGray'}}>상태</th>
                     <th style={{borderRight:'1px solid lightGray'}}>제목</th>
-                    <th style={{borderRight:'1px solid lightGray'}}>작성자</th>
+                    <th style={{borderRight:'1px solid lightGray'}}>유형</th>
                     <th>날 짜</th>
                 </tr>
             </thead>
             <tbody>
-            { 
-               Array.isArray(approvals) && 
-               approvals?.map((approve) => 
-               (  <tr
-                onClick = {()=>{nav(`/semof/inbox/${parseInt(approve.approvNo)}`)}}>
-                                        <td>{approve.category}</td>
+            {approvals?.filter((t) => t.status === '승인')
+  .map((t, index) => (
+    <tr
+    onClick = {()=>{nav(`/semof/inbox/${parseInt(t.approvNo)}`)}}>
+        <td>{t.status}</td>
+        <td>{t.approvTitle}</td>
+        <td>{t.category}</td>
+        <td>{t.approvDate}</td>
+    </tr> 
+))}
 
-                                        <td>{approve.approvTitle}</td>
-                                        <td>{approve.empName}</td>
-
-                                        <td>{approve.approvDate}</td> 
-                    
-                </tr>  ))
-            }
             </tbody>
-            </table>
-        </div>
+        </table>
         <br/>
-        <div className={boardcss.approvalpagingbtn}>
+        <div  className={boardcss.approvalpagingbtn}>
             { 
             Array.isArray(approvals) &&
             <button 
@@ -112,12 +116,12 @@ console.log("이거 트루입니까", Array.isArray(approvals));
                 // className={ ProductManagementCSS.pagingBtn }
             >
                 &lt;
-            </button>
+            </button> 
             }&nbsp;
             {pageNumber.map((num) => (
             <li key={num} onClick={() => setCurrentPage(num)}>
                 <button
-                    style={ currentPage === num ? {backgroundColor : 'orange' } : null}
+                    style={ currentPage === num ? {backgroundColor : 'rgba(237, 237, 240, 1)' } : null}
                     // className={ ProductManagementCSS.pagingBtn }
                 >
                     {num}
@@ -125,7 +129,7 @@ console.log("이거 트루입니까", Array.isArray(approvals));
             </li>
             ))}&nbsp;
             { 
-            Array.isArray(approvalList) &&
+            Array.isArray(approvals) &&
             <button 
                 // className={ ProductManagementCSS.pagingBtn }
                 onClick={() => setCurrentPage(currentPage + 1)} 
@@ -135,12 +139,9 @@ console.log("이거 트루입니까", Array.isArray(approvals));
             </button>
             }
         </div>
-        <div>
-          
-
         </div>
         </>
     );
 }
 // 돌아가기 버튼 만들기
-export default ApprovalOut;
+export default FinApprovalIn;
