@@ -12,6 +12,7 @@ function ScheduleUpdateModal({
   selectScdNo,
   setScheduleDetailModal,
   setScheduleUpdateModal,
+  setDefaultMode,
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -82,7 +83,8 @@ function ScheduleUpdateModal({
         ).then(
           navigate(`/semof/schedule`, { replace: true }),
           setScheduleDetailModal(false),
-          setScheduleUpdateModal(false)
+          setScheduleUpdateModal(false),
+          setDefaultMode(true)
         );
       }
     });

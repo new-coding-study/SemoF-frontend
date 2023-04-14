@@ -39,6 +39,7 @@ function Schedule() {
   const onClickMoveTeRegistScdHandler = () => {
     setDefaultMode(false);
     setRegistMode(true);
+    setDefaultDate(new Date());
   };
 
   // 새로운 캘린더 추가를 위한 값 입력

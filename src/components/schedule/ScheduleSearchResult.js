@@ -4,7 +4,7 @@ import ScheduleUpdateModal from "./ScheduleUpdateModal";
 import moment from "moment";
 import { useState } from "react";
 
-function ScheduleSearchResult({ scheduleSearch }) {
+function ScheduleSearchResult({ scheduleSearch, setDefaultMode }) {
   const [scheduleDetailModal, setScheduleDetailModal] = useState(false);
   const [scheduleUpdateModal, setScheduleUpdateModal] = useState(false);
   const [selectScdNo, setSelectScdNo] = useState("");
@@ -58,6 +58,7 @@ function ScheduleSearchResult({ scheduleSearch }) {
           selectScdNo={selectScdNo}
           setScheduleDetailModal={setScheduleDetailModal}
           setScheduleUpdateModal={setScheduleUpdateModal}
+          setDefaultMode={setDefaultMode}
         />
       ) : null}
       <div className={ScheduleSearchResultCSS.scdResultOneWrapper}>

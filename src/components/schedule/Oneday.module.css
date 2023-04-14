@@ -20,3 +20,39 @@
   padding-right: 16px;
   padding-top: 8px;
 }
+
+.scdWrapper {
+  display: flex;
+  color: black;
+}
+
+.scdWrapper:hover {
+  background-color: aqua;
+}
+
+.notAllDayCalInfo {
+  width: 20px;
+  height: 20px;
+  margin: 0 8px;
+  border-radius: 100%;
+}
+
+.scdWrapper div {
+  font-size: 18px;
+}
+
+.scdAllDayWrapper {
+  margin-top: 8px;
+}
+
+.scdAllDayWrapper:hover {
+  border: 4px solid aqua;
+}
+
+.scdAllDayWrapper div {
+  padding-bottom: 4px;
+  text-align: left;
+  padding-left: 8px;
+  color: white;
+  font-size: 18px;
+}

@@ -164,8 +164,7 @@ function DefaultCalendar({
                 <Oneday
                   key={index}
                   day={day}
-                  // thisMonth={thisMonth}
-                  selectMont={thisMonth?.getMonth() + 1}
+                  thisMonth={thisMonth}
                   setDefaultMode={setDefaultMode}
                   setSearchMode={setSearchMode}
                   setRegistMode={setRegistMode}

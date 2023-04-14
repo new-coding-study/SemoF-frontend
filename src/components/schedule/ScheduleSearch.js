@@ -49,6 +49,7 @@ function ScheduleSearch({ searchSchedule, setDefaultMode, setSearchMode }) {
                 <ScheduleSearchResult
                   key={scheduleSearch.scdNo}
                   scheduleSearch={scheduleSearch}
+                  setDefaultMode={setDefaultMode}
                 />
               ))}
           </div>
