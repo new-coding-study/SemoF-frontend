@@ -1,5 +1,6 @@
 import ManagementCSS from "./Management.module.css";
 import Swal from "sweetalert2";
+import { decodeJwt } from "../../utils/tokenUtils";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -189,6 +190,23 @@ function Management() {
       );
     }
   };
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decoded = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+  }
+  console.log("decoded ", decoded);
+
+  // 유저 권한 확인 함수
+  const CheckRole = () => {
+    if (decoded === "ROLE_ADMIN") {
+      return true;
+    }
+  };
+
   return (
     <>
       <div className={ManagementCSS.header}>
@@ -196,9 +214,11 @@ function Management() {
       </div>
 
       <div className={ManagementCSS.searchWrapper}>
-        <button className={ManagementCSS.joinButton} onClick={onMovePage}>
-          사원등록
-        </button>
+        {CheckRole() === true && (
+          <button className={ManagementCSS.joinButton} onClick={onMovePage}>
+            사원등록
+          </button>
+        )}
         <div>
           <select
             className={ManagementCSS.select}
@@ -288,13 +308,17 @@ function Management() {
                 <li>
                   <span onClick={onMoveHandler}>상세보기</span>
                 </li>
-                <li>
-                  <span onClick={onModifyClickHandler}>정보수정</span>
-                </li>
-                <li>
-                  {/* {console.log(JSON.stringify(form.empNo))} */}
-                  <span onClick={onClickHandler}>퇴사처리</span>
-                </li>
+                {CheckRole() === true && (
+                  <>
+                    <li>
+                      <span onClick={onModifyClickHandler}>정보수정</span>
+                    </li>
+
+                    <li>
+                      <span onClick={onClickHandler}>퇴사처리</span>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
           </div>
