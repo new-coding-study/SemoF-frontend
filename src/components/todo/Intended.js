@@ -32,13 +32,14 @@ function Intended({ todo, setCheckStarAndFinish }) {
 
   // 완료여부 업데이트 (체크박스)
   const onChangeFinishHandler = (e) => {
-    const todoNo = parseInt(e.target.id);
-    // console.log("체크박스 Change 이벤트 발생");
+    if (pathname === "/semof/todo") {
+      const todoNo = parseInt(e.target.id);
 
-    const changeFinish = todo.todoFinish === 0 ? 1 : 0;
+      const changeFinish = todo.todoFinish === 0 ? 1 : 0;
 
-    dispatch(callUpdateFinishAPI(todoNo, changeFinish));
-    setCheckStarAndFinish(true);
+      dispatch(callUpdateFinishAPI(todoNo, changeFinish));
+      setCheckStarAndFinish(true);
+    }
   };
 
   // 할 일 상세조회

@@ -5,29 +5,42 @@
 }
 
 .content {
-
-  width: 87%;
+  width: 1500px;
   /* border: 1px solid gray; */
   /* margin: 20px 40px 10px ; */
   margin: 3% auto;
 }
 
 .content div {
-  border-radius: 20px;
+  border-radius: 12px;
   text-align: center;
 }
 
 .firstGroup {
   display: flex;
-  height: 240px;
-  margin-bottom: 20px;
-  justify-content: space-between;
-  /* border: 1px solid pink; */
+  height: 320px;
+  margin-bottom: 40px;
+  /* justify-content: space-between; */
+  /* border: 1px solid orange; */
+}
+
+.calendarWrapper {
+  display: flex;
+  width: 900px;
+  border: 1px solid pink;
+  margin-right: 100px;
+  margin-left: 80px;
 }
 
 .calendar {
-  width: 800px;
-  border: 1px solid pink;
+  width: 600px;
+  border: 1px solid red;
+  /* margin-right: 100px; */
+}
+
+.schedule {
+  width: 400px;
+  border: 1px solid red;
 }
 
 .info {
@@ -37,15 +50,24 @@
 
 .secondGroup {
   display: flex;
-  height: 200px;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  height: 160px;
+  margin-bottom: 40px;
+  /* justify-content: space-between; */
   /* border: 1px solid green; */
 }
 
 .banner {
-  width: 800px;
-  border: 1px solid green;
+  width: 900px;
+  margin-right: 100px;
+  margin-left: 80px;
+  /* border: 1px solid green; */
+}
+
+.banner img {
+  width: 900px;
+  height: 160px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
 }
 
 .workingHour {
@@ -56,23 +78,30 @@
 .thirdGroup {
   display: flex;
   height: 160px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   /* border: 1px solid blue; */
 }
 
+/* .thirdGroup div {
+  margin-right: 100px;
+} */
+
 .weather {
   width: 265px;
+  margin-left: 80px;
   border: 1px solid blue;
 }
 
 .birth {
   width: 200px;
+  margin: 0 80px;
   border: 1px solid blue;
 }
 
 .todo {
   width: 265px;
-  border: 1px solid blue;
+  margin-right: 104px;
+  border: 1px solid#e0e0e0;
 }
 
 .notice {

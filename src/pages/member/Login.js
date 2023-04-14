@@ -22,7 +22,7 @@ function Login() {
   useEffect(
     () => {
       if (loginMember.status === 200) {
-        Swal.fire('환영합니다', '메인화면으로 이동합니다.','success');
+        Swal.fire("환영합니다", "메인화면으로 이동합니다.", "success");
         navigate("/semof", { replace: true });
       }
     }, // eslint-disable-next-line
@@ -139,10 +139,6 @@ function Login() {
 
 export default Login;
 
-
-
-
-
 // 성식 로그인
 // import LoginCSS from './Login.module.css';
 // import { useNavigate } from 'react-router-dom';
@@ -156,7 +152,7 @@ export default Login;
 // } from '../../apis/MemberAPICalls'
 
 // function Login() {
-        
+
 //     const navigate = useNavigate();
 
 //     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
@@ -164,7 +160,7 @@ export default Login;
 //     const loginMember = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
 //     const isLogin = window.localStorage.getItem('accessToken');
 
-//     // 폼 데이터 한번에 변경 및 State에 저장    
+//     // 폼 데이터 한번에 변경 및 State에 저장
 //     const [form, setForm] = useState({
 //         memberId: '',
 //         memberPassword: ''
@@ -177,10 +173,10 @@ export default Login;
 //         }
 //     } // eslint-disable-next-line
 //     ,[loginMember]);
-    
+
 //     // 로그인 상태일 시 로그인페이지로 접근 방지
 //     if(isLogin !== null) {
-//         console.log("[Login] Login is already authenticated by the server");        
+//         console.log("[Login] Login is already authenticated by the server");
 //         return <Navigate to="/"/>
 //     }
 
@@ -192,7 +188,7 @@ export default Login;
 //     };
 
 //     const onClickRegisterHandler = () => {
-//         loginMember.status = ''; 
+//         loginMember.status = '';
 //         navigate("/register", { replace: true })
 //     }
 
@@ -211,7 +207,7 @@ export default Login;
 //                 icon: 'error',
 //                 title: '비밀번호를 입력해주세요.',
 //                 timer: 1000
-//             }) 
+//             })
 //         } else if(form.memberId === ''){
 //             Swal.fire({
 //                 position: 'center',
@@ -238,25 +234,24 @@ export default Login;
 //         }
 //     }
 
-
 //     return (
 //         <div className={ LoginCSS.backgroundDiv}>
 //             <button className={ LoginCSS.LogoBtn } onClick={ onClickLogoHandler }><p>In My Poket Mon</p></button>
 //             <div className={ LoginCSS.loginDiv }>
 //                 <h1>로그인</h1>
 //                 <div></div>
-//                 <input 
-//                     type="text" 
+//                 <input
+//                     type="text"
 //                     name='memberId'
-//                     placeholder="아이디" 
+//                     placeholder="아이디"
 //                     autoComplete='off'
-//                     autoFocus 
+//                     autoFocus
 //                     onChange={ onChangeHandler }
 //                 />
-//                 <input 
+//                 <input
 //                     type="password"
-//                     name='memberPassword' 
-//                     placeholder="패스워드" 
+//                     name='memberPassword'
+//                     placeholder="패스워드"
 //                     autoComplete='off'
 //                     onChange={ onChangeHandler }
 //                     onKeyDown={ onEnterkeyHandler }

@@ -1,0 +1,85 @@
+.contour {
+  height: 60px;
+  background-color: #e52e2e;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  padding-left: 40px;
+  line-height: 60px;
+  border-radius: 8px;
+}
+
+.scheduleWrapper {
+  /* border: 1px solid black; */
+  height: 80%;
+  margin: 60px 40px;
+  display: flex;
+  /* overflow: auto; */
+}
+
+.calendarWrapper {
+  margin-right: 60px;
+  /* border: 1px solid red; */
+}
+
+.calendarWrapper button {
+  border: none;
+  background-color: #e52e2e;
+  color: white;
+  height: 36px;
+  width: 180px;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.inputCalWrapper {
+  /* border: 1px solid red; */
+  height: 32px;
+  /* display: flex; */
+  /* display: none; */
+}
+
+.inputCalColor {
+  border: none;
+  width: 24px;
+  height: 28px;
+  background-color: white;
+  padding: 0;
+  margin: 0 4px;
+  /* border: 1px solid blue; */
+}
+
+.inputCalName {
+  width: 120px;
+  height: 16px;
+  margin: 0 2px;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.inputCalWrapper span {
+  cursor: pointer;
+  margin-left: 2px;
+}
+
+.addCalendarBtnWrapper {
+  display: flex;
+  margin: 12px 16px;
+  color: gray;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.addCalendarBtnWrapper div:last-of-type {
+  margin-left: 14px;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  width: 1600px;
+  height: 800px;
+  /* border: 2px solid red; */
+}

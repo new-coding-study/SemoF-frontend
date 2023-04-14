@@ -20,9 +20,12 @@ function TodoDetailModal({
   const todoDetail = useSelector((state) => state.todoReducer.todoDetail);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(callTodoDetailAPI(todoNo));
-  }, []);
+  useEffect(
+    () => {
+      dispatch(callTodoDetailAPI(todoNo));
+    }, // eslint-disable-next-line
+    []
+  );
 
   // 상세보기 창에서 중요표시 기능,, 상태값이 바뀌면서 페이지 전체가 리렌더링되면서 에러발생
   // const onClickChangeStarHandler = (e) => {
@@ -49,7 +52,7 @@ function TodoDetailModal({
         dispatch(callDeleteTodoAPI(todoNo));
         Swal.fire(
           "할 일이 삭제되었습니다.",
-          "리스트로 돌아갑니다",
+          "할 일 리스트로 돌아갑니다",
           "success"
         ).then(
           navigate(`/semof/todo`, { replace: true }),
@@ -66,6 +69,14 @@ function TodoDetailModal({
         <div className={TodoDetailModalCSS.todoDetailModalModalDiv}>
           <div className={TodoDetailModalCSS.todoHeader}>
             <div>
+              <input
+                type="checkbox"
+                style={{ accentColor: todoDetail?.cateColor }}
+                id={todoDetail?.todoNo}
+                // onChange={onChangeFinishHandler}
+                checked={todoDetail?.todoFinish === 1}
+                readOnly={true}
+              />
               <h1> {todoDetail?.todoName} </h1>
               {todoDetail?.todoStar === 0 ? (
                 <img
@@ -91,7 +102,7 @@ function TodoDetailModal({
             <input
               name="todoName"
               placeholder="할 일 제목"
-              value={todoDetail?.todoName}
+              value={todoDetail?.todoName || ""}
               disabled={true}
             />
           </div>
@@ -114,13 +125,13 @@ function TodoDetailModal({
             <input
               type="Date"
               name="todoDate"
-              value={todoDetail?.todoDate}
+              value={todoDetail?.todoDate || ""}
               disabled={true}
             />
             <input
               type="Time"
               name="todoTime"
-              value={todoDetail?.todoTime}
+              value={todoDetail?.todoTime || ""}
               disabled={true}
             />
           </div>

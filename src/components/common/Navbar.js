@@ -1,20 +1,17 @@
 import NavbarCSS from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
-import {decodeJwt} from '../../utils/tokenUtils';
-
-
+import { decodeJwt } from "../../utils/tokenUtils";
 
 function Navbar() {
-  const isLogin = window.localStorage.getItem('accessToken');
-    let decoded = null;
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decoded = null;
 
-    if(isLogin !== undefined && isLogin !== null) {
-        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
-        decoded = temp.auth[0];
-       
-    }
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+  }
 
-    console.log(decoded);
+  // console.log(decoded);
 
   return (
     <>
@@ -108,7 +105,7 @@ function Navbar() {
             </li>
           </NavLink>
 
-          <NavLink to="/semof/calendar">
+          <NavLink to="/semof/schedule">
             <li>
               <img
                 src={"/images/calendar.png"}
