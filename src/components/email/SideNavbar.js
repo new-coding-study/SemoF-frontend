@@ -92,7 +92,7 @@ function SideNavbar() {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span>보낸편지함</span>
+              <span>보낸메일함</span>
             </span>
             {/* <span className={SideNavbarCSS.navCount}>3</span> */}
           </li>

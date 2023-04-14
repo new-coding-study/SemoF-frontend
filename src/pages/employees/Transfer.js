@@ -2,6 +2,7 @@ import TransferCSS from "./Transfer.module.css";
 
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 import {
   callGetEmployeesAPI,
@@ -178,7 +179,7 @@ function Transfer() {
       });
     } else {
       return (
-        <tr>
+        <tr className={TransferCSS.tableBody}>
           <td colSpan="4">데이터가 없습니다.</td>
         </tr>
       );
@@ -233,6 +234,22 @@ function Transfer() {
       ...form,
       deptCode: e.target.value,
     });
+  };
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decoded = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+  }
+  console.log("decoded ", decoded);
+
+  // 유저 권한 확인 함수
+  const CheckRole = () => {
+    if (decoded === "ROLE_ADMIN") {
+      return true;
+    }
   };
 
   return (
@@ -327,7 +344,7 @@ function Transfer() {
           )}
         </div>
       </div>
-      {showModal && (
+      {CheckRole() === true && showModal && (
         <div className={TransferCSS.modalContainer}>
           <div className={TransferCSS.modal}>
             <div className={TransferCSS.modalHeader}>
