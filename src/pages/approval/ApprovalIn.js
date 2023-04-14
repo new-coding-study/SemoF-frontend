@@ -1,17 +1,29 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {useEffect, useState} from 'react';
-import Approve from "../../components/approvals/Approve";
 import { useNavigate } from 'react-router-dom';
 import {
     callApprovalListAPI
 } from '../../apis/ApprovalAPICalls'
 import ApprovalCSS from "./ApprovalIn.module.css";
 import boardcss from "../../pages/board/Board.module.css";
+import { decodeJwt } from '../../utils/tokenUtils';
 
 function ApprovalIn() {
-
-    // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
+    const isLogin = window.localStorage.getItem('accessToken');
+    console.log('로그인? ',isLogin);
+    let decoded = null;
+    let tokenEmpNo = null;
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        decoded = temp.auth[0];
+        tokenEmpNo = temp.empNo;
+        console.log('??', temp.empNo)
+    }
+console.log(tokenEmpNo);
+    console.log('decoded', decoded);
+    // 음 아무래도 완료된 결재 탭을 주는 걸 따로 쓰면 지금은 나눠져 있잖아 ? 그 status 받아오는거 있으니까 
     const dispatch = useDispatch();
+    
     const approvalList = useSelector(state => state.approvalReducer.approvals); 
     const approvals = approvalList.data;
     console.log(approvalList);
@@ -40,6 +52,7 @@ function ApprovalIn() {
         () => {
             
             dispatch(callApprovalListAPI({
+                empNo : tokenEmpNo,
                 currentPage : currentPage
             }));            
         } // eslint-disable-next-line

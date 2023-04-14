@@ -20,8 +20,8 @@ import ApprovalOut from "./pages/approval/ApprovalOut";
 import RegistApproval from "./pages/approval/RegistApproval";
 import ApprovLineList from "./pages/approval/ApprovLineList";
 import RegistLine from "./pages/approval/RegistLine";
-import ModifyLine from "./pages/approval/ModifyLine";
-
+import FinApprovIn from "./pages/approval/FinApprovIn";
+import FinApprovOut from "./pages/approval/FinApprovOut";
 import Employees from "./pages/employees/Employees";
 import Management from "./pages/employees/Management";
 import EmpRegister from "./pages/employees/Register";
@@ -38,6 +38,7 @@ import DeleteMail from "./pages/email/DeleteMail";
 import ModifyApproval from "./pages/approval/ModifyApproval";
 
 import Attendance from "./pages/attendance/Attendance";
+
 
 function App() {
   return (
@@ -64,8 +65,8 @@ function App() {
           <Route path="works-report-admin" element={<WorksReportAdmin/>}/>
           <Route path="test-worksAll" element = {<WorksAll/>}/>
           <Route path="inbox/:approvNo" element={<ApprovDetail />} />
-          <Route path="edit-line/:lineNo" element={<ModifyLine />} />
-
+          <Route path="complete/in" element={<FinApprovIn />} />
+          <Route path="complete/out" element={<FinApprovOut />} />
 
           <Route path="employees" element={<Employees />} />
           <Route path="employees/management" element={<Management />} />

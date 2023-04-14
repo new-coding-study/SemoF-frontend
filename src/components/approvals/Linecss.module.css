@@ -5,6 +5,7 @@
     text-align: center;
     align-items: center;
     margin: auto;
+    padding-bottom: 3%;
 }
 .deletebtn{
     float: right;
@@ -21,4 +22,7 @@
 .deletebtn:hover{
     background: red;
     color:white;
+}
+.arrow{
+    width: 30px;
 }
