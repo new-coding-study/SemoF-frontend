@@ -173,7 +173,7 @@ function Attendance() {
       // setStart((currentPage - 1) * 5);
       dispatch(
         callAttendanceListAPI({
-          empNo: empNo,
+          empNo: decodedUser,
           currentPage: currentPage,
         })
       );
@@ -191,7 +191,7 @@ function Attendance() {
 
     await dispatch(
       callAttendanceUpdateAPI({
-        empNo: empNo,
+        empNo: decodedUser,
         nowTime: `${newStartTime.year}-${newStartTime.month}-${newStartTime.date} ${newStartTime.hours}:${newStartTime.minutes}:${newStartTime.seconds}`,
       })
     );
@@ -199,7 +199,7 @@ function Attendance() {
     await dispatch(
       callAttendanceDetailAPI({
         // # setCheck으로 재렌더링 시켜서 이펙트안에 조회함수 다시 발생 안 돼서 추가로 조회 실행
-        empNo: empNo,
+        empNo: decodedUser,
       })
     );
 
@@ -225,14 +225,14 @@ function Attendance() {
 
         await dispatch(
           callAttendanceUpdateAPI({
-            empNo: empNo,
+            empNo: decodedUser,
             nowTime: `${newTime.year}-${newTime.month}-${newTime.date} ${newTime.hours}:${newTime.minutes}:${newTime.seconds}`, // 렌더링 후 인터벌 멈췄을때 값 저장
           })
         );
 
         await dispatch(
           callAttendanceDetailAPI({
-            empNo: empNo,
+            empNo: decodedUser,
           })
         );
       } else {
