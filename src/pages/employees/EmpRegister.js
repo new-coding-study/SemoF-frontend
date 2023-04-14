@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import RegisterCSS from "./EmpRegister.module.css";
 import { callRegisterAPI } from "../../apis/EmployeeAPICalls";
+import Swal from "sweetalert2";
 
 function Register() {
   const navigate = useNavigate();
@@ -200,7 +201,14 @@ function Register() {
         form: formData,
       })
     );
-    window.location.reload(); //화면 초기화
+
+    Swal.fire({
+      icon: "success",
+      text: "등록되었습니다. 이전 페이지로 이동합니다.",
+    });
+
+    // window.location.reload(); //화면 초기화
+    navigate(-1, { replace: true });
   };
 
   // 돌아가기 클릭시 메인 페이지로 이동
