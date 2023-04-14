@@ -83,8 +83,9 @@
     margin-bottom: -3%;
 }
 .worktable1 td:first-child{
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
+    text-align: left;
 }
 .worktable1 th {
     border-bottom: 1px solid red;
@@ -93,6 +94,7 @@
 .worktable1 td {
     border-bottom: 1px solid red;
     padding: 10px;
+    font-size: 18px;
   }
   
 .worktable2{
@@ -101,6 +103,9 @@
     padding: 3%;
     border-radius: 10px;
     border-collapse: none;
+}
+.worktable2 td{
+    text-align: left;
 }
 .worktable2 td:first-child{
     font-size: 20px;

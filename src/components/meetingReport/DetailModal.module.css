@@ -85,8 +85,9 @@
     margin-top: -3%;
 }
 .worktable1 td:first-child{
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
+    text-align: left;
 }
 .worktable1 th {
     border-bottom: 1px solid red;
@@ -95,6 +96,7 @@
 .worktable1 td {
     border-bottom: 1px solid red;
     padding: 10px;
+    font-size: 18px;
   }
   
 .worktable2{
@@ -123,6 +125,7 @@
     border-bottom: 1px solid black;
     padding: 10px;
     padding-bottom: 3%;
+    text-align: left;
   }
   .modalbtn{
     text-align: center;
@@ -145,4 +148,5 @@
 .workstd1{
     font-weight: bold;
     font-size: 20px;
+    width: 37%;
 }

@@ -47,7 +47,6 @@ function WorksReportEmp(){
         <div>
         <div className={workscss.title}>업무보고서</div>
         <br/>
-        <br/>
         <div className={workscss.btnArea}>
         <button onClick={handleAllList}>
             전체 
