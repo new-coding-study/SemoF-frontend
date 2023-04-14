@@ -13,7 +13,12 @@ const initialState = {
     dept:[],
     status: [],
     lineInfo: [],
-    opinion : []
+    opinion : [],
+    opinions:[],
+    handleStatus: [],
+    files:[],
+    finIn:[],
+    finOut:[]
 };
 
 export const GET_APPROVALS = 'approval/GET_APPROVALS';
@@ -36,6 +41,10 @@ export const DELETE_LINE = 'approval/DELETE_LINE';
 export const POST_ORDERS = 'approval/POST_ORDERS';
 export const GET_OPINION = 'approval/GET_OPINION';
 export const POST_OPINION = 'approval/POST_OPINION';
+export const PUT_STATUS = 'approval/PUT_STATUS';
+export const GET_FILES = 'approval/GET_FILES';
+export const GET_FIN_IN = 'approval/GET_FIN_IN';
+export const GET_FIN_OUT = 'approval/GET_FIN_OUT';
 
 const actions = createActions({
     [GET_APPROVALS]: () => {},
@@ -57,7 +66,11 @@ const actions = createActions({
     [DELETE_LINE]: () => {},
     [POST_ORDERS]: () => {},
     [GET_OPINION]: () => {},
-    [POST_OPINION]: () => {}
+    [POST_OPINION]: () => {},
+    [PUT_STATUS] : () => {},
+    [GET_FILES] : () => {},
+    [GET_FIN_IN] : () => {},
+    [GET_FIN_OUT] : () => {}
 });
 
 const approvalReducer = handleActions({
@@ -116,10 +129,22 @@ const approvalReducer = handleActions({
         return {...state, line : payload};
     },
     [GET_OPINION]: (state, {payload})=>{
-        return {...state, opinion : payload};
+        return {...state, opinions : payload};
     },
     [POST_OPINION]: (state, {payload})=>{
         return {...state, opinion : payload};
+    },
+    [PUT_STATUS]: (state, {payload})=>{
+        return {...state, handleStatus : payload};
+    },
+    [GET_FILES]: (state, {payload})=>{
+        return {...state, files : payload};
+    },
+    [GET_FIN_IN]: (state, {payload})=>{
+        return {...state, finIn : payload};
+    },
+    [GET_FIN_OUT]: (state, {payload})=>{
+        return {...state, finOut : payload};
     }
 }, initialState);
 export default approvalReducer;

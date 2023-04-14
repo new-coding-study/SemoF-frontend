@@ -1,0 +1,93 @@
+.title{
+    height: 60px;
+    border-radius: 8px;
+    background-color: #E52E2E;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 40px;
+    line-height: 57px;
+    border: none;
+}
+
+.outline{
+    margin-left: 5%;
+}
+.cancelbtnarea{
+    text-align: center;
+}
+
+.cancelbtn{
+    background-color: #E52E2E;
+    border: none;
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+.cancelbtn:hover{
+    background-color:gray;
+    text-shadow: 1px 1px 1px white;
+}
+.submitbtn{
+    background-color: #E52E2E;
+    border: none;
+    width: 200px;
+    height: 50px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+ 
+}
+.submitbtn:hover{
+    background-color:gray;
+    text-shadow: 1px 1px 1px white;
+}
+.plusbtn{
+    border: 2px solid black;
+    border-radius: 5px;
+    width: 200px;
+    height: 40px;
+    background: whitesmoke;
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 5%;
+}
+.plusbtn:hover{
+    transform: scale(1.2);
+    background: lightpink;
+}
+.branch{
+    width: 250px;
+    height: 35px;
+    font-size: 19px;
+    border:3px solid pink;
+    border-radius: 5px;
+}
+.dept{
+    width: 200px;
+    height: 35px;
+    font-size: 19px;
+    border:3px solid pink;
+    border-radius: 5px;
+}
+.subtitle{
+    font-size: 25px;
+    font-weight: bold;
+}
+.subtitle2{
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 11.5%;
+}
+.selectgrade{
+    width: 250px;
+    height: 35px;
+    font-size: 19px;
+    border:3px solid pink;
+    border-radius: 5px;
+    margin-bottom: 1%;
+}

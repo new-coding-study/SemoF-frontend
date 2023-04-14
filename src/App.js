@@ -19,6 +19,10 @@ import ApprovalOut from "./pages/approval/ApprovalOut";
 import RegistApproval from "./pages/approval/RegistApproval";
 import ApprovLineList from "./pages/approval/ApprovLineList";
 import RegistLine from "./pages/approval/RegistLine";
+
+import FinApprovIn from "./pages/approval/FinApprovIn";
+import FinApprovOut from "./pages/approval/FinApprovOut";
+
 import ModifyLine from "./pages/approval/ModifyLine";
 import SalesReportAdmin from "./pages/report/SalesReportAdmin";
 import SalesReportEmp from "./pages/report/SalesReportEmp";
@@ -26,6 +30,7 @@ import TripReportEmp from "./pages/report/TripReportEmp";
 import TripReportAdmin from "./pages/report/TripReportAdmin";
 import MeetingReportAdmin from "./pages/report/MeetingReportAdmin";
 import MeetingReportEmp from "./pages/report/MeetingReportEmp";
+
 import Employees from "./pages/employees/Employees";
 import Management from "./pages/employees/Management";
 import EmpRegister from "./pages/employees/EmpRegister";
@@ -42,6 +47,7 @@ import WorksReportEmp from "./pages/report/WorksReportEmp";
 import ModifyApproval from "./pages/approval/ModifyApproval";
 
 import Attendance from "./pages/attendance/Attendance";
+
 
 function App() {
   return (
@@ -75,7 +81,12 @@ function App() {
           <Route path= "meeting-report-emp" element={<MeetingReportEmp/>}/>
 
           <Route path="inbox/:approvNo" element={<ApprovDetail />} />
+
+          <Route path="complete/in" element={<FinApprovIn />} />
+          <Route path="complete/out" element={<FinApprovOut />} />
+
           <Route path="edit-line/:lineNo" element={<ModifyLine />} />
+
 
           <Route path="employees" element={<Employees />} />
           <Route path="employees/management" element={<Management />} />

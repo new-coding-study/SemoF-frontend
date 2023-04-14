@@ -19,17 +19,21 @@ import {
     , GET_STATUS
     , GET_OPINION
     , POST_OPINION
+    , PUT_STATUS
+    , GET_FILES
+    , GET_FIN_IN
+    , GET_FIN_OUT
 }from "../modules/ApprovalModule"
 
 import axios from 'axios';
-export const callApprovalListAPI = ({currentPage}) => {
+export const callApprovalListAPI = ({currentPage, empNo}) => {
     let requestURL;
 
     if(currentPage !== undefined || currentPage !==null){
-        requestURL = `http://localhost:8090/approvals/approv-in?offset=${currentPage}`;
+        requestURL = `http://localhost:8090/approvals/approv-in/${empNo}?offset=${currentPage}`;
 
     }else{
-        requestURL = `http://localhost:8090/approvals/approv-in`;
+        requestURL = `http://localhost:8090/approvals/approv-in/${empNo}`;
     }
 
     console.log(`[ApprovalAPICalls] requestURL: ${requestURL}`);
@@ -50,14 +54,14 @@ export const callApprovalListAPI = ({currentPage}) => {
         }
     };
 }
-export const callApprovOutListAPI = ({currentPage}) => {
+export const callApprovOutListAPI = ({currentPage, empNo}) => {
     let requestURL;
 
     if(currentPage !== undefined || currentPage !==null){
-        requestURL = `http://localhost:8090/approvals/approv-out?offset=${currentPage}`;
+        requestURL = `http://localhost:8090/approvals/approv-out/${empNo}?offset=${currentPage}`;
 
     }else{
-        requestURL = `http://localhost:8090/approvals/approv-out`;
+        requestURL = `http://localhost:8090/approvals/approv-out/${empNo}`;
     }
 
     console.log(`[ApprovalAPICalls] requestURL: ${requestURL}`);
@@ -210,14 +214,15 @@ export function callDeleteApprovAPI(approvNo) {
     
     console.log('[ApprovalAPICalls] callDeleteApprovAPI Call');
 
-    const requestURL = `http://localhost:8090/approvals/approval`;
+    const requestURL = `http://localhost:8090/approvals/approval/${approvNo}`;
     return async (dispatch, getState) => {
 
             const result = await fetch(requestURL, {
                 method: "DELETE",
                 headers: {
-                    "Accept": "*/*",
-                    "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                    "Accept": "*/*"
+                    // ,
+                    // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
                 }
             })
             .then(response => response.json());
@@ -343,7 +348,7 @@ export const callLineModifyAPI = ({lineNo, form}) => {
 }
 
 // export function callFormAPI 
-export function callDeleteLineAPI(lineNo) {
+export function callDeleteLineAPI({lineNo, form}) {
     
     console.log('[ApprovalAPICalls] callDeleteLineAPI Call');
 
@@ -351,12 +356,13 @@ export function callDeleteLineAPI(lineNo) {
     return async (dispatch, getState) => {
 
             const result = await fetch(requestURL, {
-                method: "DELETE",
+                method: "PUT",
                 headers: {
                     "Accept": "*/*"
                     // ,
                     // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-                }
+                },
+                body: JSON.stringify(form)
             })
             .then(response => response.json());
             console.log('[ApprovalAPICalls] callDeleteLineAPI RESULT : ', result);
@@ -477,7 +483,7 @@ export const callOrderRegistAPI = ({data}) => {
         }
     };
 }
-export const callLineDetailAPI = ({lineNo}) => {
+export const callLineDetailAPI = (lineNo) => {
     const requestURL = `http://localhost:8090/approvals/line/${lineNo}`;
 
     return async (dispatch, getState) => {
@@ -506,7 +512,7 @@ export const callOpinionsAPI = (approvNo) => {
         // requestURL = `http://localhost:8090/approvals/line-list?offset=${currentPage}`;
 
     // }else{
-        requestURL = `http://localhost:8090/approvals/opinions`;
+        requestURL = `http://localhost:8090/approvals/opinions/${approvNo}`;
     // }
 
     console.log(`[ApprovalAPICalls] requestURL: ${requestURL}`);
@@ -530,7 +536,7 @@ export const callOpinionsAPI = (approvNo) => {
 }
 export const callRegistOpiniontAPI = ({form}) => {
     console.log('[ApprovalAPICalls] callRegistOpiniontAPI Call');
-
+    console.log(form.get("empNo"));
     const requestURL = `http://localhost:8090/approvals/opinion`;
 
     return async (dispatch, getState) => {
@@ -541,9 +547,9 @@ export const callRegistOpiniontAPI = ({form}) => {
                 "Accept": "*/*"
                 ,
                 // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
-                "Content-Type": "application/json"
+                // "Content-Type": "application/json"
             },
-            body: JSON.stringify(form)
+            body: form
         })
         .then(response => response.json());
 
@@ -552,4 +558,146 @@ export const callRegistOpiniontAPI = ({form}) => {
         dispatch({ type: POST_OPINION,  payload: result });
         
     };    
+}
+export const callStatusesAPI = (approvNo) => {
+    let requestURL;
+
+    // if(currentPage !== undefined || currentPage !==null){
+        // requestURL = `http://localhost:8090/approvals/line-list?offset=${currentPage}`;
+
+    // }else{
+        requestURL = `http://localhost:8090/approvals/statuses/${approvNo}`;
+    // }
+
+    console.log(`[ApprovalAPICalls] requestURL: ${requestURL}`);
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+                // ,
+                // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+            }
+        })
+        .then(response => response.json());
+        if(result.status === 200){
+            console.log(`[ApprovalAPICalls] result = ${result}`);
+            dispatch({type:GET_STATUS, payload : result.data});
+        }
+    };
+}
+export const callHandleStatusAPI = (lineNo, approvNo, empNo, status) => {
+    console.log('[ApprovalAPICalls] callHandleStatusAPI Call');
+    // requestURL = `http://localhost:8090/approvals/approv-in?offset=${currentPage}`;
+
+    const requestURL = `http://localhost:8090/approvals/state/${lineNo}/${approvNo}/${empNo}?this=${status}`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method: "PUT",
+            headers: {
+                "Accept": "*/*"
+                ,"Content-Type": "application/json"
+                // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+                
+            },
+            body: {lineNo: lineNo, empNo : empNo , status: status}
+        })
+        .then(response => response.json());
+
+        console.log('[ApprovalAPICalls] callHandleStatusAPI RESULT : ', result);
+
+        dispatch({ type: PUT_STATUS,  payload: result });
+        
+    };    
+}
+export const callFilesAPI = (approvNo) => {
+    let requestURL;
+
+    // if(currentPage !== undefined || currentPage !==null){
+        // requestURL = `http://localhost:8090/approvals/line-list?offset=${currentPage}`;
+
+    // }else{
+        requestURL = `http://localhost:8090/approvals/files/${approvNo}`;
+    // }
+
+    console.log(`[ApprovalAPICalls] requestURL: ${requestURL}`);
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+                // ,
+                // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+            }
+        })
+        .then(response => response.json());
+        if(result.status === 200){
+            console.log(`[ApprovalAPICalls] result = ${result}`);
+            // const { data: { dtoList, ...restData } } = result;
+            // const data = { ...restData, approvOrderDTOList: dtoList };
+            dispatch({type:GET_FILES, payload : result.data});
+        }
+    };
+}
+export const callFinInListAPI = ({currentPage, empNo}) => {
+    let requestURL;
+
+    if(currentPage !== undefined || currentPage !==null){
+        requestURL = `http://localhost:8090/approvals/fin-approv/${empNo}?offset=${currentPage}`;
+
+    }else{
+        requestURL = `http://localhost:8090/approvals/fin-approv/${empNo}`;
+    }
+
+    console.log(`[ApprovalAPICalls] requestURL: ${requestURL}`);
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+                // , "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json());
+        if(result.status === 200){
+            console.log(`[ApprovalAPICalls] result = ${result}`);
+            dispatch({type:GET_FIN_IN, payload : result.data});
+        }
+    };
+}
+export const callFinOutListAPI = ({currentPage, empNo}) => {
+    let requestURL;
+
+    if(currentPage !== undefined || currentPage !==null){
+        requestURL = `http://localhost:8090/approvals/fin-approv-out/${empNo}?offset=${currentPage}`;
+
+    }else{
+        requestURL = `http://localhost:8090/approvals/fin-approv-out/${empNo}`;
+    }
+
+    console.log(`[ApprovalAPICalls] requestURL: ${requestURL}`);
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*"
+                // , "Access-Control-Allow-Origin": "*"
+            }
+        })
+        .then(response => response.json());
+        if(result.status === 200){
+            console.log(`[ApprovalAPICalls] result = ${result}`);
+            dispatch({type:GET_FIN_OUT, payload : result.data});
+        }
+    };
 }
