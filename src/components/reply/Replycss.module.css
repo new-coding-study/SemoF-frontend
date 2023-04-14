@@ -19,6 +19,7 @@
     height: 30%;
     float: left;
     border-left: 0.5px solid orange;
+    padding-top: 2%;
 }
 .textInputArea{
     width: 80%;
@@ -43,7 +44,7 @@
 }
 .registbtn{
     width: 100%;
-    height: 101%;
+    height: 100%;
     float: right;
     border: none;
     border-top: 0.5px solid orange;
@@ -77,4 +78,5 @@
 }
 .contentPagingbtn{
     height: 10%;
+    padding-top: 1%;
 }

@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { 
     GET_STATUS,
-    // GET_HISTORIES,
+    GET_HISTORIES,
     PUT_STATUS
 } from '../modules/AttendanceModule.js';
 
@@ -83,4 +83,35 @@ export const callAttendanceUpdateAPI = ({empNo, nowTime}) => {
             console.log('[AttendanceAPICalls] callAttendanceUpdateAPI ERROR : ', error);
         }
     };    
+}
+
+// 근무 기록 리스트 조회
+export const callAttendanceListAPI = ({empNo, currentPage}) => {
+    let requestURL;
+
+    if(currentPage !== undefined || currentPage !== null){
+        requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/attendance/status/histories/${empNo}?offset=${currentPage}`;
+    }else {
+        requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/attendance/status/histories/${empNo}`;
+    }
+    
+    console.log('[AttendanceAPICalls] requestURL : ', requestURL);
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+                // "Authorization": "Bearer " + window.localStorage.getItem("accessToken")
+            }
+        })
+        .then(response => response.json());
+        if(result.status === 200){
+            console.log('[AttendanceAPICalls] callAttendanceListAPI RESULT : ', result);
+            dispatch({ type: GET_HISTORIES,  payload: result.data });
+        }
+        
+    };
 }

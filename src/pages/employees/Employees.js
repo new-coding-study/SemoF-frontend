@@ -5,10 +5,11 @@ import Calendar from "../../components/employees/Calendar";
 import Birthday from "../../components/employees/Birthday";
 import Attedance from "../../components/employees/Attendance";
 import Vacation from "../../components/employees/Vacation";
+import Clock from "../../components/employees/Clock";
 
 function Employees() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
-  const [value, onChange] = useState(new Date());
+  // const [value, onChange] = useState(new Date());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
 
   return (
@@ -92,7 +93,8 @@ function Employees() {
         </div>
 
         <div className={EmployeeCSS.atdCard}>
-          <div className={EmployeeCSS.atdHeader}>
+          <Clock />
+          {/* <div className={EmployeeCSS.atdHeader}>
             <h2>근로 관리</h2>
             <p>{today}</p>
           </div>
@@ -101,16 +103,41 @@ function Employees() {
               <p>연장 근무</p>
               <span>10건</span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
       <div className={EmployeeCSS.content}>
-        <div className={EmployeeCSS.card}></div>
+        <div className={EmployeeCSS.card}>
+          <iframe
+            title="키바나 총원 그래프"
+            src="http://localhost:5601/app/dashboards#/view/245a1ec0-d8cb-11ed-be77-e179953acd57?embed=true&_g=(filters%3A!()%2Cquery%3A(language%3Akuery%2Cquery%3A'')%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-30d%2Fd%2Cto%3Anow))&hide-filter-bar=true"
+            height="100%"
+            width="100%"
+            allowFullScreen
+          />
+        </div>
+        <div className={EmployeeCSS.card}>
+          <iframe
+            title="키바나 성별 분포 그래프"
+            src="http://localhost:5601/app/dashboards#/view/13f01e20-da6c-11ed-80f1-e5806c82133c?embed=true&_g=(filters%3A!())&hide-filter-bar=true"
+            height="100%"
+            width="100%"
+            allowFullScreen
+          />
+        </div>
+        <div className={EmployeeCSS.card}>
+          <iframe
+            title="키바나 직급 분포 그래프"
+            src="http://localhost:5601/app/dashboards#/view/09bd92f0-da6e-11ed-80f1-e5806c82133c?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow%2Fd%2Cto%3Anow%2Fd))&hide-filter-bar=true"
+            height="100%"
+            width="100%"
+            allowFullScreen
+          />
+        </div>
         <div className={EmployeeCSS.calender}>
           <Calendar />
         </div>
-        <div className={EmployeeCSS.card2}></div>
       </div>
     </>
   );

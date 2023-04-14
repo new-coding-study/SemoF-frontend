@@ -14,6 +14,8 @@ function Navbar() {
        
     }
 
+    console.log(decoded);
+
   return (
     <>
       <div className={NavbarCSS.navWrapper}>
@@ -51,8 +53,7 @@ function Navbar() {
             </li>
           </NavLink>
 
-          {decoded === "ROLE_ADMIN"?
-          <NavLink to="/semof/report-admin">
+          <NavLink to="/semof/report">
             <li>
               <img
                 src={"/images/report.png"}
@@ -61,18 +62,7 @@ function Navbar() {
               ></img>
               <div> 보고서 </div>
             </li>
-          </NavLink> : 
-          <NavLink to="/semof/report-emp">
-            <li>
-              <img
-                src={"/images/report.png"}
-                alt="보고서이미지"
-                className={NavbarCSS.logo}
-              />
-              <div>보고서</div>
-            </li>
           </NavLink>
-          }
 
           <NavLink to="/semof/approval">
             <li>

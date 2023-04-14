@@ -1,3 +1,8 @@
+.body{
+    overflow: hidden !important;
+}
+
+
 /*      상단 네비바 */
 .contour {
     height: 60px;
@@ -130,7 +135,7 @@
 .totalVacation {
     font-size: 26px;
     font-weight: bold;
-    margin: 0 10px 0 10px;
+    margin: 0 10px 0 20px;
 }
 
 .vacationDiv {
@@ -153,7 +158,7 @@
 
 /* 첫 div 여백 */
 .vacationDiv div:first-child {
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 /* 글자간 여백 */
@@ -183,4 +188,55 @@
 .totalAttendance {
     height: 600px;
     background-color: aliceblue;
+}
+
+
+/* 근태 기록 확인 */
+.bodyDiv {
+    margin: 15px 70px 0px 66px;
+    border: 2px solid red;
+    border-radius: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 1550px;
+}
+
+.attendanceTable {
+    width: 1550px;
+}
+
+.attendanceTable th, td {
+    padding: 10px;
+    height: 10px;
+    text-align: center;
+    word-break:break-all;
+    table-layout:fixed;
+    font-size: 20px;
+}
+
+.attendanceTable>thead>tr{
+    font-size: 26px;
+    height: 50px;
+    font-weight: bold;
+    border-collapse: collapse;
+    border-bottom: 2px solid #E52E2E;
+    
+}
+
+/* 페이징 버튼 */
+.pagingBtn{
+    margin: 5px;
+    margin-top: 20px;
+    width: 30px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: rgb(240, 240, 240);
+    border: 3px solid #E52E2E;;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.pagingBtn:hover{
+    cursor: pointer;
+    background-color: #FFD6D6;
 }

@@ -50,7 +50,8 @@ function PostingUpdate({boardNo, setIsUpdateForAdmin}){
         Swal.fire({
             title:'변경된 내용을 저장하시겠습니까?',
             showCancelButton: true,
-            confirmButtonText: '저장하기'
+            confirmButtonText: '저장하기',
+            cancelButtonText:'취소'
         }).then((result) =>{
             if(result.isConfirmed){
                 dispatch(callUpdatePostingAPIForAdmin({

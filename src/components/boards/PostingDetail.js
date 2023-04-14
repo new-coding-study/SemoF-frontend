@@ -8,6 +8,7 @@ import PostingUpdate from "./PostingUpdate";
 import PostingUpdateForAdmin from "./PostingUpdateForAdmin"
 import Swal from "sweetalert2";
 import Reply from "../reply/Reply";
+import {decodeJwt} from '../../utils/tokenUtils';
 
 function PostingDetail(){
     const dispatch = useDispatch();
@@ -22,6 +23,19 @@ function PostingDetail(){
             boardNo:params.boardNo
         }));
     }, []);
+
+    const isLogin = window.localStorage.getItem('accessToken');
+    let decoded = null;
+    let decodedEmpNo = null;
+
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        decoded = temp.auth[0];
+        decodedEmpNo = temp.empNo;
+       
+    }
+
+    console.log(decodedEmpNo);
 
     const onClickUpdateForAdmin = () =>{
         setSelectNo(params.boardNo)
@@ -81,9 +95,17 @@ function PostingDetail(){
                 <br/>
                 <br/>
                 <div className={postingdetailcss.postingbtn}>
-                <button onClick={onClickUpdateForAdmin}>관리자 수정</button>    
-                <button onClick={deletePosting}>관리자 삭제</button>
-                <button onClick={onClickUpdate}>수정하기</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {decoded === "ROLE_ADMIN"?
+                <button onClick={onClickUpdateForAdmin}>관리자 수정</button>:null}&nbsp;&nbsp;
+
+                {decoded === "ROLE_ADMIN"?
+                <button onClick={deletePosting}>관리자 삭제</button>:null}&nbsp;&nbsp;
+
+                {decodedEmpNo === postingDetail.empNo?
+                <button onClick={onClickUpdate}>수정하기</button>:null}&nbsp;&nbsp;
+
+                {decodedEmpNo === postingDetail.empNo?
+                <button onClick={deletePosting}>게시글 삭제</button>:null}&nbsp;&nbsp;
                 <button onClick={()=>navigate(-1)}>돌아가기</button>
                 </div>
             </div>

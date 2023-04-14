@@ -1,8 +1,10 @@
-import Contribution from "../../components/employees/Contribution";
+// import Contribution from "../../components/employees/Contribution";
 import EvaluationCSS from "./Evaluation.module.css";
 
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { decodeJwt } from "../../utils/tokenUtils";
+import ContributionChart from "../../components/employees/ContributionChart";
 
 import {
   callGetEmployeesAPI,
@@ -12,6 +14,7 @@ import {
   callGetEmpContsAPI,
   callEmpContUpdateAPI,
   callDeleteEmpContAPI,
+  callGetEmpChartAPI,
 } from "../../apis/EmployeeAPICalls";
 
 function Evaluation() {
@@ -24,7 +27,7 @@ function Evaluation() {
   const employeeList = employees.data;
   // const pageInfo = employees.pageInfo;
   const contributionList = useSelector(
-    (state) => state.empReducer.contributionList
+    (state) => state.empReducer?.contributionList
   );
 
   console.log(
@@ -76,6 +79,13 @@ function Evaluation() {
     );
     //eslint-disable-next-line
   }, [currentPage]);
+
+  useEffect(
+    () => {
+      dispatch(callGetEmpChartAPI());
+    }, // eslint-disable-next-line
+    []
+  );
 
   useEffect(() => {
     dispatch(callGetEmpContsAPI({}));
@@ -272,24 +282,56 @@ function Evaluation() {
     });
   };
 
+  const empChart = (empNo) => {
+    // console.log("[empChart] empChart empNo : " + empNo);
+    return (
+      <div className="EmpChart">
+        {selectedEmployee && (
+          <ContributionChart data={contributionList} empNo={empNo} />
+        )}
+      </div>
+    );
+  };
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decoded = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+  }
+  console.log("decoded ", decoded);
+
+  // 유저 권한 확인 함수
+  const CheckRole = () => {
+    if (decoded === "ROLE_ADMIN") {
+      return true;
+    }
+  };
+
   return (
     <>
       <div className={EvaluationCSS.header}>
         <div className={EvaluationCSS.title}> 인사평가 </div>
       </div>
       <div className={EvaluationCSS.buttonBox}>
-        <button onClick={openModalHandler} className={EvaluationCSS.evalButton}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="48"
-            viewBox="0 96 960 960"
-            fill="white"
-            width="48"
+        {CheckRole() === true && (
+          <button
+            onClick={openModalHandler}
+            className={EvaluationCSS.evalButton}
           >
-            <path d="M220 976q-24 0-42-18t-18-42V236q0-24 18-42t42-18h340l240 240v156h-60V456H520V236H220v680h300v60H220Zm0-60V236v680Zm536-223 28 28-164 164v51h51l164-164 28 28-176 176H580V869l176-176Zm107 107L756 693l61-61q9-9 21-9t21 9l65 65q9 9 9 21t-9 21l-61 61Z" />
-          </svg>
-          <span>인사평가 추가</span>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="48"
+              viewBox="0 96 960 960"
+              fill="white"
+              width="48"
+            >
+              <path d="M220 976q-24 0-42-18t-18-42V236q0-24 18-42t42-18h340l240 240v156h-60V456H520V236H220v680h300v60H220Zm0-60V236v680Zm536-223 28 28-164 164v51h51l164-164 28 28-176 176H580V869l176-176Zm107 107L756 693l61-61q9-9 21-9t21 9l65 65q9 9 9 21t-9 21l-61 61Z" />
+            </svg>
+            <span>인사평가 추가</span>
+          </button>
+        )}
       </div>
 
       <div className={EvaluationCSS.cardBody}>
@@ -383,7 +425,7 @@ function Evaluation() {
                           <option value="">선택</option>
                           <option value="empName">이름</option>
                           <option value="deptName">부서</option>
-                          <option value="branchName">지점</option>
+                          {/* <option value="branchName">지점</option> */}
                         </select>
                       </div>
                       <input
@@ -414,25 +456,25 @@ function Evaluation() {
                             </tr>
                           </thead>
                           <tbody>
-                            {searchResult.length > 0 ? (
-                              searchResult.map((employee) => (
-                                <tr
-                                  key={employee.empNo}
-                                  onClick={() => {
-                                    setSelectedEmployee(employee);
-                                    setShowEvaluationForm(true);
-                                  }}
-                                >
-                                  <td>{employee.empName}</td>
-                                  <td>{employee.branchName}</td>
-                                  <td>{employee.deptName}</td>
-                                </tr>
-                              ))
-                            ) : (
-                              <tr>
-                                <td colSpan={3}>검색 결과가 없습니다.</td>
-                              </tr>
-                            )}
+                            {searchResult && searchResult.length > 0
+                              ? searchResult.map((employee) => (
+                                  <tr
+                                    key={employee.empNo}
+                                    onClick={() => {
+                                      setSelectedEmployee(employee);
+                                      setShowEvaluationForm(true);
+                                    }}
+                                  >
+                                    <td>{employee.empName}</td>
+                                    <td>{employee.branchName}</td>
+                                    <td>{employee.deptName}</td>
+                                  </tr>
+                                ))
+                              : searchResult.length === 0 && (
+                                  <tr>
+                                    <td colSpan={3}>검색 결과가 없습니다.</td>
+                                  </tr>
+                                )}
                           </tbody>
                         </table>
                       ) : null}
@@ -472,8 +514,10 @@ function Evaluation() {
                     <div className={EvaluationCSS.newModalFormGroup}>
                       {/* 도넛 그래프 */}
                       <div className={EvaluationCSS.chartWrapper}>
-                        <h3>실적 비율</h3>
-                        <div className={EvaluationCSS.chart}></div>
+                        {/* <h3>실적 비율</h3> */}
+                        <div className={EvaluationCSS.chart}>
+                          {empChart(selectedEmployee.empNo)}
+                        </div>
                       </div>
 
                       {/* 등급표 이미지 */}
