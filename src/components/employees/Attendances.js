@@ -6,7 +6,7 @@ function Attedances() {
   const dispatch = useDispatch();
   const empAttendance = useSelector((state) => state.empReducer.empAttendance);
 
-  console.log("[Attedance] empAttendance : " + JSON.stringify(empAttendance));
+  console.log("[Attedances] empAttendance : " + JSON.stringify(empAttendance));
 
   useEffect(
     () => {
