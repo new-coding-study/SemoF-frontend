@@ -8,6 +8,7 @@ const initialState = {
   employeeDetail: {},
   empPhoto: {},
   empBirth: {},
+  empBirthday: [],
   empChart: {},
 };
 
@@ -17,6 +18,7 @@ export const POST_EMPLOYEES_CONTRIBUTIONS =
   "employee/POST_EMPLOYEES_CONTRIBUTIONS";
 export const GET_EMPLOYEES = "employee/GET_EMPLOYEES";
 export const GET_EMPLOYEES_BIRTH = "employee/GET_EMPLOYEES_BIRTH";
+export const GET_EMPLOYEES_BIRTHDAY = "employee/GET_EMPLOYEES_BIRTHDAY";
 export const GET_EMPLOYEES_DETAIL = "employee/GET_EMPLOYEES_DETAIL";
 export const GET_EMPLOYEES_PHOTO = "employee/GET_EMPLOYEES_PHOTO";
 export const GET_EMPLOYEES_BRANCHES = "employee/GET_EMPLOYEES_BRANCHES";
@@ -42,6 +44,7 @@ const actions = createActions({
   [POST_EMPLOYEES_CONTRIBUTIONS]: () => {},
   [GET_EMPLOYEES]: () => {},
   [GET_EMPLOYEES_BIRTH]: () => {},
+  [GET_EMPLOYEES_BIRTHDAY]: () => {},
   [GET_EMPLOYEES_DETAIL]: () => {},
   [GET_EMPLOYEES_PHOTO]: () => {},
   [GET_EMPLOYEES_BRANCHES]: () => {},
@@ -73,6 +76,12 @@ const empReducer = handleActions(
       return {
         ...state,
         empBirth: payload,
+      };
+    },
+    [GET_EMPLOYEES_BIRTHDAY]: (state, { payload }) => {
+      return {
+        ...state,
+        empBirthday: payload,
       };
     },
     [GET_EMPLOYEES_DETAIL]: (state, { payload }) => {

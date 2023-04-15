@@ -2,6 +2,7 @@ import MainCSS from "./Main.module.css";
 import BoardNoticeTop3 from "../components/main/BoardNoticeTop3";
 import MainTodo from "../components/main/MainTodo";
 import Weather from "../components/main/Weather";
+import BirthdayList from "../components/employees/BirthdayList";
 // import { useEffect, useState } from "react";
 // import { useSelector, useDispatch } from "react-redux";
 import { decodeJwt } from "../utils/tokenUtils";
@@ -39,7 +40,9 @@ function Main() {
           <div className={MainCSS.weather}>
             <Weather city="Seoul" />
           </div>
-          <div className={MainCSS.birth}> 생일자 </div>
+          <div className={MainCSS.birth}>
+            <BirthdayList />
+          </div>
           <div className={MainCSS.todo}>
             <MainTodo decodedUser={decodedUser} />
           </div>

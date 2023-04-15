@@ -3,6 +3,7 @@ import {
   POST_EMPLOYEES_CONTRIBUTIONS,
   GET_EMPLOYEES,
   GET_EMPLOYEES_BIRTH,
+  GET_EMPLOYEES_BIRTHDAY,
   GET_EMPLOYEES_DETAIL,
   GET_EMPLOYEES_PHOTO,
   GET_EMPLOYEES_BRANCHES,
@@ -431,6 +432,29 @@ export const callGetEmpBirthAPI = () => {
     if (result.status === 200) {
       console.log("[EmployeeAPICalls] callGetEmpBirthAPI SUCCESS");
       dispatch({ type: GET_EMPLOYEES_BIRTH, payload: result.data });
+    }
+  };
+};
+
+export const callGetEmpBirthdayAPI = () => {
+  console.log("[EmployeeAPICalls] callGetEmpBirthdayAPI Call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/employees/birthday`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+
+    console.log("[EmployeeAPICalls] callGetEmpBirthdayAPI RESULT : ", result);
+    if (result.status === 200) {
+      console.log("[EmployeeAPICalls] callGetEmpBirthdayAPI SUCCESS");
+      dispatch({ type: GET_EMPLOYEES_BIRTHDAY, payload: result.data });
     }
   };
 };
