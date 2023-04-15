@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { callGetEmpAtdAPI } from "../../apis/EmployeeAPICalls";
 
-function Attedance() {
+function Attedances() {
   const dispatch = useDispatch();
   const empAttendance = useSelector((state) => state.empReducer.empAttendance);
 
@@ -22,4 +22,4 @@ function Attedance() {
   return <span>{todayAtd}</span>;
 }
 
-export default Attedance;
+export default Attedances;
