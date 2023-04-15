@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { callTodayTodoListAPI } from "../../apis/TodoAPICalls";
@@ -19,22 +19,24 @@ function MainTodo({ decodedUser }) {
     <>
       <div
         style={{
-          marginTop: "16px",
-          marginLeft: "16px",
+          // marginTop: "16px",
+          // marginLeft: "16px",
+          margin: "16px 0 20px 16px",
           textAlign: "left",
+          display: "flex",
         }}
       >
         <img
           src={"/images/mainTodo.png"}
           alt="이미지확인!"
           style={{
-            width: "16px",
-            height: "16px",
+            width: "24px",
+            height: "24px",
             marginRight: "8px",
             verticalAlign: "sub",
           }}
         ></img>
-        <span>할 일</span>
+        <div style={{ marginTop: "2px", fontSize: "18px" }}>할 일</div>
       </div>
       {Array.isArray(todayList) &&
         todayList.map((today) => (
@@ -43,19 +45,17 @@ function MainTodo({ decodedUser }) {
           >
             <div
               style={{
-                width: "16px",
-                height: "16px",
+                width: "18px",
+                height: "18px",
                 backgroundColor: today?.cateColor,
                 borderRadius: "0",
                 marginRight: "8px",
               }}
-            >
-              {" "}
-            </div>
+            ></div>
             <div
               style={{
                 color: "gray",
-                fontSize: "14px",
+                fontSize: "16px",
               }}
             >
               {today?.todoName}

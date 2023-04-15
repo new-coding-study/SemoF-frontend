@@ -3,6 +3,7 @@ import BoardNoticeTop3 from "../components/main/BoardNoticeTop3";
 import MainTodo from "../components/main/MainTodo";
 import MainBrith from "../components/main/MainBrith";
 import MainSchedule from "../components/main/MainSchedule";
+import EmpInfo from "../components/main/EmpInfo";
 import Weather from "../components/main/Weather";
 // import { useEffect, useState } from "react";
 // import { useSelector, useDispatch } from "react-redux";
@@ -31,7 +32,9 @@ function Main() {
               <MainSchedule decodedUser={decodedUser} />
             </div>
           </div>
-          <div className={MainCSS.info}> 사원 정보 </div>
+          <div className={MainCSS.info}>
+            <EmpInfo />
+          </div>
         </div>
         <div className={MainCSS.secondGroup}>
           <div className={MainCSS.banner}>
