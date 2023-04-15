@@ -6,11 +6,28 @@ import Birthday from "../../components/employees/Birthday";
 import Attedance from "../../components/employees/Attendances";
 import Vacation from "../../components/employees/Vacation";
 import Clock from "../../components/employees/Clock";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 function Employees() {
   const [today, setToday] = useState(new Date().toLocaleDateString());
   // const [value, onChange] = useState(new Date());
   const [month, setMonth] = useState(new Date().getMonth() + 1);
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decoded = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+  }
+  console.log("decoded ", decoded);
+
+  // 유저 권한 확인 함수
+  const CheckRole = () => {
+    if (decoded === "ROLE_ADMIN") {
+      return true;
+    }
+  };
 
   return (
     <>
@@ -24,11 +41,13 @@ function Employees() {
                 <span>사원관리</span>
               </Link>
             </li>
-            <li>
-              <Link to="/semof/employees/transfer">
-                <span>사원이동</span>
-              </Link>
-            </li>
+            {CheckRole() === true && (
+              <li>
+                <Link to="/semof/employees/transfer">
+                  <span>사원이동</span>
+                </Link>
+              </li>
+            )}
             <li>
               <Link to="/semof/employees/evaluation">
                 <span>사원평가</span>
