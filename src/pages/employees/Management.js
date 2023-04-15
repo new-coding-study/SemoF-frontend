@@ -157,7 +157,9 @@ function Management() {
 
   //등록 페이지 이동
   const onMovePage = () => {
-    navigate("/semof/employees/register");
+    navigate("/semof/employees/register", {
+      state: { pageInfo: pageInfo },
+    });
     setShowModal(false);
   };
 
