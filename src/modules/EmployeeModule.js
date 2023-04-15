@@ -8,6 +8,7 @@ const initialState = {
   employeeDetail: {},
   empPhoto: {},
   empBirth: {},
+  empBirthday: [],
   empChart: {},
   mainEmpBirth: {},
 };

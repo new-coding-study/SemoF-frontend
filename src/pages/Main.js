@@ -45,6 +45,7 @@ function Main() {
           <div className={MainCSS.birth}>
             <MainBrith />
           </div>
+          <div className={MainCSS.birth}> 생일자 </div>
           <div className={MainCSS.todo}>
             <MainTodo decodedUser={decodedUser} />
           </div>
