@@ -28,7 +28,7 @@
   display: flex;
   width: 900px;
   border: 1px solid #e0e0e0;
-  margin-right: 100px;
+  margin-right: 40px;
   margin-left: 80px;
 }
 
@@ -44,33 +44,35 @@
 }
 
 .info {
-  width: 300px;
+  width: 400px;
   border: 1px solid #e0e0e0;
 }
 
 .secondGroup {
   display: flex;
-  height: 160px;
+  height: 200px;
   margin-bottom: 40px;
   /* justify-content: space-between; */
   /* border: 1px solid green; */
 }
 
-.banner {
+/* .banner {
   width: 900px;
-  margin-right: 100px;
+  margin-right: 40px;
   margin-left: 80px;
-}
+} */
 
 .banner img {
   width: 900px;
-  height: 160px;
+  height: 200px;
   border-radius: 12px;
   border: 1px solid #e0e0e0;
+  margin-right: 40px;
+  margin-left: 80px;
 }
 
 .workingHour {
-  width: 300px;
+  width: 400px;
   border: 1px solid #e0e0e0;
 }
 
@@ -93,18 +95,18 @@
 } */
 
 .birth {
-  width: 240px;
+  width: 250px;
   margin: 0 60px;
   border: 1px solid #e0e0e0;
 }
 
 .todo {
-  width: 265px;
-  margin-right: 104px;
+  width: 262px;
+  margin-right: 40px;
   border: 1px solid #e0e0e0;
 }
 
 .notice {
-  width: 300px;
+  width: 400px;
   border: 1px solid #e0e0e0;
 }

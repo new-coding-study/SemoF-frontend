@@ -11,7 +11,7 @@ function MainSchedule({ decodedUser }) {
   );
 
   const today = moment(new Date()).format("YYYY-MM-DD");
-  const langeOfScd = moment().add(21, "days").format("YYYY-MM-DD");
+  const langeOfScd = moment().add(14, "days").format("YYYY-MM-DD");
 
   useEffect(
     () => {
@@ -27,7 +27,7 @@ function MainSchedule({ decodedUser }) {
       <div
         style={{
           marginTop: "16px",
-          marginBottom: "16px",
+          marginBottom: "20px",
           marginLeft: "16px",
           textAlign: "left",
         }}
@@ -36,13 +36,19 @@ function MainSchedule({ decodedUser }) {
           src={"/images/mainSchedule.png"}
           alt="이미지확인!"
           style={{
-            width: "16px",
-            height: "16px",
+            width: "24px",
+            height: "24px",
             marginRight: "8px",
             verticalAlign: "sub",
           }}
         ></img>
-        <span>가까운 일정</span>
+        <span
+          style={{
+            fontSize: "18px",
+          }}
+        >
+          가까운 일정
+        </span>
       </div>
       {Array.isArray(scheduleList) &&
         scheduleList
@@ -56,13 +62,13 @@ function MainSchedule({ decodedUser }) {
               style={{
                 display: "flex",
                 marginTop: "12px",
-                marginLeft: "16px",
+                marginLeft: "20px",
               }}
             >
               <div
                 style={{
-                  width: "12px",
-                  height: "12px",
+                  width: "14px",
+                  height: "14px",
                   backgroundColor: schedule?.calColor,
                   borderRadius: "100%",
                   marginTop: "3px",
@@ -71,12 +77,13 @@ function MainSchedule({ decodedUser }) {
               <div
                 style={{
                   margin: "0 12px",
-                  fontWeight: "bold",
+                  fontWeight: "640",
+                  fontSize: "18px",
                 }}
               >
                 {moment(schedule?.scdStartDay).format("MM/DD")}
               </div>
-              <div>{schedule?.scdName}</div>
+              <div style={{ fontSize: "18px" }}>{schedule?.scdName}</div>
             </div>
           ))}
     </>

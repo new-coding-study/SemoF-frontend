@@ -26,22 +26,24 @@ function BoardNoticeTop3() {
     <>
       <div
         style={{
-          marginTop: "16px",
-          marginLeft: "16px",
+          // marginTop: "16px",
+          // marginLeft: "16px",
+          margin: "16px 0 8px 16px",
           textAlign: "left",
+          display: "flex",
         }}
       >
         <img
           src={"/images/mainNotice.png"}
           alt="이미지확인!"
           style={{
-            width: "12px",
-            height: "16px",
+            width: "18px",
+            height: "24px",
             marginRight: "8px",
             verticalAlign: "middle",
           }}
         ></img>
-        <span>공지사항</span>
+        <div style={{ marginTop: "2px", fontSize: "18px" }}>공지사항</div>
       </div>
       <table style={{ textAlign: "center", margin: "auto", marginTop: "4px" }}>
         <tbody>

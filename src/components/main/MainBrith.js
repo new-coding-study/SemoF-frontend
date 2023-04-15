@@ -17,7 +17,7 @@ function MainBrith() {
   const test = () => {
     const groups = [];
 
-    for (let i = 0; i < mainEmpBirth.length; i += 2) {
+    for (let i = 0; i < mainEmpBirth?.length; i += 2) {
       groups.push([
         <div
           style={{
@@ -90,19 +90,21 @@ function MainBrith() {
           marginTop: "16px",
           marginLeft: "16px",
           textAlign: "left",
+          display: "flex",
+          // border: "1px solid blue",
         }}
       >
         <img
           src={"/images/cake.png"}
           alt="이미지확인!"
           style={{
-            width: "16px",
-            height: "16px",
+            width: "20px",
+            height: "20px",
             marginRight: "8px",
             verticalAlign: "middle",
           }}
         ></img>
-        <span>이 달의 생일자</span>
+        <div style={{ marginTop: "2px", fontSize: "18px" }}>이 달의 생일자</div>
       </div>
       {test().map((oneEmp, index) => (
         <div

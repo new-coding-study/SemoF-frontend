@@ -39,55 +39,59 @@ function Weather({ city }) {
           marginTop: "16px",
           marginLeft: "16px",
           textAlign: "left",
+          display: "flex",
         }}
       >
         <img
           src={"/images/mainWeather.png"}
           alt="이미지확인!"
           style={{
-            width: "16px",
-            height: "16px",
+            width: "24px",
+            height: "24px",
             marginRight: "8px",
             verticalAlign: "middle",
           }}
         ></img>
-        <span>오늘 날씨</span>
+        <div style={{ marginTop: "2px", fontSize: "18px" }}>오늘 날씨</div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          // marginTop: "12px",
+          // marginLeft: "16px",
+          margin: "8px 16px 0 16px",
+          alignItems: "center",
+          // border: "1px solid green",
+        }}
+      >
         <div
           style={{
-            display: "flex",
-            marginTop: "12px",
-            marginLeft: "16px",
+            // border: "1px solid blue",
+            margin: "0 16px",
           }}
         >
           <div
             style={{
-              // border: "1px solid blue",
-              marginRight: "16px",
+              fontSize: "36px",
+              marginBottom: "8px",
+              marginTop: "4px",
             }}
           >
-            <div
-              style={{
-                fontSize: "36px",
-                marginBottom: "8px",
-                marginTop: "4px",
-              }}
-            >
-              {temp.toFixed(1)}°C
-            </div>
-            <div> 체감온도 {feels_like.toFixed(1)}°C</div>
+            {temp.toFixed(1)}°C
           </div>
-          <div>
-            <img
-              src={`http://openweathermap.org/img/w/${details.icon}.png`}
-              alt="이미지확인!"
-              style={{
-                width: "92px",
-                height: "92px",
-                // border: "1px solid red",
-                // verticalAlign: "middle",
-              }}
-            ></img>
-          </div>
+          <div> 체감온도 {feels_like.toFixed(1)}°C</div>
+        </div>
+        <div>
+          <img
+            src={`http://openweathermap.org/img/w/${details.icon}.png`}
+            alt="이미지확인!"
+            style={{
+              width: "92px",
+              height: "92px",
+              verticalAlign: "middle",
+              // border: "1px solid red",
+            }}
+          ></img>
         </div>
       </div>
     </div>
