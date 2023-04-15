@@ -29,7 +29,6 @@ function Main() {
             <div className={MainCSS.calendar}> 달력 </div>
             <div className={MainCSS.schedule}>
               <MainSchedule decodedUser={decodedUser} />
-              안녕
             </div>
           </div>
           <div className={MainCSS.info}> 사원 정보 </div>

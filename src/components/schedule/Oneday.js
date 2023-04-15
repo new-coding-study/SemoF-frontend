@@ -102,7 +102,7 @@ function Oneday({
           {day.date}
           {/* <span style={{ display: "none" }}> {newDate} </span> */}
         </div>
-        {Array.isArray(scheduleList) &&
+        {/* {Array.isArray(scheduleList) &&
           scheduleList
             .filter(
               (schedule) =>
@@ -124,8 +124,8 @@ function Oneday({
                   <span style={{ display: "none" }}> {schedule?.scdNo} </span>
                 </div>
               </div>
-            ))}
-        {Array.isArray(scheduleList) &&
+            ))} */}
+        {/* {Array.isArray(scheduleList) &&
           scheduleList
             .filter(
               (schedule) =>
@@ -142,7 +142,7 @@ function Oneday({
                   <span style={{ display: "none" }}> {schedule?.scdNo} </span>
                 </div>
               </div>
-            ))}
+            ))} */}
       </div>
     </>
   );
