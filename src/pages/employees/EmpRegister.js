@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import RegisterCSS from "./EmpRegister.module.css";
-import { callRegisterAPI } from "../../apis/EmployeeAPICalls";
+import {
+  callRegisterAPI,
+  callGetEmployeesAPI,
+} from "../../apis/EmployeeAPICalls";
 import Swal from "sweetalert2";
 
 function Register() {
@@ -11,6 +14,9 @@ function Register() {
   const [employeePhoto, setEmployeePhoto] = useState(null);
   const [imageUrl, setImageUrl] = useState();
   const imageInput = useRef();
+
+  const location = useLocation();
+  const pageInfo = location.state?.pageInfo;
 
   const [today, setToday] = useState(
     new Date().toLocaleDateString("ko-KR", {
@@ -196,11 +202,17 @@ function Register() {
     //   formData.get("employeePhoto")
     // );
 
-    dispatch(
-      callRegisterAPI({
-        form: formData,
-      })
-    );
+    // dispatch(
+    //   callRegisterAPI({
+    //     form: formData,
+    //   })
+    // );
+    dispatch(callRegisterAPI({ form: formData })).then(() => {
+      dispatch(callGetEmployeesAPI({}));
+      navigate("/semof/employees/management", {
+        state: { pageNo: pageInfo.pageNo },
+      });
+    });
 
     Swal.fire({
       icon: "success",
