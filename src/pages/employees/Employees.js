@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import EmployeeCSS from "./Employees.module.css";
 import Calendar from "../../components/employees/Calendar";
 import Birthday from "../../components/employees/Birthday";
-import Attedance from "../../components/employees/Attendance";
+import Attedance from "../../components/employees/Attendances";
 import Vacation from "../../components/employees/Vacation";
 import Clock from "../../components/employees/Clock";
 
@@ -109,27 +109,48 @@ function Employees() {
 
       <div className={EmployeeCSS.content}>
         <div className={EmployeeCSS.card}>
-          <iframe
+          {/* <iframe
             title="키바나 총원 그래프"
             src="http://localhost:5601/app/dashboards#/view/27183f80-da9b-11ed-80f1-e5806c82133c?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-30d%2Fd%2Cto%3Anow))&hide-filter-bar=true"
             height="100%"
             width="100%"
             allowFullScreen
-          />
-        </div>
-        <div className={EmployeeCSS.card}>
+          /> */}
           <iframe
-            title="키바나 성별 분포 그래프"
-            src="http://localhost:5601/app/dashboards#/view/13f01e20-da6c-11ed-80f1-e5806c82133c?embed=true&_g=(filters%3A!())&hide-filter-bar=true"
+            title="키바나 총원 그래프"
+            src="http://localhost:5601/app/dashboards#/view/91259770-db2b-11ed-91d8-dd2d388003b8?embed=true&_g=(filters%3A!())&hide-filter-bar=true"
             height="100%"
             width="100%"
             allowFullScreen
           />
         </div>
         <div className={EmployeeCSS.card}>
+          {/* <iframe
+            title="키바나 성별 분포 그래프"
+            src="http://localhost:5601/app/dashboards#/view/13f01e20-da6c-11ed-80f1-e5806c82133c?embed=true&_g=(filters%3A!())&hide-filter-bar=true"
+            height="100%"
+            width="100%"
+            allowFullScreen
+          /> */}
           <iframe
+            title="키바나 성별 분포 그래프"
+            src="http://localhost:5601/app/dashboards#/view/3a7842b0-db2b-11ed-91d8-dd2d388003b8?embed=true&_g=(filters%3A!())&hide-filter-bar=true"
+            height="100%"
+            width="100%"
+            allowFullScreen
+          />
+        </div>
+        <div className={EmployeeCSS.card}>
+          {/* <iframe
             title="키바나 직급 분포 그래프"
             src="http://localhost:5601/app/dashboards#/view/b0bbb0f0-da9b-11ed-80f1-e5806c82133c?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-30d%2Fd%2Cto%3Anow))&hide-filter-bar=true"
+            height="100%"
+            width="100%"
+            allowFullScreen
+          /> */}
+          <iframe
+            title="키바나 직급 분포 그래프"
+            src="http://localhost:5601/app/dashboards#/view/eeb37b50-db2b-11ed-91d8-dd2d388003b8?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-30d%2Fd%2Cto%3Anow))&hide-filter-bar=true"
             height="100%"
             width="100%"
             allowFullScreen
