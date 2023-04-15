@@ -16,6 +16,7 @@ function Register() {
   const dispatch = useDispatch();
   const member = useSelector((state) => state.memberReducer); // API 요청하여 가져온 loginMember 정보
   const register = useSelector((state) => state.memberReducer.regist);
+  console.log(member);
 
   const [form, setForm] = useState({
     loginId: "",
@@ -26,20 +27,38 @@ function Register() {
 
   const { empReg } = form;
 
+  // 아이디 중복체크 여부
   const [checkId, setCheckId] = useState(false);
-  // const [originReg, setOriginReg] = useState();
-  const [maskingReg, setMaskingReg] = useState();
+  // 비밀번호 일치 여부
+  const [checkPwd, setCheckPwd] = useState(false);
+  // DB에 사원 존재 여부
+  const [checkReg, setCheckReg] = useState(false);
 
-  // console.log(originReg);
-  // console.log(maskingReg);
+  const [password, setPassword] = useState("");
+  const [confirmPwd, setConfirmPwd] = useState("");
 
-  // console.log(
-  //   form.empReg
-  //     .replace(/[^0-9]/g, "")
-  //     .replace(/^(\d{0,6})(\d{0,7})$/g, "$1-$2")
-  //     .replace(/-{1,2}$/g, "")
-  // );
-  // console.log(maskingReg);
+  // 주민번호 검증으로 받아온 empNo을 설정
+  const [empNo, setEmpNo] = useState("");
+
+  // 아이디 입력 및 아이디 체크
+
+  // 비밀번호 입력 및 비밀번호 확인
+  const onChangePwdHandler = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const onChangeConfirmPwdHandler = (e) => {
+    setConfirmPwd(e.target.value);
+  };
+
+  // const checkPwd = password === confirmPwd;
+
+  // 최종적으로 회원가입에 필요한 값들을 form 으로 묶어서 보냄
+  // const [form, setForm] = useState({
+  //   loginId: "",
+  //   loginPwd: password,
+  //   empNo: empNo
+  // });
 
   useEffect(
     () => {
@@ -63,60 +82,6 @@ function Register() {
     }
   };
 
-  // const onChangeEmpRegHandler = (e) => {
-
-  //   // setMaskingReg()
-  // };
-
-  // 주민등록번호 마스킹하는 코드 => 마스킹하려면 우선 하이픈이 있는 상태여야함
-  // var rrnMatchValue = MaskingData.match(
-  //   /(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))-[1-4]{1}[0-9]{6}\b/gi
-  // );
-  // if (checkValueNull(rrnMatchValue) == true) {
-  //   MaskingData = MaskingData;
-  // } else {
-  //   len = rrnMatchValue.toString().split("-").length;
-  //   MaskingData = MaskingData.toString().replace(
-  //     rrnMatchValue,
-  //     rrnMatchValue
-  //       .toString()
-  //       .replace(/(-?)([1-4]{1})([0-9]{6})\b/gi, "$1$2******")
-  //   );
-  // }
-  // useEffect(() => {
-  //   if (empReg.length > 0 && empReg.length < 7) {
-  //     setForm({
-  //       empReg: empReg,
-  //     });
-  //   } else if (empReg.length > 6 && empReg.length < 14) {
-  //     setForm({
-  //       empReg: empReg
-  //         .replace(/[^0-9]/g, "")
-  //         .replace(/^(\d{0,6})(\d{0,7})$/g, "$1-$2")
-  //         .replace(/-{1,2}$/g, ""),
-  //     });
-  //   }
-  // }, [empReg]);
-
-  // useEffect(() => {
-  //   setForm({
-  //     empReg: empReg
-  //       .replace(/[^0-9]/g, "")
-  //       .replace(/^(\d{0,6})(\d{0,7})$/g, "$1-$2")
-  //       .replace(/-{1,2}$/g, ""),
-  //   });
-  // }, [empReg]);
-
-  // useEffect(() => {
-  //   if (empReg.length > 6) {
-  //     setMaskingReg(
-  //       empReg.replace(/-/g, "").replace(/(\d{6})(\d{1})(\d{6})/, "$1-$2******")
-  //     );
-  //   }
-  // }, [empReg]);
-
-  // console.log(empReg);
-
   // 돌아가기 클릭시 로그인 페이지로 이동
   const onClickBackHandler = () => {
     navigate("/", { replace: true });
@@ -130,15 +95,42 @@ function Register() {
           form: form,
         })
       );
-    } else {
-      alert("비밀번호가 다릅니다.");
     }
+    // else {
+    //   Swal.fire({
+    //       title: "입력하신 비밀번호가 다릅니다.",
+    //       showConfirmButton: false,
+    //       timer: 1000,
+    //     });
+    // }
   };
 
   // 주민번호를 보내서 DB에 존재하는 사원인지 확인
-  const onClickCheckRegHandler = () => {
-    dispatch(callCheckRegAPI(form.empReg));
+  const onClickCheckRegHandler = (e) => {
+    console.log("주민번호 확인 : ", e.target.value);
+    if (e.target.value !== "") {
+      dispatch(callCheckRegAPI(form.empReg));
+      setCheckReg(true);
+    }
   };
+
+  // 존재여부가 확인되면 반환받은 값을 empNo로 설정해줌
+  useEffect(
+    () => {
+      const checkEmpNo = member?.checkReg.data;
+      // console.log(checkempNo);
+      // console.log(checkempNo === "일치하는 사원이 없습니다.");
+      if (checkEmpNo === "일치하는 사원이 없습니다.") {
+        setCheckReg(false);
+        setEmpNo("");
+      } else {
+        setEmpNo(checkEmpNo);
+      }
+    }, // eslint-disable-next-line
+    [checkReg]
+  );
+
+  console.log("empNo 확인 : ", empNo);
 
   // 입력한 ID를 보내서 사용 가능한 아이디인지 확인
   const onClickCheckIdHandler = () => {
@@ -179,16 +171,25 @@ function Register() {
           placeholder="패스워드"
           autoComplete="off"
           required
-          onChange={onChangeHandler}
+          // onChange={onChangeHandler}
+          onChange={onChangePwdHandler}
         />
         <input
           type="password"
-          name="checkPwd"
+          name="confirmPwd"
           placeholder="비밀번호 확인"
           autoComplete="off"
           required
-          onChange={onChangeHandler}
+          // onChange={onChangeHandler}
+          onChange={onChangeConfirmPwdHandler}
         />
+        <div>
+          {password?.length === 0 && confirmPwd?.length === 0
+            ? "비밀번호를 입력해주세요"
+            : checkPwd
+            ? "비밀번호가 일치합니다."
+            : "비밀번호가 일치하지 않습니다."}
+        </div>
         <div className={RegisterCSS.inputRegWrapper}>
           <input
             type="text"
@@ -199,9 +200,14 @@ function Register() {
             required
             onChange={onChangeHandler}
             // onChange={onChangeEmpRegHandler}
-            value={maskingReg?.length === 0 ? empReg : maskingReg}
+            // value={maskingReg?.length === 0 ? empReg : maskingReg}
           />
           <button onClick={onClickCheckRegHandler}>주민번호 확인</button>
+        </div>
+        <div>
+          {empNo === "" || empNo === undefined
+            ? "주민번호를 확인해주세요"
+            : "주민번호가 확인되었습니다."}
         </div>
 
         <button onClick={onClickRegisterHandler}>회원가입</button>
