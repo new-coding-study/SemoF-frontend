@@ -11,6 +11,7 @@ const initialState = {
   empBirthday: [],
   empChart: {},
   mainEmpBirth: {},
+  pageInfo: {},
 };
 
 /* 액션 */

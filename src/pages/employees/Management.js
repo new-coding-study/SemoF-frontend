@@ -142,7 +142,9 @@ function Management() {
 
   const onModifyClickHandler = () => {
     // console.log("[Management] form : " + JSON.stringify(form));
-    navigate("/semof/employees/modify", { state: { empNo: form.empNo } });
+    navigate("/semof/employees/modify", {
+      state: { empNo: form.empNo, pageInfo: pageInfo },
+    });
     setShowModal(false);
   };
 

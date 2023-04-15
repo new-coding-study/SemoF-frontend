@@ -45,7 +45,7 @@ function Employees() {
 
       <div className={EmployeeCSS.noticeContent}>
         <div className={EmployeeCSS.reportCard}>
-          <h2>직원 현황</h2>
+          <h2>사원 현황</h2>
           <div className={EmployeeCSS.status}>
             <div className={EmployeeCSS.vacation}>
               <div className={EmployeeCSS.box}>
