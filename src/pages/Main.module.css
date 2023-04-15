@@ -27,25 +27,25 @@
 .calendarWrapper {
   display: flex;
   width: 900px;
-  border: 1px solid pink;
+  border: 1px solid #e0e0e0;
   margin-right: 100px;
   margin-left: 80px;
 }
 
 .calendar {
   width: 600px;
-  border: 1px solid red;
+  border: 1px solid #e0e0e0;
   /* margin-right: 100px; */
 }
 
 .schedule {
   width: 400px;
-  border: 1px solid red;
+  border: 1px solid #e0e0e0;
 }
 
 .info {
   width: 300px;
-  border: 1px solid pink;
+  border: 1px solid #e0e0e0;
 }
 
 .secondGroup {
@@ -60,7 +60,6 @@
   width: 900px;
   margin-right: 100px;
   margin-left: 80px;
-  /* border: 1px solid green; */
 }
 
 .banner img {
@@ -72,7 +71,7 @@
 
 .workingHour {
   width: 300px;
-  border: 1px solid green;
+  border: 1px solid #e0e0e0;
 }
 
 .thirdGroup {
@@ -86,25 +85,26 @@
   margin-right: 100px;
 } */
 
-.weather {
+/* 인라인으로 옮김 */
+/* .weather {
   width: 265px;
   margin-left: 80px;
-  border: 1px solid blue;
-}
+  border: 1px solid #e0e0e0;
+} */
 
 .birth {
-  width: 200px;
-  margin: 0 80px;
-  border: 1px solid blue;
+  width: 240px;
+  margin: 0 60px;
+  border: 1px solid #e0e0e0;
 }
 
 .todo {
   width: 265px;
   margin-right: 104px;
-  border: 1px solid#e0e0e0;
+  border: 1px solid #e0e0e0;
 }
 
 .notice {
   width: 300px;
-  border: 1px solid blue;
+  border: 1px solid #e0e0e0;
 }

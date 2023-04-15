@@ -1,6 +1,8 @@
 import MainCSS from "./Main.module.css";
 import BoardNoticeTop3 from "../components/main/BoardNoticeTop3";
 import MainTodo from "../components/main/MainTodo";
+import MainBrith from "../components/main/MainBrith";
+import MainSchedule from "../components/main/MainSchedule";
 import Weather from "../components/main/Weather";
 // import { useEffect, useState } from "react";
 // import { useSelector, useDispatch } from "react-redux";
@@ -25,7 +27,10 @@ function Main() {
         <div className={MainCSS.firstGroup}>
           <div className={MainCSS.calendarWrapper}>
             <div className={MainCSS.calendar}> 달력 </div>
-            <div className={MainCSS.schedule}> 일정 </div>
+            <div className={MainCSS.schedule}>
+              <MainSchedule decodedUser={decodedUser} />
+              안녕
+            </div>
           </div>
           <div className={MainCSS.info}> 사원 정보 </div>
         </div>
@@ -36,10 +41,10 @@ function Main() {
           <div className={MainCSS.workingHour}> 근무시간 </div>
         </div>
         <div className={MainCSS.thirdGroup}>
-          <div className={MainCSS.weather}>
-            <Weather city="Seoul" />
+          <Weather city="Seoul" />
+          <div className={MainCSS.birth}>
+            <MainBrith />
           </div>
-          <div className={MainCSS.birth}> 생일자 </div>
           <div className={MainCSS.todo}>
             <MainTodo decodedUser={decodedUser} />
           </div>
