@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import EmailCSS from "./Email.module.css";
 import SearchBox from "../../components/email/SearchBox";
-// import MailList from "../../components/email/MailList";
 import SideNavbar from "../../components/email/SideNavbar";
 import ReceiveMail from "./ReceiveMail";
 

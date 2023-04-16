@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   callGetEmployeesAPI,
   callSearchEmployeesAPI,
-  callUpdateEmpAPI,
   callRetireEmpAPI,
 } from "../../apis/EmployeeAPICalls";
 

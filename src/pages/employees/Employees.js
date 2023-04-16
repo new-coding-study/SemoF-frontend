@@ -53,11 +53,6 @@ function Employees() {
                 <span>사원평가</span>
               </Link>
             </li>
-            <li>
-              {/* <a href="#">
-                <span>조직도</span>
-              </a> */}
-            </li>
           </ul>
         </div>
       </div>
@@ -113,16 +108,6 @@ function Employees() {
 
         <div className={EmployeeCSS.atdCard}>
           <Clock />
-          {/* <div className={EmployeeCSS.atdHeader}>
-            <h2>근로 관리</h2>
-            <p>{today}</p>
-          </div>
-          <div className={EmployeeCSS.workload}>
-            <div className={EmployeeCSS.overtime}>
-              <p>연장 근무</p>
-              <span>10건</span>
-            </div>
-          </div> */}
         </div>
       </div>
 

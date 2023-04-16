@@ -29,7 +29,6 @@ function Header(props) {
       <div className={HeaderCSS.buttons}>
         <span className={HeaderCSS.info}>
           {totalItems} 개 중 {itemsPerPage} - {totalPages}
-          {/* {itemsPerPage}개 {currentPage} of {totalPages} */}
         </span>
         <button onClick={handlePrevPage} disabled={currentPage === 1}>
           <svg

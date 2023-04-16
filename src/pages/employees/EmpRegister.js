@@ -81,14 +81,6 @@ function Register() {
   const dispatch = useDispatch(); // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
 
   // form 데이터 세팅
-  // const onChangeHandler = (e) => {
-  //   setForm({
-  //     ...form,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
-  // form 데이터 세팅
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
 
@@ -140,10 +132,6 @@ function Register() {
 
   // 입력값이 변경될 때 처리 함수 수정
   const handleRegNumberChange = (e) => {
-    // const value = e.target.value;
-    // const maskedValue = maskAndFormatRegNumber(value);
-    // setRegNumber(maskedValue);
-    // onChangeHandler(e); // onChangeHandler 함수 호출
     const value = e.target.value;
     const maskedValue = maskAndFormatRegNumber(value);
     setRegNumber(maskedValue);
@@ -202,11 +190,6 @@ function Register() {
     //   formData.get("employeePhoto")
     // );
 
-    // dispatch(
-    //   callRegisterAPI({
-    //     form: formData,
-    //   })
-    // );
     dispatch(callRegisterAPI({ form: formData })).then(() => {
       dispatch(callGetEmployeesAPI({}));
       navigate("/semof/employees/management", {
@@ -260,13 +243,6 @@ function Register() {
                   src={imageUrl}
                   alt="preview"
                 />
-
-                {/* <button
-                  className={RegisterCSS.fileButton}
-                  onClick={onClickImageUpload}
-                >
-                  사진등록
-                </button> */}
               </>
             )}
           </div>

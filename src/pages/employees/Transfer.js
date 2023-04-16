@@ -280,7 +280,6 @@ function Transfer() {
         />
         <button
           className={TransferCSS.searchButton}
-          // onClick={() => setCurrentPage(1)}
           onClick={onSearchButtonClick}
         >
           검색하기
