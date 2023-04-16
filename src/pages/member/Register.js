@@ -8,6 +8,7 @@ import {
   callCheckRegAPI,
   callcheckIdAPI,
 } from "../../apis/MemberAPICalls";
+import { width } from "@mui/system";
 
 function Register() {
   const navigate = useNavigate();
@@ -155,7 +156,14 @@ function Register() {
   return (
     <div className={RegisterCSS.backgroundDiv}>
       <div className={RegisterCSS.registerDiv}>
-        <h1>회원가입</h1>
+        <div style={{marginBottom:"-12px"}} className={RegisterCSS.logoBox}>
+          <img
+            src={"/images/logo.png"}
+            alt="이미지확인!"
+            className={RegisterCSS.logo}
+          ></img>
+          <h1 className={RegisterCSS.title}>회원가입</h1>
+        </div>
         <div className={RegisterCSS.inputIdWrapper}>
           <input
             type="text"
@@ -165,9 +173,9 @@ function Register() {
             required
             onChange={onChangeHandler}
           />
-          <button onClick={onClickCheckIdHandler}>아이디 확인</button>
+          <button style={{marginLeft: "18px"}} onClick={onClickCheckIdHandler}>아이디 확인</button>
         </div>
-        <div>
+        <div style={{marginTop:'-10px', fontSize:'13px'}}>
           {checkId
             ? "가입 가능한 아이디 입니다."
             : checkClickBtn
@@ -177,10 +185,11 @@ function Register() {
         <input
           type="password"
           name="loginPwd"
-          placeholder="패스워드"
+          placeholder="비밀번호"
           autoComplete="off"
           required
           onChange={onChangeHandler}
+          style={{width:'24em'}}
         />
         <input
           type="password"
@@ -189,17 +198,18 @@ function Register() {
           autoComplete="off"
           required
           onChange={onChangeHandler}
+          style={{width:'24em'}}
         />
-        <div>
+        <div style={{marginTop:'5px', fontSize:'13px'}}>
           {form.loginPwd?.length === 0 && form.confirmPwd?.length === 0
             ? "비밀번호를 입력해주세요"
             : checkPwd
             ? "비밀번호가 일치합니다."
             : "비밀번호가 일치하지 않습니다."}
         </div>
-        <div className={RegisterCSS.inputRegWrapper}>
+        <div style={{marginTop:'0px', marginBottom:'-25px'}}>
           <input
-            type="text"
+            type="password"
             name="empReg"
             maxLength="14"
             placeholder="주민번호"
@@ -207,22 +217,28 @@ function Register() {
             required
             onChange={onChangeHandler}
           />
-          <button onClick={onClickCheckRegHandler}>주민번호 확인</button>
+          <button style={{marginLeft: "18px"}} onClick={onClickCheckRegHandler}>주민번호 확인</button>
         </div>
-        <div>
+        <div style={{marginTop: "30px", fontSize:'13px', marginBottom:'-10px'}}>
           {empNo === "" || empNo === undefined
             ? member?.checkReg.data
             : "주민번호가 확인되었습니다."}
         </div>
 
-        <button onClick={onClickRegisterHandler}>회원가입</button>
+        <div className={RegisterCSS.registBox}>
+          <button className={RegisterCSS.registBtn} onClick={onClickRegisterHandler}>회원가입</button>
+        </div>
         <button
           style={{
             border: "none",
             margin: 0,
-            fontSize: "10px",
+            marginTop: "-10px",
+            fontSize: "11px",
             height: "10px",
+            color: "#e52e2e",
+            textDecorationLine: "none"
           }}
+          className={RegisterCSS.login}
           onClick={onClickBackHandler}
         >
           돌아가기

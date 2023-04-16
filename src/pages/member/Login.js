@@ -90,7 +90,7 @@ function Login() {
             alt="이미지확인!"
             className={LoginCSS.logo}
           ></img>
-          <h1 className={LoginCSS.title}>Login</h1>
+          <h1 className={LoginCSS.title}>로그인</h1>
         </div>
 
         <div className={LoginCSS.registBox}>
@@ -149,13 +149,22 @@ function Login() {
 
         <div className={LoginCSS.registBox}>
           <button className={LoginCSS.registBtn} onClick={onClickLoginHandler}>
-            Login
+            로그인
           </button>
         </div>
         <div>
-          <span>Don't have an account? </span>
-          <span className={LoginCSS.login} onClick={onClickRegisterHandler}>
-            Register
+          {/* <span>Don't have an account? </span> */}
+          <span style={{
+            border: "none",
+            margin: 0,
+            marginTop: "-10px",
+            fontSize: "11px",
+            height: "10px",
+            color: "#e52e2e",
+            fontWeight: "bold",
+            textDecorationLine: "none"
+          }} className={LoginCSS.login} onClick={onClickRegisterHandler}>
+            회원가입
           </span>
         </div>
       </div>

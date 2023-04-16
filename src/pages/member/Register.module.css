@@ -12,22 +12,20 @@
 
 /* 회원가입 모달창 느낌나는 영역 */
 .registerDiv {
-  height: 600px;
-  width: 500px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column; /*수평 정렬*/
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-  background-color: white;
-  border: solid 1px black;
-  border-radius: 25px;
-}
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    /*수평 정렬*/
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
 
 .registerDiv div {
-  border: 1px solid red;
   display: flex;
   margin: 16px;
 }
@@ -36,7 +34,8 @@
   margin-top: 5px;
   margin-bottom: 5px;
   height: 30px;
-  width: 250px;
+  width: 200px;
+  border-color: #e52e2e;
   border-radius: 4px;
   text-indent: 10px;
 }
@@ -51,107 +50,53 @@
   font-weight: bold;
 }
 
-/* 성식 회원가입 */
-/* .backgroundDiv{
-    height: 100vh;
+.logoBox {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: start;
+    width: 20em;
     align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    background-color: #f7f7f7;
-}
-
-@font-face{
-    font-family: "Press Start 2P";
-    src: url("/src/fonts/PressStart2P-Regular.ttf");
-}
-
-.LogoBtn {
-    font-family: 'Press Start 2P';
-    padding: 0;
-    border: none;
-    background: none;
-    font-size: 1.3em;
-    font-family: 'Press Start 2P';
+    margin-right: 0.5em;
+  }
+  
+  .logo {
+    width: 3.5em;
+    margin-right: 1em;
+  }
+  
+  .inputBox {
+    margin: 1% 0 1% 0 ;
+    border-color: #e52e2e;
+    height: 3em;
+    width: 24em;
+    border-radius: 0.8em;
+    text-indent: 10%;
+  }
+  
+  .inputBox::placeholder {
+    font-style: italic;
+  }
+  
+  .registBtn {
+    background-color: #e52e2e !important;
+    margin: 1% 0 3% 0 !important;
+    color: white !important;
+    border: none !important;
+    height: 3.5em !important;
+    width: 24.2em !important;
+    border-radius: 0.5em !important;
+    font-weight: bold !important;
+    margin-top: 1em !important;
+  }
+  
+  .registBtn:hover {
+    background-color: white !important;
+    border: 1px solid #e52e2e !important;
+    color: #e52e2e !important;
+    text-shadow: 0px 2px 3px #bfc3c6 !important;
+    cursor: pointer !important;
+  }
+  
+  .back:hover {
     cursor: pointer;
-}
-
-.registerDiv{    
-    height: 550px;
-    width: 500px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    background-color: #F7F8FD;
-    border: 2px solid #4916B4;
-    border-radius: 25px;    
-}
-
-.registerDiv>div {
-    width: 300px;
-    border-bottom: 1px solid #4916B4;
-    margin-bottom: 40px;
-}
-
-.registerDiv>h1 {
-    margin-top: -70px;
-}
-
-.registerDiv input {
-    background: #FDFDFD;
-    border: 1px solid #8E8F93;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    height: 40px;
-    width: 300px;
-    border-radius: 5px;
-    text-indent: 10px;
-    font-size: 15px;
-    outline: none;
-}
-
-.registerDiv input:focus {
-    border: 1px solid #4916B4;
-    box-shadow: 0 0 10px #4916B4;
-}
-
-.registerDiv button {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    height: 50px;
-    width: 300px;
-    border: 1px solid #8E8F93;
-    border-radius: 5px;
-    background-color: #4916B4;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 17px;
-    color: white;
-    margin-bottom: 10px;
-}
-
-.checkId {
-    display: flex;
-    border-bottom: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-.checkId input {
-    width: 200px;
-    margin-left: -3px;
-}
-
-.checkId button {
-    background-color: rgb(214, 214, 214);
-    font-size: 10px;
-    color: black;
-    height: 40px;
-    width: 90px;
-    margin: 6px -2px 0 10px;
-} */
+  }
