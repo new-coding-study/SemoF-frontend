@@ -1,42 +1,76 @@
 import RegistCSS from './RegistApproval.module.css';
 import {useSelector, useDispatch} from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
-import { callGetFormTitleAPI, callApprovRegistAPI } from "../../apis/ApprovalAPICalls"
+import { callGetFormTitleAPI, callApprovalDetailAPI, callLinesAPI, callApprovModifyAPI } from "../../apis/ApprovalAPICalls"
 import { useNavigate, useParams } from 'react-router-dom';
+import ApprovFile from '../../components/approvals/ApprovFile';
 
 function ModifyApproval() {
+
+    // 수정하고 이동은 해야지
     const nav = useNavigate();
     const dispatch = useDispatch();
+    
     const formInfo = useSelector(state => state.approvalReducer.form);
-    // const form = formInfo.data;
+    
+    const params = useParams();
+    // 파일은 상세조회처럼 component로 불러오자
+    // const fileList = useSelector(state=> state.approvalReducer.files);
+    // 결재 상세조회
+    const approvInfo = useSelector(state => state.approvalReducer.approval);
+    
+    const [modifyMode, setModifyMode] = useState(false);
+    const formData = new FormData();
+
     const [files, setFiles] = useState([]);
+
+    // 결재 제목
     const [title, setTitle] = useState('');
+
+    // 서류 항목별 내용 : 동적으로 
     const [contents, setContents] = useState([]);
-    const [isSelect, setIsSelect] = useState(false);
-    const [isCategorySelect, setIsCategorySelect] = useState(false);
+    const [line, setLine] = useState(0);
+    const [form, setForm] = useState({});
+    // const [isSelect, setIsSelect] = useState(false);
+    // 이건 안쓰는 듯
+    // const [isCategorySelect, setIsCategorySelect] = useState(false);
     const [selectForm, setSelectForm] = useState('');
     const [filePath, setFilePath] = useState();
     const fileInput = useRef();
+
+//  결재 라인 리스트 불러옴  
+    const lineInfo = useSelector(state => state.approvalReducer.lines);
+// approval 전체 관리 : 위에 title content 가 있는데 이거 각각을 따로 둔 이유가 있을 까?
     const [approval, setApproval] = useState({
-        // 문제는 이게 하나하나의 필드가 아닌,,, 테이블이라는 점?////
+        
         approvTitle:''
-        // ,이게 리스트로 들어가려면??
-        , approvContentDTOList : [
-            
-        ], approvFileDTOList : []
-        // 이게 content값들로 인식이 될까?
+        , lineNo : 0
+        , approvContentDTOList : []
     })
     console.log(formInfo);
-    // console.log(form.formTitle);
+    console.log('이걸 받아오는지 확인', lineInfo);
+    console.log('approval: ' + approvInfo);
     useEffect(
         () => {
+            dispatch(callApprovalDetailAPI(parseInt(params.approvNo)))
             dispatch(callGetFormTitleAPI());  
-            
-
+            dispatch(callLinesAPI());
 
         } // eslint-disable-next-line
         ,[]
     );
+
+    const onClickModifyModeHandler = () => {    // 수정모드 : 수정하기 버튼에 연결할 것 
+        setModifyMode(true);
+        // 기존값으로 세팅 (아마 초기값)
+        setForm({
+            approvTitle: approvInfo.approvTitle,
+            lineNo: approvInfo.lineNo,
+
+            approvContentDTOList: approvInfo.approvContentDTOList,
+        //   리스트를 바로 가져올 수 있는지 확인
+        });
+    }
     // useEffect(() => {
     //     // 이미지 업로드시 미리보기 세팅
     //     if(files){
@@ -54,72 +88,80 @@ function ModifyApproval() {
 
 // selectbox에서 onchange들어오면 폼 뜨게 이거를 잘 저장
 
-    const selectHandler = (e)=>{
-// select에서 받은 값을 저장해서 일치여부를 확인하고 form을 띄워야하나?
-        setIsSelect(true);
-        setSelectForm(e.target.value);
-        console.log(isSelect);
-        console.log(e.target.value);
-        setIsCategorySelect(true);
-        
-    }
+    // 이게 업로드 시에 뜨는거 바로 form에 저장
     const onChangeFileUpload= (e) =>{
-        const files = e.target.files; // 선택한 파일 리스트
-        console.log('여기',files);
-        console.log('여기도',files[0]);
-        // const fileList = []; // 파일 정보 리스트
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i];
-          const fileDTO = {
-            originName: file.name
-          };
-          setFiles.push(fileDTO);
-        }
-      
+        alert('파일 작동');
+        const fileList = e.target.files; // 선택한 파일 리스트
 
-        // setFiles(e.target.files);
+        // 파일 정보 추가
+        for (let i = 0; i < fileList.length; i++) {
+        const file = fileList[i];
+        formData.append('fileList', file, file.name); // 파일 이름 추가
+        console.log(formData.get('fileList'));
+        }
+
     }
-    const onClickfilesUpload = () => {
-        fileInput.current.click();
-    }
+    const selectHandler = (e)=>{
+        // select에서 받은 값을 저장해서 일치여부를 확인하고 form을 띄워야하나?
+                // setIsSelect(true);
+                setSelectForm(e.target.value);
+                // console.log(isSelect);
+                console.log(e.target.value);
+                // setIsCategorySelect(true);
+        
+                
+            }
+    const selectLine = (e) =>{
+        console.log('lineNo event', e.target.value)
+        setLine(e.target.value);
+        console.log('lineNo', line);
+      };
+
     const onChangeHandler = (e) => {
         setTitle(e.target.value);
+        console.log('새 제목',title);
     };
-    const contentChange = (e) => {
+    // const contentChange = (e) => {
+        // const { value } = e.target;
+        // setContents((prevContents) => [...prevContents, value]);
+
+    // }
+    const contentChange = (e, index) => {
+        console.log('여기까지 왔는지',selectForm)
         const { value } = e.target;
-        setContents((prevContents) => [...prevContents, value]);
-
-    }
-
+        setContents(prevContents => {
+          const updatedContents = [...prevContents];
+          updatedContents[index] = { content: value, formCode: selectForm };
+          console.log('이거 뭘로 나와', updatedContents);
+          return updatedContents;
+        });
+      }
+    // 파일과 별도로 approvalDTO의 값을 매긴다.
     useEffect(() => {
         setApproval(prevState => ({
           ...prevState,
           approvTitle: title,
-          approvContentDTOList: contents,
-          approvFileDTOList: files
+          lineNo : line,
+          approvContentDTOList: contents.map(({ content, formCode }) => ({ content, formCode })),
         }));
-      }, [title, contents, files]);
+      }, [title, line, contents]);
     console.log(approval);
-    const onClickApprovRegistrationHandler = () => {
+    const onClickEditHandler = () => {
 
-        console.log('[RegistApproval] onClickApprovRegistrationHandler');
+        console.log('[ModifyApproval] onClickEditHandler');
 
-        const formData = new FormData();
+        
         // const formData = new FormData();
         // formData.append('file', form.file);
         // formData.append('data', JSON.stringify(form.data));
 
-        formData.append("approvTitle", JSON.stringify(approval.approvTitle));
-        formData.append("approvContentDTOList", JSON.stringify(approval.approvContentDTOList));
-        // formData.append("productOrderable", approval.productOrderable);
-        // formData.append("categoryCode", approval.categoryCode);
-        // formData.append("productStock", approval.productStock);
-        // formData.append("productDescription", approval.productDescription);
+        formData.append("approval",JSON.stringify(approval));
 
         if(files){
             console.log('파일비어있니?')
-            formData.append("approvFileDTOList", approval.approvFileDTOList);
+            // formData.append("approvFileDTOList", approval.approvFileDTOList);
         }
+        console.log("fileList", formData.get("fileList"))
         // console.log('[ProductRegistration] formData : ', formData.get("productName"));
         // console.log('[ProductRegistration] formData : ', formData.get("productPrice"));
         // console.log('[ProductRegistration] formData : ', formData.get("productOrderable"));
@@ -132,7 +174,7 @@ function ModifyApproval() {
         // for(let i=0; i<files.length; i++) {
         //     formData.append('files[]', files[i]);
         // }
-        dispatch(callApprovRegistAPI({	// 상품 상세 정보 조회
+        dispatch(callApprovModifyAPI({	// 상품 상세 정보 조회
             form: formData
         }));        
     }
@@ -140,9 +182,6 @@ function ModifyApproval() {
         // alert('상품 리스트로 이동합니다.');
         // navigate('/product-management', { replace: true });
         // window.location.reload();
-// 현재 상황 : 셀렉트 박스에서 선택을 하면 그에 맞는 양식을 불러와야하는데
-// 지금은 formCode를 option에도 설정하고 api로도 call했다... 그말은 즉,,,,, 시점을 언제로 인식할 건지를 모르겠음... 안될 것 같은데
-// 어떻게 해야할까 이게 아예 안될 문제는 아닐텐데
     return(
         <>
         <div className={RegistCSS.writeArea}>
@@ -153,21 +192,16 @@ function ModifyApproval() {
             </div>
             <div className={RegistCSS.categorytitle}>
                 <label style={{marginRight:'17%'}}>카테고리 : </label>
-                {/* <select name="formType" onChange={selectHandler}>
-                <option value="none" disabled>작성유형선택</option>
-                {formInfo.map(form => (
-                <option key={form.formCode} value={form.formCode} name="formCode">{form.formTitle}</option>
-                ))}
-                </select> */}
-                <select onChange={selectHandler}>
-                    {/* 여기서 선택한 옵션 값이 map에서 적용되야하는데 어떻게? */}
-                    <option value="none" disabled>작성유형선택</option>
-                    {/* {
-                        지히는 이거 반복을 돌리라 했다. 그러면 api또 만들어야함
-                         {branch.map(b => (
-                <option key={b.branchCode} value={b.branchCode} name="branchCode">{b.branchName}</option>
-              ))}
-                    } */}
+                <select onChange={selectHandler} defaultValue="default">
+                    {
+                    // {approvInfo?.approvContentDTOList.length > 0 && 
+                    (
+   <option value="default" >{approvInfo?.approvContentDTOList[1]?.formCode}</option>
+)
+}
+
+                   
+                
                     <option value="A" name="formCode">지출결의서</option>
                     <option value="B" name="formCode">지출계획서</option>
                     <option value="C" name="formCode">경조금지급신청서</option>
@@ -184,14 +218,20 @@ function ModifyApproval() {
                 <label style={{marginRight:'12%'}}>제목 : </label>
                 <input 
                 // className={nameInput} 
-                onChange={onChangeHandler} placeholder="제목 입력" name='approvTitle'></input>
+                onChange={onChangeHandler} placeholder="제목 입력" value={ (!modifyMode ? approvInfo.approvTitle : form.approvTitle) || ''} name='approvTitle'></input>
                 
             </div>
             <br/>
             <div>
                 <label style={{marginRight:'45%'}}>신청서 작성 : </label>
                 <div>
-            {isSelect &&  (
+
+                {/* <select name="branch" onChange={selectBranchHandler} defaultValue="default" */}
+            
+  {/* <option value="default" >{lineInfo?.branchName}</option> */}
+            {
+            // isSelect &&  
+            (
                     <div className={RegistCSS.formContent}>
                         { 
                         // 눌리면 다시는 안뜨게? useState에서 boolean을 
@@ -202,8 +242,12 @@ function ModifyApproval() {
                             <span style={{fontSize:'20px', float:'left', marginLeft:'10%'}}>{t.formTitle} : </span>
                             <div style={{width:'70%', float:'right', padding:'5px'}}>
                             <input
+                                readOnly={ modifyMode ? false : true }
+                                style={ !modifyMode ? { backgroundColor: 'gray'} : null}
+                                value={ (!modifyMode ? approvInfo.approvContentDTOList : form.approvContentDTOList) || ''}
                                 name="content"
                                 onChange={contentChange}
+                                // 리스트 순서대로 돌려야함...
                                 
                             />
                             </div>
@@ -214,25 +258,50 @@ function ModifyApproval() {
                 </div>
                         {/* 중복문제.... 파일처리 문제 fetch로 했더니 boundary 뭐가 안되있고 axios로는 또 에러 */}
                   <br/>
+                {!modifyMode &&
+                 <ApprovFile approvInfo={approvInfo}/>
+                }
+                {modifyMode &&
                 <input                
-                            type="file"
-                            name='file' 
-                            accept=""
-                            multiple onChange={ onChangeFileUpload }
-                            ref={ fileInput }
-                            className={RegistCSS.fileUpload}
-                        />
+                type="file"
+                name='file' 
+                accept=""
+                multiple onChange={ onChangeFileUpload }
+                ref={ fileInput }
+                className={RegistCSS.fileUpload}
+            />
+                }
+                
                         {/* <button 
                             // className={ ProductRegistrationCSS.productImageButton }
                             onClick={ onClickfilesUpload } 
                         >
                             파일 업로드
                             </button> */}
+                             {/* <select name="branch" onChange={selectBranchHandler} defaultValue="default"
+            >
+  <option value="default" >{lineInfo?.branchName}</option> */}
+                             <select 
+                   name="line" 
+                   onChange={ selectLine }
+                   defaultValue="default"
+                   >
+                <option value="default">{approvInfo?.lineName}</option>
+                {Array.isArray(lineInfo) &&
+                lineInfo?.map(l => (
+                <option key={l.lineNo} value={l.lineNo} name="line">{l.lineName}</option>
+                ))}
+                </select>   
             </div>
             <br/>
             <br/>
             <div>
-            <button type="submit" className={RegistCSS.submitButton1} onClick={onClickApprovRegistrationHandler}>결재상신</button>&nbsp;&nbsp;&nbsp;
+            {!modifyMode &&  <button type="submit" className={RegistCSS.submitButton1} onClick={onClickModifyModeHandler}>수정하기</button>
+}
+{modifyMode &&
+<button type="submit" className={RegistCSS.submitButton1} onClick={onClickEditHandler}>저장</button>}
+
+            
             <button className={RegistCSS.cancel} onClick={()=> nav(-1)}>취소</button> 
             </div>
             </div>

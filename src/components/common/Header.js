@@ -1,5 +1,6 @@
 import HeaderCSS from "./Header.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 function Header() {
   const navigate = useNavigate();
@@ -10,6 +11,16 @@ function Header() {
     // 로고 클릭시 메인 페이지로 이동
     navigate("/semof", { replace: true });
   };
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decoded = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+  }
+
+  console.log(decoded);
 
   function SearchEmp() {
     return (

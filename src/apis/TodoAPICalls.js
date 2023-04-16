@@ -120,6 +120,70 @@ export const callCategoryListAPI = (empNo) => {
   };
 };
 
+export const callCategoryRegistAPI = ({ form }) => {
+  // console.log("POST_CATEGORY call");
+  console.log("form", form);
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/todos/category`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "POST",
+      headers: {
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: form,
+    }).then((response) => response.json());
+
+    console.log("POST_CATEGORY result : ", result);
+
+    dispatch({ type: POST_CATEGORY, payload: result });
+  };
+};
+
+export const callCategoryUpdateAPI = ({ form }) => {
+  console.log("PUT_CATEGORY call");
+
+  const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8090/todos/category`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "PUT",
+      headers: {
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+      body: form,
+    }).then((response) => response.json());
+
+    console.log("PUT_CATEGORY result : ", result);
+
+    dispatch({ type: PUT_CATEGORY, payload: result });
+  };
+};
+
+export const callDeleteCategoryAPI = (cateNo) => {
+  // console.log("DELETE_CATEGORY call");
+
+  const requestURL = `http://localhost:8090/todos/category/${cateNo}`;
+
+  return async (dispatch, getState) => {
+    const result = await fetch(requestURL, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "*/*",
+        // Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+      },
+    }).then((response) => response.json());
+    if (result.status === 200) {
+      console.log("DELETE_CATEGORY result : ", result);
+      dispatch({ type: DELETE_CATEGORY, payload: result.data });
+    }
+  };
+};
+
 export const callTodoRegistAPI = ({ form }) => {
   // console.log("POST_TODO call");
   // console.log("form", form);

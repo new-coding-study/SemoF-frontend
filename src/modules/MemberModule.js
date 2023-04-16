@@ -2,12 +2,11 @@ import { createActions, handleActions } from "redux-actions";
 
 /* 초기값 */
 const initialState = {
-  regist:[],
-  login:[],
-  checkReg:[],
-  checkId:[]
-}
-
+  regist: [],
+  login: [],
+  checkReg: [],
+  checkId: [],
+};
 
 /* 액션 */
 export const GET_MEMBER = "member/GET_MEMBER";
@@ -32,25 +31,24 @@ const memberReducer = handleActions(
       return payload;
     },
     [POST_LOGIN]: (state, { payload }) => {
-      {return {...state, login: payload};} 
+      {
+        return { ...state, login: payload };
+      }
     },
     [POST_REGISTER]: (state, { payload }) => {
-      return{...state, regist: payload};
+      return { ...state, regist: payload };
     },
     [POST_ID]: (state, { payload }) => {
-      return{...state, checkId:payload} ;
+      return { ...state, checkId: payload };
     },
     [POST_REG]: (state, { payload }) => {
-      return{...state, checkReg:payload}; 
+      return { ...state, checkReg: payload };
     },
   },
   initialState
 );
 
 export default memberReducer;
-
-
-
 
 // 성식 회원코드
 
@@ -78,19 +76,19 @@ export default memberReducer;
 // const memberReducer = handleActions(
 //     {
 //         [GET_MEMBER]: (state, { payload }) => {
-            
+
 //             return payload;
 //         },
 //         [POST_LOGIN]: (state, { payload }) => {
-            
+
 //             return payload;
 //         },
 //         [POST_REGISTER]: (state, { payload }) => {
-            
+
 //             return payload;
 //         },
 //         [DELETE_REMOVE]: (state, { payload }) => {
-            
+
 //             return payload;
 //         },
 //         [RESET_MEMBER] : (state, { payload }) => {

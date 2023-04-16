@@ -1,0 +1,91 @@
+.title{
+    height: 60px;
+    border-radius: 8px;
+    background-color: #E52E2E;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 40px;
+    line-height: 57px;
+    border: none;
+}
+.contour{
+    align-items: center;
+    width: 100%;
+    border-radius: 5px;
+}
+.table1{
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 300px;;
+}
+.table1 thead{
+    width: 100%;
+    border: 1px solid black;
+}
+.table1 .tr1st .approvTitle{
+    border-bottom:1px solid red;
+}
+
+.table1 .tr1st .writerInfo{
+    border-bottom:1px solid red;
+}
+
+.approvTitle{
+    font-size: 25px;
+    text-align: left;
+    padding-left: 2%;
+    width: 20%;
+}
+.writerInfo{
+    text-align: right;
+    padding-right: 5%;
+    width: 80%;
+}
+.formTitle{
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 2%;
+    
+}
+.content{
+    font-size: 18px;
+    margin-left: -10%;
+}
+.table2{
+    width: 100%;
+    border: 3px solid black;
+    border-radius: 5px;
+}
+.title3{
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+}
+.title3tr1st td{
+    border-bottom:1px solid red;
+}
+.title3tr1st td h3{
+    padding-left: 3%;
+    font-size: 23px;
+}
+.btnarea{
+    text-align: center;
+}
+
+.btnarea button{
+    background-color: #E52E2E;
+    border: none;
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+.btnarea button:hover{
+    background-color:gray;
+    text-shadow: 1px 1px 1px white;
+}

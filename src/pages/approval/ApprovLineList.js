@@ -7,14 +7,29 @@ import {
 } from "../../apis/ApprovalAPICalls";
 import ApprovalCSS from "./ApprovalIn.module.css";
 import boardcss from "../../pages/board/Board.module.css";
-
+import { decodeJwt } from '../../utils/tokenUtils';
 
 function ApprovalLineList() {
+
+
+    const isLogin = window.localStorage.getItem('accessToken');
+    console.log('로그인? ',isLogin);
+    let decoded = null;
+    let tokenEmpNo = null;
+    if(isLogin !== undefined && isLogin !== null) {
+        const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+        decoded = temp.auth[0];
+        tokenEmpNo = temp.empNo;
+        console.log('??', temp.empNo)
+    }
+    console.log(tokenEmpNo);
+    console.log('decoded', decoded);
 
     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const lines = useSelector(state => state.approvalReducer.lineList); 
+   
     const lineList = lines.data;
     const pageInfo = lines.pageInfo;
     const [currentPage, setCurrentPage] = useState(1);
@@ -29,17 +44,7 @@ function ApprovalLineList() {
             pageNumber.push(i);
         }
     }
-    // useEffect(
-    //     () => {
-    //         dispatch(callLineListAPI({
-    //             currentPage: currentPage
-    //         }));   
-    //         // dispatch(callLinesAPI())         
-    //     } // eslint-disable-next-line
-    //     ,[currentPage]
-    // );
-        // console.log(lineList.size());
-
+   
     useEffect (() =>{
         console.log("api call=============");
         dispatch(callLineListAPI({
@@ -54,7 +59,10 @@ function ApprovalLineList() {
         <div className={ApprovalCSS.title}>결재라인</div>
         <br/>
         <div>
+            {decoded == 'ROLE_ADMIN' &&
             <button className={ApprovalCSS.registbtn} onClick={()=>{navigate(`/semof/add-line`)}}>결재라인추가</button>
+            }
+            
         </div>
         <br/>
         <div>

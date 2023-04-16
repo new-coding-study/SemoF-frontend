@@ -12,6 +12,7 @@ import registerEmpReducer from "./EmployeeModule";
 import tripReportReducer from "./TripModule";
 import salesReportReducer from "./SalesModule";
 import meetingReportReducer from "./MeetingModule";
+import scheduleReducer from "./ScheduleModule";
 
 const rootReducer = combineReducers({
   memberReducer,
@@ -26,7 +27,9 @@ const rootReducer = combineReducers({
   AttendanceReducer,
   registerEmpReducer,
   salesReportReducer,
-  meetingReportReducer
+  meetingReportReducer,
+
+  scheduleReducer,
 });
 
 export default rootReducer;

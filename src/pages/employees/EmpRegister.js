@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import RegisterCSS from "./EmpRegister.module.css";
-import { callRegisterAPI } from "../../apis/EmployeeAPICalls";
+import {
+  callRegisterAPI,
+  callGetEmployeesAPI,
+} from "../../apis/EmployeeAPICalls";
+import Swal from "sweetalert2";
 
 function Register() {
   const navigate = useNavigate();
@@ -10,6 +14,9 @@ function Register() {
   const [employeePhoto, setEmployeePhoto] = useState(null);
   const [imageUrl, setImageUrl] = useState();
   const imageInput = useRef();
+
+  const location = useLocation();
+  const pageInfo = location.state?.pageInfo;
 
   const [today, setToday] = useState(
     new Date().toLocaleDateString("ko-KR", {
@@ -195,12 +202,25 @@ function Register() {
     //   formData.get("employeePhoto")
     // );
 
-    dispatch(
-      callRegisterAPI({
-        form: formData,
-      })
-    );
-    window.location.reload(); //화면 초기화
+    // dispatch(
+    //   callRegisterAPI({
+    //     form: formData,
+    //   })
+    // );
+    dispatch(callRegisterAPI({ form: formData })).then(() => {
+      dispatch(callGetEmployeesAPI({}));
+      navigate("/semof/employees/management", {
+        state: { pageNo: pageInfo.pageNo },
+      });
+    });
+
+    Swal.fire({
+      icon: "success",
+      text: "등록되었습니다. 이전 페이지로 이동합니다.",
+    });
+
+    // window.location.reload(); //화면 초기화
+    navigate(-1, { replace: true });
   };
 
   // 돌아가기 클릭시 메인 페이지로 이동
