@@ -50,8 +50,14 @@ function Oneday({
         }
         onDoubleClick={ondoubleClickRegistScdHandler}
       >
-        <div>
-          {day.date}
+        <div className={OnedayCSS.dateWrapper}>
+          <div
+            className={OnedayCSS.date}
+            style={newDate === today ? { backgroundColor: "#ff6f6f" } : null}
+          >
+            {day.date}
+          </div>
+
           {/* <span style={{ display: "none" }}> {newDate} </span> */}
         </div>
         <ScheduleForCalendar
