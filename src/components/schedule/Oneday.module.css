@@ -19,42 +19,16 @@
   padding-top: 8px;
 }
 
-.scdWrapper {
-  display: flex;
-  color: black;
+.dateWrapper {
+  text-align: right;
 }
 
-/* .scdWrapper:hover {
-  background-color: aqua;
-} */
-
-.notAllDayCalInfo {
+.date {
+  display: inline-block;
   width: 20px;
   height: 20px;
-  margin: 0 8px;
-  border-radius: 100%;
-}
-
-.scdWrapper div {
-  font-size: 16px;
-  margin-top: 2px;
-}
-
-.scdAllDayWrapper {
-  margin-top: 8px;
-  height: 20px;
   line-height: 20px;
-}
-
-/* .scdAllDayWrapper:hover {
-  border: 4px solid aqua;
-} */
-
-.scdAllDayName {
-  /* padding-bottom: 8px; */
-  text-align: left;
-  padding-left: 8px;
-  color: white;
-  font-size: 16px;
-  /* border: 1px solid aqua; */
+  padding: 4px;
+  border-radius: 100%;
+  text-align: center;
 }
