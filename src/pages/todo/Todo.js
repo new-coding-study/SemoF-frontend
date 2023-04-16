@@ -268,14 +268,6 @@ function Todo() {
               x
             </span>
           </div>
-          {/* <input
-            id="addCateButton"
-            type="checkbox"
-            className={TodoCSS.addCateWrapper}
-          ></input>
-          <label htmlFor="addCateButton" className={TodoCSS.addCateLabel}>
-            + 카테고리 추가
-          </label> */}
           <div
             className={TodoCSS.addCateBtnWrapper}
             onClick={() => {

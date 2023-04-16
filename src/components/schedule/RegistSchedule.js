@@ -1,4 +1,5 @@
 import RegistScheduleCSS from "./RegistSchedule.module.css";
+import CalendarSelectList from "./CalendarSelectList";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import moment from "moment";
@@ -22,6 +23,12 @@ function RegistSchedule({
   }
 
   const [checkAllDay, setCheckAllDay] = useState(true);
+  const [visibleCalendar, setVisibleCalendar] = useState(false);
+  const [selectedCalendar, setSelectedCalendar] = useState({
+    calNo: "",
+    calColor: "",
+    calName: "",
+  });
 
   const [newSchedule, setNewSchedule] = useState({
     scdName: "",
@@ -69,7 +76,7 @@ function RegistSchedule({
     formData.append("scdPlace", newSchedule.scdPlace);
 
     // 캘린더 값 선택해서 들어갈 수 있도록 수정해야함
-    formData.append("calNo", 1);
+    formData.append("calNo", selectedCalendar);
 
     // token 에서 유저No 받아서 넣어주기 수정완료
     formData.append("scdWriter", decodedUser);
@@ -153,9 +160,40 @@ function RegistSchedule({
             <label htmlFor="allDayCheck"> 종일 </label>
           </div>
         </div>
-        <div className={RegistScheduleCSS.calendarWrapper}>
-          <div>캘린더 선택</div>
-          <div> ▼</div>
+        <div
+          className={RegistScheduleCSS.calendarWrapper}
+          onClick={() => {
+            setVisibleCalendar(!visibleCalendar);
+          }}
+        >
+          {visibleCalendar ? (
+            <div style={{ display: "flex" }}>
+              <CalendarSelectList
+                setVisibleCalendar={setVisibleCalendar}
+                setSelectedCalendar={setSelectedCalendar}
+                selectedCalendar={selectedCalendar}
+                decodedUser={decodedUser}
+              />
+              <div> ▼ </div>
+            </div>
+          ) : selectedCalendar.calNo === "" ? (
+            <div className={RegistScheduleCSS.selectCalendar}>
+              <div>캘린더 선택</div>
+              <div> ▼</div>
+            </div>
+          ) : (
+            <div className={RegistScheduleCSS.selectedCalendar}>
+              <div
+                className={RegistScheduleCSS.selectedCalColor}
+                style={{ backgroundColor: selectedCalendar?.calColor }}
+              ></div>
+              <div className={RegistScheduleCSS.selectedCalName}>
+                {" "}
+                {selectedCalendar?.calName}{" "}
+              </div>
+              <div> ▼</div>
+            </div>
+          )}
         </div>
         <div className={RegistScheduleCSS.scdPlaceWrapper}>
           <input

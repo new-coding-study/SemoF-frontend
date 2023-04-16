@@ -1,0 +1,20 @@
+.wrapper {
+  background-color: white;
+  border-radius: 4px;
+  height: 200px;
+  z-index: 3;
+  overflow: auto;
+}
+.calWrapper {
+  width: 212px;
+  display: flex;
+  /* border: 1px solid red; */
+}
+
+.calColorBox {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 2px;
+  margin: 4px 8px 0 4px;
+}

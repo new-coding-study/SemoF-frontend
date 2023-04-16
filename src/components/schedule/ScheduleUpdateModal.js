@@ -1,8 +1,10 @@
 import ScheduleUpdateModalCSS from "./ScheduleUpdateModal.module.css";
+import CalendarSelectList from "./CalendarSelectList";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 import {
   callScheduleDetailAPI,
@@ -17,9 +19,28 @@ function ScheduleUpdateModal({
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decodedUser = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decodedUser = temp.empNo;
+  }
+
   const scheduleDetail = useSelector(
     (state) => state.scheduleReducer.scheduleDetail
   );
+
+  const [checkAllDay, setCheckAllDay] = useState(
+    scheduleDetail?.scdAllDay === 1 ? true : false
+  );
+
+  const [visibleCalendar, setVisibleCalendar] = useState(false);
+  const [selectedCalendar, setSelectedCalendar] = useState({
+    calNo: scheduleDetail?.calNo,
+    calColor: scheduleDetail?.calColor,
+    calName: scheduleDetail?.calName,
+  });
 
   const [updateSchedule, setUpdateSchedule] = useState({
     scdName: scheduleDetail?.scdName,
@@ -44,6 +65,11 @@ function ScheduleUpdateModal({
     setScheduleUpdateModal(false);
   };
 
+  // 종일 여부 변화 관리 핸들러
+  const onChangeCheckAllDayHandler = () => {
+    setCheckAllDay(!checkAllDay);
+  };
+
   const onChangeUpdateScdHandler = (e) => {
     setUpdateSchedule({
       ...updateSchedule,
@@ -62,6 +88,8 @@ function ScheduleUpdateModal({
       if (result.isConfirmed) {
         const formData = new FormData();
 
+        updateSchedule.scdAllDay = checkAllDay ? 1 : 0;
+
         formData.append("scdNo", scheduleDetail?.scdNo);
         formData.append("scdName", updateSchedule.scdName);
         formData.append("scdStartDay", updateSchedule.scdStartDay);
@@ -72,13 +100,13 @@ function ScheduleUpdateModal({
         formData.append("scdPlace", updateSchedule.scdPlace);
         formData.append("scdAllDay", updateSchedule.scdAllDay);
         // 캘린더 수정할 수 있도록 수정해야함
-        formData.append("calNo", scheduleDetail?.calNo);
+        formData.append("calNo", selectedCalendar?.calNo);
 
         dispatch(callUpdateScheduleAPI({ form: formData }));
 
         Swal.fire(
           "수정사항이 저장되었습니다.",
-          "할 일 리스트로 돌아갑니다",
+          "캘린더로 돌아갑니다",
           "success"
         ).then(
           navigate(`/semof/schedule`, { replace: true }),
@@ -118,28 +146,58 @@ function ScheduleUpdateModal({
               <div> 제목 </div>
               <input
                 name="scdName"
-                placeholder="할 일 제목"
+                placeholder="일정 제목"
                 value={updateSchedule?.scdName || ""}
                 onChange={onChangeUpdateScdHandler}
               />
             </div>
 
             <div className={ScheduleUpdateModalCSS.scdCalendar}>
-              <div className={ScheduleUpdateModalCSS.calLabel}> 카테고리 </div>
-              <div className={ScheduleUpdateModalCSS.calBoxWrapper}>
-                <div
-                  className={ScheduleUpdateModalCSS.calColorBox}
-                  style={{
-                    backgroundColor: updateSchedule?.calColor,
-                  }}
-                ></div>
-                <span> {updateSchedule?.calName} </span>
+              <div className={ScheduleUpdateModalCSS.calLabel}> 캘린더 </div>
+              <div
+                className={ScheduleUpdateModalCSS.calBoxWrapper}
+                onClick={() => {
+                  setVisibleCalendar(!visibleCalendar);
+                }}
+                style={visibleCalendar ? { backgroundColor: "white" } : null}
+              >
+                {visibleCalendar ? (
+                  <div style={{ display: "flex" }}>
+                    <CalendarSelectList
+                      setVisibleCalendar={setVisibleCalendar}
+                      setSelectedCalendar={setSelectedCalendar}
+                      selectedCalendar={selectedCalendar}
+                      decodedUser={decodedUser}
+                    />
+                    {/* <div> ▼ </div> */}
+                  </div>
+                ) : (
+                  <div className={ScheduleUpdateModalCSS.selectedCalendar}>
+                    <div
+                      className={ScheduleUpdateModalCSS.selectedCalColor}
+                      style={{ backgroundColor: selectedCalendar?.calColor }}
+                    ></div>
+                    <div className={ScheduleUpdateModalCSS.selectedCalName}>
+                      {selectedCalendar?.calName}
+                    </div>
+                    <div style={{ lineHeight: "24px" }}> ▼ </div>
+                  </div>
+                )}
               </div>
             </div>
 
             <div className={ScheduleUpdateModalCSS.scdDateWrapper}>
-              {/* <div className={ScheduleUpdateModalCSS.scdDateLabel}>일시</div> */}
+              <div className={ScheduleUpdateModalCSS.scdDateLabel}>일시</div>
               <div className={ScheduleUpdateModalCSS.scdDate}>
+                <div className={ScheduleUpdateModalCSS.checkAllDay}>
+                  <input
+                    type="checkbox"
+                    name="scdAllDay"
+                    checked={updateSchedule?.scdAllDay === 1 ? true : false}
+                    onChange={onChangeCheckAllDayHandler}
+                  />
+                  <div> 종일 </div>
+                </div>
                 <div className={ScheduleUpdateModalCSS.scdStart}>
                   시작일
                   <input
@@ -153,6 +211,11 @@ function ScheduleUpdateModal({
                     name="scdStartTime"
                     value={updateSchedule?.scdStartTime || ""}
                     onChange={onChangeUpdateScdHandler}
+                    style={
+                      checkAllDay
+                        ? { visibility: "hidden" }
+                        : { visibility: "visible" }
+                    }
                   />
                 </div>
                 <div className={ScheduleUpdateModalCSS.scdEnd}>
@@ -168,6 +231,11 @@ function ScheduleUpdateModal({
                     name="scdEndTime"
                     value={updateSchedule?.scdEndTime || ""}
                     onChange={onChangeUpdateScdHandler}
+                    style={
+                      checkAllDay
+                        ? { visibility: "hidden" }
+                        : { visibility: "visible" }
+                    }
                   />
                 </div>
               </div>
@@ -187,13 +255,12 @@ function ScheduleUpdateModal({
 
             <div className={ScheduleUpdateModalCSS.scdPlace}>
               <div> 장소 </div>
-              <div
+              <input
                 name="scdPlace"
-                value={updateSchedule?.scdPlace}
-                onChange={onChangeUpdateScdHandler}
-              >
-                주소 정보 표시
-              </div>
+                placeholder="주소 정보"
+                value={scheduleDetail?.scdPlace || ""}
+                disabled={true}
+              />
             </div>
             <div className={ScheduleUpdateModalCSS.scdComment}>
               <div> 댓글영역 </div>
