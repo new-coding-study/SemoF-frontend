@@ -9,6 +9,7 @@ import Weather from "../components/main/Weather";
 // import { useEffect, useState } from "react";
 // import { useSelector, useDispatch } from "react-redux";
 import { decodeJwt } from "../utils/tokenUtils";
+import AttendanceStatus from "../components/main/AttendanceStatus";
 
 function Main() {
   // const dispatch = useDispatch();
@@ -41,7 +42,9 @@ function Main() {
           <div className={MainCSS.banner}>
             <img src={"/images/banner.png"} alt="이미지확인!"></img>
           </div>
-          <div className={MainCSS.workingHour}> 근무시간 </div>
+          <div className={MainCSS.workingHour}>
+            <AttendanceStatus decodedUser={decodedUser}/>
+          </div>
         </div>
         <div className={MainCSS.thirdGroup}>
           <Weather city="Seoul" />

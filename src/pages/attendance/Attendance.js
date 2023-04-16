@@ -34,7 +34,7 @@ function Attendance() {
 
   // const token = decodeJwt(window.localStorage.getItem("accessToken"));
 
-  const [empNo, setEmpNo] = useState(1); // # 로그인 기능 구현 전까지 값 확인용 상태관리
+  // const [empNo, setEmpNo] = useState(1); // # 로그인 기능 구현 전까지 값 확인용 상태관리
   const [check, setCheck] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
   const [nowTime, setNowTime] = useState("00:00:00");
