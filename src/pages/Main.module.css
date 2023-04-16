@@ -11,10 +11,10 @@
   margin: 3% auto;
 }
 
-.content div {
+/* .content > div {
   border-radius: 12px;
   text-align: center;
-}
+} */
 
 .firstGroup {
   display: flex;
@@ -28,6 +28,8 @@
   display: flex;
   width: 900px;
   border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
   margin-right: 40px;
   margin-left: 80px;
 }
@@ -35,17 +37,23 @@
 .calendar {
   width: 600px;
   border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
   /* margin-right: 100px; */
 }
 
 .schedule {
   width: 400px;
-  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  border-radius: 12px;
+  text-align: center;
 }
 
 .info {
   width: 400px;
   border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
 }
 
 .secondGroup {
@@ -74,6 +82,8 @@
 .workingHour {
   width: 400px;
   border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
 }
 
 .thirdGroup {
@@ -98,15 +108,21 @@
   width: 250px;
   margin: 0 60px;
   border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
 }
 
 .todo {
   width: 262px;
   margin-right: 40px;
   border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
 }
 
 .notice {
   width: 400px;
   border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
 }

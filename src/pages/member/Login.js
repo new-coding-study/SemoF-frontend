@@ -25,7 +25,8 @@ function Login() {
         Swal.fire({
           title: "환영합니다",
           text: "메인화면으로 이동합니다.",
-          timer: 1500,
+          timer: 1000,
+          showConfirmButton: false,
         });
         navigate("/semof", { replace: true });
       }

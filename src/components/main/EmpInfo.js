@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import EmpInfoCSS from "./EmpInfo.module.css";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -15,6 +16,8 @@ function EmpInfo({ decodedUser }) {
   const employeeDetail = useSelector((state) => state.empReducer);
   const empPhoto = useSelector((state) => state.empReducer.empPhoto);
 
+  const [mailMode, setMailMode] = useState(true);
+
   const onClickLogoutHandler = () => {
     Swal.fire({
       title: "로그아웃하시겠습니까?",
@@ -30,6 +33,7 @@ function EmpInfo({ decodedUser }) {
         Swal.fire({
           title: "로그아웃되었습니다.",
           timer: 1500,
+          showConfirmButton: false,
         }).then(
           navigate(`/`, { replace: true })
           // window.location.reload()
@@ -48,88 +52,46 @@ function EmpInfo({ decodedUser }) {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          marginTop: "24px",
-          paddingBottom: "12px",
-          alignItems: "center",
-          borderRadius: "0",
-          borderBottom: "1px solid gray",
-        }}
-      >
-        <div
-          style={{
-            width: "60px",
-            height: "60px",
-            margin: "0 24px",
-            borderRadius: "100%",
-            border: "1px solid gray",
-            overflow: "hidden",
-          }}
-        >
+      <div className={EmpInfoCSS.infoWrapper}>
+        <div className={EmpInfoCSS.empImgWrapper}>
           {empPhoto?.imageUrl ? (
-            <img
-              src={empPhoto?.imageUrl}
-              alt="이미지확인!"
-              style={{
-                width: "60px",
-                height: "60px",
-                marginTop: "8px",
-                objectFit: "contain",
-              }}
-            ></img>
+            <img src={empPhoto?.imageUrl} alt="이미지확인!"></img>
           ) : (
-            <img
-              src={"/images/profileImg.png"}
-              alt="이미지확인!"
-              style={{
-                width: "60px",
-                height: "60px",
-                marginTop: "8px",
-                objectFit: "contain",
-              }}
-            ></img>
+            <img src={"/images/profileImg.png"} alt="이미지확인!"></img>
           )}
         </div>
-        <div
-          style={{
-            width: "100px",
-          }}
-        >
-          <div
-            style={{
-              fontWeight: "bold",
-              fontSize: "28px",
-              marginBottom: "4px",
-            }}
-          >
-            {employeeDetail?.empName}
-          </div>
-          <div
-            style={{
-              marginLeft: "12px",
-            }}
-          >
+        <div className={EmpInfoCSS.empNameWrapper}>
+          <div className={EmpInfoCSS.empName}>{employeeDetail?.empName}</div>
+          <div className={EmpInfoCSS.empDeptInfo}>
             {employeeDetail?.deptName} / {employeeDetail?.jobName}
           </div>
         </div>
-        <div
-          style={{
-            width: "60px",
-            height: "32px",
-            lineHeight: "32px",
-            marginLeft: "100px",
-            border: "1px solid gray",
-            borderRadius: "4px",
-            fontSize: "14px",
-            color: "gray",
-            cursor: "pointer",
-          }}
-          onClick={onClickLogoutHandler}
-        >
+        <div className={EmpInfoCSS.logoutBtn} onClick={onClickLogoutHandler}>
           로그아웃
         </div>
+      </div>
+      <div className={EmpInfoCSS.moveTabBtn}>
+        <div
+          className={EmpInfoCSS.mailList}
+          style={
+            mailMode ? { borderBottom: "none", backgroundColor: "white" } : null
+          }
+          onClick={() => setMailMode(!mailMode)}
+        >
+          메일
+        </div>
+        <div
+          className={EmpInfoCSS.approvalList}
+          style={
+            mailMode ? null : { borderBottom: "none", backgroundColor: "white" }
+          }
+          onClick={() => setMailMode(!mailMode)}
+        >
+          결재
+        </div>
+      </div>
+      <div className={EmpInfoCSS.alarmWrapper}>
+        {mailMode ? "메일리스트조회" : "결재리스트조회"}
       </div>
     </>
   );

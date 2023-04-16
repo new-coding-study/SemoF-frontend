@@ -2,6 +2,7 @@ import RegisterCSS from "./Register.module.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 
 import {
   callRegisterAPI,
@@ -83,7 +84,11 @@ function Register() {
   // 2. 비밀번호 입력 및 비밀번호 체크
   useEffect(
     () => {
-      if (form.loginPwd === form.confirmPwd) {
+      if (
+        form.loginPwd !== "" &&
+        form.confirmPwd !== "" &&
+        form.loginPwd === form.confirmPwd
+      ) {
         console.log("비밀번호 일치함 :");
         setCheckPwd(true);
       } else {
@@ -111,7 +116,8 @@ function Register() {
 
       if (
         checkEmpNo === "일치하는 사원이 없습니다." ||
-        checkEmpNo === "이미 가입된 사원입니다."
+        checkEmpNo === "이미 가입된 사원입니다." ||
+        checkEmpNo === undefined
       ) {
         setCheckReg(false);
         setEmpNo("");
@@ -130,12 +136,38 @@ function Register() {
 
   // 회원가입 버튼 클릭 시 비밀번호가 일치하는지 확인하고 디스패치를 보냄
   const onClickRegisterHandler = () => {
+    console.log(
+      "상태값확인 - checkId - checkPwd - checkReg",
+      checkId,
+      checkPwd,
+      checkReg
+    );
     if (checkId && checkPwd && checkReg) {
-      dispatch(
-        callRegisterAPI({
-          form: form,
-        })
-      );
+      Swal.fire({
+        title: "입력하신 정보로 회원가입하시겠습니까?",
+        showCancelButton: true,
+        cancelButtonText: "아니오",
+        confirmButtonText: "예",
+        confirmButtonColor: "#e52e2e",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "회원가입되었습니다. ",
+            text: "로그인 후 이용해주세요",
+            timer: 1500,
+            showConfirmButton: false,
+          }).then(
+            navigate(`/`, { replace: true })
+            // window.location.reload()
+          );
+        }
+      });
+    } else {
+      Swal.fire({
+        title: "누락된 정보가 있습니다.",
+        timer: 1000,
+        showConfirmButton: false,
+      });
     }
   };
 
