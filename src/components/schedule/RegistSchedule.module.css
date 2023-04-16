@@ -127,13 +127,36 @@
   display: flex;
   border: 1px solid #6c6c6c;
   border-radius: 4px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-bottom: 20px;
   color: #6c6c6c;
+  cursor: pointer;
 }
 
-.calendarWrapper div {
+.selectCalendar {
+  display: flex;
+  justify-content: space-between;
   margin: 0 8px;
+}
+
+.selectCalendar div:first-child {
+  margin-right: 132px;
+}
+
+.selectedCalendar {
+  display: flex;
+}
+
+.selectedCalColor {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 2px;
+  margin: 4px 8px 0 4px;
+}
+
+.selectedCalName {
+  width: 178.5px;
 }
 
 .scdPlaceWrapper {

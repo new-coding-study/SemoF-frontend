@@ -27,7 +27,7 @@ function ScheduleDetailModal({
 
   const deleteTodo = (selectScdNo) => {
     Swal.fire({
-      title: "할 일을 삭제하시겠습니까?",
+      title: "일정을 삭제하시겠습니까?",
       showCancelButton: true,
       cancelButtonText: "취소",
       confirmButtonText: "삭제",
@@ -36,8 +36,8 @@ function ScheduleDetailModal({
       if (result.isConfirmed) {
         dispatch(callDeleteScheduleAPI(selectScdNo));
         Swal.fire(
-          "할 일이 삭제되었습니다.",
-          "할 일 리스트로 돌아갑니다",
+          "일정이 삭제되었습니다.",
+          "캘린더로 돌아갑니다",
           "success"
         ).then(
           navigate(`/semof/todo`, { replace: true }),
@@ -76,14 +76,14 @@ function ScheduleDetailModal({
               <div> 제목 </div>
               <input
                 name="scdName"
-                placeholder="할 일 제목"
+                placeholder="일정 제목"
                 value={scheduleDetail?.scdName || ""}
                 disabled={true}
               />
             </div>
 
             <div className={ScheduleDetailModalCSS.scdCalendar}>
-              <div className={ScheduleDetailModalCSS.calLabel}> 카테고리 </div>
+              <div className={ScheduleDetailModalCSS.calLabel}> 캘린더 </div>
               <div className={ScheduleDetailModalCSS.calBoxWrapper}>
                 <div
                   className={ScheduleDetailModalCSS.calColorBox}
@@ -98,6 +98,15 @@ function ScheduleDetailModal({
             <div className={ScheduleDetailModalCSS.scdDateWrapper}>
               <div className={ScheduleDetailModalCSS.scdDateLabel}>일시</div>
               <div className={ScheduleDetailModalCSS.scdDate}>
+                <div className={ScheduleDetailModalCSS.checkAllDay}>
+                  <input
+                    type="checkbox"
+                    name="scdAllDay"
+                    checked={scheduleDetail?.scdAllDay === 1 ? true : false}
+                    disabled={true}
+                  />
+                  <div> 종일 </div>
+                </div>
                 <div className={ScheduleDetailModalCSS.scdStart}>
                   시작일
                   <input
@@ -145,16 +154,15 @@ function ScheduleDetailModal({
 
             <div className={ScheduleDetailModalCSS.scdPlace}>
               <div> 장소 </div>
-              <div
+              <input
                 name="scdPlace"
-                value={scheduleDetail?.scdPlace}
+                placeholder="주소 정보"
+                value={scheduleDetail?.scdPlace || ""}
                 disabled={true}
-              >
-                주소 정보 표시
-              </div>
+              />
             </div>
             <div className={ScheduleDetailModalCSS.scdComment}>
-              <div> 댓글영역 </div>
+              <div> 댓글 </div>
             </div>
             <div className={ScheduleDetailModalCSS.scdButtonDiv}>
               {/* madeEmpNo === localstorageNo 일때만 아래 보이도록 */}

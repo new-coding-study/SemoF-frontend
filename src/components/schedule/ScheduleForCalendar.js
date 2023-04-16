@@ -3,7 +3,6 @@ import ScheduleDetailModal from "./ScheduleDetailModal";
 import ScheduleUpdateModal from "./ScheduleUpdateModal";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import moment from "moment";
 import { decodeJwt } from "../../utils/tokenUtils";
 
 import { callScheduleListAPI } from "../../apis/ScheduleAPICalls";

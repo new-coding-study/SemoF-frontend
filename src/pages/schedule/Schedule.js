@@ -130,30 +130,6 @@ function Schedule() {
                 setRegistMode={setRegistMode}
                 setSelectCalendarNo={setSelectCalendarNo}
               />
-              // <div
-              //   className={CalendaListCSS.calendarWrapper}
-              //   key={calendar.calNo}
-              // >
-              //   <div className={CalendaListCSS.calendarInfowrapper}>
-              //     <div
-              //       className={CalendaListCSS.calColorBox}
-              //       style={{ backgroundColor: calendar.calColor }}
-              //     ></div>
-              //     <div className={CalendaListCSS.calName}>
-              //       {calendar.calName}
-              //     </div>
-
-              //     <div className={CalendaListCSS.moveCalendarEditBtn}>
-              //       <img
-              //         src={"/images/edit.png"}
-              //         alt="이미지확인!"
-              //         className={CalendaListCSS.editIcon}
-              //         // onClick={onClickMoveToSettingPageHandler}
-              //         onClick={() => moveToCalendarEdit(calendar.calNo)}
-              //       ></img>
-              //     </div>
-              //   </div>
-              // </div>
             ))}
           <div className={ScheduleCSS.inputCalWrapper} style={inputCalStyle}>
             <input

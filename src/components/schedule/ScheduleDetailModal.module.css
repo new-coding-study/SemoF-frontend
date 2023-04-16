@@ -15,7 +15,7 @@
 .modalContainer {
   position: absolute;
   width: 600px;
-  height: 500px;
+  height: 760px;
   padding: 10px;
   text-align: center;
   background-color: rgb(255, 255, 255);
@@ -43,8 +43,8 @@
 .scdHeader {
   display: flex;
   align-items: center;
-  margin: 0 20px;
-  padding-right: 12px;
+  margin: 0 12px;
+  padding: 0 12px;
   width: 100%;
   justify-content: space-between;
   border-bottom: 2px solid black;
@@ -58,7 +58,7 @@
 .scdTitle {
   display: flex;
   width: 100%;
-  padding-bottom: 20px;
+  padding: 20px 0;
   border-bottom: 1px solid black;
   margin: 0 20px;
 }
@@ -80,7 +80,7 @@
 .scdCalendar {
   display: flex;
   width: 100%;
-  padding-bottom: 20px;
+  padding: 20px 0;
   border-bottom: 1px solid black;
   margin: 0 20px;
 }
@@ -120,7 +120,7 @@
 .scdDateWrapper {
   display: flex;
   width: 100%;
-  padding-bottom: 20px;
+  padding: 20px 0;
   border-bottom: 1px solid black;
   margin: 0 20px;
 }
@@ -136,6 +136,27 @@
 .scdDate {
   /* border: 1px solid green; */
   width: 360px;
+}
+
+.checkAllDay {
+  /* border: 1px solid red; */
+  text-align: left;
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.checkAllDay input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.checkAllDay input[type="checkbox"]:checked {
+  background-color: #d1d1d1;
+}
+
+.checkAllDay div {
+  line-height: 26px;
+  margin-left: 8px;
 }
 
 .scdStart {
@@ -169,7 +190,7 @@
 .scdContent {
   display: flex;
   width: 100%;
-  padding-bottom: 20px;
+  padding: 20px 0;
   border-bottom: 1px solid black;
   margin: 0 20px;
 }
@@ -191,7 +212,7 @@
 .scdPlace {
   display: flex;
   width: 100%;
-  padding-bottom: 10px;
+  padding: 20px 0;
   border-bottom: 1px solid black;
   margin: 0 20px;
 }
@@ -204,20 +225,31 @@
   text-align: left;
 }
 
+.scdPlace input {
+  width: 360px;
+  height: 20px;
+  margin-left: 80px;
+}
+
 .scdComment {
   display: flex;
   width: 100%;
-  padding-bottom: 10px;
+  padding: 20px 0;
   border-bottom: 1px solid black;
   margin: 0 20px;
 }
 
 .scdComment div {
   width: 100px;
+  height: 100px;
   font-size: 20px;
   margin-left: 8px;
   /* border: 1px solid red; */
   text-align: left;
+}
+
+.scdButtonDiv {
+  padding: 20px 0;
 }
 
 .scdButtonDiv button {
