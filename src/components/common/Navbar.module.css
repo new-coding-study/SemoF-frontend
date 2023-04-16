@@ -1,7 +1,10 @@
 .navWrapper {
   /* border: 1px solid black; */
   /* margin-top: 50px; */
-  margin: 12px 12px 0;
+  margin: 2px 12px 0;
+  position: fixed;
+  padding-right: 17px;
+  border-right: 3px solid #e52e2e;
 }
 
 .navWrapper > a {

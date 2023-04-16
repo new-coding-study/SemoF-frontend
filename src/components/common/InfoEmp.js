@@ -57,7 +57,7 @@ function InfoEmp({ decodedUser }) {
           // className={HeaderCSS.logo}
           // onClick={onClickLogoHandler}
         ></img> */}
-        <div className={HeaderCSS.empName}> {employeeDetail?.empName} 님 </div>
+        <div className={HeaderCSS.empName}> <strong>{employeeDetail?.empName}</strong> 님 </div>
         <button onClick={onClickLogoutHandler}>로그아웃</button>
         <div className={HeaderCSS.empImgWrapper}>
           {empPhoto?.imageUrl ? (
