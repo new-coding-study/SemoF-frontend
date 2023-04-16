@@ -5,6 +5,7 @@ import MainTodo from "../components/main/MainTodo";
 import MainBrith from "../components/main/MainBrith";
 import MainSchedule from "../components/main/MainSchedule";
 import EmpInfo from "../components/main/EmpInfo";
+import MainCalendar from "../components/main/MainCalendar";
 import Weather from "../components/main/Weather";
 // import { useEffect, useState } from "react";
 // import { useSelector, useDispatch } from "react-redux";
@@ -34,7 +35,9 @@ function Main() {
       <div className={MainCSS.content}>
         <div className={MainCSS.firstGroup}>
           <div className={MainCSS.calendarWrapper}>
-            <div className={MainCSS.calendar}> 달력 </div>
+            <div className={MainCSS.calendar}>
+              <MainCalendar />
+            </div>
             <div className={MainCSS.schedule}>
               <MainSchedule decodedUser={decodedUser} />
             </div>
@@ -48,7 +51,7 @@ function Main() {
             <img src={"/images/banner.png"} alt="이미지확인!"></img>
           </div>
           <div className={MainCSS.workingHour}>
-            <AttendanceStatus decodedUser={decodedUser}/>
+            <AttendanceStatus decodedUser={decodedUser} />
           </div>
         </div>
         <div className={MainCSS.thirdGroup}>
