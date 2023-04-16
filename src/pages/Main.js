@@ -8,10 +8,12 @@ import EmpInfo from "../components/main/EmpInfo";
 import Weather from "../components/main/Weather";
 // import { useEffect, useState } from "react";
 // import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { decodeJwt } from "../utils/tokenUtils";
 
 function Main() {
   // const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const isLogin = window.localStorage.getItem("accessToken");
   let decodedUser = null;
@@ -20,6 +22,9 @@ function Main() {
     const temp = decodeJwt(window.localStorage.getItem("accessToken"));
     decodedUser = temp.empNo;
   }
+  // else {
+  //   navigate(`/`, { replace: true });
+  // }
 
   return (
     <>

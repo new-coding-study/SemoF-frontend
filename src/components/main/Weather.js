@@ -30,6 +30,8 @@ function Weather({ city }) {
         width: "265px",
         marginLeft: "80px",
         border: "1px solid #e0e0e0",
+        borderRadius: "12px",
+        textAlign: "center",
         backgroundColor:
           temp < 15 ? "#e1f5fc" : temp < 24 ? "#eaebe1" : "#ebe1e1",
       }}
