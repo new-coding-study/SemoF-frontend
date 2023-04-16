@@ -18,7 +18,7 @@
 
 .firstGroup {
   display: flex;
-  height: 320px;
+  height: 330px;
   margin-bottom: 40px;
   /* justify-content: space-between; */
   /* border: 1px solid orange; */
@@ -32,20 +32,20 @@
   text-align: center;
   margin-right: 40px;
   margin-left: 80px;
+  overflow: auto;
 }
 
 .calendar {
   width: 600px;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
+  border-radius: 0;
   text-align: center;
-  /* margin-right: 100px; */
 }
 
 .schedule {
   width: 400px;
-  border-radius: 12px;
-  border-radius: 12px;
+  border-radius: 0;
+  border-left: 1px solid black;
+  margin: 16px;
   text-align: center;
 }
 

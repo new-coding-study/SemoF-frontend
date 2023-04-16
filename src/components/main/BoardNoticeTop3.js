@@ -17,17 +17,18 @@ function BoardNoticeTop3() {
   }, []);
 
   const navigateBoard = () => {
-    Swal.fire("게시판으로 이동합니다.", "", "info").then(
-      navigate("/semof/board")
-    );
+    Swal.fire({
+      title: "게시판으로 이동합니다.",
+      icon: "info",
+      showConfirmButton: false,
+      timer: 1000,
+    }).then(navigate("/semof/board"));
   };
 
   return (
     <>
       <div
         style={{
-          // marginTop: "16px",
-          // marginLeft: "16px",
           margin: "16px 0 8px 16px",
           textAlign: "left",
           display: "flex",
@@ -40,12 +41,46 @@ function BoardNoticeTop3() {
             width: "18px",
             height: "24px",
             marginRight: "8px",
+            marginBottom: "8px",
             verticalAlign: "middle",
           }}
         ></img>
         <div style={{ marginTop: "2px", fontSize: "18px" }}>공지사항</div>
       </div>
-      <table style={{ textAlign: "center", margin: "auto", marginTop: "4px" }}>
+      {Array.isArray(noticeList) &&
+        noticeList.map((p) => (
+          <div
+            style={{
+              display: "flex",
+              margin: "12px 0 0 20px",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+            key={p.boardCateCode}
+            onClick={navigateBoard}
+          >
+            <img
+              src={"/images/noticeAlarm.png"}
+              alt="공지사항 이미지"
+              style={{ width: "16px", height: "16px" }}
+            />
+            <div
+              style={{
+                margin: "0 8px",
+                width: "200px",
+              }}
+            >
+              {p.boardTitle}
+            </div>
+            <div style={{ fontSize: "14px", color: "gray" }}> {p.empName} </div>
+            <div
+              style={{ marginLeft: "16px", fontSize: "14px", color: "gray" }}
+            >
+              {p.writeDate}
+            </div>
+          </div>
+        ))}
+      {/* <table style={{ textAlign: "center", margin: "auto", marginTop: "4px" }}>
         <tbody>
           {Array.isArray(noticeList) &&
             noticeList.map((p) => (
@@ -96,7 +131,7 @@ function BoardNoticeTop3() {
               </tr>
             ))}
         </tbody>
-      </table>
+      </table> */}
     </>
   );
 }
