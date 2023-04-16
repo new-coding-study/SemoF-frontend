@@ -255,10 +255,8 @@ function EmpModify(props) {
                     type="text"
                     className={RegisterCSS.input}
                     name="address"
-                    // ref={addressRef}
                     onChange={onChangeHandler}
                     placeholder={employeeDetail?.address || ""}
-                    // onKeyDown={(e) => handleKeyDown(e, salaryRef)}
                   />
                 </td>
                 <td className={RegisterCSS.tableCell}>직급</td>
@@ -272,9 +270,7 @@ function EmpModify(props) {
                     className={RegisterCSS.input}
                     name="salary"
                     placeholder={employeeDetail?.salary || ""}
-                    // ref={salaryRef}
                     onChange={onChangeHandler}
-                    // onKeyDown={(e) => handleKeyDown(e, emailRef)}
                   />
                 </td>
                 <td className={RegisterCSS.tableCell}>이메일</td>
@@ -284,7 +280,6 @@ function EmpModify(props) {
                     className={RegisterCSS.input}
                     name="email"
                     placeholder={employeeDetail?.email || ""}
-                    // ref={emailRef}
                     onChange={onChangeHandler}
                   />
                 </td>

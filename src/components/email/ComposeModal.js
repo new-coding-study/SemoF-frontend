@@ -8,9 +8,6 @@ import { decodeJwt } from "../../utils/tokenUtils";
 function ComposeModal({ isOpen, onClose }) {
   const dispatch = useDispatch();
 
-  // const [toValue, setToValue] = useState("");
-  // const [subjectValue, setSubjectValue] = useState("");
-  // const [bodyValue, setBodyValue] = useState("");
   const [file, setFile] = useState(null);
   const [form, setForm] = useState({
     empNo: "",
@@ -63,7 +60,6 @@ function ComposeModal({ isOpen, onClose }) {
     // console.log("[ComposeModal] formData title: ", formData.get("title"));
     formData.append("content", form.content);
     // console.log("[ComposeModal] formData content: ", formData.get("content"));
-    // formData.append("file", file);
 
     if (file) {
       formData.append("file", file);
@@ -172,7 +168,7 @@ function ComposeModal({ isOpen, onClose }) {
             className={ComposeModalCSS.fileBtn}
             onChange={handleFileChange}
           />
-          {/* <div className={ComposeModalCSS.fileName}>{fileName}</div> */}
+
           {file && (
             <div className={ComposeModalCSS.fileInfo}>
               <span className={ComposeModalCSS.fileIcon}>
@@ -193,9 +189,7 @@ function ComposeModal({ isOpen, onClose }) {
             </div>
           )}
           <div className={ComposeModalCSS.fileName}>{fileName}</div>
-          {/* <button className={ComposeModalCSS.discardBtn} onClick={onClose}>
-            저장하기
-          </button> */}
+
           <div className={ComposeModalCSS.footerRight}></div>
         </div>
       </div>
