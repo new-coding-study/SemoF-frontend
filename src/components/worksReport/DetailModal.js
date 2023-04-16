@@ -106,7 +106,7 @@ function ReportDetail({setIsUpdateEmp, setIsWorksDetail, worksReportCode, setIsW
             <br/>
             <div className={modalcss.modalbtn}>
                 {decoded === "ROLE_USER"? <button onClick={() => setIsUpdateEmp(true)}>수정</button>:
-                <button onClick={activeUpdateModal}>수정</button>}&nbsp;&nbsp;&nbsp;
+                <button onClick={activeUpdateModal}>의견작성</button>}&nbsp;&nbsp;&nbsp;
                 <button onClick={()=>activeDelete(worksReportCode)}>삭제</button>&nbsp;&nbsp;&nbsp;
                 <button onClick={() => setIsWorksDetail(false)}>닫기</button>
             </div>

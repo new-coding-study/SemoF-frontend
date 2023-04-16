@@ -1,4 +1,5 @@
 import MainCSS from "./Main.module.css";
+
 import BoardNoticeTop3 from "../components/main/BoardNoticeTop3";
 import MainTodo from "../components/main/MainTodo";
 import MainBrith from "../components/main/MainBrith";
