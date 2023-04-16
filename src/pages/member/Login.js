@@ -22,9 +22,22 @@ function Login() {
   useEffect(
     () => {
       if (loginMember.status === 200) {
-        Swal.fire("환영합니다", "메인화면으로 이동합니다.", "success");
+        Swal.fire({
+          title: "환영합니다",
+          text: "메인화면으로 이동합니다.",
+          timer: 1500,
+        });
         navigate("/semof", { replace: true });
       }
+      // 아이디, 비밀번호 잘못 입력 시 alert 띄우고싶은데
+      // 그러면 form을 새로 입력할 때 status 값이 400이 유지되면서 계속 alert이 뜨고 있음,,,
+      // else if (loginMember.status !== 200) {
+      //   Swal.fire({
+      //     title: loginMember?.message,
+      //     showConfirmButton: false,
+      //     timer: 1000,
+      //   });
+      // }
     }, // eslint-disable-next-line
     [loginMember]
   );
@@ -54,6 +67,18 @@ function Login() {
         form: form,
       })
     );
+  };
+
+  // 비밀번호 입력 후 엔터키 클릭시 로그인 실행
+  const onEnterkeyLoginHandler = (e) => {
+    if (e.key === "Enter") {
+      dispatch(
+        callLoginAPI({
+          // 로그인
+          form: form,
+        })
+      );
+    }
   };
 
   return (
@@ -105,6 +130,7 @@ function Login() {
               placeholder="비밀번호"
               autoComplete="off"
               onChange={onChangeHandler}
+              onKeyUp={onEnterkeyLoginHandler}
               className={LoginCSS.inputBox}
             />
             <svg

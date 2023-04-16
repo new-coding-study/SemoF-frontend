@@ -34,7 +34,7 @@ function Main() {
             </div>
           </div>
           <div className={MainCSS.info}>
-            <EmpInfo />
+            <EmpInfo decodedUser={decodedUser} />
           </div>
         </div>
         <div className={MainCSS.secondGroup}>
