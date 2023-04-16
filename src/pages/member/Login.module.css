@@ -9,12 +9,12 @@
     }
 }
 
-html,
+/* html,
 body {
     height: 100%;
     width: 100%;
     overflow: auto;
-}
+} */
 
 .cardBody {
     height: 100vh;

@@ -1,5 +1,6 @@
 import MainCSS from "./Main.module.css";
 import BoardNoticeTop3 from "../components/boards/BoardNoticeTop3";
+
 function Main() {
   return (
     <>
