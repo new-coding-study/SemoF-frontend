@@ -118,7 +118,6 @@ function DefaultCalendar({
     <>
       <div className={DefaultCalendarCSS.calendarWrapper}>
         <div className={DefaultCalendarCSS.calHeaderWrapper}>
-          <div className={DefaultCalendarCSS.moveToTodayBtn}> 오늘 </div>
           <div className={DefaultCalendarCSS.calBtnWrapper}>
             <div
               className={DefaultCalendarCSS.moveToPreMonthBtn}
