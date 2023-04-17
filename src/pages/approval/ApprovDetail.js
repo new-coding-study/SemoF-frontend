@@ -53,7 +53,7 @@ function ApprovDetail() {
   const form = formInfo?.filter(
     (t) =>
       t.formCode ===
-      approvInfo?.approvContentDTOList.find((c) => c.formCode)?.formCode
+      approvInfo?.approvContentDTOList?.find((c) => c.formCode)?.formCode
   );
 
   console.log("[ApprovDetail] form : " + JSON.stringify(form));
@@ -134,6 +134,7 @@ function ApprovDetail() {
         </table>
       </div>
       <br />
+      {}
       <div className={approvCss.btnarea}>
         <button
           onClick={() => {
