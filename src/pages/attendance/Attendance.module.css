@@ -1,4 +1,4 @@
-.body{
+.body {
     overflow: hidden !important;
 }
 
@@ -17,7 +17,7 @@
 
 
 /*      근태 시간, 전자결재 */
-.horizontalDiv{
+.horizontalDiv {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -34,7 +34,7 @@
     margin-right: auto;
 }
 
-.attendance>div>span{
+.attendance>div>span {
     border: 1px solid red;
     border-radius: 30px;
     background-color: red;
@@ -96,7 +96,7 @@
     text-align: center;
 }
 
-.approvalsContent:hover div{
+.approvalsContent:hover div {
     background-color: #E52E2E;
 }
 
@@ -219,39 +219,41 @@
     width: 1550px;
 }
 
-.attendanceTable th, td {
+.attendanceTable th,
+td {
     padding: 10px;
     height: 10px;
     text-align: center;
-    word-break:break-all;
-    table-layout:fixed;
+    word-break: break-all;
+    table-layout: fixed;
     font-size: 20px;
 }
 
-.attendanceTable>thead>tr{
+.attendanceTable>thead>tr {
     font-size: 26px;
     height: 50px;
     font-weight: bold;
     border-collapse: collapse;
     border-bottom: 2px solid #E52E2E;
-    
+
 }
 
 /* 페이징 버튼 */
-.pagingBtn{
+.pagingBtn {
     margin: 5px;
     margin-top: 20px;
     width: 30px;
     height: 40px;
     border-radius: 5px;
     background-color: rgb(219, 219, 219);
-    border: 2px solid white;;
+    border: 2px solid white;
+    ;
     font-weight: bold;
     font-size: 1em;
     margin-bottom: 20px;
 }
 
-.pagingBtn:hover{
+.pagingBtn:hover {
     cursor: pointer;
     background-color: #FFD6D6;
 }
