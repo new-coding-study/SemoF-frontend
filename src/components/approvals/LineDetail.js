@@ -36,19 +36,30 @@ function LineDetail({approvInfo}){
         ,[]
     );
 
+     const empNo=(lineInfo?.approvOrderDTOList)?.map(dto => dto.empNo).includes(tokenEmpNo);
+
+    
     return(
         <>
         <div>
-            <table>
-                <tr>
+            <div style={{whiteSpace:'nowrap'}}>
+            <table style={{display:'inline-block', verticalAlign:'top'}}>
+                <tbody>
+                <tr style={{border: '2px solid black'}}>
                     <td>{
-                    (lineInfo?.approvOrderDTOList)?.map(dto => (
+                    (lineInfo?.approvOrderDTOList || [])?.map(dto => (
                     <div key={dto.orderNo}>
                     <label>{dto?.jobName}</label>:
                     <span>{dto.empName}</span>
                     </div>
                     ))}
                     </td>
+                </tr>
+                </tbody>
+            </table>
+            <table style={{display:'inline-block', verticalAlign:'top'}}>
+                  <tbody>  
+                    <tr>
                     <td>
                     {
                         statuses?.map((dto,idx) => (
@@ -59,8 +70,10 @@ function LineDetail({approvInfo}){
                         }
                     </td>
                 </tr>
+                </tbody>
             </table>
-            {(lineInfo?.approvOrderDTOList)?.filter(dto => dto.empNo) === tokenEmpNo &&
+            </div>
+            { (lineInfo?.approvOrderDTOList)?.map(dto => dto.empNo).includes(tokenEmpNo) &&
           <div>
           <button onClick={()=>{
             dispatch(callHandleStatusAPI(approvInfo.lineNo, parseInt(approvInfo?.approvNo), tokenEmpNo, encodeURIComponent('승인')))
@@ -74,3 +87,5 @@ function LineDetail({approvInfo}){
     </>
     )
 }export default LineDetail;
+
+// (lineInfo?.approvOrderDTOList)?.filter(dto => dto.empNo)

@@ -15,12 +15,8 @@ import approvCss from "./ApprovDetail.module.css";
 import ApprovFile from "../../components/approvals/ApprovFile";
 
 function ApprovDetail() {
-  // 하나의 div approvDetail
-  // 하나의 div 진행상황 라인하고 상태
-  // 하나의 div 의견 댓글처럼
-  // 버튼
+
   const isLogin = window.localStorage.getItem("accessToken");
-  console.log("로그인? ", isLogin);
   let decoded = null;
   let tokenEmpNo = null;
   if (isLogin !== undefined && isLogin !== null) {
@@ -40,39 +36,20 @@ function ApprovDetail() {
 
   const formInfo = useSelector((state) => state.approvalReducer.form);
 
-  // console.log(Array.isArray(approvInfo));
 
-  console.log(params.approvNo);
-  console.log("이거뭐게", approvInfo.lineNo);
-
-  // useEffect(
-  //   () => {
-  //     dispatch(callApprovalDetailAPI(parseInt(params.approvNo)));
-  //     dispatch(callGetFormTitleAPI());
-  //     dispatch(callFilesAPI(params.approvNo));
-  //   }, // eslint-disable-next-line
-  //   []
-  // );
-
-  useEffect(() => {
-    const getApprovalDetails = async () => {
-      await dispatch(callApprovalDetailAPI(parseInt(params.approvNo)));
+  useEffect(
+    () => {
+      dispatch(callApprovalDetailAPI(parseInt(params.approvNo)));
       dispatch(callGetFormTitleAPI());
       dispatch(callFilesAPI(params.approvNo));
-    };
+    }, // eslint-disable-next-line
+    []
+  );
 
-    if (!approvInfo || approvInfo.length === 0) {
-      getApprovalDetails();
-    } else {
-      dispatch(callGetFormTitleAPI());
-      dispatch(callFilesAPI(params.approvNo));
-    }
-  }, [dispatch, params.approvNo, approvInfo]);
 
   // const form = formInfo?.filter(
-  //   (t) => t.formCode === approvInfo?.approvContentDTOList[0].formCode
+    // (t) => t.formCode === approvInfo?.approvContentDTOList[1].formCode
   // );
-
   const form = formInfo?.filter(
     (t) =>
       t.formCode ===
@@ -82,8 +59,8 @@ function ApprovDetail() {
   console.log("[ApprovDetail] form : " + JSON.stringify(form));
 
   console.log(
-    "[ApprovDetail] approvInfo?.approvContentDTOList[0] : " +
-      JSON.stringify(approvInfo.approvContentDTOList)
+    // "[ApprovDetail] approvInfo?.approvContentDTOList[0] : " +
+    //   JSON.stringify(approvInfo.approvContentDTOList[0].formCode)
   );
 
   return (
@@ -105,14 +82,13 @@ function ApprovDetail() {
           <tr>
             <td className={approvCss.formTitle}>
               {form?.map((t, index) => (
-                <div key={t.formCode}>
+                <div key={index}>
                   <span>{t.formTitle} :</span>
                 </div>
               ))}
             </td>
             <td className={approvCss.content}>
               {
-                //   approvInfo.length>0 &&
                 approvInfo?.approvContentDTOList?.map((dto) => (
                   <div key={dto.contentNo}>
                     <span>{dto.content}</span>
@@ -124,16 +100,18 @@ function ApprovDetail() {
           <tr>{<ApprovFile approvInfo={approvInfo} />}</tr>
         </table>
         <table className={approvCss.title2}>
+          <tbody>
           <tr>
             <td>
               <h2>진행상황</h2>
             </td>
           </tr>
           <tr>
-            <td>
+            <td style={{border:'2px solid black'}}>
               <LineDetail approvInfo={approvInfo} />
             </td>
           </tr>
+          </tbody>
         </table>
         <br />
         <br />
@@ -157,8 +135,6 @@ function ApprovDetail() {
       </div>
       <br />
       <div className={approvCss.btnarea}>
-        {/* 수정, 재상신 서로 disable 걸던지 해야할 듯 */}
-        {/* <button onClick={()=>{nav(-1)}}>결재 재상신</button> */}
         <button
           onClick={() => {
             dispatch(callDeleteApprovAPI(params.approvNo));
@@ -168,55 +144,20 @@ function ApprovDetail() {
           결재 삭제
         </button>
         &nbsp;&nbsp;
-        {decoded == "ROLE_ADMIN" && (
-          <div>
-            <button
-              onClick={() => {
-                dispatch(
-                  callHandleStatusAPI(
-                    approvInfo.lineNo,
-                    params.approvNo,
-                    tokenEmpNo,
-                    encodeURIComponent("승인")
-                  )
-                );
-              }}
-            >
-              결재 승인
-            </button>
-            &nbsp;&nbsp;
-            <button
-              onClick={() => {
-                dispatch(
-                  callHandleStatusAPI(
-                    approvInfo.lineNo,
-                    parseInt(params.approvNo),
-                    tokenEmpNo,
-                    encodeURIComponent("반려")
-                  )
-                );
-              }}
-            >
-              결재 반려
-            </button>
-          </div>
-        )}
-        <br></br>
-        <br></br>
-        <button
-          onClick={() => {
-            nav(-1);
-          }}
-        >
-          돌아가기
-        </button>
-        &nbsp;&nbsp;
         <button
           onClick={() => {
             nav(`/semof/modify-approval`);
           }}
         >
           내용수정
+        </button>
+        &nbsp;&nbsp;
+        <button
+          onClick={() => {
+            nav(-1);
+          }}
+        >
+          돌아가기
         </button>
       </div>
     </>

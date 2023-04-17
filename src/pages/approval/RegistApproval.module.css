@@ -8,6 +8,7 @@
     padding-left: 40px;
     line-height: 57px;
     border: none;
+    text-align: left;
 }
 .writeArea{
     text-align: center;;
@@ -52,7 +53,7 @@
     font-weight: bold;
 }
 .formArea{
-    padding: 10px;
+    width: 100%;
 }
 .categorytitle select{
     width: 250px;
@@ -61,19 +62,24 @@
 }
 .inputTitle input{
     width: 250px;
-    height: 35px;
+    height: 25px;
     border-radius: 5px;
 }
 .formArea input{
     width: 250px;
-    height: 35px; 
+    height: 25px; 
     border-radius: 5px; 
     
 }
 .formContent{
     border: 1px solid orange;
-    width: 50%;
-    height: 30vh;
+    width: 30%;
+    height: 65vh;
     margin-left: auto;
     margin-right: auto;
+}
+.formArea span{
+    text-align: left;
+    align-items: left;
+    width: 40%;
 }
