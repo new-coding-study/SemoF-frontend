@@ -44,9 +44,8 @@ function Header() {
             onClick={onClickLogoHandler}
           ></img>
           <div>
-            {location.pathname === "/semof" ? (
-              <SearchEmp />
-            ) : (
+            {location.pathname === "/semof" ? // <SearchEmp />
+            null : (
               <InfoEmp decodedUser={decodedUser} />
             )}
           </div>

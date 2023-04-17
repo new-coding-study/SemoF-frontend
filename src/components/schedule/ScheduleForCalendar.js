@@ -67,6 +67,7 @@ function ScheduleForCalendar({ newDate, setDefaultMode }) {
             <div
               className={ScheduleForCalendarCSS.scdWrapper}
               onClick={onClickScheduleDetailHandler}
+              key={schedule.scdNo}
             >
               <div
                 style={{

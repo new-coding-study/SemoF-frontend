@@ -67,7 +67,12 @@ function ScheduleUpdateModal({
 
   // 종일 여부 변화 관리 핸들러
   const onChangeCheckAllDayHandler = () => {
+    console.log("checkAllDay 값 확인 1이면 종일, 0이면 시간", checkAllDay);
     setCheckAllDay(!checkAllDay);
+    setUpdateSchedule({
+      ...updateSchedule,
+      scdAllDay: !checkAllDay,
+    });
   };
 
   const onChangeUpdateScdHandler = (e) => {
@@ -112,7 +117,8 @@ function ScheduleUpdateModal({
           navigate(`/semof/schedule`, { replace: true }),
           setScheduleDetailModal(false),
           setScheduleUpdateModal(false),
-          setDefaultMode(true)
+          setDefaultMode(true),
+          window.location.reload()
         );
       }
     });
@@ -193,7 +199,7 @@ function ScheduleUpdateModal({
                   <input
                     type="checkbox"
                     name="scdAllDay"
-                    checked={updateSchedule?.scdAllDay === 1 ? true : false}
+                    checked={checkAllDay}
                     onChange={onChangeCheckAllDayHandler}
                   />
                   <div> 종일 </div>

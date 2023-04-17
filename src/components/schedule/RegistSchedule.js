@@ -39,7 +39,6 @@ function RegistSchedule({
     scdAllDay: "",
     scdContent: "",
     scdPlace: "",
-    calNo: "",
   });
 
   // 이전으로 버튼 클릭 시 달력으로 돌아감
@@ -76,7 +75,7 @@ function RegistSchedule({
     formData.append("scdPlace", newSchedule.scdPlace);
 
     // 캘린더 값 선택해서 들어갈 수 있도록 수정해야함
-    formData.append("calNo", selectedCalendar);
+    formData.append("calNo", selectedCalendar.calNo);
 
     // token 에서 유저No 받아서 넣어주기 수정완료
     formData.append("scdWriter", decodedUser);

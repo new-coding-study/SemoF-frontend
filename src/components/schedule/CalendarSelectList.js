@@ -16,14 +16,19 @@ function CalendarSelectList({
   );
 
   const onClickSelectedCalHandler = (e) => {
-    // console.log(e.target);
-    // console.log(e.target.children[0].textContent);
-    // console.log(e.target.children[1].textContent);
-    console.log(e.target.children[3].textContent);
+    console.log(e.target.textContent); // 모든 정보 다 출력
+    console.log(e.target.children);
+    // console.log(e.target.children[1]);
+    // console.log(e.target.children[3]);
 
-    const selectCalendarNo = e.target.children[0].textContent;
-    const selectCalendarColor = e.target.children[1].textContent;
-    const selectCalendarName = e.target.children[3].textContent;
+    const calendarInfo = e.target.textContent;
+
+    const calendar = calendarInfo.split(" ");
+
+    console.log(calendar);
+    const selectCalendarNo = calendar[1];
+    const selectCalendarColor = calendar[2];
+    const selectCalendarName = calendar[3];
 
     setSelectedCalendar({
       ...selectedCalendar,
@@ -51,8 +56,6 @@ function CalendarSelectList({
             key={calendar?.calNo}
             onClick={onClickSelectedCalHandler}
           >
-            <div style={{ display: "none" }}> {calendar?.calNo}</div>
-            <div style={{ display: "none" }}> {calendar?.calColor}</div>
             <div
               className={CalendarSelectListCSS.calColorBox}
               style={{
@@ -60,6 +63,8 @@ function CalendarSelectList({
               }}
             ></div>
             <div className={CalendarSelectListCSS.calName}>
+              <div style={{ display: "none" }}> {calendar?.calNo}</div>
+              <div style={{ display: "none" }}> {calendar?.calColor} </div>
               {calendar?.calName}
             </div>
           </div>
