@@ -316,7 +316,7 @@ function Attendance() {
             </div>
             <div className={AttendanceCSS.approvalsContent}>
               <NavLink
-                to="/attendance/types/2"
+                to="/semof/regist-approval"
                 style={{ textDecoration: "none" }}
               >
                 <div>
@@ -327,7 +327,7 @@ function Attendance() {
             </div>
             <div className={AttendanceCSS.approvalsContent}>
               <NavLink
-                to="/attendance/types/2"
+                to="/semof/regist-approval"
                 style={{ textDecoration: "none" }}
               >
                 <div>
@@ -338,7 +338,7 @@ function Attendance() {
             </div>
             <div className={AttendanceCSS.approvalsContent}>
               <NavLink
-                to="/attendance/types/2"
+                to="/semof/regist-approval"
                 style={{ textDecoration: "none" }}
               >
                 <div>
@@ -349,7 +349,7 @@ function Attendance() {
             </div>
             <div className={AttendanceCSS.approvalsContent}>
               <NavLink
-                to="/attendance/types/2"
+                to="/semof/regist-approval"
                 style={{ textDecoration: "none" }}
               >
                 <div>
