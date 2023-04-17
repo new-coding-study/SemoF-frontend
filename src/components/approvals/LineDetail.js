@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { callLineDetailAPI, callStatusesAPI, callHandleStatusAPI } from '../../apis/ApprovalAPICalls';
+import { callLineDetailAPI, callStatusesAPI, callHandleStatusAPI, callDeleteApprovAPI } from '../../apis/ApprovalAPICalls';
 import {decodeJwt} from '../../utils/tokenUtils';
 
 import { useEffect } from 'react';
@@ -18,6 +18,7 @@ function LineDetail({approvInfo}){
     }
     console.log(tokenEmpNo);
     console.log('decoded', decoded);
+    const nav =  useNavigate();
     const dispatch = useDispatch();
     const lineInfo = useSelector(state => state.approvalReducer.lineInfo);
     const statuses = useSelector(state => state.approvalReducer.status);
@@ -83,6 +84,27 @@ function LineDetail({approvInfo}){
           <button onClick={() =>{dispatch(callHandleStatusAPI(approvInfo.lineNo, parseInt(approvInfo?.approvNo), tokenEmpNo, encodeURIComponent('반려')))}}>결재 반려</button>
           </div>
         }
+        {/* {(statuses?.)} */}
+        <div 
+        // className={approvCss.btnarea}
+        >
+        <button
+          onClick={() => {
+            dispatch(callDeleteApprovAPI(approvInfo.approvNo));
+            nav(`/semof/inbox`, { replace: true });
+          }}
+        >
+          결재 삭제
+        </button>
+        &nbsp;&nbsp;
+        <button
+          onClick={() => {
+            nav(`/semof/modify-approval`);
+          }}
+        >
+          내용수정
+        </button>
+        </div>
         </div>
     </>
     )
