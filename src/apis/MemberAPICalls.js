@@ -63,7 +63,7 @@ export const callRegisterAPI = ({ form }) => {
     const result = await fetch(requestURL, {
       method: "POST",
       headers: {
-        // "Content-Type": "application/json",
+        "Content-Type": "application/json",
         Accept: "*/*",
       },
       body: JSON.stringify({
