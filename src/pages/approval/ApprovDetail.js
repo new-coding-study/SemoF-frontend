@@ -136,7 +136,7 @@ function ApprovDetail() {
       <br />
       {}
       <div className={approvCss.btnarea}>
-        <button
+        {/* <button
           onClick={() => {
             dispatch(callDeleteApprovAPI(params.approvNo));
             nav(`/semof/inbox`, { replace: true });
@@ -151,7 +151,7 @@ function ApprovDetail() {
           }}
         >
           내용수정
-        </button>
+        </button> */}
         &nbsp;&nbsp;
         <button
           onClick={() => {
