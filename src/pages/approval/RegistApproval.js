@@ -175,7 +175,7 @@ console.log(tokenEmpNo);
                 결재 상신
             </div>
             <div className={RegistCSS.categorytitle}>
-                <label style={{marginRight:'17%'}}>카테고리 : </label>
+                <label>카테고리 : </label>
                 {/* <select name="formType" onChange={selectHandler}>
                 <option value="none" disabled>작성유형선택</option>
                 {formInfo.map(form => (
@@ -204,7 +204,7 @@ console.log(tokenEmpNo);
             </div>
             <br/>
             <div className={RegistCSS.inputTitle}>
-                <label style={{marginRight:'12%'}}>제목 : </label>
+                <label style={{marginLeft:'3.5%'}}>제목 : </label>
                 <input 
                 // className={nameInput} 
                 onChange={onChangeHandler} placeholder="제목 입력" name='approvTitle'></input>
@@ -212,8 +212,9 @@ console.log(tokenEmpNo);
             </div>
             <br/>
             <div>
-                <label style={{marginRight:'45%'}}>신청서 작성 : </label>
+                <label style={{marginRight:'18.5%'}}>신청서 작성 : </label>
                 <div>
+                <br/>
             {isSelect &&  (
                     <div className={RegistCSS.formContent}>
                   

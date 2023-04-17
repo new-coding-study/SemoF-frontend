@@ -35,8 +35,8 @@
     border: none;
 }
 
-.displayBox {
-    height: 790px;
+.displayBox{
+    height:790px;
     background-color: white;
     border-radius: 10px;
     border: 2px solid orange;
