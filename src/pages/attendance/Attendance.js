@@ -228,7 +228,7 @@ function Attendance() {
                     </div>
                     <div className={ AttendanceCSS.approvals }>
                         <div className={ AttendanceCSS.approvalsContent }>
-                            <NavLink to="/attendance/types/2" style={{textDecoration:'none'}}>
+                            <NavLink to="/semof/regist-approval" style={{textDecoration:'none'}}>
                                 <div>
                                     <BsClipboard2Minus/>
                                 </div>
@@ -236,7 +236,7 @@ function Attendance() {
                             </NavLink>
                         </div>
                         <div className={ AttendanceCSS.approvalsContent }>
-                            <NavLink to="/attendance/types/2" style={{textDecoration:'none'}}>
+                            <NavLink to="/semof/regist-approval" style={{textDecoration:'none'}}>
                                 <div>
                                     <BsClipboard2Plus/>
                                 </div>
@@ -244,7 +244,7 @@ function Attendance() {
                             </NavLink>
                         </div>
                         <div className={ AttendanceCSS.approvalsContent }>
-                            <NavLink to="/attendance/types/2" style={{textDecoration:'none'}}>
+                            <NavLink to="/semof/regist-approval" style={{textDecoration:'none'}}>
                                 <div>
                                     <BsFileEarmarkText/>
                                 </div>
@@ -252,7 +252,7 @@ function Attendance() {
                             </NavLink>
                         </div>
                         <div className={ AttendanceCSS.approvalsContent }>
-                            <NavLink to="/attendance/types/2" style={{textDecoration:'none'}}>
+                            <NavLink to="/semof/regist-approval" style={{textDecoration:'none'}}>
                                 <div>
                                     <BsCarFront/>
                                 </div>
@@ -260,7 +260,7 @@ function Attendance() {
                             </NavLink>
                         </div>
                         <div className={ AttendanceCSS.approvalsContent }>
-                            <NavLink to="/attendance/types/2" style={{textDecoration:'none'}}>
+                            <NavLink to="/semof/regist-approval" style={{textDecoration:'none'}}>
                                 <div>
                                     <BsAirplane/>
                                 </div>
