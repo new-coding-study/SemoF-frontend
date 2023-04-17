@@ -60,7 +60,7 @@ function LineDetail({approvInfo}){
                     </td>
                 </tr>
             </table>
-            {(lineInfo?.approvOrderDTOList)?.filter(dto => dto.empNo === tokenEmpNo) &&
+            {(lineInfo?.approvOrderDTOList)?.filter(dto => dto.empNo) === tokenEmpNo &&
           <div>
           <button onClick={()=>{
             dispatch(callHandleStatusAPI(approvInfo.lineNo, parseInt(approvInfo?.approvNo), tokenEmpNo, encodeURIComponent('승인')))

@@ -35,7 +35,7 @@
 .textBox{
     width: 100%;
     margin-top: 0.15%;
-    height: 8.5em; 
+    height: 8em; 
     resize: none;
     text-indent: 10px;
     border: none;
@@ -53,6 +53,8 @@
     background-color: beige;
     font-weight: bold;
     font-size: 15px;
+    height: 8em; 
+
 }
 .registbtn:hover{
     background-color: lightgray;
@@ -78,5 +80,4 @@
 }
 .contentPagingbtn{
     height: 10%;
-    padding-top: 1%;
 }
