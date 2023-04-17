@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import {
   GET_MEMBER,
   POST_LOGIN,
@@ -44,7 +45,24 @@ export const callLoginAPI = ({ form }) => {
     console.log("[MemberAPICalls] callLoginAPI RESULT : ", result);
     if (result.status === 200) {
       window.localStorage.setItem("accessToken", result.data.accessToken);
+      console.log("상태갑스 200");
+      Swal.fire({
+        title: "환영합니다",
+        text: "메인화면으로 이동합니다.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } else if (result.status !== 200) {
+      console.log("상태갑스 400");
+      Swal.fire({
+        title: "잘못된 아이디 또는 비밀번호입니다",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
+    // if (result.status === 200) {
+
+    // }
     dispatch({ type: POST_LOGIN, payload: result });
   };
 };
@@ -69,9 +87,7 @@ export const callRegisterAPI = ({ form }) => {
       body: JSON.stringify({
         loginId: form.loginId,
         loginPwd: form.loginPwd,
-        // ,
-        // memberName: form.memberName,
-        // memberEmail: form.memberEmail,
+        empNo: form.empNo,
       }),
     }).then((response) => response.json());
 

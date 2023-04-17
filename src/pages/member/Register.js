@@ -20,17 +20,6 @@ function Register() {
   const register = useSelector((state) => state.memberReducer.regist);
   console.log(member);
 
-  // 최종적으로 회원가입에 필요한 값들만 form 으로 묶어서 보냄
-  const [form, setForm] = useState({
-    loginId: "",
-    loginPwd: "",
-    confirmPwd: "",
-    empReg: "",
-    empNo: "",
-  });
-
-  const { empReg } = form;
-
   // 1. 아이디 관련 상태값 => 아이디 중복 체크 여부
   const [checkId, setCheckId] = useState(false);
   const [checkClickBtn, setCheckClickBtn] = useState(false);
@@ -43,6 +32,17 @@ function Register() {
 
   // 주민번호 검증으로 받아온 empNo을 설정
   const [empNo, setEmpNo] = useState("");
+
+  // 최종적으로 회원가입에 필요한 값들만 form 으로 묶어서 보냄
+  const [form, setForm] = useState({
+    loginId: "",
+    loginPwd: "",
+    confirmPwd: "",
+    empReg: "",
+    empNo: "",
+  });
+
+  const { empReg } = form;
 
   // 회원가입 정보 입력 핸들러
   const onChangeHandler = (e) => {
@@ -123,12 +123,19 @@ function Register() {
         setCheckReg(false);
         setEmpNo("");
       } else {
+        console.log("checkEmpNo 확인", checkEmpNo);
         setCheckReg(true);
         setEmpNo(checkEmpNo);
+        setForm({
+          ...form,
+          empNo: checkEmpNo,
+        });
       }
     }, // eslint-disable-next-line
     [member?.checkReg]
   );
+
+  console.log("form 데이터 확인 : ", form.empNo);
 
   // 돌아가기 클릭시 로그인 페이지로 이동
   const onClickBackHandler = () => {
