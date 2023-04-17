@@ -122,7 +122,7 @@ function Employees() {
           /> */}
           <iframe
             title="키바나 총원 그래프"
-            src="http://localhost:5601/app/dashboards#/view/91259770-db2b-11ed-91d8-dd2d388003b8?embed=true&_g=(filters%3A!())&hide-filter-bar=true"
+            src="http://localhost:5601/app/dashboards#/view/1762e770-dcc1-11ed-87e5-551937667ac7?embed=true&_g=(filters%3A!())&hide-filter-bar=true"
             height="100%"
             width="100%"
             allowFullScreen
@@ -138,7 +138,7 @@ function Employees() {
           /> */}
           <iframe
             title="키바나 성별 분포 그래프"
-            src="http://localhost:5601/app/dashboards#/view/3a7842b0-db2b-11ed-91d8-dd2d388003b8?embed=true&_g=(filters%3A!())&hide-filter-bar=true"
+            src="http://localhost:5601/app/dashboards#/view/8beb7950-dcc0-11ed-87e5-551937667ac7?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow%2Fd%2Cto%3Anow%2Fd))&hide-filter-bar=true"
             height="100%"
             width="100%"
             allowFullScreen
@@ -154,7 +154,7 @@ function Employees() {
           /> */}
           <iframe
             title="키바나 직급 분포 그래프"
-            src="http://localhost:5601/app/dashboards#/view/eeb37b50-db2b-11ed-91d8-dd2d388003b8?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-30d%2Fd%2Cto%3Anow))&hide-filter-bar=true"
+            src="http://localhost:5601/app/dashboards#/view/66709dd0-dcf8-11ed-87e5-551937667ac7?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow%2Fd%2Cto%3Anow%2Fd))&hide-filter-bar=true"
             height="100%"
             width="100%"
             allowFullScreen

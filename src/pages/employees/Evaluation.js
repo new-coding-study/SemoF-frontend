@@ -309,7 +309,7 @@ function Evaluation() {
   return (
     <>
       <div className={EvaluationCSS.header}>
-        <div className={EvaluationCSS.title}> 인사평가 </div>
+        <div className={EvaluationCSS.title}> 사원평가 </div>
       </div>
       <div className={EvaluationCSS.buttonBox}>
         {CheckRole() === true && (
