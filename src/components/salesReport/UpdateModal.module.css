@@ -1,4 +1,4 @@
-.modal{
+.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,7 +10,8 @@
     align-items: center;
     z-index: 150;
 }
-.modalContainer{
+
+.modalContainer {
     position: absolute;
     width: 650px;
     height: 900px;
@@ -18,10 +19,11 @@
     text-align: left;
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
-    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);    
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
     z-index: 1000;
 }
-.title{
+
+.title {
     height: 60px;
     border-radius: 8px;
     background-color: #E52E2E;
@@ -32,17 +34,19 @@
     line-height: 57px;
     border: none;
 }
-.updatetd textarea{
+
+.updatetd textarea {
     resize: none;
     width: 95%;
     height: 10vh;
     padding: 10px;
     font-size: 18px;
 }
-.displayBox{
-    height:730px;
+
+.displayBox {
+    height: 730px;
     background-color: white;
     border-radius: 10px;
     border: 2px solid orange;
-    padding: 10px;  
+    padding: 10px;
 }

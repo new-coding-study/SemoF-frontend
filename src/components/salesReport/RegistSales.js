@@ -130,7 +130,6 @@ function RegistSales ({setIsSalesRegist}){
                     </table>
                     </div>
                     </form>
-                    <br/>
                     <div className={modalcss.modalbtn}>
                     <button onClick={onClickRegistSales}>제 출</button>&nbsp;&nbsp;&nbsp;
                     <button onClick={()=> setIsSalesRegist(false)}>닫 기</button>
