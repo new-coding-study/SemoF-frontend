@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   callGetEmployeesAPI,
   callSearchEmployeesAPI,
-  callUpdateEmpAPI,
   callRetireEmpAPI,
 } from "../../apis/EmployeeAPICalls";
 
@@ -142,7 +141,9 @@ function Management() {
 
   const onModifyClickHandler = () => {
     // console.log("[Management] form : " + JSON.stringify(form));
-    navigate("/semof/employees/modify", { state: { empNo: form.empNo } });
+    navigate("/semof/employees/modify", {
+      state: { empNo: form.empNo, pageInfo: pageInfo },
+    });
     setShowModal(false);
   };
 
@@ -155,7 +156,9 @@ function Management() {
 
   //등록 페이지 이동
   const onMovePage = () => {
-    navigate("/semof/employees/register");
+    navigate("/semof/employees/register", {
+      state: { pageInfo: pageInfo },
+    });
     setShowModal(false);
   };
 

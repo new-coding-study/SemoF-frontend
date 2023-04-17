@@ -54,21 +54,26 @@
   align-items: center;
 }
 
+.todoHeader h1 {
+  height: 40px;
+  padding-top: 4px;
+  margin: 20px 8px;
+}
+
+.todoHeader input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+}
+
 .todoHeader img {
   width: 24px;
   height: 24px;
-  margin: 0 8px;
-}
-
-.todoHeader img:hover {
-  cursor: pointer;
+  line-height: 24px;
 }
 
 .todoHeader div:last-of-type {
   font-size: 30px;
-}
-
-.todoHeader div:last-of-type:hover {
   cursor: pointer;
 }
 

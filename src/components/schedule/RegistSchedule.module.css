@@ -1,0 +1,232 @@
+.registScdWrapper {
+  width: 100%;
+  height: 800px;
+  padding-left: 20px;
+  /* overflow: auto; */
+  /* background-color: blue; */
+  /* border: 1px solid green; */
+  /* position: fixed; */
+}
+
+.backToCalendar {
+  display: flex;
+  margin: 8px 0 28px;
+  width: 100px;
+  height: 30px;
+  line-height: 32px;
+  background-color: #ededed;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.backToCalendar div:first-child {
+  margin: 0 8px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.scdNameWrapper {
+  height: 44px;
+  margin-bottom: 20px;
+  /* border: 1px solid red; */
+}
+
+.scdName {
+  width: 640px;
+  border-bottom: 1px solid gray;
+}
+
+.scdName:focus-within {
+  border-bottom: 1px solid red;
+}
+
+.scdName input {
+  width: 640px;
+  height: 36px;
+  border: none;
+  outline: none;
+  font-size: 24px;
+  /* padding-left: 16px; */
+}
+
+.scdName input::placeholder {
+  padding: 4px;
+}
+
+.scdDateWrapper {
+  /* border: 1px solid green; */
+  width: 640px;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+.scdStartDate {
+  margin-left: 4px;
+}
+
+.scdStartDate input {
+  height: 32px;
+  margin-right: 4px;
+  border-radius: 3px;
+  border: 1px solid #f1f3f4;
+  background-color: #f1f3f4;
+  /* outline: 1px solid #f1f3f4; */
+}
+
+.scdStartDate input:focus {
+  outline: none;
+  border-bottom: 2px solid red;
+}
+
+.scdEndDate {
+  margin-left: 4px;
+  margin-top: 4px;
+}
+
+.scdEndDate input {
+  height: 32px;
+  margin-right: 4px;
+  border-radius: 3px;
+  border: 1px solid #f1f3f4;
+  background-color: #f1f3f4;
+  /* outline: 1px solid #f1f3f4; */
+}
+
+.scdEndDate input:focus {
+  outline: none;
+  border-bottom: 2px solid red;
+}
+
+.allDayCheckbox {
+  margin-top: 8px;
+}
+
+.allDayCheckbox input[id="allDayCheck"] {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 1.5px;
+}
+
+/* .allDayCheckbox input[type="checkbox"]:checked {
+  background-color: red;
+  border: 1px solid green;
+} */
+
+.allDayCheckbox label[for="allDayCheck"] {
+  /* border: 1px solid green; */
+  position: relative;
+  top: -3px;
+  color: #6c6c6c;
+}
+
+.calendarWrapper {
+  width: 240px;
+  height: 32px;
+  line-height: 32px;
+  display: flex;
+  border: 1px solid #6c6c6c;
+  border-radius: 4px;
+  /* justify-content: space-between; */
+  margin-bottom: 20px;
+  color: #6c6c6c;
+  cursor: pointer;
+}
+
+.selectCalendar {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 8px;
+}
+
+.selectCalendar div:first-child {
+  margin-right: 132px;
+}
+
+.selectedCalendar {
+  display: flex;
+}
+
+.selectedCalColor {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 2px;
+  margin: 4px 8px 0 4px;
+}
+
+.selectedCalName {
+  width: 178.5px;
+}
+
+.scdPlaceWrapper {
+  width: 440px;
+  height: 44px;
+  /* border: 1px solid gray; */
+  border-bottom: 1px solid #f1f3f4;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.scdPlaceWrapper:focus-within {
+  /* border: 1px solid red; */
+  border-bottom: 1px solid red;
+}
+
+.scdPlaceWrapper input {
+  width: 436px;
+  height: 42px;
+  outline: none;
+  border: none;
+  background-color: #f1f3f4;
+  border-radius: 4px;
+}
+
+.scdPlaceWrapper input:focus {
+  /* background-color: white; */
+}
+
+.scdPlaceWrapper input::placeholder {
+  padding: 4px;
+  font-size: 16px;
+}
+
+.scdContentWrapper {
+  width: 440px;
+  height: 240px;
+  /* border: 1px solid gray; */
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.scdContentWrapper textarea {
+  width: 436px;
+  height: 240px;
+  resize: none;
+  font-size: 16px;
+  border: none;
+  border-radius: 3px;
+  background-color: #f1f3f4;
+}
+
+.scdContentWrapper textarea::placeholder {
+  padding: 4px;
+  font-size: 16px;
+}
+
+.scdContentWrapper textarea:focus {
+  outline: none;
+  /* border-bottom: 1px solid red; */
+}
+
+.registBtn {
+  width: 72px;
+  height: 32px;
+  background-color: #e52e2e;
+  border-radius: 4px;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  line-height: 32px;
+  margin-top: 40px;
+}

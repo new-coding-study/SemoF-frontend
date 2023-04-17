@@ -1,0 +1,268 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  /* overflow: auto; */
+}
+
+.modalContainer {
+  position: absolute;
+  width: 600px;
+  height: 760px;
+  padding: 10px;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+  z-index: 1000;
+}
+
+.scdDetailModalModalDiv {
+  width: 600px;
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  /*수평 정렬*/
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  /* border: solid 1px black; */
+  border-radius: 10px;
+}
+
+.scdHeader {
+  display: flex;
+  align-items: center;
+  margin: 0 12px;
+  padding: 0 12px;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 2px solid black;
+}
+
+.closeBtn {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.scdTitle {
+  display: flex;
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 1px solid black;
+  margin: 0 20px;
+}
+
+.scdTitle div {
+  width: 100px;
+  font-size: 20px;
+  margin-left: 8px;
+  /* border: 1px solid red; */
+  text-align: left;
+}
+
+.scdTitle input {
+  width: 360px;
+  height: 20px;
+  margin-left: 80px;
+}
+
+.scdCalendar {
+  display: flex;
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 1px solid black;
+  margin: 0 20px;
+}
+
+.calLabel {
+  width: 100px;
+  font-size: 20px;
+  margin-left: 8px;
+  /* border: 1px solid red; */
+  text-align: left;
+}
+
+.calBoxWrapper {
+  width: 364px;
+  height: 24px;
+  margin-left: 80px;
+  border: 1px solid #d1d1d1;
+  border-radius: 2px;
+  display: flex;
+  background-color: #f8f8f8;
+  color: #545454;
+}
+
+.calColorBox {
+  width: 16px;
+  height: 16px;
+  border: 1px solid black;
+  border-radius: 2px;
+  margin: 3px 4px;
+}
+
+.Category span:last-of-type {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.scdDateWrapper {
+  display: flex;
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 1px solid black;
+  margin: 0 20px;
+}
+
+.scdDateLabel {
+  width: 100px;
+  font-size: 20px;
+  margin-left: 8px;
+  margin-right: 80px;
+  text-align: left;
+}
+
+.scdDate {
+  /* border: 1px solid green; */
+  width: 360px;
+}
+
+.checkAllDay {
+  /* border: 1px solid red; */
+  text-align: left;
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.checkAllDay input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.checkAllDay input[type="checkbox"]:checked {
+  background-color: #d1d1d1;
+}
+
+.checkAllDay div {
+  line-height: 26px;
+  margin-left: 8px;
+}
+
+.scdStart {
+  display: flex;
+  width: 360px;
+  /* border: 1px solid blue; */
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 22px;
+  color: gray;
+}
+
+.scdStart input {
+  width: 140px;
+  margin-left: 16px;
+}
+
+.scdEnd {
+  display: flex;
+  width: 360px;
+  font-size: 14px;
+  line-height: 22px;
+  color: gray;
+}
+
+.scdEnd input {
+  width: 140px;
+  margin-left: 16px;
+}
+
+.scdContent {
+  display: flex;
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 1px solid black;
+  margin: 0 20px;
+}
+
+.scdContent div {
+  width: 100px;
+  font-size: 20px;
+  margin-left: 8px;
+  /* border: 1px solid red; */
+  text-align: left;
+}
+
+.scdContent textarea {
+  width: 360px;
+  height: 100px;
+  margin-left: 80px;
+}
+
+.scdPlace {
+  display: flex;
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 1px solid black;
+  margin: 0 20px;
+}
+
+.scdPlace div {
+  width: 100px;
+  font-size: 20px;
+  margin-left: 8px;
+  /* border: 1px solid red; */
+  text-align: left;
+}
+
+.scdPlace input {
+  width: 360px;
+  height: 20px;
+  margin-left: 80px;
+}
+
+.scdComment {
+  display: flex;
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 1px solid black;
+  margin: 0 20px;
+}
+
+.scdComment div {
+  width: 100px;
+  height: 100px;
+  font-size: 20px;
+  margin-left: 8px;
+  /* border: 1px solid red; */
+  text-align: left;
+}
+
+.scdButtonDiv {
+  padding: 20px 0;
+}
+
+.scdButtonDiv button {
+  margin: 0 20px;
+  padding: 0 16px;
+  height: 36px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+}
+
+.scdButtonDiv button:hover {
+  background-color: #e52e2e;
+  color: white;
+  cursor: pointer;
+}

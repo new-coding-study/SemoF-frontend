@@ -68,7 +68,6 @@ function SideNavbar() {
               </svg>
               <span>받은메일함</span>
             </span>
-            {/* <span className={SideNavbarCSS.navCount}>16</span> */}
           </li>
         </NavLink>
         <NavLink
@@ -94,7 +93,6 @@ function SideNavbar() {
               </svg>
               <span>보낸메일함</span>
             </span>
-            {/* <span className={SideNavbarCSS.navCount}>3</span> */}
           </li>
         </NavLink>
         <NavLink to="/semof/email/deleted">

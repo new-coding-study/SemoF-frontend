@@ -1,4 +1,3 @@
-// import Contribution from "../../components/employees/Contribution";
 import EvaluationCSS from "./Evaluation.module.css";
 
 import React, { useEffect, useState } from "react";
@@ -25,7 +24,6 @@ function Evaluation() {
     pageInfo: {},
   };
   const employeeList = employees.data;
-  // const pageInfo = employees.pageInfo;
   const contributionList = useSelector(
     (state) => state.empReducer?.contributionList
   );
@@ -50,7 +48,6 @@ function Evaluation() {
   const [showEvaluationForm, setShowEvaluationForm] = useState(false); //등급 입력 폼을 보여줄지 여부를 결정하는 state
 
   const [showSearchModal, setShowSearchModal] = useState(false); // 이전 검색 결과를 표시하는 모달의 상태
-  const [prevSearchResult, setPrevSearchResult] = useState([]); // 이전 검색 결과를 저장하는 state
 
   const [form, setForm] = useState({
     empNo: selectedEmployee?.empNo ?? "",
@@ -405,7 +402,6 @@ function Evaluation() {
               <h3>정기 인사 평가</h3>
               <button
                 className={EvaluationCSS.closeButton}
-                // onClick={() => setShowModal(false)}
                 onClick={onModalCloseHandler}
               >
                 X
@@ -425,7 +421,6 @@ function Evaluation() {
                           <option value="">선택</option>
                           <option value="empName">이름</option>
                           <option value="deptName">부서</option>
-                          {/* <option value="branchName">지점</option> */}
                         </select>
                       </div>
                       <input
@@ -497,9 +492,6 @@ function Evaluation() {
                         selectedEmployee.deptName !== "없음"
                           ? selectedEmployee.deptName
                           : ""}
-                        {/* {selectedEmployee
-                          ? selectedEmployee.deptName
-                          : "부서 이름"} */}
                       </span>
                       <span className={EvaluationCSS.empName}>
                         {selectedEmployee
@@ -514,7 +506,7 @@ function Evaluation() {
                     <div className={EvaluationCSS.newModalFormGroup}>
                       {/* 도넛 그래프 */}
                       <div className={EvaluationCSS.chartWrapper}>
-                        {/* <h3>실적 비율</h3> */}
+                        {/* 실적 비율 */}
                         <div className={EvaluationCSS.chart}>
                           {empChart(selectedEmployee.empNo)}
                         </div>
@@ -529,7 +521,6 @@ function Evaluation() {
                       </div>
 
                       {/* 등급 선택 박스 */}
-
                       <div className={EvaluationCSS.radioWrapper}>
                         <div className={EvaluationCSS.radioBox}>
                           <input

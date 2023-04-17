@@ -7,7 +7,7 @@ import {
 
 // 근태 조회
 export const callAttendanceDetailAPI = ({empNo}) => {
-    console.log('[AttendanceAPICalls] callSearchAttendanceAPI Call');
+    console.log('[AttendanceAPICalls] callAttendanceDetailAPI Call');
 
     console.log('[AttendanceAPICalls] :' + empNo)
 
@@ -26,11 +26,11 @@ export const callAttendanceDetailAPI = ({empNo}) => {
             });
 
             const result = await response.json();
-            console.log('[AttendanceAPICalls] callSearchAttendanceAPI RESULT : ', result);
+            console.log('[AttendanceAPICalls] callAttendanceDetailAPI RESULT : ', result);
 
             dispatch({ type: GET_STATUS,  payload: result.data });
         } catch (error) {
-            console.log('[AttendanceAPICalls] callSearchAttendanceAPI ERROR : ', error);
+            console.log('[AttendanceAPICalls] callAttendanceDetailAPI ERROR : ', error);
         }
     };    
 };

@@ -19,10 +19,6 @@ function Detail(props) {
   const employeeDetail = useSelector((state) => state.empReducer);
   const empPhoto = useSelector((state) => state.empReducer.empPhoto);
 
-  // console.log("[Modify] employeeDetail : " + JSON.stringify(employeeDetail));
-
-  // console.log("[Modify] empPhoto : " + JSON.stringify(empPhoto));
-
   const [today, setToday] = useState(
     new Date().toLocaleDateString("ko-KR", {
       weekday: "long",

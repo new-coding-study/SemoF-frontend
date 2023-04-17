@@ -6,12 +6,14 @@ import Register from "./pages/member/Register";
 import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
 import Todo from "./pages/todo/Todo";
+import TodoSearch from "./pages/todo/TodoSearch";
+import Schedule from "./pages/schedule/Schedule";
 
 import Approval from "./pages/approval/Approval";
 import ApprovalIn from "./pages/approval/ApprovalIn";
 
 import Report from "./pages/report/Report";
-import WorksReportAdmin from "./pages/report/WorksReportAdmin"
+import WorksReportAdmin from "./pages/report/WorksReportAdmin";
 import Board from "./pages/board/Board";
 import PostingDetail from "./components/boards/PostingDetail";
 import ApprovDetail from "./pages/approval/ApprovDetail";
@@ -48,7 +50,6 @@ import ModifyApproval from "./pages/approval/ModifyApproval";
 
 import Attendance from "./pages/attendance/Attendance";
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -59,6 +60,9 @@ function App() {
         <Route path="/semof" element={<Layout />}>
           <Route index element={<Main />} />
           <Route path="todo" element={<Todo />} />
+          <Route path="todo/search" element={<TodoSearch />} />
+          <Route path="schedule" element={<Schedule />} />
+          {/* <Route path="schedule/search" element={<ScheduleSearch />} /> */}
 
           <Route path="approval" element={<Approval />} />
           <Route path="inbox" element={<ApprovalIn />} />
@@ -70,15 +74,15 @@ function App() {
           <Route path="board" element={<Board />} />
           <Route path="posting-detail/:boardNo" element={<PostingDetail />} />
 
-          <Route path="report" element={<Report/>}/>
-          <Route path="works-report-admin" element={<WorksReportAdmin/>}/>
-          <Route path="works-report-emp" element={<WorksReportEmp/>}/>
-          <Route path="sales-report-admin" element={<SalesReportAdmin/>}/>
-          <Route path="sales-report-emp" element={<SalesReportEmp/>}/>
-          <Route path="trip-report-admin" element={<TripReportAdmin/>}/>
-          <Route path="trip-report-emp" element={<TripReportEmp/>}/>
-          <Route path= "meeting-report-admin" element={<MeetingReportAdmin/>}/>
-          <Route path= "meeting-report-emp" element={<MeetingReportEmp/>}/>
+          <Route path="report" element={<Report />} />
+          <Route path="works-report-admin" element={<WorksReportAdmin />} />
+          <Route path="works-report-emp" element={<WorksReportEmp />} />
+          <Route path="sales-report-admin" element={<SalesReportAdmin />} />
+          <Route path="sales-report-emp" element={<SalesReportEmp />} />
+          <Route path="trip-report-admin" element={<TripReportAdmin />} />
+          <Route path="trip-report-emp" element={<TripReportEmp />} />
+          <Route path="meeting-report-admin" element={<MeetingReportAdmin />} />
+          <Route path="meeting-report-emp" element={<MeetingReportEmp />} />
 
           <Route path="inbox/:approvNo" element={<ApprovDetail />} />
 
@@ -86,7 +90,6 @@ function App() {
           <Route path="complete/out" element={<FinApprovOut />} />
 
           <Route path="edit-line/:lineNo" element={<ModifyLine />} />
-
 
           <Route path="employees" element={<Employees />} />
           <Route path="employees/management" element={<Management />} />

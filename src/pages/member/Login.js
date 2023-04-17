@@ -22,9 +22,23 @@ function Login() {
   useEffect(
     () => {
       if (loginMember.status === 200) {
-        Swal.fire('환영합니다', '메인화면으로 이동합니다.','success');
+        Swal.fire({
+          title: "환영합니다",
+          text: "메인화면으로 이동합니다.",
+          timer: 1000,
+          showConfirmButton: false,
+        });
         navigate("/semof", { replace: true });
       }
+      // 아이디, 비밀번호 잘못 입력 시 alert 띄우고싶은데
+      // 그러면 form을 새로 입력할 때 status 값이 400이 유지되면서 계속 alert이 뜨고 있음,,,
+      // else if (loginMember.status !== 200) {
+      //   Swal.fire({
+      //     title: loginMember?.message,
+      //     showConfirmButton: false,
+      //     timer: 1000,
+      //   });
+      // }
     }, // eslint-disable-next-line
     [loginMember]
   );
@@ -56,6 +70,18 @@ function Login() {
     );
   };
 
+  // 비밀번호 입력 후 엔터키 클릭시 로그인 실행
+  const onEnterkeyLoginHandler = (e) => {
+    if (e.key === "Enter") {
+      dispatch(
+        callLoginAPI({
+          // 로그인
+          form: form,
+        })
+      );
+    }
+  };
+
   return (
     <div className={LoginCSS.cardBody}>
       <div className={LoginCSS.loginDiv}>
@@ -65,7 +91,7 @@ function Login() {
             alt="이미지확인!"
             className={LoginCSS.logo}
           ></img>
-          <h1 className={LoginCSS.title}>Login</h1>
+          <h1 className={LoginCSS.title}>로그인</h1>
         </div>
 
         <div className={LoginCSS.registBox}>
@@ -105,6 +131,7 @@ function Login() {
               placeholder="비밀번호"
               autoComplete="off"
               onChange={onChangeHandler}
+              onKeyUp={onEnterkeyLoginHandler}
               className={LoginCSS.inputBox}
             />
             <svg
@@ -123,13 +150,22 @@ function Login() {
 
         <div className={LoginCSS.registBox}>
           <button className={LoginCSS.registBtn} onClick={onClickLoginHandler}>
-            Login
+            로그인
           </button>
         </div>
         <div>
-          <span>Don't have an account? </span>
-          <span className={LoginCSS.login} onClick={onClickRegisterHandler}>
-            Register
+          {/* <span>Don't have an account? </span> */}
+          <span style={{
+            border: "none",
+            margin: 0,
+            marginTop: "-10px",
+            fontSize: "11px",
+            height: "10px",
+            color: "#e52e2e",
+            fontWeight: "bold",
+            textDecorationLine: "none"
+          }} className={LoginCSS.login} onClick={onClickRegisterHandler}>
+            회원가입
           </span>
         </div>
       </div>
@@ -138,10 +174,6 @@ function Login() {
 }
 
 export default Login;
-
-
-
-
 
 // 성식 로그인
 // import LoginCSS from './Login.module.css';
@@ -156,7 +188,7 @@ export default Login;
 // } from '../../apis/MemberAPICalls'
 
 // function Login() {
-        
+
 //     const navigate = useNavigate();
 
 //     // 리덕스를 이용하기 위한 디스패처, 셀렉터 선언
@@ -164,7 +196,7 @@ export default Login;
 //     const loginMember = useSelector(state => state.memberReducer);  // API 요청하여 가져온 loginMember 정보
 //     const isLogin = window.localStorage.getItem('accessToken');
 
-//     // 폼 데이터 한번에 변경 및 State에 저장    
+//     // 폼 데이터 한번에 변경 및 State에 저장
 //     const [form, setForm] = useState({
 //         memberId: '',
 //         memberPassword: ''
@@ -177,10 +209,10 @@ export default Login;
 //         }
 //     } // eslint-disable-next-line
 //     ,[loginMember]);
-    
+
 //     // 로그인 상태일 시 로그인페이지로 접근 방지
 //     if(isLogin !== null) {
-//         console.log("[Login] Login is already authenticated by the server");        
+//         console.log("[Login] Login is already authenticated by the server");
 //         return <Navigate to="/"/>
 //     }
 
@@ -192,7 +224,7 @@ export default Login;
 //     };
 
 //     const onClickRegisterHandler = () => {
-//         loginMember.status = ''; 
+//         loginMember.status = '';
 //         navigate("/register", { replace: true })
 //     }
 
@@ -211,7 +243,7 @@ export default Login;
 //                 icon: 'error',
 //                 title: '비밀번호를 입력해주세요.',
 //                 timer: 1000
-//             }) 
+//             })
 //         } else if(form.memberId === ''){
 //             Swal.fire({
 //                 position: 'center',
@@ -238,25 +270,24 @@ export default Login;
 //         }
 //     }
 
-
 //     return (
 //         <div className={ LoginCSS.backgroundDiv}>
 //             <button className={ LoginCSS.LogoBtn } onClick={ onClickLogoHandler }><p>In My Poket Mon</p></button>
 //             <div className={ LoginCSS.loginDiv }>
 //                 <h1>로그인</h1>
 //                 <div></div>
-//                 <input 
-//                     type="text" 
+//                 <input
+//                     type="text"
 //                     name='memberId'
-//                     placeholder="아이디" 
+//                     placeholder="아이디"
 //                     autoComplete='off'
-//                     autoFocus 
+//                     autoFocus
 //                     onChange={ onChangeHandler }
 //                 />
-//                 <input 
+//                 <input
 //                     type="password"
-//                     name='memberPassword' 
-//                     placeholder="패스워드" 
+//                     name='memberPassword'
+//                     placeholder="패스워드"
 //                     autoComplete='off'
 //                     onChange={ onChangeHandler }
 //                     onKeyDown={ onEnterkeyHandler }

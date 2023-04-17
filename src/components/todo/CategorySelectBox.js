@@ -28,7 +28,7 @@ function CategorySelectBox({
 
   return (
     <ul className={CategorySelectBoxCSS.selectCateList}>
-      {categorys.map((category) => (
+      {categorys?.map((category) => (
         <li
           name="cateNo"
           value={category.cateNo}

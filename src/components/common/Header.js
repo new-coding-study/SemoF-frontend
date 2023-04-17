@@ -1,9 +1,18 @@
 import HeaderCSS from "./Header.module.css";
+import SearchEmp from "./SearchEmp";
+import InfoEmp from "./InfoEmp";
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { decodeJwt } from "../../utils/tokenUtils";
 
+import {
+  callGetEmployeeDetail,
+  callGetEmpPhoto,
+} from "../../apis/EmployeeAPICalls";
 function Header() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const location = useLocation();
 
   const onClickLogoHandler = () => {
@@ -11,48 +20,18 @@ function Header() {
     navigate("/semof", { replace: true });
   };
 
-  function SearchEmp() {
-    return (
-      <>
-        <div className={HeaderCSS.searchWrapper}>
-          <input
-            className={HeaderCSS.searchBox}
-            type="text"
-            placeholder="검색할 사원의 이름을 입력해주세요"
-            // value={search}
-            // onKeyUp={onEnterkeyHandler}
-            // onChange={onSearchChangeHandler}
-          />
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decoded = null;
+  let decodedUser = null;
 
-          <div className={HeaderCSS.searchImg}>
-            <img src={"/images/search.png"} alt="이미지확인!"></img>
-          </div>
-        </div>
-      </>
-    );
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+    decodedUser = temp.empNo;
   }
 
-  function InfoEmp() {
-    return (
-      <>
-        <div className={HeaderCSS.infoWrapper}>
-          <img
-            src={"/images/bell.png"}
-            alt="이미지확인!"
-            // className={HeaderCSS.logo}
-            // onClick={onClickLogoHandler}
-          ></img>
-          <div> 박지희님 </div>
-          <button
-          // onClick={onClickLoginHandler}
-          >
-            로그아웃
-          </button>
-          <div> </div>
-        </div>
-      </>
-    );
-  }
+  // 권한 정보
+  // console.log("header - decoded", decoded);
 
   return (
     <>
@@ -65,7 +44,11 @@ function Header() {
             onClick={onClickLogoHandler}
           ></img>
           <div>
-            {location.pathname === "/semof" ? <SearchEmp /> : <InfoEmp />}
+            {location.pathname === "/semof" ? (
+              <SearchEmp />
+            ) : (
+              <InfoEmp decodedUser={decodedUser} />
+            )}
           </div>
         </div>
         {/* <div className={HeaderCSS.headerBar}> </div> */}

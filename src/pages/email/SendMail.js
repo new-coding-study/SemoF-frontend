@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { useParams } from "react-router-dom";
 import SendMailList from "../../components/email/SendMailList";
 
 import EmailCSS from "./Email.module.css";
@@ -7,7 +6,6 @@ import SearchBox from "../../components/email/SearchBox";
 import SideNavbar from "../../components/email/SideNavbar";
 
 function SendMail({ searchKeyword }) {
-  // const { mailNo } = useParams();
   const [selectedMailNo, setSelectedMailNo] = useState(null);
 
   return (
@@ -20,7 +18,6 @@ function SendMail({ searchKeyword }) {
           <SearchBox />
           <SendMailList
             category="send"
-            // selectedMailNo={mailNo}
             selectedMailNo={selectedMailNo}
             setSelectedMailNo={setSelectedMailNo}
             searchKeyword={searchKeyword}

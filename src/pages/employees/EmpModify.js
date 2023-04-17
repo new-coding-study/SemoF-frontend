@@ -5,14 +5,16 @@ import {
   callUpdateEmpAPI,
   callGetEmployeeDetail,
   callGetEmpPhoto,
+  callGetEmployeesAPI,
 } from "../../apis/EmployeeAPICalls";
 import RegisterCSS from "./EmpRegister.module.css";
 
-function Modify(props) {
+function EmpModify(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const empNo = location.state?.empNo;
+  const pageInfo = location.state?.pageInfo;
 
   console.log("[Modify] empNo : " + empNo);
 
@@ -20,9 +22,7 @@ function Modify(props) {
   const employeeDetail = useSelector((state) => state.empReducer);
   const empPhoto = useSelector((state) => state.empReducer.empPhoto);
 
-  // console.log("[Modify] employeeDetail : " + JSON.stringify(employeeDetail));
-
-  // console.log("[Modify] empPhoto : " + JSON.stringify(empPhoto));
+  console.log("[Modify] pageInfo : " + JSON.stringify(pageInfo));
 
   const [today, setToday] = useState(
     new Date().toLocaleDateString("ko-KR", {
@@ -39,6 +39,8 @@ function Modify(props) {
   const [form, setForm] = useState({
     phone: employeeDetail?.phone || "",
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     if (empNo) {
@@ -66,26 +68,6 @@ function Modify(props) {
       return <span>퇴직</span>;
     }
   };
-
-  // useEffect(() => {
-  //   console.log("Updated Image URL:", imageUrl);
-  // }, [imageUrl]);
-
-  // useEffect(() => {
-  //   if (empPhoto) {
-  //     setImageUrl(empPhoto);
-  //     console.log("Employee Photo Data:", empPhoto);
-  //   }
-  // }, [empPhoto]);
-
-  // 상세 정보에 등록된 이미지가 있으면 미리보기 설정
-  // useEffect(() => {
-  //   if (employeeDetail.employeePhoto) {
-  //     dispatch(callGetEmpPhoto(empNo));
-  //     setImageUrl(employeeDetail.employeePhoto);
-  //     console.log("Image URL after setting state:", imageUrl);
-  //   }
-  // }, [dispatch, empNo, employeeDetail]);
 
   // 마운트 시에, detail과 empPhoto 세팅
   useEffect(() => {
@@ -179,13 +161,12 @@ function Modify(props) {
       formData.append("employeePhoto", employeePhoto);
     }
 
-    dispatch(
-      callUpdateEmpAPI({
-        form: formData,
-      })
-    );
-    window.location.reload(); //화면 초기화
-    navigate(-1);
+    dispatch(callUpdateEmpAPI({ form: formData })).then(() => {
+      dispatch(callGetEmployeesAPI({}));
+      navigate("/semof/employees/management", {
+        state: { pageNo: pageInfo.pageNo },
+      });
+    });
   };
 
   // 돌아가기 클릭시 메인 페이지로 이동
@@ -274,10 +255,8 @@ function Modify(props) {
                     type="text"
                     className={RegisterCSS.input}
                     name="address"
-                    // ref={addressRef}
                     onChange={onChangeHandler}
                     placeholder={employeeDetail?.address || ""}
-                    // onKeyDown={(e) => handleKeyDown(e, salaryRef)}
                   />
                 </td>
                 <td className={RegisterCSS.tableCell}>직급</td>
@@ -291,9 +270,7 @@ function Modify(props) {
                     className={RegisterCSS.input}
                     name="salary"
                     placeholder={employeeDetail?.salary || ""}
-                    // ref={salaryRef}
                     onChange={onChangeHandler}
-                    // onKeyDown={(e) => handleKeyDown(e, emailRef)}
                   />
                 </td>
                 <td className={RegisterCSS.tableCell}>이메일</td>
@@ -303,7 +280,6 @@ function Modify(props) {
                     className={RegisterCSS.input}
                     name="email"
                     placeholder={employeeDetail?.email || ""}
-                    // ref={emailRef}
                     onChange={onChangeHandler}
                   />
                 </td>
@@ -320,4 +296,4 @@ function Modify(props) {
   );
 }
 
-export default Modify;
+export default EmpModify;

@@ -6,22 +6,44 @@ import CategorySelectBox from "../../components/todo/CategorySelectBox";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 import {
   callTodayTodoListAPI,
   callIntendedTodoListAPI,
   callCategoryListAPI,
   callTodoRegistAPI,
+  callCategoryRegistAPI,
 } from "../../apis/TodoAPICalls";
 
 function Todo() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decodedUser = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decodedUser = temp.empNo;
+  }
+
   // useSelector : store에서 사용하고 있는 state를 전달받아서 다시 전달해주는 역할
   const todayList = useSelector((state) => state.todoReducer.todayList);
   const intendedList = useSelector((state) => state.todoReducer.intendedList);
   const categoryList = useSelector((state) => state.todoReducer.categoryList);
+
+  const [chooseCate, setChooseCate] = useState("");
+
+  const chooseCateTodayTodoResult = todayList?.filter(
+    (chooseCateTodayTodoResult) =>
+      chooseCate === chooseCateTodayTodoResult.cateNo
+  );
+
+  const chooseCateIntendedTodoResult = intendedList?.filter(
+    (chooseCateIntendedTodoResult) =>
+      chooseCate === chooseCateIntendedTodoResult.cateNo
+  );
 
   // 달성률에 나타낼 때 필요한 값들을 변수에 미리 저장
   const todayAllTodo = todayList?.length;
@@ -43,6 +65,14 @@ function Todo() {
   const [search, setSearch] = useState({
     searchWord: "",
   });
+  const [newCategory, setNewCategory] = useState({
+    cateColor: "#e026b7",
+    cateName: "",
+  });
+  // 카테고리 추가 상태 관리
+  const [addAndDeleteCategory, setAddAndDeleteCategory] = useState(false);
+
+  const [inputCateStyle, setInputCateStyle] = useState({ display: "none" });
   // Todo 입력창에서의 카테고리 보일지 말지에 대한 상태 관리
   const [visibleCate, setVisibleCate] = useState(false);
   // Todo 입력창에서의 선택된 카테고리 값 관리 (일단은 중요표시에 대한 색을 초기값으로 넣어둠)
@@ -70,13 +100,53 @@ function Todo() {
 
     setSearch(inputSearch);
 
-    console.log(inputSearch);
+    // console.log(inputSearch);
   };
 
   // 검색어 입력 후 값을 보내는 핸들러
   const onEnterkeyHandler = (e) => {
     if (e.key === "Enter") {
       navigate(`/semof/todo/search?s=${search.searchWord}`);
+    }
+  };
+
+  // 새로운 카테고리 입력 핸들러
+  const onChangeAddCategoryHandler = (e) => {
+    // console.log(e.target.name);
+    // console.log(e.target.value);
+    setNewCategory({
+      ...newCategory,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // 새로운 카테고리 입력 후 값을 보내는 핸들러
+  const onEnterkeyForAddCategoryHandler = (e) => {
+    if (e.key === "Enter") {
+      const formData = new FormData();
+
+      formData.append("cateName", newCategory.cateName);
+      formData.append("cateColor", newCategory.cateColor);
+      // 나중에 localStorage 에서 empNo 받아와서 보내주기!
+      formData.append("empNo", decodedUser);
+
+      dispatch(
+        callCategoryRegistAPI({
+          form: formData,
+        })
+      );
+
+      setNewCategory({
+        ...newCategory,
+        cateColor: "#e026b7",
+        cateName: "",
+      });
+
+      setInputCateStyle({
+        display: "none",
+      });
+
+      setAddAndDeleteCategory(true);
     }
   };
 
@@ -130,20 +200,21 @@ function Todo() {
   useEffect(
     () => {
       // 나중에 localStorage 에서 empNo 받아와서 보내주기!
-      dispatch(callTodayTodoListAPI(41));
-      dispatch(callIntendedTodoListAPI(41));
-      dispatch(callCategoryListAPI(41));
+      dispatch(callTodayTodoListAPI(decodedUser));
+      dispatch(callIntendedTodoListAPI(decodedUser));
+      dispatch(callCategoryListAPI(decodedUser));
     }, // eslint-disable-next-line
-    [checkStarAndFinish, addTodo]
+    [checkStarAndFinish, addTodo, addAndDeleteCategory]
   );
 
   useEffect(
     () => {
       setCheckStarAndFinish(false);
       setAddTodo(false);
+      setAddAndDeleteCategory(false);
       // setSelectedCateColor(defaultCateColor);
     }, // eslint-disable-next-line
-    [checkStarAndFinish, addTodo]
+    [checkStarAndFinish, addTodo, addAndDeleteCategory]
   );
 
   return (
@@ -164,8 +235,48 @@ function Todo() {
           </div>
           {Array.isArray(categoryList) &&
             categoryList.map((category) => (
-              <Category key={category.cateNo} category={category} />
+              <Category
+                key={category.cateNo}
+                category={category}
+                setChooseCate={setChooseCate}
+                chooseCate={chooseCate}
+                setAddAndDeleteCategory={setAddAndDeleteCategory}
+              />
             ))}
+          <div className={TodoCSS.inputCateWrapper} style={inputCateStyle}>
+            <input
+              type="color"
+              name="cateColor"
+              value={newCategory?.cateColor || ""}
+              onChange={onChangeAddCategoryHandler}
+              className={TodoCSS.inputCateColor}
+            ></input>
+            <input
+              type="text"
+              placeholder="카테고리 이름 입력"
+              name="cateName"
+              value={newCategory?.cateName || ""}
+              onKeyUp={onEnterkeyForAddCategoryHandler}
+              onChange={onChangeAddCategoryHandler}
+              className={TodoCSS.inputCateName}
+            ></input>
+            <span
+              onClick={() => {
+                setInputCateStyle({ display: "none" });
+              }}
+            >
+              x
+            </span>
+          </div>
+          <div
+            className={TodoCSS.addCateBtnWrapper}
+            onClick={() => {
+              setInputCateStyle({ display: "block" });
+            }}
+          >
+            <div> + </div>
+            <div> 카테고리 추가</div>
+          </div>
         </div>
         <div className={TodoCSS.content}>
           <div className={TodoCSS.addWrapper}>
@@ -238,33 +349,75 @@ function Todo() {
               <span> / {todayAllTodo} </span>
             </div>
             <div className={TodoCSS.graph}>
-              <div> </div>
+              <div className={TodoCSS.graphOutLine}>
+                <div
+                  style={
+                    isNaN(achievementRate)
+                      ? { width: 0 }
+                      : { width: `${achievementRate}%` }
+                  }
+                ></div>
+              </div>
               <span> {isNaN(achievementRate) ? 0 : achievementRate}%</span>
             </div>
           </div>
           <div className={TodoCSS.todoList}>
             <div className={TodoCSS.today}>
               <h2> 오늘의 할 일 </h2>
-              {Array.isArray(todayList) &&
+              {chooseCate !== null &&
+              chooseCate !== undefined &&
+              chooseCate.length !== 0
+                ? chooseCateTodayTodoResult?.map((today) => (
+                    <Today
+                      key={today.todoNo}
+                      todo={today}
+                      setCheckStarAndFinish={setCheckStarAndFinish}
+                    />
+                  ))
+                : todayList?.map((today) => (
+                    <Today
+                      key={today.todoNo}
+                      todo={today}
+                      setCheckStarAndFinish={setCheckStarAndFinish}
+                    />
+                  ))}
+              {/* {Array.isArray(todayList) &&
                 todayList.map((today) => (
                   <Today
                     key={today.todoNo}
                     todo={today}
                     setCheckStarAndFinish={setCheckStarAndFinish}
                   />
-                ))}
+                ))} */}
             </div>
 
             <div className={TodoCSS.intended}>
               <h2> 예정된 할 일 </h2>
-              {Array.isArray(intendedList) &&
+              {chooseCate !== null &&
+              chooseCate !== undefined &&
+              chooseCate.length !== 0
+                ? chooseCateIntendedTodoResult?.map((intended) => (
+                    <Intended
+                      key={intended.todoNo}
+                      todo={intended}
+                      setCheckStarAndFinish={setCheckStarAndFinish}
+                    />
+                  ))
+                : intendedList?.map((intended) => (
+                    <Intended
+                      key={intended.todoNo}
+                      todo={intended}
+                      setCheckStarAndFinish={setCheckStarAndFinish}
+                    />
+                  ))}
+              {/* {Array.isArray(intendedList) &&
                 intendedList.map((intended) => (
                   <Intended
                     key={intended.todoNo}
                     todo={intended}
                     setCheckStarAndFinish={setCheckStarAndFinish}
                   />
-                ))}
+                ))} */}
             </div>
           </div>
         </div>
