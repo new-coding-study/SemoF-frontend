@@ -1,9 +1,10 @@
 import {useSelector, useDispatch} from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { callLineDetailAPI, callStatusesAPI, callHandleStatusAPI, callDeleteApprovAPI } from '../../apis/ApprovalAPICalls';
 import {decodeJwt} from '../../utils/tokenUtils';
-
+import approvCss from "../../pages/approval/ApprovDetail.module.css";
 import { useEffect } from 'react';
+import Swal from "sweetalert2";
 
 function LineDetail({approvInfo}){
     const isLogin = window.localStorage.getItem('accessToken');
@@ -25,7 +26,7 @@ function LineDetail({approvInfo}){
     console.log(approvInfo);
     console.log(statuses);
     console.log('empNo확인', lineInfo);
-   console.log( statuses[0]?.status);
+   console.log('이거', statuses[0]?.status);
     useEffect(
         () => {
             
@@ -77,7 +78,7 @@ function LineDetail({approvInfo}){
                     </table>
                 </div>
                 {(lineInfo?.approvOrderDTOList)?.map(dto => dto.empNo).includes(tokenEmpNo) &&
-                    <div>
+                    <div className={approvCss.btnarea}>
                         <button onClick={() => {
                             dispatch(callHandleStatusAPI(approvInfo.lineNo, parseInt(approvInfo?.approvNo), tokenEmpNo, encodeURIComponent('승인')))
                         }}>결재 승인</button>
@@ -88,12 +89,13 @@ function LineDetail({approvInfo}){
                 }
                 {(statuses[0]?.status == '미확인') &&
                     <div
-                    // className={approvCss.btnarea}
+                    className={approvCss.btnarea}
                     >
                         <button
                             onClick={() => {
                                 dispatch(callDeleteApprovAPI(approvInfo.approvNo));
                                 nav(`/semof/inbox`, { replace: true });
+                                Swal.fire('결재 삭제.','목록으로 돌아갑니다','success')
                             }}
                         >
                             결재 삭제
