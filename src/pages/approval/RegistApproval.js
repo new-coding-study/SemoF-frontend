@@ -182,15 +182,11 @@ console.log(tokenEmpNo);
                 <option key={form.appCategory} value={form.formCode} name="formCode">{form.appCategory}</option>
                 ))}
                 </select> */}
-                <select onChange={selectHandler}>
+                <select onChange={selectHandler} defaultValue="default">
                     {/* 여기서 선택한 옵션 값이 map에서 적용되야하는데 어떻게? */}
-                    <option value="none" disabled>작성유형선택</option>
-                     {/* {
-                         {
-                            formInfo.map((b, idx) => (
-                <option key={appCategory} value={b.formCode} name="formCode">{b.appCategory}</option>
-              ))}
-                    }  */}
+              
+          
+                    <option value="default" disabled>지점선택</option> 
                     <option value="A" name="formCode">지출결의서</option>
                     <option value="B" name="formCode">지출계획서</option>
                     <option value="C" name="formCode">경조금지급신청서</option>
@@ -215,6 +211,10 @@ console.log(tokenEmpNo);
                 <label style={{marginRight:'18.5%'}}>신청서 작성 : </label>
                 <div>
                 <br/>
+
+                {/* <select className={RegistLinecss.branch} name="branch" onChange={selectBranchHandler} defaultValue="default">
+            <option value="default" disabled>지점선택</option> */}
+
             {isSelect &&  (
                     <div className={RegistCSS.formContent}>
                   
