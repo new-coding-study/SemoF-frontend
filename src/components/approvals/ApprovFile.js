@@ -56,7 +56,7 @@ fileList?.map((file, index) => (
           // className={ReportRoundDetailCSS.fileImg}
         /> */}
         &nbsp;
-        {file.originName} ({file.fileSize})
+        {file.originName} 
       </span>
     </li>
   ))

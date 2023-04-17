@@ -162,6 +162,7 @@ console.log(tokenEmpNo);
           
         }));      
         nav(`/semof/inbox`, {replace : true})
+        window.location.reload();
     }
         
         

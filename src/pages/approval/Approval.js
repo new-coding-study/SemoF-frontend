@@ -23,8 +23,7 @@ function Approval(){
         <br/>
         <div className={ApprovalCSS.outLine}>
         <div className={ ApprovalCSS.statistic}>
-            <img></img>
-            <img></img>
+        <iframe src="http://localhost:5601/app/dashboards#/view/d6288380-dca4-11ed-b84c-1f6e35e8f968?embed=true&_g=(filters%3A!()%2CrefreshInterval%3A(pause%3A!t%2Cvalue%3A0)%2Ctime%3A(from%3Anow-15m%2Cto%3Anow))" height="600" width="800"></iframe>
         </div >
         <div className={ApprovalCSS.menuBox}>
             {/* 여기서 상신함, 수신함 분리를 해야할까.. 완료된 결재도,,, 
@@ -60,14 +59,14 @@ function Approval(){
             </button>
             </div>
             <div>
-            <button className={ApprovalCSS.statistics} onClick={()=>{navigate(`/semof/statistics`)}}>
+            {/* <button className={ApprovalCSS.statistics} onClick={()=>{navigate(`/semof/statistics`)}}>
             <img
                 src={"/images/결재통계.png"}
                 alt="이미지확인!"
                 className={ApprovalCSS.logo}
               ></img>
                 <span className={ApprovalCSS.btnTitle}>결재통계</span>
-            </button>
+            </button> */}
             </div>
             <div>
             <button className={ApprovalCSS.line} onClick={()=>{navigate(`/semof/lines`)}}>
