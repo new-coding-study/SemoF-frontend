@@ -1,4 +1,4 @@
-.detailModal{
+.detailModal {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,7 +10,8 @@
     align-items: center;
     z-index: 100;
 }
-.modalContainer{
+
+.modalContainer {
     position: absolute;
     width: 650px;
     height: 800px;
@@ -18,10 +19,11 @@
     text-align: left;
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
-    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);    
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
     z-index: 1000;
 }
-.modalTitle{
+
+.modalTitle {
     height: 60px;
     border-radius: 8px;
     background-color: #E52E2E;
@@ -33,14 +35,15 @@
     border: none;
 }
 
-.displayBox{
-    height:620px;
+.displayBox {
+    height: 620px;
     background-color: white;
     border-radius: 10px;
     border: 2px solid orange;
-    padding: 10px;  
+    padding: 10px;
 }
-.worksTitle{
+
+.worksTitle {
     text-indent: 5%;
     width: 50%;
     position: relative;
@@ -49,54 +52,63 @@
     font-weight: bold;
     margin-left: 2%;
 }
-.writerInfo{
+
+.writerInfo {
     float: right;
     padding-right: 2%;
 }
-.writer{
+
+.writer {
     float: left;
     margin-top: -10%;
-    
+
 }
-.date{
+
+.date {
     float: right;
     margin-top: -10%;
 }
-.period{
+
+.period {
     font-size: 25px;
     font-weight: bold;
     padding-left: 1%;
 }
-.periodContent{
+
+.periodContent {
     padding-left: 15%;
     margin-top: -4%;
     font-size: 20px;
     border: 1px solid black;
     width: px;
 }
-.worktable1{
+
+.worktable1 {
     width: 100%;
     padding: 3%;
     border-radius: 10px;
     border-collapse: none;
     margin-bottom: -3%;
 }
-.worktable1 td:first-child{
+
+.worktable1 td:first-child {
     font-size: 25px;
     font-weight: bold;
     text-align: left;
 }
+
 .worktable1 th {
     border-bottom: 1px solid red;
     padding: 10px;
-  }
+}
+
 .worktable1 td {
     border-bottom: 1px solid red;
     padding: 10px;
     font-size: 17px;
-  }
-  
-.worktable2{
+}
+
+.worktable2 {
     padding-left: 5%;
     width: 100%;
     padding: 3%;
@@ -104,16 +116,17 @@
     border-collapse: none;
 }
 
-.worktable2 td:first-child{
+.worktable2 td:first-child {
     font-size: 20px;
     font-weight: bold;
     width: 30%;
 }
-.worktable2 td{
+
+.worktable2 td {
     text-align: left;
 }
 
-.worktable1stc{
+.worktable1stc {
     font-size: 18px;
     width: 70%;
 }
@@ -121,16 +134,20 @@
 .worktable2 th {
     border-bottom: 1px solid black;
     padding: 10px;
-  }
+}
+
 .worktable2 td {
     border-bottom: 1px solid black;
     padding: 10px;
     padding-bottom: 3%;
-  }
-  .modalbtn{
+}
+
+.modalbtn {
     text-align: center;
-  }
-  .modalbtn button{
+    margin-top: 1.5%;
+}
+
+.modalbtn button {
     background-color: #E52E2E;
     border: none;
     width: 100px;
@@ -141,11 +158,13 @@
     font-size: 15px;
     margin: auto;
 }
-.modalbtn button:hover{
-    background-color:gray;
+
+.modalbtn button:hover {
+    background-color: gray;
     text-shadow: 1px 1px 1px white;
 }
-.workstd1{
+
+.workstd1 {
     font-weight: bold;
     font-size: 20px;
 }

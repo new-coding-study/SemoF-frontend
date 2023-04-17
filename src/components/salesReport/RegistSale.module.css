@@ -1,4 +1,4 @@
-.modal{
+.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -10,7 +10,8 @@
     align-items: center;
     z-index: 150;
 }
-.modalContainer{
+
+.modalContainer {
     position: absolute;
     width: 650px;
     height: 920px;
@@ -18,10 +19,11 @@
     text-align: left;
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
-    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);    
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
     z-index: 1000;
 }
-.modalTitle{
+
+.modalTitle {
     height: 60px;
     border-radius: 8px;
     background-color: #E52E2E;
@@ -32,13 +34,15 @@
     line-height: 57px;
     border: none;
 }
+
 .displayBox{
     height:790px;
     background-color: white;
     border-radius: 10px;
-    border: 2px solid orange; 
+    border: 2px solid orange;
 }
-.table{
+
+.table {
     padding-left: 5%;
     width: 100%;
     padding-left: 3%;
@@ -47,11 +51,12 @@
     border-radius: 10px;
     border-collapse: none;
 }
-.table td{
+
+.table td {
     text-align: left;
 }
 
-.date1{
+.date1 {
     width: 180px;
     height: 30px;
     font-size: 18px;
@@ -60,7 +65,8 @@
     border-radius: 5px;
     margin-left: 20%;
 }
-.date2{
+
+.date2 {
     width: 180px;
     height: 30px;
     font-size: 18px;
@@ -70,20 +76,23 @@
     float: right;
     margin-right: 3%;
 }
-.title{
+
+.title {
     width: 100px;
 }
-.table2{
+
+.table2 {
     padding-left: 3%;
     width: 100%;
     border-radius: 10px;
     border-collapse: none;
 }
 
-.table2 td{
+.table2 td {
     text-align: left;
 }
-.title{
+
+.title {
     width: 300px;
     float: left;
     height: 30px;
@@ -91,7 +100,8 @@
     border-radius: 5px;
     font-size: 18px;
 }
-.content{
+
+.content {
     resize: none;
     border: 1px solid orange;
     border-radius: 5px;
@@ -99,35 +109,39 @@
     width: 300px;
     height: 80px;
 }
-.issimp{
+
+.issimp {
     resize: none;
     border: 1px solid orange;
     border-radius: 5px;
     font-size: 18px;
     width: 300px;
-    height: 80px; 
+    height: 80px;
 }
-.next{
+
+.next {
     resize: none;
     border: 1px solid orange;
     border-radius: 5px;
     font-size: 18px;
     width: 300px;
-    height: 80px; 
+    height: 80px;
 }
-.etc{
+
+.etc {
     resize: none;
     border: 1px solid orange;
     border-radius: 5px;
     font-size: 18px;
     width: 300px;
-    height: 80px; 
+    height: 80px;
 }
-.con{
+
+.con {
     resize: none;
     border: 1px solid orange;
     border-radius: 5px;
     font-size: 18px;
     width: 300px;
-    height: 80px; 
+    height: 80px;
 }
