@@ -62,7 +62,7 @@
     margin-top: 10px;
 }
 
-.btnAtd:hover button {
+.btnAtd button:hover {
     background-color: #FFD6D6;
 }
 
