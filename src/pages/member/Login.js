@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { callLoginAPI } from "../../apis/MemberAPICalls";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 function Login() {
   const navigate = useNavigate();
@@ -19,34 +20,21 @@ function Login() {
     loginPwd: "",
   });
 
+  // 로그인 상태일 시 로그인페이지로 접근 방지
+  const isLogin = window.localStorage.getItem("accessToken");
+
   useEffect(
     () => {
       if (loginMember.status === 200) {
-        Swal.fire({
-          title: "환영합니다",
-          text: "메인화면으로 이동합니다.",
-          timer: 1000,
-          showConfirmButton: false,
-        });
         navigate("/semof", { replace: true });
       }
-      // 아이디, 비밀번호 잘못 입력 시 alert 띄우고싶은데
-      // 그러면 form을 새로 입력할 때 status 값이 400이 유지되면서 계속 alert이 뜨고 있음,,,
-      // else if (loginMember.status !== 200) {
-      //   Swal.fire({
-      //     title: loginMember?.message,
-      //     showConfirmButton: false,
-      //     timer: 1000,
-      //   });
-      // }
     }, // eslint-disable-next-line
     [loginMember]
   );
 
-  // 로그인 상태일 시 로그인페이지로 접근 방지
-  if (loginMember.length > 0) {
+  if (isLogin !== undefined && isLogin !== null) {
     console.log("[Login] Login is already authenticated by the server");
-    return <Navigate to="/" />;
+    return <Navigate to="/semof" />;
   }
 
   const onChangeHandler = (e) => {
@@ -57,6 +45,8 @@ function Login() {
   };
 
   const onClickRegisterHandler = () => {
+    console.log(loginMember);
+    // loginMember.regist.status = "";
     navigate("/register", { replace: true });
   };
 
@@ -68,11 +58,44 @@ function Login() {
         form: form,
       })
     );
+    // function loginn() {
+    //   dispatch(
+    //     callLoginAPI({
+    //       // 로그인
+    //       form: form,
+    //     })
+    //   );
+    //   console.log("디패 탔음");
+    // }
+
+    // await loginn();
+
+    // console.log("dispatch 이후");
+    // console.log("loginMember.status", loginMember.status);
+
+    // if (loginMember.status === 200) {
+    //   console.log("상태갑스 200");
+    //   Swal.fire({
+    //     title: "환영합니다",
+    //     text: "메인화면으로 이동합니다.",
+    //     timer: 1500,
+    //     showConfirmButton: false,
+    //   });
+    //   navigate("/semof", { replace: true });
+    // } else if (loginMember.status !== 200) {
+    //   console.log("상태갑스 400");
+    //   Swal.fire({
+    //     title: "잘못된 아이디 또는 비밀번호입니다",
+    //     showConfirmButton: false,
+    //     timer: 1500,
+    //   });
+    // }
   };
 
   // 비밀번호 입력 후 엔터키 클릭시 로그인 실행
   const onEnterkeyLoginHandler = (e) => {
     if (e.key === "Enter") {
+      // onClickLoginHandler();
       dispatch(
         callLoginAPI({
           // 로그인
@@ -155,16 +178,20 @@ function Login() {
         </div>
         <div>
           {/* <span>Don't have an account? </span> */}
-          <span style={{
-            border: "none",
-            margin: 0,
-            marginTop: "-10px",
-            fontSize: "11px",
-            height: "10px",
-            color: "#e52e2e",
-            fontWeight: "bold",
-            textDecorationLine: "none"
-          }} className={LoginCSS.login} onClick={onClickRegisterHandler}>
+          <span
+            style={{
+              border: "none",
+              margin: 0,
+              marginTop: "-10px",
+              fontSize: "11px",
+              height: "10px",
+              color: "#e52e2e",
+              fontWeight: "bold",
+              textDecorationLine: "none",
+            }}
+            className={LoginCSS.login}
+            onClick={onClickRegisterHandler}
+          >
             회원가입
           </span>
         </div>
