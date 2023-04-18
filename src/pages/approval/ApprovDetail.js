@@ -2,10 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   callApprovalDetailAPI,
-  callDeleteApprovAPI,
   callFilesAPI,
   callGetFormTitleAPI,
-  callHandleStatusAPI,
 } from "../../apis/ApprovalAPICalls";
 import Opinion from "../../components/approvals/Opinion";
 import { useEffect } from "react";

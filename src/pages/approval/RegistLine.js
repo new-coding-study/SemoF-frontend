@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { callGetBranchesAPI, callGetDeptAPI, callGetJobNEmpNameAPI, callLineRegistAPI, callOrderRegistAPI } from '../../apis/ApprovalAPICalls';
 import RegistLinecss from './RegistLine.module.css';
+import Swal from "sweetalert2";
 
 function RegistLine(){
 
@@ -107,7 +108,8 @@ function RegistLine(){
       form: line
   }));   
   nav(`/semof/lines` , { replace: true});
-  // window.location.reload();
+  window.location.reload();
+  Swal.fire('라인등록.','목록으로 돌아갑니다','success')
     
   };
     return(

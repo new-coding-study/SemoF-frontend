@@ -1,18 +1,18 @@
 import RegistCSS from './RegistApproval.module.css';
 import {useSelector, useDispatch} from 'react-redux';
 import { useEffect, useState, useRef } from 'react';
-import { callGetFormTitleAPI, callApprovRegistAPI, callLineListAPI } from "../../apis/ApprovalAPICalls"
-import { useNavigate, useParams } from 'react-router-dom';
+import { callGetFormTitleAPI, callApprovRegistAPI} from "../../apis/ApprovalAPICalls"
+import { useNavigate } from 'react-router-dom';
 import { callLinesAPI } from '../../apis/ApprovalAPICalls';
 import { decodeJwt } from '../../utils/tokenUtils';
-
+import Swal from "sweetalert2";
 
 function RegistApproval() {
     const nav = useNavigate();
     const dispatch = useDispatch();
     const formInfo = useSelector(state => state.approvalReducer.form);
     const lineInfo = useSelector(state => state.approvalReducer.lines);
-    // const lines = line.data;
+  
     const [files, setFiles] = useState([]);
     const [title, setTitle] = useState('');
     const [line, setLine] = useState(0);
@@ -37,17 +37,16 @@ function RegistApproval() {
 console.log(tokenEmpNo);
     console.log('decoded', decoded);
     const [approval, setApproval] = useState({
-        // 문제는 이게 하나하나의 필드가 아닌,,, 테이블이라는 점?////
+
         approvTitle:''
         , lineNo: 0
         , empNo: ''
         , approvContentDTOList : [
             
         ]
-        // , fileList : []
-        // 이게 content값들로 인식이 될까?
+      
     })
-    // console.log(form.formTitle);
+
     useEffect(
         () => {
             dispatch(callGetFormTitleAPI());  
@@ -61,10 +60,9 @@ console.log(tokenEmpNo);
     );
 
 
-// selectbox에서 onchange들어오면 폼 뜨게 이거를 잘 저장
 
     const selectHandler = (e)=>{
-// select에서 받은 값을 저장해서 일치여부를 확인하고 form을 띄워야하나?
+
         setIsSelect(true);
         setSelectForm(e.target.value);
         console.log(isSelect);
@@ -74,7 +72,7 @@ console.log(tokenEmpNo);
         
     }
     const onChangeFileUpload= (e) =>{
-        alert('파일 작동');
+
         const fileList = e.target.files; // 선택한 파일 리스트
   
 
@@ -108,9 +106,7 @@ console.log(tokenEmpNo);
           
         });
       }
-    //   fileList.forEach((file) => {
-        // formData.append('files', file);
-    //   });
+
       useEffect(() => {
         setApproval(prevState => ({
           ...prevState,
@@ -118,49 +114,33 @@ console.log(tokenEmpNo);
           lineNo : line,
           empNo : tokenEmpNo,
           approvContentDTOList: contents.map(({ content, formCode }) => ({ content, formCode })),
-            //  fileList: files
+
         }));
-      }, [title, line, contents
-    // ,files
-]);
+      }, [title, line, contents]);
     console.log(approval);
     const onClickApprovRegistrationHandler = () => {
 
         console.log('[RegistApproval] onClickApprovRegistrationHandler');
 
-        // approval.approvTitle
-        // setForm(approval);
-        // const formData = new FormData();
 
         formData.append("approval",JSON.stringify(approval));
 
-        // console.log(approval)
-        // console.log(JSON.stringify(approval))
-        // console.log(JSON.stringify(formData));{}
-        // formData.append("approvTitle",approval.approvTitle); 
-        // formData.append("lineNo",approval.lineNo); 
-
-        // formData.append("approvContentDTOList",approval.approvContentDTOList);
         console.log("approval", formData.get("approval"))
 
         if(files){
             console.log('파일비어있니?')
-            // formData.append("fileList", files);
+        
         }
-        // console.log("formData : " + JSON.stringify(formData));
-        // console.log(formData.get("fileList"))
-        // console.log('파일 append',formData.append("fileList", files));
+ 
         console.log("fileList", formData.get("fileList"))
-        // console.log(formData)
-        // for(let i=0; i<files.length; i++) {
-        //     formData.append('files[]', files[i]);
-        // }
+
         dispatch(callApprovRegistAPI({	
             
             form : formData
-            // , fileList : files
+   
           
         }));      
+        Swal.fire('결재 등록.','목록으로 돌아갑니다','success')
         nav(`/semof/inbox`, {replace : true})
         window.location.reload();
     }
@@ -176,17 +156,10 @@ console.log(tokenEmpNo);
             </div>
             <div className={RegistCSS.categorytitle}>
                 <label>카테고리 : </label>
-                {/* <select name="formType" onChange={selectHandler}>
-                <option value="none" disabled>작성유형선택</option>
-                {formInfo.map(form => (
-                <option key={form.appCategory} value={form.formCode} name="formCode">{form.appCategory}</option>
-                ))}
-                </select> */}
+               
                 <select onChange={selectHandler} defaultValue="default">
-                    {/* 여기서 선택한 옵션 값이 map에서 적용되야하는데 어떻게? */}
-              
           
-                    <option value="default" disabled>지점선택</option> 
+                    <option value="default" disabled>유형선택</option> 
                     <option value="A" name="formCode">지출결의서</option>
                     <option value="B" name="formCode">지출계획서</option>
                     <option value="C" name="formCode">경조금지급신청서</option>
@@ -211,9 +184,6 @@ console.log(tokenEmpNo);
                 <label style={{marginRight:'18.5%'}}>신청서 작성 : </label>
                 <div>
                 <br/>
-
-                {/* <select className={RegistLinecss.branch} name="branch" onChange={selectBranchHandler} defaultValue="default">
-            <option value="default" disabled>지점선택</option> */}
 
             {isSelect &&  (
                     <div className={RegistCSS.formContent}>
@@ -248,18 +218,12 @@ console.log(tokenEmpNo);
                 <option key={l.lineNo} value={l.lineNo} name="line">{l.lineName}</option>
                 ))}
                 </select>   
-                {
-                  
-                }
-                {
-              // <ApprovFile approvInfo={approvInfo}/>
-            }             
+                
                 <input
                             type="file"
                             name='file' 
                             accept=""
                             multiple onChange={ onChangeFileUpload }
-                            // ref={ fileInput }
                             className={RegistCSS.fileUpload}
                         />
                 

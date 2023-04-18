@@ -4,6 +4,7 @@ import {useEffect} from "react";
 import { callDeleteLineAPI, callLineDetailAPI } from "../../apis/ApprovalAPICalls";
 import { decodeJwt } from '../../utils/tokenUtils';
 import Linecss from './Linecss.module.css';
+import Swal from "sweetalert2";
 
 function Line({line}){
     const lineInfo = useSelector(state => state.approvalReducer.lineInfo);
@@ -43,7 +44,7 @@ function Line({line}){
                         form : lineInfo}));
                         nav(`/semof/lines`, {replace: true})
                         window.location.reload();
-
+                        Swal.fire('라인삭제.','목록으로 돌아갑니다','success')
                 }}>x</button>
             }
             <div className={Linecss.titleoutLine}>
