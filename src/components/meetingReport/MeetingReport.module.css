@@ -1,0 +1,87 @@
+.outline{
+    padding-top: 1%;
+}
+.outline table{
+    margin: auto;
+    padding-top: 3%;
+    text-align: center;
+    width: 80%;
+    border: 2px solid lightseagreen;
+    border-radius: 5px;
+    padding-bottom: 3%;
+}
+.outline table tbody tr:hover{
+    background-color:gray;
+    color:white;
+    font-weight: bold;
+}
+.outline table tbody td{
+    height: 25px;
+    border-bottom: 1px solid white;
+    padding-bottom: 1%;
+}
+.outline table thead th{
+    border-bottom: 1px solid white;
+    padding-bottom: 1%;
+}
+.outline table tbody tr{
+    padding-top: -10%;
+}
+.pagingbtn{
+    text-align: center;
+}
+.pagingbtn li button{
+    border: none;
+    font-size: 20px;
+    font-weight: normal;
+    background: none;
+}
+
+.pagingbtn li button:hover{
+    font-size: 25px;
+    font-weight: bold;
+    color: black;
+}
+.pagingbtn button{
+    border: none;
+    background: none;
+    font-size: 20px;
+}
+.pagingbtn button:hover{
+    color:lightseagreen;
+    font-size: 25px;
+}
+.registWorks{
+    float: right;
+    border: 1px solid lightseagreen;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    background: whitesmoke;
+    font-weight: bold;
+    font-size: 15px;
+    color: gray;
+}
+
+.registWorks:hover{
+    transform: scale(1.1);
+    color: gray;
+    background: whitesmoke;
+}
+.back{
+    float: right;
+    border: 1px solid lightseagreen;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    background: whitesmoke;
+    font-weight: bold;
+    font-size: 15px;
+    color: gray; 
+    margin-left: 1%;
+}
+.back:hover{
+    transform: scale(1.1);
+    color: gray;
+    background: whitesmoke;
+}

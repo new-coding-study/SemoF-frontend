@@ -1,0 +1,58 @@
+.contour{
+    position: relative;
+	background: beige;
+	border-radius: 1em;
+    width: 70%;
+    height: 17%;
+    margin-top: 2%;
+    margin-left: 20%;
+    border: 1px solid black;
+}
+.contour:after{
+    content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-left-color: beige;
+	border-right: 0;
+	border-bottom: 1px solid black;
+	margin-top: -12px;
+	margin-right: -15px;
+}
+.content{
+    padding-right: 8%;
+    font-size: 15px;
+    text-indent: 3px;
+    width: 50px;
+    white-space: pre;
+    word-wrap: break-word;
+}
+.writer{
+    font-size: 12px;
+    
+}
+.date{
+    font-size: 10px;
+    padding-right: 10px;
+}
+.deleBtn{
+   margin-right: -19%;
+   /* padding-left: 6%; */
+   z-index: 100;
+   position: absolute;
+   width: 20px;
+   height: 20px;
+	right: 14%;
+	top: -10%;
+    color: white;
+    background: red;
+    font-size: 15px;
+    padding: auto;
+    border-radius: 5px;
+}
+.deleBtn img:hover{
+    background: lightgray;
+}

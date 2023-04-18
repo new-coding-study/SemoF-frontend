@@ -1,0 +1,98 @@
+.calendarWrapper {
+  width: 1420px;
+  height: 800px;
+  /* border: 1px solid red; */
+}
+
+.calHeaderWrapper {
+  width: 1420px;
+  display: flex;
+  margin: 8px 0;
+  /* border: 1px solid violet; */
+}
+
+.calHeaderWrapper div {
+  margin-right: 16px;
+}
+
+.moveToTodayBtn {
+  width: 44px;
+  height: 24px;
+  line-height: 28px;
+  text-align: center;
+  border: 1px solid #adadad;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.calBtnWrapper {
+  display: flex;
+  height: 24px;
+  margin-top: 2px;
+  /* border: 1px solid blue; */
+}
+
+.calBtnWrapper div {
+  margin: 0 4px;
+  font-size: 20px;
+  padding: 2px;
+  /* border: 1px solid green; */
+}
+
+.moveToPreMonthBtn:hover {
+  cursor: pointer;
+  background-color: #e7adbc;
+}
+
+.moveToNextMonthBtn:hover {
+  cursor: pointer;
+  background-color: #e7adbc;
+}
+
+.calSearchWrapper {
+  border: 1px solid gray;
+  border-radius: 4px;
+  display: flex;
+  height: 24px;
+  margin-left: auto;
+}
+
+.calSearchWrapper img {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  margin: 2px 2px;
+}
+
+.calSearchWrapper input {
+  border: none;
+  width: 160px;
+  height: 20px;
+  margin: 1px 0;
+}
+
+.calContentWrapper {
+  width: 1420px;
+  height: 750px;
+  margin-top: 12px;
+  /* border: 1px solid green; */
+}
+
+.weekWrapper {
+  display: flex;
+  background-color: #ededed;
+}
+
+.weekWrapper div {
+  width: 227px;
+  height: 24px;
+  font-size: 18px;
+  text-align: right;
+  padding-right: 16px;
+  padding-top: 8px;
+}
+
+.dayWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}

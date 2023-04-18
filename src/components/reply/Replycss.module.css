@@ -1,0 +1,83 @@
+.replyArea{
+    width: 100%;
+    height: 100%;
+    /* border-bottom: 1px solid black; */
+    text-align: center;
+}
+.displayArea{
+    width: 100%;
+    height: 70%;
+    border-left: 1px solid orange;
+    float: left;
+}
+.contentArea{
+    width: 100%;
+    height: 100%;;
+}
+.inputArea{
+    width: 100%;
+    height: 30%;
+    float: left;
+    border-left: 0.5px solid orange;
+    padding-top: 2%;
+}
+.textInputArea{
+    width: 80%;
+    height: 100%;
+    float: left;
+    text-align: left;
+}
+.btnArea{
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+.textBox{
+    width: 100%;
+    margin-top: 0.15%;
+    height: 8em; 
+    resize: none;
+    text-indent: 10px;
+    border: none;
+    border-top: 0.5px solid orange;
+    
+}
+.registbtn{
+    width: 100%;
+    height: 100%;
+    float: right;
+    border: none;
+    border-top: 0.5px solid orange;
+    border-left: 0.5px solid orange;
+    border-bottom-right-radius: 10px;
+    background-color: beige;
+    font-weight: bold;
+    font-size: 15px;
+    height: 8em; 
+
+}
+.registbtn:hover{
+    background-color: lightgray;
+    font-weight: bolder;
+    color: white;
+    font-size: 20px;
+}
+.replyArea li{
+    list-style-type: none;
+}
+.pagingBtn{
+    border: none;
+    background:none;
+    font-size: 17px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+
+.contentArea{
+    height: 90%;
+    text-align: right;
+}
+.contentPagingbtn{
+    height: 10%;
+}

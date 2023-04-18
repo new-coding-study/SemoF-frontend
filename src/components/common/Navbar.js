@@ -1,91 +1,108 @@
 import NavbarCSS from "./Navbar.module.css";
+import { NavLink } from "react-router-dom";
+import { decodeJwt } from "../../utils/tokenUtils";
 
 function Navbar() {
+  const isLogin = window.localStorage.getItem("accessToken");
+  let decoded = null;
+
+  if (isLogin !== undefined && isLogin !== null) {
+    const temp = decodeJwt(window.localStorage.getItem("accessToken"));
+    decoded = temp.auth[0];
+  }
+
+  // console.log(decoded);
+
   return (
     <>
       <div className={NavbarCSS.navWrapper}>
-        <ul className={NavbarCSS.navListUl}>
-          <li>
+        <NavLink to="/semof/employees">
+          <div className={NavbarCSS.oneWrapper}>
             <img
-              src={"/images/board.png"}
+              src={"/images/emp_evaluation.png"}
               alt="이미지확인!"
               className={NavbarCSS.logo}
             ></img>
-            <div> 게시판 </div>
-          </li>
-          <li>
-            <img
-              src={"/images/todo.png"}
-              alt="이미지확인!"
-              className={NavbarCSS.logo}
-            ></img>
-            <div> 할 일 </div>
-          </li>
-          <li>
-            <img
-              src={"/images/attendance.png"}
-              alt="이미지확인!"
-              className={NavbarCSS.logo}
-            ></img>
-            <div> 근태 </div>
-          </li>
-          <li>
-            <img
-              src={"/images/report.png"}
-              alt="이미지확인!"
-              className={NavbarCSS.logo}
-            ></img>
-            <div> 보고서 </div>
-          </li>
-          <li>
-            <img
-              src={"/images/approval.png"}
-              alt="이미지확인!"
-              className={NavbarCSS.logo}
-            ></img>
-            <div> 결재 </div>
-          </li>
-          <li>
-            <img
-              src={"/images/vendor.png"}
-              alt="이미지확인!"
-              className={NavbarCSS.logo}
-            ></img>
-            <div> 거래처 </div>
-          </li>
-          <li>
-            <img
-              src={"/images/message.png"}
-              alt="이미지확인!"
-              className={NavbarCSS.logo}
-            ></img>
-            <div> 메세지 </div>
-          </li>
-          <li>
+            <div> 인사 </div>
+          </div>
+        </NavLink>
+
+        <NavLink to="/semof/email">
+          <div className={NavbarCSS.oneWrapper}>
             <img
               src={"/images/mail.png"}
               alt="이미지확인!"
               className={NavbarCSS.logo}
             ></img>
             <div> 이메일 </div>
-          </li>
-          <li>
+          </div>
+        </NavLink>
+
+        <NavLink to="/semof/board">
+          <div className={NavbarCSS.oneWrapper}>
+            <img
+              src={"/images/board.png"}
+              alt="이미지확인!"
+              className={NavbarCSS.logo}
+            ></img>
+            <div> 게시판 </div>
+          </div>
+        </NavLink>
+
+        <NavLink to="/semof/report">
+          <div className={NavbarCSS.oneWrapper}>
+            <img
+              src={"/images/report.png"}
+              alt="이미지확인!"
+              className={NavbarCSS.logo}
+            ></img>
+            <div> 보고서 </div>
+          </div>
+        </NavLink>
+
+        <NavLink to="/semof/approval">
+          <div className={NavbarCSS.oneWrapper}>
+            <img
+              src={"/images/approval.png"}
+              alt="이미지확인!"
+              className={NavbarCSS.logo}
+            ></img>
+            <div> 결재 </div>
+          </div>
+        </NavLink>
+
+        <NavLink to="/semof/attendance">
+          <div className={NavbarCSS.oneWrapper}>
+            <img
+              src={"/images/attendance.png"}
+              alt="이미지확인!"
+              className={NavbarCSS.logo}
+            ></img>
+            <div> 근태 </div>
+          </div>
+        </NavLink>
+
+        <NavLink to="/semof/todo">
+          <div className={NavbarCSS.oneWrapper}>
+            <img
+              src={"/images/todo.png"}
+              alt="이미지확인!"
+              className={NavbarCSS.logo}
+            ></img>
+            <div> 할 일 </div>
+          </div>
+        </NavLink>
+
+        <NavLink to="/semof/schedule">
+          <div className={NavbarCSS.oneWrapper}>
             <img
               src={"/images/calendar.png"}
               alt="이미지확인!"
               className={NavbarCSS.logo}
             ></img>
             <div> 캘린더 </div>
-          </li>
-          <li>
-            <img
-              src={"/images/emp_evaluation.png"}
-              alt="이미지확인!"
-              className={NavbarCSS.logo}
-            ></img>
-            <div> 인사관리 </div>
-          </li>
-        </ul>
+          </div>
+        </NavLink>
       </div>
     </>
   );

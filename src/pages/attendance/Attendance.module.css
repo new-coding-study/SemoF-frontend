@@ -1,0 +1,259 @@
+.body {
+    overflow: hidden !important;
+}
+
+
+/*      상단 네비바 */
+.contour {
+    height: 60px;
+    background-color: #E52E2E;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    padding-left: 40px;
+    line-height: 60px;
+    border-radius: 8px;
+}
+
+
+/*      근태 시간, 전자결재 */
+.horizontalDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    /* width: 1200px; */
+}
+
+/* 근태 시간, 출퇴근 */
+.attendance {
+    margin-top: 50px;
+    height: 300px;
+    width: 300px;
+    font-size: 18px;
+    margin-left: 70px;
+    margin-right: auto;
+}
+
+.attendance>div>span {
+    border: 1px solid red;
+    border-radius: 30px;
+    background-color: red;
+    color: white;
+    padding: 1px 20px 3px 20px;
+}
+
+.empName {
+    font-size: 24px;
+}
+
+.time {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.btnAtd {
+    width: 244px;
+    height: 53px;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 10px;
+    text-align: center;
+    padding: 3px;
+    margin-top: 10px;
+}
+
+.btnAtd button:hover {
+    background-color: #FFD6D6;
+}
+
+.btnAtd button {
+    background-color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 25px;
+    padding: 10px 36px 10px 36px;
+    cursor: pointer;
+}
+
+
+/*      전자결재 */
+.approvals {
+    background-color: #E52E2E;
+    width: 700px;
+    height: 220px;
+    align-self: auto;
+    margin-top: 50px;
+    margin-right: 70px;
+    border-radius: 15px;
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.approvalsContent {
+    width: 138px;
+    height: 220px;
+    text-align: center;
+}
+
+.approvalsContent:hover div {
+    background-color: #E52E2E;
+}
+
+.approvalsContent div {
+    width: 100px;
+    height: 100px;
+    border: none;
+    border-radius: 15px;
+    background-color: white;
+    font-size: 45px;
+    margin: 50px 0 8px 25px;
+}
+
+/* 아이콘 */
+.approvalsContent svg {
+    margin-top: 28px;
+    color: #E52E2E;
+    transition: 0.125s all ease-in;
+}
+
+.approvalsContent:hover svg {
+    transform: rotate(25deg);
+    color: white;
+}
+
+.approvalsContent span {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-left: 12px;
+}
+
+
+/*      연차 현황 */
+.vacation {
+    height: 150px;
+    padding-top: 20px;
+    border: 2px solid red;
+    border-radius: 15px;
+    margin-left: 66px;
+    margin-right: 70px;
+    margin-top: -30px;
+}
+
+.vacation::first-line {
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.totalVacation {
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0 10px 0 20px;
+}
+
+.vacationDiv {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* 연차별 영역 */
+.vacationDiv div {
+    width: 330px;
+    height: 58px;
+    background-color: #FFD6D6;
+    border-radius: 15px;
+    display: flex;
+    font-size: 24px;
+    padding: 25px 20px 0 20px;
+    margin-right: 10px;
+}
+
+/* 첫 div 여백 */
+.vacationDiv div:first-child {
+    margin-left: 20px;
+}
+
+/* 글자간 여백 */
+.vacationDiv div span:first-child {
+    margin-right: auto;
+}
+
+/* 연차갯수 */
+.vacationDiv div span:nth-child(2) {
+    font-weight: 600;
+}
+
+.vacationDiv div span {
+    font-weight: 500;
+}
+
+.vacationDiv div:nth-child(3) {
+    background-color: #EE7D7D;
+}
+
+.vacationDiv div:nth-child(4) {
+    background-color: #E04848;
+}
+
+
+/*      총 근무시간 */
+.totalAttendance {
+    height: 600px;
+    background-color: aliceblue;
+}
+
+
+/* 근태 기록 확인 */
+.bodyDiv {
+    margin: 15px 70px 0px 66px;
+    border: 2px solid red;
+    border-radius: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 1550px;
+}
+
+.attendanceTable {
+    width: 1550px;
+}
+
+.attendanceTable th,
+td {
+    padding: 10px;
+    height: 10px;
+    text-align: center;
+    word-break: break-all;
+    table-layout: fixed;
+    font-size: 20px;
+}
+
+.attendanceTable>thead>tr {
+    font-size: 26px;
+    height: 50px;
+    font-weight: bold;
+    border-collapse: collapse;
+    border-bottom: 2px solid #E52E2E;
+
+}
+
+/* 페이징 버튼 */
+.pagingBtn {
+    margin: 5px;
+    margin-top: 20px;
+    width: 30px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: rgb(219, 219, 219);
+    border: 2px solid white;
+    ;
+    font-weight: bold;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+
+.pagingBtn:hover {
+    cursor: pointer;
+    background-color: #FFD6D6;
+}

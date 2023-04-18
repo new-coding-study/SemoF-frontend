@@ -1,0 +1,211 @@
+.calendarOptionsWrapper {
+  width: 100%;
+  height: 800px;
+  /* overflow: auto; */
+  /* background-color: blue; */
+  /* border: 1px solid green; */
+  /* position: fixed; */
+}
+
+.backToCalendar {
+  display: flex;
+  margin: 8px 0 28px;
+  width: 100px;
+  height: 30px;
+  line-height: 32px;
+  background-color: #ededed;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.backToCalendar div:first-child {
+  margin: 0 8px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.optionWrapper {
+  height: 700px;
+  overflow: auto;
+}
+
+.optionWrapper div {
+  /* margin: 30px 0; */
+  overflow: auto;
+}
+
+.calNameWrapper {
+  width: 360px;
+  margin: 30px 0;
+  display: flex;
+  background-color: #f8f8f8;
+  /* border: 1px solid red; */
+}
+
+.calNameWrapper div {
+  margin: auto 8px;
+  font-size: 18px;
+  /* color: gray; */
+}
+
+.calNameWrapper input[type="text"] {
+  width: 200px;
+  height: 32px;
+  border: none;
+  margin-left: 4px;
+  font-size: 16px;
+  background-color: #f8f8f8;
+  color: gray;
+}
+
+.calNameWrapper input:focus {
+  /* color: blue; */
+  /* background-color: red; */
+  border: none;
+}
+
+.calColorWrapper {
+  width: 360px;
+  margin: 30px 0;
+  display: flex;
+  background-color: #f8f8f8;
+  /* border: 1px solid red; */
+}
+
+.calColorWrapper div {
+  margin: auto 8px;
+  font-size: 18px;
+}
+
+.calColorWrapper input[type="color"] {
+  width: 32px;
+  height: 32px;
+  border: none;
+  margin-left: 4px;
+}
+
+.calContentWrapper {
+  width: 360px;
+  margin: 30px 0;
+  display: flex;
+  background-color: #f8f8f8;
+  /* border: 1px solid red; */
+}
+
+.calContentWrapper div {
+  margin: 4px 8px;
+  font-size: 18px;
+}
+
+.calContentWrapper textarea {
+  width: 300px;
+  height: 300px;
+  margin-left: 4px;
+  background-color: #f8f8f8;
+  border: none;
+  resize: none;
+  /* border: 1px solid red; */
+}
+
+.calOwnerWrapper {
+  width: 360px;
+  margin: 30px 0;
+  display: flex;
+  background-color: #f8f8f8;
+  /* border: 1px solid red; */
+}
+
+.calOwnerWrapper div {
+  margin: 4px 8px;
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.calOwnerWrapper div:last-of-type {
+  font-size: 16px;
+  color: gray;
+}
+
+.calMemberWrapper {
+  width: 360px;
+  margin: 30px 0 8px;
+  padding-bottom: 8px;
+  /* display: flex; */
+  background-color: #f8f8f8;
+}
+
+.calMemberWrapper div {
+  margin: 2px 8px;
+  font-size: 18px;
+}
+
+/* .calMemName {
+  color: gray;
+} */
+
+.calMem {
+  padding: 8px 0;
+  border-bottom: 1px dashed gray;
+}
+
+.calMemList {
+  color: gray;
+  padding: 8px;
+  border-bottom: 1px dashed gray;
+}
+
+.addMemberBtn {
+  width: 80px;
+  margin-left: 16px;
+  padding: 8px;
+  border: 1px solid #c8c8c8;
+  border-radius: 4px;
+  color: #e52e2e;
+  cursor: pointer;
+}
+
+.calendarBtnArea {
+  display: flex;
+  /* border: 1px solid blue; */
+  margin: 60px 0;
+}
+
+.calendarBtnArea div {
+  text-align: center;
+}
+
+.editCalendarBtn {
+  width: 100px;
+  margin-left: 16px;
+  padding: 8px;
+  /* border: none; */
+  border: 1px solid #c8c8c8;
+  border-radius: 4px;
+  /* background-color: #efefef; */
+  /* color: #e52e2e; */
+  cursor: pointer;
+}
+
+.editCalendarBtn:hover {
+  background-color: #e52e2e;
+  color: white;
+  border: 1px solid #e52e2e;
+}
+
+.deleteCalendarBtn {
+  width: 100px;
+  margin-left: 16px;
+  padding: 8px;
+  /* border: none; */
+  border: 1px solid #c8c8c8;
+  border-radius: 4px;
+  /* background-color: #efefef; */
+  /* color: #e52e2e; */
+  cursor: pointer;
+}
+
+.deleteCalendarBtn:hover {
+  background-color: #e52e2e;
+  color: white;
+  border: 1px solid #e52e2e;
+}

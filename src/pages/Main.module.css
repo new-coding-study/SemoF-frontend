@@ -1,0 +1,153 @@
+.contour {
+  width: 100%;
+  height: 8px;
+  background-color: #e52e2e;
+}
+
+.content {
+  width: 1500px;
+  /* border: 1px solid gray; */
+  /* margin: 20px 40px 10px ; */
+  margin: 3% auto;
+}
+
+/* .content > div {
+  border-radius: 12px;
+  text-align: center;
+} */
+
+.firstGroup {
+  display: flex;
+  height: 330px;
+  margin-bottom: 40px;
+  /* justify-content: space-between; */
+  /* border: 1px solid orange; */
+}
+
+.calendarWrapper {
+  display: flex;
+  width: 900px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
+  margin-right: 40px;
+  margin-left: 80px;
+  overflow: auto;
+}
+
+.calendar {
+  width: 600px;
+  border-radius: 0;
+  text-align: center;
+}
+
+.schedule {
+  width: 400px;
+  border-radius: 0;
+  border-left: 1px solid black;
+  margin: 16px;
+  text-align: center;
+}
+
+.info {
+  width: 400px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.secondGroup {
+  display: flex;
+  height: 200px;
+  margin-bottom: 40px;
+  /* justify-content: space-between; */
+  /* border: 1px solid green; */
+}
+
+/* .banner {
+  width: 900px;
+  margin-right: 40px;
+  margin-left: 80px;
+} */
+
+.banner img {
+  width: 900px;
+  height: 200px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  margin-right: 40px;
+  margin-left: 80px;
+}
+
+.workingHour {
+  width: 400px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.thirdGroup {
+  display: flex;
+  height: 160px;
+  /* justify-content: space-between; */
+  /* border: 1px solid blue; */
+}
+
+/* .thirdGroup div {
+  margin-right: 100px;
+} */
+
+/* 인라인으로 옮김 */
+/* .weather {
+  width: 265px;
+  margin-left: 80px;
+  border: 1px solid #e0e0e0;
+} */
+
+.birth {
+  width: 250px;
+  margin: 0 60px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
+  overflow: auto;
+}
+
+.todo {
+  width: 262px;
+  margin-right: 40px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
+  overflow: auto;
+}
+
+.notice {
+  width: 400px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.attenDate {
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: -18px;
+  color: white;
+  background-color: #e52e2e;
+  height: 20px;
+  font-weight: bold;
+}
+
+.attenStatus {
+  font-size: 24px;
+  /* color: #e52e2e; */
+  /* font-weight: bold; */
+  margin-bottom: 10px;
+}
+
+.attenSuccess {
+  font-size: 20px;
+  font-weight: 600;
+  color: #e52e2e;
+}
